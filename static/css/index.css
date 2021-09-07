@@ -98,14 +98,14 @@
 }
 #capabilities .indicator div.active
 {
-    background-color: #000000;
+    background-color: #024060;
     color: #FFFFFF;
 }
 #capabilities .tabs
 {
     width: 70%;
     margin: 0 auto;
-    background-color: #000000;
+    background-color: #024060;
     color: #FFFFFF;
     padding: 2%;
 }
@@ -137,11 +137,11 @@ section:not(#intro) h2
 #capabilities .indicator .bi-dot
 {
     font-size: 2.5rem;
-    color: #555555;
+    color: #001030;
 }
 #capabilities .indicator .bi-dot.active
 {
-    color: #000000;
+    color: #024060;
 }
 #newsletter
 {
@@ -209,7 +209,7 @@ section#insights article
 }
 section#insights article.active
 {
-    background-color: #000000;
+    background-color: #024060;
     color: #FFFFFF;
 }
 section#insights article:last-of-type
@@ -225,6 +225,11 @@ section#insights article h3
 section#insights article p
 {
     margin-bottom: 0;
+    font-size: 1.2rem;
+}
+section#insights article.active a
+{
+    color: #BBBBBB;
 }
 @media screen and (max-width: 991px)
 {
@@ -353,6 +358,10 @@ section#insights article p
     {
         margin-bottom: 5%;
         font-size: 1.3rem;
+    }
+    section#insights article p
+    {
+        font-size: 1.1rem;
     }
     section#insights > h2
     {
