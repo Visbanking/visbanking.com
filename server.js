@@ -7,6 +7,7 @@ const insights = require("./routing/insights");
 const contact = require("./routing/contact");
 const login = require("./routing/login");
 const user = require("./routing/user");
+const subscribe = require("./routing/subscribe");
 const files = require("./routing/files");
 const error = require("./routing/error");
 const app = express();
@@ -25,7 +26,9 @@ app.use("/contact", contact);
 
 app.use(login);
 
-app.use("/users", user)
+app.use("/users", user);
+
+app.use(subscribe);
 
 app.use(files);
 
