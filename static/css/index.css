@@ -68,7 +68,6 @@
 #capabilities
 {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center; 
@@ -190,6 +189,10 @@ section:not(#intro) h2
 {
     padding-left: 0.5rem;
 }
+section#insights
+{
+    padding: 2% 5%;
+}
 section#insights > h2
 {
     width: 100%;
@@ -297,6 +300,10 @@ section#insights article p
     {
         font-size: 2rem;
     }
+    section#insights
+    {
+        padding: 2%;
+    }
 }
 @media screen and (max-width: 550px)
 {
@@ -335,6 +342,24 @@ section#insights article p
         font-size: 1.7rem;
     }
 }
+@media screen and (max-width: 500px)
+{
+    section#insights article
+    {
+        font-size: 0.9rem;
+        padding: 5% 2%;
+    }
+    section#insights article h3
+    {
+        margin-bottom: 5%;
+        font-size: 1.3rem;
+    }
+    section#insights > h2
+    {
+        font-size: 2rem;
+        margin: 5% 0;
+    }
+}
 @media screen and (max-width: 450px)
 {
     #capabilities .tabs p
@@ -354,6 +379,13 @@ section#insights article p
         font-size: 0.8rem;
     }
     #newsletter aside a i
+    {
+        font-size: 0.7rem;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    #newsletter aside a
     {
         font-size: 0.7rem;
     }
