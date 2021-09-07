@@ -4,7 +4,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
     res.render("insights", {
         title: "Insights - Visbanking",
-        path: req.path
+        path: "/insights"
     });
 });
 

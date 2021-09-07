@@ -10,7 +10,7 @@ let error;
 router.get("/", (req, res) => {
     res.render("contact", {
         title: "Contact Us - Visbanking",
-        path: req.path, 
+        path: "/contact", 
         error: error
     });
 });

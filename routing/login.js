@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.get("/login", (req, res) => {
     res.render("login", {
         title: "Log In - Visbanking",
-        path: req.path,
+        path: "/login",
         action: "Log In"
     });
 });
@@ -25,7 +25,7 @@ router.post("/login", (req, res) => {
 router.get("/signup", (req, res) => {
     res.render("login", {
         title: "Sign Up - Visbanking",
-        path: req.path,
+        path: "/signup",
         action: "Sign Up"
     });
 });
