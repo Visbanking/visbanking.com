@@ -29,11 +29,8 @@ block main
         h1 Visbanking
         .indicator
             div(@click="show('about')", :class="{ active: tabs[0] }") Who We Are 
-                i(:class="{ 'bi-chevron-down': !tabs[0], 'bi-chevron-up': tabs[0] }")
             div(@click="show('services')", :class="{ active: tabs[1] }") Our Services 
-                i(:class="{ 'bi-chevron-down': !tabs[1], 'bi-chevron-up': tabs[1] }")
             div(@click="show('insights')", :class="{ active: tabs[2] }") Insights 
-                i(:class="{ 'bi-chevron-down': !tabs[2], 'bi-chevron-up': tabs[2] }")
         .tabs 
             aside.tab(v-if="tabs[0]")
                 h2 Who We Are tab
