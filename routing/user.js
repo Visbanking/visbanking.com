@@ -3,7 +3,8 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
     res.render("users", {
-        title: "Users - Visbanking"
+        title: "Users - Visbanking",
+        path: req.path
     });
 });
 
