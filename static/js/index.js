@@ -53,3 +53,12 @@ document.querySelector("#newsletter aside a").addEventListener("mouseenter", () 
 document.querySelector("#newsletter aside a").addEventListener("mouseleave", () => {
     document.querySelector("#newsletter aside a i").classList.remove("active");
 });
+
+document.querySelectorAll("#insights article").forEach((article) => {
+    article.addEventListener("mouseenter", () => {
+        article.classList.add("active");
+    });
+    article.addEventListener("mouseleave", () => {
+        article.classList.remove("active");
+    });
+});
