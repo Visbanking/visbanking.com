@@ -227,6 +227,10 @@ section#insights article p
     margin-bottom: 0;
     font-size: 1.2rem;
 }
+section#insights article a
+{
+    color: #555555;
+}
 section#insights article.active a
 {
     color: #BBBBBB;
