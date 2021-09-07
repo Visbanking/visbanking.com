@@ -1,0 +1,26 @@
+extends layout.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/login.css")
+
+block header 
+    aside.center#login
+        h1 #{action}
+        form(method="POST")
+            label.form-label(for="email") Email: 
+            input#email(type="email", name="email", aria-describedBy="emailMessage", required) 
+            if action==="Sign Up"
+                p.form-text#emailMessage We'll never share your email
+            label.form-label(for="password") Password: 
+            input#password(type="password", name="pass", minlength="8", maxlength="20", required) 
+            if action==="Sign Up"
+                label.form-label(for="name") Name: 
+                input#name(type="text", name="name")
+            input(type="submit", value=action)
+        //- button #{action}
+    if action==="Log In"
+        p.signup Don't have an account? 
+            a(href="/signup") Sign Up 
+
+block scripts 
+    script(src="/js/login.js") 

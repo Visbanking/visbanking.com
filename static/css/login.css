@@ -1,0 +1,131 @@
+nav.navbar
+{
+    display: none;
+}
+.center
+{
+    border-radius: 5px;
+}
+h1
+{
+    font-size: 2.5rem;
+}
+form
+{
+    width: 40%;
+    border-radius: 5px;
+    padding: 3%;
+    margin: 0 auto;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #024060;
+    font-family: 'Raleway';
+}
+form label
+{
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+form label:not(:first-of-type)
+{
+    margin-top: 2%;
+}
+form input
+{
+    width: 70%;
+    margin: inherit;
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #DDDDDD;
+    background-color: transparent;
+    border-radius: 5px;
+    display: block;
+    color: #FFFFFF;
+    transition: border-color 0.2s linear, box-shadow 0.2s linear;
+}
+form .form-text
+{
+    color: #CCCCCC;
+    margin: 0;
+}
+form input:focus
+{
+    outline: none;
+    border-color: #FFFFFF;
+    box-shadow: 0 0 0.5rem #FFFFFF;
+}
+form input[type="submit"]
+{
+    margin: 2% auto 0;
+    border: none;
+    border: 0.1rem solid;
+    border-radius: 5px;
+    padding: 0.4rem 1.5rem;
+    background-color: #024060;
+    color: #FFFFFF;
+    width: auto;
+    transition: color 0.2s linear, background-color 0.2s linear;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+form input[type="submit"]:hover
+{
+    background: #FFFFFF;
+    color: #024060;
+}
+.signup
+{
+    margin-top: 1%;
+    font-family: 'Quicksand';
+    font-weight: 600;
+    font-size: 0.9rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.signup a
+{
+    color: #024060;
+}
+@media screen and (max-width: 991px)
+{
+    form
+    {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    form
+    {
+        width: 70%;
+    }
+}
+@media screen and (max-width: 600px)
+{
+    form
+    {
+        width: 80%;
+        padding: 5% 3% 7%;
+    }
+    form label:not(:first-of-type)
+    {
+        margin-top: 3%;
+    }
+    form input[type="submit"]
+    {
+        padding: 0.2rem 1rem;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    form
+    {
+        width: 95%;
+    }
+    form input[type="submit"]
+    {
+        margin-top: 5%;
+    }
+}

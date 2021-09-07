@@ -1,0 +1,19 @@
+p
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Raleway';
+}
+@media screen and (max-width: 450px)
+{
+    h1
+    {
+        font-size: 2.2rem;
+    }
+    h2
+    {
+        font-size: 1.4rem;
+    }
+}

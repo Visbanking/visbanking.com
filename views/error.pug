@@ -1,0 +1,11 @@
+extends layout.pug 
+
+block styles 
+    link(rel="stylesheet", href="/css/error.css")
+
+block header 
+    section.center 
+        h1 #{code} Error
+        h2 #{message}
+    if code===404
+        p Check the URL you entered or use the links above

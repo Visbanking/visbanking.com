@@ -1,0 +1,109 @@
+nav.navbar
+{
+    background-color: #024060;
+    padding: 0 1%;
+}
+a.navbar-brand
+{
+    max-width: 75%;
+}
+a.navbar-brand img
+{
+    max-width: 25%;
+    height: auto;
+    margin-left: 1%;
+}
+nav.navbar button.navbar-toggler
+{
+    border: none;
+    font-size: 2rem;
+    color: #FFFFFF;
+}
+nav.navbar button.navbar-toggler:focus
+{
+    box-shadow: none;
+}
+nav.navbar-dark .navbar-nav a.nav-link
+{
+    font-family: 'Quicksand';
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: #DDDDDD;
+    text-transform: uppercase;
+    transition: color 0.2s linear, font-weight 0.2s linear;
+}
+nav.navbar-dark .navbar-nav a.nav-link:hover
+{
+    font-weight: 700;
+    color: #FFFFFF;
+}
+nav.navbar-dark .navbar-nav li.nav-item:last-of-type
+{
+    background: #FFFFFF;
+    border-radius: 5px;
+    margin-left: 1rem;
+}
+nav.navbar-dark .navbar-nav li.nav-item:last-of-type a.nav-link
+{
+    color: #024060;
+}
+.center
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+h1
+{
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 3rem;
+}
+main section
+{
+    min-height: 100vh;
+    height: auto;
+}
+h2
+{
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+@media screen and (max-width: 991px)
+{
+    nav.navbar .navbar-nav
+    {
+        padding-right: 2%;
+    }
+    nav.navbar .navbar-nav li.nav-item:last-of-type
+    {
+        margin: 0;
+        background: none;
+        padding-bottom: 2%;
+    }
+    nav.navbar-dark .navbar-nav a.nav-link
+    {
+        padding: 0;
+        text-align: right;
+    }
+    nav.navbar-dark .navbar-nav li.nav-item:last-of-type a.nav-link
+    {
+        color: #DDDDDD;
+    }
+}
+@media screen and (max-width: 350px)
+{
+    nav.navbar button.navbar-toggler
+    {
+        font-size: 1.5rem;
+    }
+    nav.navbar .navbar-nav a.nav-link
+    {
+        font-size: 1rem;
+    }
+}

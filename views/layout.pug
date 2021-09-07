@@ -1,0 +1,46 @@
+doctype html
+
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="author", content="Visbanking.com")
+        meta(name="title" content=title)
+        block meta
+        title #{title}
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway&display=swap", rel="stylesheet")
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We", crossorigin="anonymous")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+        link(rel="stylesheet", href="/css/layout.css")
+        block styles 
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js", integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj", crossorigin="anonymous")
+        script(src="https://unpkg.com/vue@next")
+    body 
+        header 
+            nav.navbar.navbar-expand-lg.navbar-dark.fixed-top
+                a.navbar-brand(href=path==="/"?"#":"/")
+                    img(src="/images/logo.png.webp", alt="Visbanking") 
+                button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbar", aria-controls="navbar", aria-expanded="false", aria-label="Toggle navigation")
+                    i.bi-list
+                .collapse.navbar-collapse#navbar 
+                    ul.navbar-nav.ms-auto
+                        li.nav-item 
+                            a.nav-link(href=path==="/about"?"#":"/about") Who We Are 
+                        li.nav-item 
+                            a.nav-link(href=path==="/services"?"#":"/services") Our Services 
+                        li.nav-item 
+                            a.nav-link(href=path==="/insights"?"#":"/insights") Insights
+                        li.nav-item 
+                            a.nav-link(href=path==="/contact"?"#":"/contact") Contact
+                        li.nav-item 
+                            a.nav-link(href=path==="/login"?"#":"/login") Login
+            block header
+        main 
+            block main 
+        //- footer.container-fluid
+        //-     .row
+        //-         aside.col-md-6 
+        block scripts 
