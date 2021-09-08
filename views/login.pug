@@ -4,23 +4,27 @@ block styles
     link(rel="stylesheet", href="/css/login.css")
 
 block header 
-    aside.center#login
+    aside#login(class=action==="Log In"?"center":"")
         h1 #{action}
         form(method="POST")
+            if action==="Sign Up"
+                label.form-label(for="name") Name: 
+                input#name(type="text", name="name", required)
+                label.form-label(for="username") Username: 
+                input#username(type="text", name="username", required)
             label.form-label(for="email") Email: 
             input#email(type="email", name="email", aria-describedBy="emailMessage", required) 
             if action==="Sign Up"
                 p.form-text#emailMessage We'll never share your email
             label.form-label(for="password") Password: 
-            input#password(type="password", name="pass", minlength="8", maxlength="20", required) 
-            if action==="Sign Up"
-                label.form-label(for="name") Name: 
-                input#name(type="text", name="name")
+            input#password(type="password", name="pass", minlength="8", maxlength="20", required)
             input(type="submit", value=action)
-        //- button #{action}
     if action==="Log In"
         p.signup Don't have an account? 
             a(href="/signup") Sign Up 
+    else if action==="Sign Up"
+        p.signup Already have an account? 
+            a(href="/login") Log In
 
 block scripts 
     script(src="/js/login.js") 
