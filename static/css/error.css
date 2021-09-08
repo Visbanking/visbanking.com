@@ -1,4 +1,9 @@
-p
+header
+{
+    position: relative;
+    height: 100vh;
+}
+header p
 {
     position: absolute;
     bottom: 0;
