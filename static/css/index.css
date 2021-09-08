@@ -235,6 +235,26 @@ section#insights article.active a
 {
     color: #BBBBBB;
 }
+section#insights > a
+{
+    display: block;
+    width: 30%;
+    text-align: center;
+    margin: 1% auto;
+    padding: 1% 2%;
+    text-decoration: none;
+    font-family: 'Montserrat';
+    color: #000000;
+    border: 1px solid;
+    transition: all 0.2s linear;
+    font-weight: 700;
+}
+section#insights > a:hover
+{
+    background-color: #024060;
+    color: #FFFFFF;
+    font-weight: 400;
+}
 @media screen and (max-width: 991px)
 {
     #capabilities .tabs
