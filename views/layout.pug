@@ -41,5 +41,20 @@ html(lang="en")
         main 
             block main 
         footer.container-fluid
-            
-        block scripts 
+            aside.links 
+                a(href="/") Homepage
+                a(href="/about") Who We Are
+                a(href="/services") Our Services
+                a(href="/insights") Insights
+                a(href="/contact") Contact Us
+            aside.links
+                a(href="/login") Log In
+                a(href="/signup") Sign Up
+            aside.links
+                a(href="/terms") Terms of Use
+                a(href="/privacy") Privacy Policy
+            p#copyright &copy; Visbanking 
+                span#year 
+                |  - All Rights Reserved
+        script(src="/js/layout.js") 
+        block scripts

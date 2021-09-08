@@ -1,3 +1,7 @@
+header
+{
+    min-height: 100vh;
+}
 nav.navbar
 {
     background-color: #024060;
@@ -74,6 +78,43 @@ h2
     font-family: 'Montserrat';
     font-weight: 600;
     font-size: 1.8rem;
+}
+footer
+{
+    background-color: #024060;
+    padding: 1% 5%;
+    position: relative;
+}
+footer aside
+{
+    padding: 0.5rem 0;
+    color: #DDDDDD;
+}
+footer aside a
+{
+    font-family: 'Montserrat';
+    color: inherit;
+    padding: 0 1%;
+    margin: 2% 0;
+    text-decoration: none;
+    border-right: 1px solid;
+    font-size: 0.9rem;
+}
+footer aside a:last-of-type
+{
+    border: none;
+}
+footer aside a:hover
+{
+    color: #FFFFFF;
+}
+#copyright
+{
+    color: #BBBBBB;
+    text-align: center;
+    font-family: 'Raleway';
+    font-weight: 700;
+    margin: 2% 0 0;
 }
 @media screen and (max-width: 991px)
 {
