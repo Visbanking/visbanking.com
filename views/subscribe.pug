@@ -1,1 +1,20 @@
 extends layout.pug
+
+block meta
+    meta(name="keywords", content="")
+    meta(name="description", content="")
+
+block styles 
+    link(rel="stylesheet", href="/css/subscribe.css")
+
+block header 
+    .center
+        h1 Join our Newsletter
+        p Get the latest information about US banks and the banking industry
+    a(href="#newsletter") 
+        i.bi-arrow-down-short
+
+block main 
+    section.container-fluid#newsletter 
+        aside.row
+            .col-md-6 

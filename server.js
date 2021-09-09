@@ -28,7 +28,7 @@ app.use(login);
 
 app.use("/users", user);
 
-app.use(subscribe);
+app.use("/subscribe", subscribe);
 
 app.use(files);
 
