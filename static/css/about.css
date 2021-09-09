@@ -8,6 +8,14 @@ h2
     text-align: center;
     font-size: 2rem;
 }
+#about p
+{
+    margin: 3% auto;
+    width: 70%;
+    padding: 0 2%;
+    font-family: 'Raleway';
+    font-size: 1.2rem;
+}
 #mission
 {
     min-height: auto;
@@ -58,6 +66,10 @@ h2
 {
     border: none;
 }
+.member .sm
+{
+    display: none;
+}
 .member h3
 {
     font-family: 'Raleway';
@@ -67,7 +79,6 @@ h2
 }
 .member .profile
 {
-    float: right;
     max-width: 5%;
     height: auto;
 }
@@ -93,4 +104,27 @@ h2
 .member:hover .socials i:hover
 {
     color: #024060;
+}
+@media screen and (max-width: 767px)
+{
+    h2
+    {
+        margin-bottom: 3%;
+    }
+    .member
+    {
+        text-align: center;
+    }
+    .member .col-md-2
+    {
+        display: none;
+    }
+    .member .col-md-2.sm
+    {
+        display: block;
+    }
+    .member .col-md-2.sm img
+    {
+        margin: 3% 0;
+    }
 }
