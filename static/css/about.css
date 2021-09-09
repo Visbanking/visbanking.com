@@ -82,7 +82,15 @@ h2
     color: #CCCCCC;
     transition: color 0.2s linear;
 }
+.member:hover .socials i
+{
+    color: #046080;
+}
 .member .socials i:hover
 {
     color: #FFFFFF;
+}
+.member:hover .socials i:hover
+{
+    color: #024060;
 }
