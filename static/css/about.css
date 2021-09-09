@@ -48,6 +48,10 @@ h2
     padding: 1%;
     font-family: 'Montserrat';
 }
+.member:last-of-type
+{
+    border: none;
+}
 .member h3
 {
     font-family: 'Raleway';
