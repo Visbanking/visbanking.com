@@ -47,6 +47,12 @@ h2
     border-bottom: 1px solid;
     padding: 1%;
     font-family: 'Montserrat';
+    transition: background-color 0.2s linear, color 0.2s linear;
+}
+.member:hover
+{
+    background-color: #FFFFFF;
+    color: #024060;
 }
 .member:last-of-type
 {
