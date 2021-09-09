@@ -66,6 +66,10 @@ h2
 {
     border: none;
 }
+.member .col-md-2
+{
+    text-align: center;
+}
 .member .sm
 {
     display: none;
@@ -76,11 +80,6 @@ h2
     font-weight: 700;
     margin-bottom: 0;
     margin-top: 1%;
-}
-.member .profile
-{
-    max-width: 5%;
-    height: auto;
 }
 .member .socials
 {
@@ -104,6 +103,11 @@ h2
 .member:hover .socials i:hover
 {
     color: #024060;
+}
+.member .profile
+{
+    max-width: 5%;
+    height: auto;
 }
 @media screen and (max-width: 767px)
 {
