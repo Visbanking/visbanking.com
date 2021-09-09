@@ -15,11 +15,11 @@ router.get("/login", (req, res) => {
 
 router.post("/login", (req, res) => {
     res.send(req.body);
-    const email = req.body.email;
-    existence.check(email, (err, response) => {
-        if (err || !response) console.log("Email doesn't exist");
-        else console.log("Email is valid");
-    });
+    // Query database for email
+    // If query returns an object, compare hashed password from object and hashed password from req.body
+        // If password hashes coincide, log user in and redirect to personal profile
+        // If passowrd hashed are different, redirect user back to login and display error message
+    // If query doesn't return object, redirect user to signup
 });
 
 router.get("/signup", (req, res) => {
@@ -31,7 +31,9 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-    const email = req.body.email, password = req.body.password;
-})
+    res.send(req.body);
+    // Add JSON object to database (users collection)
+    // Redirect user to personal profile
+});
 
 module.exports = router;
