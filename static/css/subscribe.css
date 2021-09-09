@@ -3,27 +3,3 @@ header .center p
     font-family: 'Raleway';
     font-size: 1.2rem;
 }
-header > a
-{
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #000000;
-    font-size: 3rem;
-    animation: down 3s ease-out infinite;
-}
-header > a:hover
-{
-    color: #000000;
-}
-@keyframes down
-{
-    from {
-        bottom: 5%;
-        opacity: 0;
-    } to {
-        bottom: 0;
-        opacity: 1;
-    }
-}

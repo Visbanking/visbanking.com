@@ -1,1 +1,20 @@
 extends layout.pug
+
+block meta
+    meta(name="keywords", content="")
+    meta(name="description", content="")
+
+block styles 
+    link(rel="stylesheet", href="/css/services.css")
+
+block header 
+    h1.center Our Services
+    a(href="#services") 
+        i.bi-arrow-down-short
+
+block main 
+    section.container-fluid#services 
+        
+
+block scripts 
+    script(src="/js/services.js") 
