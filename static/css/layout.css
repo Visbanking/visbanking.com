@@ -68,10 +68,25 @@ h1
     font-weight: 700;
     font-size: 3rem;
 }
+header > a
+{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000000;
+    font-size: 3rem;
+    animation: down 3s ease-out infinite;
+}
+header > a:hover
+{
+    color: #000000;
+}
 main section
 {
     min-height: 100vh;
     height: auto;
+    padding: 3%;
 }
 h2
 {
@@ -115,6 +130,16 @@ footer aside a:hover
     font-family: 'Raleway';
     font-weight: 700;
     margin: 2% 0 0;
+}
+@keyframes down
+{
+    from {
+        bottom: 5%;
+        opacity: 0;
+    } to {
+        bottom: 0;
+        opacity: 1;
+    }
 }
 @media screen and (max-width: 991px)
 {
