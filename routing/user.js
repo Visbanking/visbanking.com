@@ -1,5 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const { createConnection } = require("mysql");
+
+const connection = createConnection({
+    host: 'database-visbanking-mysql.cysrondf3cdf.us-east-2.rds.amazonaws.com',
+    user: 'webmaster',
+    password: 'fRcrTbL*F%9m!h',
+    database: 'Users'
+    // insecureAuth: true
+});
 
 router.get("/", (req, res) => {
     res.render("users", {
@@ -8,11 +17,16 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:username", (req, res) => {
-    res.send(req.params);
-    // Query the database for user with username = username
-    // If query returns an object, render template user.pug
-    // If query doesn't return an object, user does not exist -> 404 error
+router.get("/:username", (req, res, next) => {
+    connection.query(`SELECT * FROM Users WHERE Username='${req.params.username}';`, (err, results, fields) => {
+        if (err) throw err;
+        else {
+            res.render("user", {
+                title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
+                userInfo: results[0]
+            });
+        }
+    });
 });
 
 router.get("/:username/articles", (req, res) => {

@@ -55,6 +55,10 @@ form .form-text
     color: #CCCCCC;
     margin: 0;
 }
+#usernameError
+{
+    color: #FF0000;
+}
 form input:focus
 {
     outline: none;
@@ -86,9 +90,6 @@ form input[type="submit"]:hover
     font-family: 'Quicksand';
     font-weight: 600;
     font-size: 0.9rem;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
     text-align: center;
     margin-bottom: 0.5rem;
 }

@@ -1,0 +1,55 @@
+header
+{
+    min-height: auto;
+}
+nav.navbar.fixed-top
+{
+    position: static;
+    z-index: 0;
+}
+section:first-of-type img
+{
+    max-width: 8%;
+    border-radius: 50%;
+}
+i.bi-person-fill
+{
+    font-size: 3rem;
+    padding: 0 0.5rem;
+    border-radius: 5px;
+    border: 1px solid;
+}
+h1
+{
+    font-size: 2.5rem;
+    margin-bottom: 0;
+}
+h1 + p
+{
+    font-size: 1rem;
+    font-family: 'Raleway';
+    margin-bottom: 0;
+}
+i.bi-pencil-square
+{
+    opacity: 0;
+    cursor: pointer;
+}
+#username:hover i.bi-pencil-square
+{
+    opacity: 1;
+}
+p#username + form:first-of-type
+{
+    display: none;
+    font-family: 'Raleway';
+}
+p#username + form.show
+{
+    display: block;
+}
+p#username + form.show input
+{
+    font-size: 0.9rem;
+    padding: 0.1rem 0.2rem;
+}

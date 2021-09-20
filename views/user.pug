@@ -1,1 +1,23 @@
 extends layout.pug
+
+block meta
+    meta(name="keywords", content="")
+    meta(name="description", content="")
+
+block styles 
+    link(rel="stylesheet", href="/css/user.css")
+
+block main 
+    section(id=userInfo.username)
+        if userInfo.Image
+            img(src=`data:image/png;base64,${userInfo.Image}`, alt=`${userInfo.FirstName} ${userInfo.LastName}`)
+        else 
+            i.bi-person-fill
+        h1 #{userInfo.FirstName} #{userInfo.LastName} 
+        p#username(title="Your Username") (#{userInfo.Username}) 
+            i.bi-pencil-square(title="Update username")
+        form(action="/username", method="POST")
+            input#newUsername(type="text", name="username")
+
+block scripts 
+    script(src="/js/user.js") 
