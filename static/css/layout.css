@@ -143,6 +143,10 @@ footer aside a:hover
 }
 @media screen and (max-width: 991px)
 {
+    nav.navbar .navbar-collapse.show
+    {
+        border-top: 1px solid #CCCCCC;
+    }
     nav.navbar .navbar-nav
     {
         padding-right: 2%;
