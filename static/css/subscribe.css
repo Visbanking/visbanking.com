@@ -3,3 +3,124 @@ header .center p
     font-family: 'Raleway';
     font-size: 1.2rem;
 }
+#newsletter
+{
+    background-color: #024060;
+    color: #FFFFFF;
+    border-bottom: 1px solid;
+}
+h2
+{
+    text-align: center;
+    margin-bottom: 2%;
+    font-size: 2rem;
+}
+form .col-md-6
+{
+    padding: 1% 2%;
+}
+form .col-md-6 label, form .col-md-6 input
+{
+    display: block;
+    font-family: 'Raleway';
+}
+form .col-md-6 label
+{
+    margin-top: 3%;
+    cursor: pointer;
+}
+form .col-md-6 label:first-of-type
+{
+    margin-top: 0;
+}
+form .col-md-6 input, select
+{
+    width: 50%;
+    padding: 0.3rem;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    transition: all 0.2s linear;
+}
+#emailError, #phoneError, span.required
+{
+    color: #FF0000;
+}
+form .col-md-6 input:focus, select:focus
+{
+    outline: none;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+form .col-md-6 input:focus
+{
+    padding: 0.3rem;
+}
+select 
+{
+    appearance: none;
+    background: url('./svg/chevron-down.svg') right center no-repeat;
+    color: #FFFFFF;
+}
+select:focus
+{
+    color: #000000;
+}
+form input[type="submit"]
+{
+    margin-top: 5%;
+    width: 30%;
+    border: 1px solid;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-family: 'Montserrat';
+    font-size: 1.1rem;
+}
+form input[type="submit"]:hover
+{
+    background-color: #FFFFFF;
+    color: #024060;
+}
+@media screen and (max-width: 991px)
+{
+    form .col-md-6 input:not([type="submit"]), select
+    {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    form 
+    {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    form .col-md-6 input
+    {
+        margin: 0 auto;
+    }
+    form .col-md-6 input[type="submit"]
+    {
+        margin-top: 5%;
+        width: 50%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    header .center p
+    {
+        font-size: 1rem;
+        width: 95%;
+        margin: 0 auto;
+    }
+    form
+    {
+        width: 100%;
+    }
+    form .col-md-6 input:not([type="submit"]), select
+    {
+        width: 95%;
+    }
+}
