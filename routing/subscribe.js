@@ -44,29 +44,30 @@ router.post("/", (req, res) => {
             res.redirect("/subscribe#newsletter");
         } else {
             if (phoneUtil.isValidNumber(phone)) {
+                let new_client = {
+                    members: [{
+                        email_address: email,
+                        status: "subscribed",
+                        merge_fields: {
+                            FNAME: firstName,
+                            LNAME: lastName,
+                            COMPANY: company,
+                            PHONE: phoneUtil.format(phone, PNF.INTERNATIONAL),
+                            ROLE: role,
+                            COUNTRY: country,
+                            STATE: state,
+                            CITY: city,
+                            ADDRESS1: address1,
+                            ADDRESS2: address2
+                        }
+                    }]
+                };
                 const run = async () => {
-                    const response = await client.lists.batchListMembers("71c3a51cce", {
-                        members: [{
-                            email_address: email,
-                            status: "subscribed",
-                            merge_fields: {
-                                FNAME: firstName,
-                                LNAME: lastName,
-                                COMPANY: company,
-                                PHONE: phoneUtil.format(phone, PNF.INTERNATIONAL),
-                                ROLE: role,
-                                COUNTRY: country,
-                                STATE: state,
-                                CITY: city,
-                                ADDRESS1: address1,
-                                ADDRESS2: address2
-                            }
-                        }]
-                    });
+                    const response = await client.lists.batchListMembers("71c3a51cce", new_client);
                     if (response.error_count === 0) {
                         res.redirect("/subscribe/success");
                     } else {
-                        if (result.errors[0].error_code === 'ERROR_CONTACT_EXISTS') {
+                        if (response.errors[0].error_code === 'ERROR_CONTACT_EXISTS') {
                             new_client.update_existing = true;
                             run();
                         } else {
