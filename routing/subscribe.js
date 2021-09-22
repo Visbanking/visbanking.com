@@ -84,6 +84,12 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/success")
+router.get("/success", (req, res) => {
+    res.send("Contact added to MailChimp");
+});
+
+router.get("/error", (req, res) => {
+    res.send("There was an error connecting to MailChimp");
+});
 
 module.exports = router;
