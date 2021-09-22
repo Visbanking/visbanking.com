@@ -18,3 +18,8 @@ header > p
     text-align: center;
     font-weight: 700;
 }
+header > p > span
+{
+    cursor: pointer;
+    text-decoration: underline;
+}

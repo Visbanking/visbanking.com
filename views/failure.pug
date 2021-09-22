@@ -1,0 +1,14 @@
+extends layout.pug 
+
+block styles 
+    link(rel="stylesheet", href="/css/success.css")
+
+block header 
+    .center
+        i.bi-person-x-fill
+        h1 We're sorry
+        p The server couldn't connect to the MailChimp API
+    p You can 
+        span(onclick="window.history.back()") try again
+        |  or go to our 
+        span(onclick="window.location.replace('/')") homepage

@@ -91,8 +91,10 @@ router.get("/success", (req, res) => {
     });
 });
 
-router.get("/error", (req, res) => {
-    res.send("There was an error connecting to MailChimp");
+router.get("/failure", (req, res) => {
+    res.render("failure", {
+        title: "Failure - Visbanking"
+    });
 });
 
 module.exports = router;
