@@ -86,7 +86,9 @@ router.post("/", (req, res) => {
 });
 
 router.get("/success", (req, res) => {
-    res.send("Contact added to MailChimp");
+    res.render("success", {
+        title: "Success - Visbanking"
+    });
 });
 
 router.get("/error", (req, res) => {

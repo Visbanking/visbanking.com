@@ -1,0 +1,20 @@
+header
+{
+    font-family: 'Raleway';
+}
+.center > i
+{
+    font-size: 3.5rem;
+}
+.center > p
+{
+    font-size: 1.5rem;
+}
+header > p
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+}

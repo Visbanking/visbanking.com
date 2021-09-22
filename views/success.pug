@@ -1,0 +1,14 @@
+extends layout.pug 
+
+block styles 
+    link(rel="stylesheet", href="/css/success.css")
+
+block header 
+    .center
+        i.bi-person-check-fill 
+        h1 Thank you
+        p You have been successfully added to our mailing list
+    p You'll be redirected to our homepage in a moment
+
+block scripts 
+    script(src="/js/success.js") 
