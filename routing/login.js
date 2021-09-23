@@ -2,26 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { check } = require("email-existence");
 const hash = require("hash.js");
-const { createConnection } = require("mysql");
+const connection = require("./dbconnection");
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended:true}));
-
-const connection = createConnection({
-    host: 'database-visbanking-mysql.cysrondf3cdf.us-east-2.rds.amazonaws.com',
-    user: 'webmaster',
-    password: 'fRcrTbL*F%9m!h',
-    database: 'Users'
-});
-
-connection.on("error", (err) => {
-    console.log(err.code);
-});
-
-connection.connect((err) => {
-    if (err) throw err;
-    console.log("Successful connection");
-});
 
 var logInError, usernameAfterRedirect, signUpError, emailError, usernameError;
 
