@@ -2,10 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { check } = require("email-existence");
 const hash = require("hash.js");
+const cookieParser = require("cookie-parser");
 const connection = require("./dbconnection");
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended:true}));
+router.use(cookieParser());
 
 var logInError, usernameAfterRedirect, signUpError, emailError, usernameError;
 
@@ -28,6 +30,9 @@ router.post("/login", (req, res, next) => {
             return res.redirect("/login");
         };
         if (pass === results[0].Password) {
+            res.cookie("username", username, {
+                expires: new Date(Date.now() + 241_920_000),
+            });
             res.redirect(`/users/${username}`);
         } else {
             logInError = true;
