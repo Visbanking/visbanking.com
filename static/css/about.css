@@ -35,13 +35,18 @@ h2
     font-size: 1.2rem;
     margin-bottom: 2%;
 }
-#mission aside div
+#mission aside:last-of-type
 {
-    max-width: calc(100%/2);
+    margin-bottom: 0;
 }
 #mission aside div > *
 {
     margin: 0;
+}
+#mission aside div p
+{
+    max-width: 70%;
+    margin: 1% auto 0;
 }
 #team
 {
