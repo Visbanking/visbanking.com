@@ -1,9 +1,10 @@
 const { createConnection } = require("mysql");
+require("dotenv").config();
 
 const connection = createConnection({
     host: 'database-visbanking-mysql.cysrondf3cdf.us-east-2.rds.amazonaws.com',
     user: 'webmaster',
-    password: 'fRcrTbL*F%9m!h',
+    password: process.env.visbankingMySQLDatabaseInstancePasswordForWebmaster,
     database: 'Users'
 });
 

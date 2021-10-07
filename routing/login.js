@@ -4,12 +4,13 @@ const { check } = require("email-existence");
 const hash = require("hash.js");
 const cookieParser = require("cookie-parser");
 const connection = require("./dbconnection");
+require("dotenv").config();
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
-var logInError, usernameAfterRedirect, signUpError, emailError, usernameError;
+var logInError, emailAfterRedirect, signUpError, emailError, usernameError;
 
 router.get("/login", (req, res) => {
     res.render("login", {
@@ -17,23 +18,25 @@ router.get("/login", (req, res) => {
         path: "/login",
         action: "Log In",
         incorrectPassword: logInError,
-        usernameAfterRedirect,
-        usernameError
+        emailAfterRedirect,
+        usernameError,
+        username: req.cookies.username || ''
     });
 });
 
-router.post("/login", (req, res, next) => {
-    const username = req.body.username, pass = hash.sha512().update(req.body.pass).digest("hex");
-    connection.query(`SELECT Password FROM Users WHERE Username='${username}';`, (err, results, fields) => {
-        if (err || results.length < 1) {
-            usernameError = true;
-            return res.redirect("/login");
-        };
-        if (pass === results[0].Password) {
-            res.cookie("username", username, {
+router.post("/login", (req, res) => {
+    const email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex");
+    connection.query(`SELECT Password FROM Users WHERE Email='${email}';`, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        } else if (results.length < 1) {
+            res.redirect("/signup");
+        } else if (pass === results[0].Password) {
+            res.cookie("username", email, {
                 expires: new Date(Date.now() + 241_920_000),
             });
-            res.redirect(`/users/${username}`);
+            res.redirect(`/users/${email}`);
         } else {
             logInError = true;
             res.redirect("/login");
@@ -47,21 +50,25 @@ router.get("/signup", (req, res) => {
         path: "/signup",
         action: "Sign Up",
         signUpError: signUpError,
-        emailError : emailError
+        emailError: emailError,
+        username: req.cookies.username || ''
     });
 });
 
 router.post("/signup", (req, res) => {
-    const fname = req.body.fname, lname = req.body.lname, email = req.body.email, username = req.body.username, pass = hash.sha512().update(req.body.pass).digest("hex");
+    const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex");
     check(email, (err, response) => {
-        if (err || !response) {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        } else if (!response) {
             emailError = true;
             res.redirect("/signup");
         }
         else {
-            connection.query(`INSERT INTO Users (FirstName, LastName, Email, Username, Password) VALUES ('${fname}','${lname}','${email}','${username}','${pass}');`, (err, results, fields) => {
+            connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`, (err, results, fields) => {
                 if (err && err.code==='ER_DUP_ENTRY') {
-                    usernameAfterRedirect = username;
+                    emailAfterRedirect = email;
                     if (err.sqlMessage.includes("Email")) {
                         res.redirect("/login");
                     } else if (err.sqlMessage.includes("Username")) {
@@ -69,7 +76,7 @@ router.post("/signup", (req, res) => {
                         res.redirect("/signup");
                     }
                 } else {
-                    connection.query(`SELECT ID FROM Users WHERE Username='${username}';`, (err, results, fields) => {
+                    connection.query(`SELECT ID FROM Users WHERE Email='${email}';`, (err, results, fields) => {
                         if (err) throw err;
                         const date = new Date();
                         connection.query(`INSERT INTO Subscriptions (UserID, StartDate, EndDate) VALUES (${results[0].ID}, '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}', '${date.getFullYear()+1}-${date.getMonth()+1}-${date.getDate()}');`, (err, results, fields) => {
@@ -80,7 +87,10 @@ router.post("/signup", (req, res) => {
                                     message: "We've had a problem communicating with the database"
                                 });
                             } else {
-                                res.redirect(`/users/${username}`);
+                                res.cookie("username", email, {
+                                    expires: new Date(Date.now() + 241_920_000)
+                                });
+                                res.redirect(`/users/${email}`);
                             }
                         });
                     });
@@ -88,7 +98,6 @@ router.post("/signup", (req, res) => {
             });
         }
     });
-    // Redirect user to personal profile
 });
 
 module.exports = router;

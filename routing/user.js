@@ -1,14 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { createConnection } = require("mysql");
+const { urlencoded } = require("body-parser"); 
+const cookieParser = require("cookie-parser");
+const connection = require("./dbconnection");
 
-const connection = createConnection({
-    host: 'database-visbanking-mysql.cysrondf3cdf.us-east-2.rds.amazonaws.com',
-    user: 'webmaster',
-    password: 'fRcrTbL*F%9m!h',
-    database: 'Users'
-    // insecureAuth: true
-});
+router.use(urlencoded({extended: true}));
+router.use(cookieParser());
 
 router.get("/", (req, res) => {
     res.render("users", {
@@ -17,28 +14,21 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:username", (req, res, next) => {
-    connection.query(`SELECT * FROM Users WHERE Username='${req.params.username}';`, (err, results, fields) => {
+router.get("/:email", (req, res, next) => {
+    connection.query(`SELECT * FROM Users WHERE Email='${req.params.email}';`, (err, results, fields) => {
         if (err) throw err;
         else {
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
-                userInfo: results[0]
+                userInfo: results[0],
+                user: req.cookies.username||""
             });
         }
     });
 });
 
-router.get("/:username/articles", (req, res) => {
-    res.send(req.params);
-    // Query the database for articles under user with username = username
-    // Render templates user_articles.pug
-});
-
-router.get("/:username/banks", (req, res) => {
-    res.send(req.params);
-    // Query the database for banks being watched by user with username = username
-    // Render template user_banks.pug
+router.post("/:email", (req, res) => {
+    const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1]
 });
 
 module.exports = router;

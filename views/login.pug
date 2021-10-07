@@ -12,17 +12,13 @@ block header
                 input#fname(type="text", name="fname", required)
                 label.form-label(for="lname") Last Name: 
                 input#lname(type="text", name="lname", required)
-                label.form-label(for="email") Email: 
-                input#username(type="email", name="email", aria-describedBy="emailMessage", required)
-                p.form-text#emailMessage #{emailError?"The email you entered doesn't exist":"We'll never share your email"}
-            label.form-label(for="username") Username: 
-            input#email(type="text", name="username", required, value=usernameAfterRedirect?usernameAfterRedirect:'', aria-describedBy="usernameError")
-            if signUpError
-                p.form-text#usernameError #{usernameError?"Username isn't valid":"Username already exists"}
+            label.form-label(for="email") Email: 
+            input#username(type="email", name="email", aria-describedBy="emailMessage", required, value=emailAfterRedirect||username)
+            p.form-text#emailMessage #{emailError?"The email you entered doesn't exist":action==="Sign Up"?"We'll never share your email":""}
             label.form-label(for="password") Password: 
             input#password(type="password", name="pass", minlength="8", maxlength="30", required, aria-describedBy="error")
             if incorrectPassword    
-                p.form-text#error The username or password entered were invalid
+                p.form-text#error The email or password entered were invalid
             input(type="submit", value=action)
         if action==="Log In"
             p.signup Don't have an account? 

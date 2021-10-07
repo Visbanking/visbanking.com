@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const connection = require("./dbconnection");
 
 router.get("/", (req, res) => {
     res.render("insights", {

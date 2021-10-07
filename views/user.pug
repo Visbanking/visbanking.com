@@ -9,15 +9,17 @@ block styles
 
 block main 
     section(id=userInfo.username)
-        if userInfo.Image
-            img(src=`data:image/png;base64,${userInfo.Image}`, alt=`${userInfo.FirstName} ${userInfo.LastName}`)
-        else 
-            i.bi-person-fill
-        h1 #{userInfo.FirstName} #{userInfo.LastName} 
-        p#username(title="Your Username") (#{userInfo.Username}) 
-            i.bi-pencil-square(title="Update username")
-        form(action="/username", method="POST")
-            input#newUsername(type="text", name="username")
+        form(action="POST")
+            if userInfo.Image
+                img(src=`data:image/png;base64,${userInfo.Image}`, alt=`${userInfo.FirstName} ${userInfo.LastName}`)
+            else 
+                i.bi-person-fill
+            h1(data) #{userInfo.FirstName} #{userInfo.LastName}
+                if user===userInfo.Email
+                    i.bi-pencil-square#name(title="Update Name")
+                    input#name(type="text", name="name", placeholder="Name Surname")
+            p#username(title="Your Email") (#{userInfo.Email}) 
+
 
 block scripts 
     script(src="/js/user.js") 
