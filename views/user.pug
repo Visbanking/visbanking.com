@@ -9,7 +9,9 @@ block styles
 
 block main 
     section(id=userInfo.username)
-        form(action="POST")
+        if user===userInfo.Email
+            button#logout Log Out
+        form(method="POST")
             if userInfo.Image
                 img(src=`data:image/png;base64,${userInfo.Image}`, alt=`${userInfo.FirstName} ${userInfo.LastName}`)
             else 
@@ -19,6 +21,7 @@ block main
                     i.bi-pencil-square#name(title="Update Name")
                     input#name(type="text", name="name", placeholder="Name Surname")
             p#username(title="Your Email") (#{userInfo.Email}) 
+            input(type="submit", value="Save")
 
 
 block scripts 

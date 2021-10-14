@@ -8,9 +8,13 @@ block styles
     link(rel="stylesheet", href="/css/about.css")
 
 block header 
-    h1.center Who We Are
-    a(href="#about") 
-        i.bi-arrow-down-short
+    h1 Who We Are
+    section.container-fluid#intro 
+        aside.row 
+            .col-md-6
+                aside.profile 
+                    img(src="/images/message.png", alt="Brian Pillmore") 
+            .col-md-6
 
 block main 
     section.container-fluid#about

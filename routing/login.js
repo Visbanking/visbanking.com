@@ -34,6 +34,7 @@ router.post("/login", (req, res) => {
             res.redirect("/signup");
         } else if (pass === results[0].Password) {
             res.cookie("username", email, {
+                httpOnly: true,
                 expires: new Date(Date.now() + 241_920_000),
             });
             res.redirect(`/users/${email}`);
@@ -81,13 +82,11 @@ router.post("/signup", (req, res) => {
                         const date = new Date();
                         connection.query(`INSERT INTO Subscriptions (UserID, StartDate, EndDate) VALUES (${results[0].ID}, '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}', '${date.getFullYear()+1}-${date.getMonth()+1}-${date.getDate()}');`, (err, results, fields) => {
                             if (err) {
-                                res.status(500).render("error", {
-                                    title: "Server Error",
-                                    code: 500,
-                                    message: "We've had a problem communicating with the database"
-                                });
+                                console.error(err);
+                                res.redirect("/error");
                             } else {
                                 res.cookie("username", email, {
+                                    httpOnly: true,
                                     expires: new Date(Date.now() + 241_920_000)
                                 });
                                 res.redirect(`/users/${email}`);

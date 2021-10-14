@@ -7,6 +7,21 @@ nav.navbar.fixed-top
     position: static;
     z-index: 0;
 }
+section
+{
+    position: relative;
+}
+section > button
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 1px solid;
+    background-color: #024060;
+    color: #FFFFFF;
+    font-family: 'Quicksand';
+    padding: 0.2rem 1%;
+}
 section:first-of-type img
 {
     max-width: 8%;
@@ -50,9 +65,26 @@ input
 {
     display: none;
     font-family: 'Raleway';
+    margin-bottom: 1%;
 }
 input.show
 {
     display: block;
     font-size: 0.9rem;
+}
+input[type="submit"]
+{
+    padding: 0.2rem 1rem;
+    color: #024060;
+    background-color: transparent;
+    border: 1px solid;
+    transition: all 0.2s linear;
+    font-family: 'Raleway';
+    font-weight: 600;
+    text-align: right;
+}
+input[type="submit"]:hover
+{
+    color: #FFFFFF;
+    background-color: #024060;
 }

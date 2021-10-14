@@ -1,3 +1,17 @@
+#intro .col-md-6
+{
+    padding: 1%;
+}
+#intro .col-md-6 .profile
+{
+    width: 80%;
+    margin: 0 auto;
+}
+#intro .col-md-6 .profile img
+{
+    border-radius: 50%;
+    max-width: 30%;
+}
 #about 
 {
     background: #024060;

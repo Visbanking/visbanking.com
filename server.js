@@ -8,6 +8,7 @@ const contact = require("./routing/contact");
 const login = require("./routing/login");
 const user = require("./routing/user");
 const subscribe = require("./routing/subscribe");
+const pricing = require("./routing/pricing");
 const privacy = require("./routing/privacy");
 const files = require("./routing/files");
 const error = require("./routing/error");
@@ -30,6 +31,8 @@ app.use(login);
 app.use("/users", user);
 
 app.use("/subscribe", subscribe);
+
+app.use(pricing);
 
 app.use(privacy);
 
