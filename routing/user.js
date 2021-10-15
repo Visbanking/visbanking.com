@@ -58,6 +58,7 @@ router.get("/:email/update", (req, res) => {
             title: "Update Password", 
             error: error || ''
         });
+        error = '';
     } else {
         res.redirect(`/${req.params.email}`);
     }
