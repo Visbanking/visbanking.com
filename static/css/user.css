@@ -45,9 +45,10 @@ h1 + p
     font-family: 'Raleway';
     margin-bottom: 0;
 }
-p#username
+p#email
 {
     cursor: default;
+    margin-bottom: 1%;
 }
 i.bi-pencil-square
 {
@@ -74,17 +75,23 @@ input.show
 }
 input[type="submit"]
 {
-    padding: 0.2rem 1rem;
+    padding: 0.5rem 1.2rem;
     color: #024060;
+    margin-top: 1%;
     background-color: transparent;
     border: 1px solid;
     transition: all 0.2s linear;
     font-family: 'Raleway';
     font-weight: 600;
-    text-align: right;
+    font-size: 1rem;
+    margin-left: auto;
 }
 input[type="submit"]:hover
 {
     color: #FFFFFF;
     background-color: #024060;
+}
+a#pass
+{
+    cursor: pointer;
 }

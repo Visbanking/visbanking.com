@@ -1,0 +1,20 @@
+extends layout.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/update.css")
+
+block main 
+    aside.center 
+        h1 Update Password
+        form(method="POST")
+            label(for="old") Old Password
+            input#old(type="password", name="old", required)
+            label(for="pass") New Password
+            input#pass(type="password", name="pass", required)
+            label(for="verify") Re-enter New Password
+            input#verify(type="password", name="verify", required)
+            p#error #{error}
+            input(type="submit", value="Change Password")
+
+block scripts 
+    script(src="/js/update.js") 

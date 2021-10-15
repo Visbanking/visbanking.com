@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const { urlencoded } = require("body-parser"); 
 const cookieParser = require("cookie-parser");
+const hash = require("hash.js");
 const connection = require("./dbconnection");
 
 router.use(urlencoded({extended: true}));
 router.use(cookieParser());
+
+var error;
 
 router.get("/", (req, res) => {
     res.render("users", {
@@ -49,11 +52,43 @@ router.post("/:email", (req, res) => {
     });
 });
 
-// router.get("/:email/update", (req, res) => {
-//     if (req.cookies.username === req.params.email) {
-//         res.render("")
-//     }
-// });
+router.get("/:email/update", (req, res) => {
+    if (req.cookies.username === req.params.email) {
+        res.render("update", {
+            title: "Update Password", 
+            error: error || ''
+        });
+    } else {
+        res.redirect(`/${req.params.email}`);
+    }
+});
+
+router.post("/:email/update", (req, res) => {
+    const old = hash.sha512().update(req.body.old).digest("hex");
+    connection.query(`SELECT Password FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        }
+        else {
+            if (old === hash.sha512().update(req.body.pass).digest("hex")) {
+                error = 'New password can\'t be the same as old password';
+                res.redirect(`/users/${req.params.email}/update`);
+            } else if (old === results[0].Password) {
+                const pass = hash.sha512().update(req.body.pass).digest("hex");
+                connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        res.redirect("/error");
+                    }
+                    else {
+                        res.redirect(`/users/${req.params.email}`);
+                    }
+                });
+            }
+        }
+    });
+});
 
 router.get("/:email/logout", (req, res) => {
     res.clearCookie("username");

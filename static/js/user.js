@@ -15,3 +15,7 @@ document.querySelector("input[name='name']").addEventListener("keydown", (event)
 document.querySelector("section > button").addEventListener("click", () => {
     window.location.href += '/logout';
 });
+
+document.querySelector("a#pass").addEventListener("click", () => {
+    window.location.href += '/update'
+})

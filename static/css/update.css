@@ -1,0 +1,76 @@
+header, footer
+{
+    display: none;
+}
+main
+{
+    min-height: 100vh;
+}
+form
+{
+    padding: 1%;
+}
+form > *
+{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    font-family: 'Raleway';
+}
+form input
+{
+    margin: 0 auto 1%;
+    border: 1px solid transparent;
+    border-bottom-color: inherit;
+    width: 20%;
+    padding: 0.3rem;
+}
+form input:not([type="submit"]):focus
+{
+    outline: none;
+    border: 1px solid;
+    box-shadow: 0 0 0.5rem #000000;
+}
+p#error
+{
+    font-size: 0.9rem;
+    color: #FF0000;
+    margin: 0 auto 2%;
+}
+form input[type="submit"]
+{
+    background: #000000;
+    color: #FFFFFF;
+    width: auto;
+    padding: 0.2rem 0.5rem;
+}
+@media screen and (max-width: 900px)
+{
+    form input
+    {
+        width: 30%;
+        margin-bottom: 2%;
+    }
+}
+@media screen and (max-width: 600px)
+{
+    form input
+    {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    h1
+    {
+        font-size: 2rem;
+    }
+    form > *
+    {
+        font-size: 0.9rem;
+    }
+    form input 
+    {
+        width: 80%;
+    }
+}
