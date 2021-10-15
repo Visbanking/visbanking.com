@@ -13,15 +13,19 @@ router.use(cookieParser());
 var logInError, emailAfterRedirect, signUpError, emailError, usernameError;
 
 router.get("/login", (req, res) => {
-    res.render("login", {
-        title: "Log In - Visbanking",
-        path: "/login",
-        action: "Log In",
-        incorrectPassword: logInError,
-        emailAfterRedirect,
-        usernameError,
-        username: req.cookies.username || ''
-    });
+    if (req.cookies.username) {
+        res.redirect(`/users/${req.cookies.username}`);
+    } else {
+        res.render("login", {
+            title: "Log In - Visbanking",
+            path: "/login",
+            action: "Log In",
+            incorrectPassword: logInError,
+            emailAfterRedirect,
+            usernameError,
+            username: req.cookies.username || ''
+        });
+    }
 });
 
 router.post("/login", (req, res) => {
@@ -46,14 +50,18 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-    res.render("login", {
-        title: "Sign Up - Visbanking",
-        path: "/signup",
-        action: "Sign Up",
-        signUpError: signUpError,
-        emailError: emailError,
-        username: req.cookies.username || ''
-    });
+    if (req.cookies.username) {
+        res.redirect(`/users/${req.cookies.username}`);
+    } else {
+        res.render("login", {
+            title: "Sign Up - Visbanking",
+            path: "/signup",
+            action: "Sign Up",
+            signUpError: signUpError,
+            emailError: emailError,
+            username: req.cookies.username || ''
+        });
+    }
 });
 
 router.post("/signup", (req, res) => {
