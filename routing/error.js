@@ -5,7 +5,7 @@ router.get("/error", (req, res) => {
     res.status(500).render("error", {
         title: "500 Internal Server Error",
         code: 500,
-        message: "There has been an issue with the server"
+        message: "There has been an issue connecting to the database"
     });
 });
 
