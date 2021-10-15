@@ -4,7 +4,6 @@ document.querySelector("i.bi-pencil-square").addEventListener("click", (event) =
 });
 
 document.querySelector("input[name='name']").addEventListener("keydown", (event) => {
-    console.log(event.target.value.trim().includes(" "))
     if (event.target.value.trim().includes(" ")) {
         document.querySelector(`input[type="submit"]`).classList.add("show");
     } else {

@@ -34,6 +34,9 @@ router.get("/:email", (req, res, next) => {
 
 router.post("/:email", (req, res) => {
     const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
+    if (!fname || !lname) {
+        return res.redirect(`/users/${req.params.email}`);
+    }
     connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
         if (err) {
             console.error(err);
