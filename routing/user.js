@@ -69,8 +69,10 @@ router.post("/:email/update", (req, res) => {
         if (err) {
             console.error(err);
             res.redirect("/error");
-        }
-        else {
+        } else if (old !== results[0].Password) {
+            error = 'Old password is incorrect';
+            res.redirect(`/users/${req.params.email}/update`);
+        } else {
             if (old === hash.sha512().update(req.body.pass).digest("hex")) {
                 error = 'New password can\'t be the same as old password';
                 res.redirect(`/users/${req.params.email}/update`);
