@@ -3,7 +3,7 @@ const router = Router();
 
 router.get("/pricing", (req, res) => {
     res.render("pricing", {
-        title: "Pricing - Visbanking"
+        title: "Pricing Plans - Visbanking"
     });
 });
 

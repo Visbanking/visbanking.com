@@ -1,0 +1,102 @@
+header
+{
+    min-height: auto;
+}
+nav.navbar.fixed-top
+{
+    position: static;
+    z-index: 0;
+}
+main
+{
+    padding: 2% 1%;
+}
+h1
+{
+    text-align: center;
+}
+#pricing .col-md-6
+{
+    padding: 2%;
+}
+#pricing .col-md-6 .card
+{
+    width: 80%;
+    margin: 0 auto;
+    border-color: #024060;
+}
+#pricing .col-md-6 .card .card-header
+{
+    text-align: center;
+    padding: 3% 2%;
+    background-color: #024060;
+    color: #FFFFFF;
+}
+#pricing .col-md-6 .card .card-header *
+{
+    margin: 0;
+    font-family: 'Quicksand';
+}
+#pricing .col-md-6 .card .card-header p
+{
+    font-family: 'Raleway';
+    font-size: 0.9rem;
+}
+#pricing .col-md-6 .card .card-header p.price, span.price
+{
+    font-family: 'Montserrat';
+    font-size: 1.3rem;
+}
+#pricing .col-md-6 .card .card-body
+{
+    font-family: 'Raleway';
+    text-align: center;
+    font-size: 1.1rem;
+}
+#pricing .col-md-6 .card .card-body ul.list-group
+{
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1rem;
+}
+#pricing .col-md-6 .card .card-body .list-group-item
+{
+    border-bottom-color: #024060;
+}
+#pricing .col-md-6 .card .card-footer
+{
+    text-align: center;
+    padding: 3%;
+    background-color: #024060;
+}
+#pricing .col-md-6 .card .card-footer button
+{
+    border: 1px solid;
+    background-color: transparent;
+    color: #FFFFFF;
+    padding: 0.4rem 1rem;
+    font-family: 'Montserrat';
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.1s linear;
+}
+#pricing .col-md-6 .card .card-footer button:hover, #pricing .col-md-6:last-of-type .card .card-footer button
+{
+    background-color: #FFFFFF;
+    color: #024060;
+}
+@media screen and (max-width: 991px)
+{
+    #pricing .col-md-6 .card
+    {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    #pricing .col-md-6 .card
+    {
+        width: 80%;
+        margin-bottom: 3%;
+    }
+}
