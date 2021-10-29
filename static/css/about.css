@@ -12,7 +12,7 @@
     border-radius: 50%;
     max-width: 30%;
 }
-#about 
+#quotes
 {
     background: #024060;
     color: #FFFFFF;
@@ -22,52 +22,88 @@ h2
     text-align: center;
     font-size: 2rem;
 }
-#about p
-{
-    margin: 3% auto;
-    width: 70%;
-    padding: 0 2%;
-    font-family: 'Raleway';
-    font-size: 1.2rem;
-}
-#mission
-{
-    min-height: auto;
-}
-#mission aside
+#quotes .quote
 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-evenly;
-    padding: 3%;
-    text-align: center;
-    background-color: #024060;
-    color: #FFFFFF;
-    font-family: 'Quicksand';
-    font-size: 1.2rem;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    padding: 2%;
     margin-bottom: 2%;
 }
-#mission aside:last-of-type
+#quotes .quote:last-of-type
 {
-    margin-bottom: 0;
-}
-#mission aside div > *
-{
+    border: none;
     margin: 0;
 }
-#mission aside div p
+#quotes .quote > div
 {
-    max-width: 70%;
-    margin: 1% auto 0;
+    width: 50%;
 }
-#team
+#quotes .quote div:last-of-type
+{
+    border: none;
+    font-family: 'Raleway';
+}
+#quotes .quote img
+{
+    max-width: 35%;
+    display: block;
+    margin: 0 auto 4%;
+}
+#quotes .quote p.profile
+{
+    text-align: justify;
+    font-family: 'Quicksand';
+}
+#quotes .quote div:last-of-type p
+{
+    width: 80%;
+    text-align: center;
+    margin: 3% auto;
+    font-size: 0.9rem;
+}
+#mission, #vision
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#mission > small, #vision > small
+{
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 1rem;
+}
+#mission aside h2, #vision aside h2
+{
+    margin: 0 auto 1%;
+    font-weight: 700;
+}
+#mission aside p, #vision aside p
+{
+    max-width: 50%;
+    margin: 1% auto 0;
+    font-family: 'Raleway';
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 700;
+}
+#vision
 {
     background: #024060;
     color: #FFFFFF;
+}
+#team
+{
     padding: 3%;
-    border-bottom: 1px solid;
 }
 .member
 {
