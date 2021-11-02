@@ -66,6 +66,13 @@ h1
     font-weight: 700;
     font-size: 3rem;
 }
+header .center p
+{
+    font-family: 'Raleway';
+    font-size: 1.2rem;
+    width: 50%;
+    margin: 0 auto;
+}
 header > a
 {
     position: absolute;
