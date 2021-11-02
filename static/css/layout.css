@@ -126,6 +126,7 @@ footer .socials
 {
     text-align: center;
     border-top: 1px solid;
+    border-bottom: 1px solid;
     padding: 1rem 0;
 }
 footer .socials a
