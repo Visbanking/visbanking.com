@@ -122,13 +122,26 @@ footer aside a:hover
 {
     color: #FFFFFF;
 }
+footer .socials
+{
+    text-align: center;
+    border-top: 1px solid;
+    padding: 1rem 0;
+}
+footer .socials a
+{
+    font-size: 1.5rem;
+    padding: 0;
+    border: none;
+    margin-right: 1%;
+}
 #copyright
 {
     color: #BBBBBB;
     text-align: center;
     font-family: 'Raleway';
     font-weight: 700;
-    margin: 2% 0 0;
+    margin: 0.5rem 0;
 }
 @keyframes down
 {
