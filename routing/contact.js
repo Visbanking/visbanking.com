@@ -34,7 +34,6 @@ router.post("/", (req, res) => {
                 }
             });
         }
-        res.redirect("/contact");
     });
 });
 
