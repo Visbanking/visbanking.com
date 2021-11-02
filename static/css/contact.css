@@ -2,4 +2,64 @@
 {
     background-color: #024060;
     color: #FFFFFF;
+    border-bottom: 1px solid;
+}
+form label, form input, textarea
+{
+    display: block;
+    margin: 0 auto;
+    font-family: 'Raleway';
+}
+form input, textarea
+{
+    margin-bottom: 2%;
+}
+form input
+{
+    background-color: transparent;
+    color: #FFFFFF;
+    border: none;
+    border-bottom: 1px solid;
+    width: 40%;
+    padding: 0.2rem;
+}
+textarea
+{
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 1px solid;
+    width: 60%;
+}
+form input:focus
+{
+    outline: none;
+}
+form input[type="submit"]
+{
+    margin-bottom: 0;
+    width: auto;
+    padding: 0.3rem 1rem 0.2rem;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    color: #024060;
+    font-weight: 700;
+}
+@media screen and (max-width: 991px)
+{
+    form input
+    {
+        width: 60%;
+    }
+    textarea
+    {
+        width: 75%;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    form input, textarea
+    {
+        width: 80%;
+    }
 }

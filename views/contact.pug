@@ -16,3 +16,15 @@ block header
 
 block main
     section.container-fluid#contact
+        form.row.center(method="POST")
+            aside.col-md-6
+                label(for="name") Name *
+                input#name(type="text", name="name", required)
+                label(for="email") Email *
+                input#email(type="email", name="email", required)
+                label(for="subject") Subject *
+                input#subject(type="text", name="subject", required)
+            aside.col-md-6
+                label(for="message") Message *
+                textarea#message(name="message", rows="5", required) 
+                input(type="submit", value="Submit")
