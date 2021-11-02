@@ -7,14 +7,40 @@ block meta
 block styles 
     link(rel="stylesheet", href="/css/services.css")
 
-block header 
-    h1.center Our Services
-    a(href="#services") 
+block header
+    aside.center
+        h1 Our Services
+        p We provide all sorts of previously-analyzed relevant data for you, so that you can focus on what matters
+            br
+            | Making Decisions
+    a(href="#performance")
         i.bi-arrow-down-short
 
 block main 
-    section.container-fluid#services 
-        
+    section.container-fluid#performance
+        aside.center
+            h2 Performance
+            p We track, analyze and display bank's performance data quarter after quarter, allowing you to see each bank's progress and growth over time
+    section.container-fluid#financial 
+        aside.center 
+            h2 Financial
+            p Explanation
+    section.container-fluid#people
+        aside.center 
+            h2 People
+            p Explanation
+    section.container-fluid#market 
+        aside.center 
+            h2 Market
+            p Explanation
+    section.container-fluid#geography 
+        aside.center
+            h2 Geography
+            p Explanation
+    section.container-fluid#regulatory 
+        aside.center 
+            h2 Regulatory
+            p Explanation
 
 block scripts 
     script(src="/js/services.js") 
