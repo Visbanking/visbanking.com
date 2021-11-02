@@ -1,1 +1,18 @@
 extends layout.pug
+
+block meta
+    meta(name="description", content="")
+    meta(name="keywords", content="")
+
+block styles 
+    link(rel="stylesheet", href="/css/contact.css")
+
+block header
+    aside.center 
+        h1 Contact Us 
+        p Whether you want to know more about Visbanking before making a purchase, or you just have an inquiry about our services, feel free to fill out the form below and we'll be sure to get back to you.
+    a(href="#contact")
+        i.bi-arrow-down-short
+
+block main
+    section.container-fluid#contact
