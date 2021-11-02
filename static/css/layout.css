@@ -55,10 +55,10 @@ nav.navbar-dark .navbar-nav li.nav-item:last-of-type a.nav-link
 {
     position: absolute;
     top: 50%;
-    margin: 0;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    width: 100%;
+    width: 95%;
 }
 h1
 {
@@ -85,6 +85,7 @@ main section
     min-height: 100vh;
     height: auto;
     padding: 3%;
+    position: relative;
 }
 h2
 {
