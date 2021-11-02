@@ -3,6 +3,7 @@ const cors = require("cors");
 const favicon = require("serve-favicon");
 const path = require("path");
 const routes = require("./routing/routes");
+const about = require("./routing/about");
 const insights = require("./routing/insights");
 const contact = require("./routing/contact");
 const login = require("./routing/login");
@@ -21,6 +22,8 @@ app.use(cors());
 app.set("view engine", "pug");
 
 app.use(routes);
+
+app.use("/about", about);
 
 app.use("/insights", insights);
 

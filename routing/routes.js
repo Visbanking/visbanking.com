@@ -8,13 +8,6 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/about", (req, res) => {
-    res.render("about", {
-        title: "Who We Are - Visbanking",
-        path: "/about"
-    });
-});
-
 router.get("/services", (req, res) => {
     res.render("services", {
         title: "Our Services - Visbanking",
