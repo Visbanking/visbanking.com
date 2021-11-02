@@ -96,12 +96,14 @@ router.post("/", (req, res) => {
 router.get("/success", (req, res) => {
 	res.render("success", {
 		title: "Success - Visbanking",
+		path: "/subscribe/success"
 	});
 });
 
 router.get("/failure", (req, res) => {
 	res.render("failure", {
 		title: "Failure - Visbanking",
+		path: "/subscribe/failure"
 	});
 });
 
