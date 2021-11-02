@@ -7,7 +7,10 @@ block header
     .center
         i.bi-person-check-fill 
         h1 Thank you
-        p You have been successfully added to our mailing list
+        if path.includes("subscribe")
+            p You have been successfully added to our mailing list
+        else if path.includes("contact")
+            p You're request has been saved successfully
     p You'll be redirected to our homepage in a moment
 
 block scripts 

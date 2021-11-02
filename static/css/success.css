@@ -6,7 +6,7 @@ header
 {
     font-size: 3.5rem;
 }
-.center > p
+header .center > p
 {
     font-size: 1.5rem;
 }
