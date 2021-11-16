@@ -15,61 +15,74 @@ h1
 {
     text-align: center;
 }
-#pricing .col-md-6
+#pricing > *
 {
-    padding: 2%;
+    padding: 1% 0.1rem;
 }
-#pricing .col-md-6 .card
+#pricing > * .card
 {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     border-color: #024060;
 }
-#pricing .col-md-6 .card .card-header
+#pricing .col-lg-12 .card
+{
+    width: 95%;
+}
+#pricing > * .card .card-header
 {
     text-align: center;
     padding: 3% 2%;
     background-color: #024060;
     color: #FFFFFF;
 }
-#pricing .col-md-6 .card .card-header *
+#pricing .col-lg-12 .card .card-header
+{
+    padding: 2% 1%;
+}
+#pricing > * .card .card-header *
 {
     margin: 0;
     font-family: 'Quicksand';
 }
-#pricing .col-md-6 .card .card-header p
+#pricing > * .card .card-header p
 {
     font-family: 'Raleway';
     font-size: 0.9rem;
 }
-#pricing .col-md-6 .card .card-header p.price, span.price
+#pricing > * .card .card-header p.price, span.price
 {
     font-family: 'Montserrat';
     font-size: 1.3rem;
 }
-#pricing .col-md-6 .card .card-body
+#pricing > * .card .card-body
 {
     font-family: 'Raleway';
     text-align: center;
     font-size: 1.1rem;
+    padding: 10% 0;
 }
-#pricing .col-md-6 .card .card-body ul.list-group
+#pricing .col-lg-12 .card .card-body
+{
+    padding: 3% 0;
+}
+#pricing > * .card .card-body ul.list-group
 {
     width: 80%;
     margin: 0 auto;
     font-size: 1rem;
 }
-#pricing .col-md-6 .card .card-body .list-group-item
+#pricing > * .card .card-body .list-group-item
 {
     border-bottom-color: #024060;
 }
-#pricing .col-md-6 .card .card-footer
+#pricing > * .card .card-footer
 {
     text-align: center;
     padding: 3%;
     background-color: #024060;
 }
-#pricing .col-md-6 .card .card-footer button
+#pricing > * .card .card-footer input
 {
     border: 1px solid;
     background-color: transparent;
@@ -80,23 +93,53 @@ h1
     font-weight: 600;
     transition: all 0.1s linear;
 }
-#pricing .col-md-6 .card .card-footer button:hover, #pricing .col-md-6:last-of-type .card .card-footer button
+#pricing > * .card .card-footer input:hover, #pricing > *:last-of-type .card .card-footer input
 {
     background-color: #FFFFFF;
     color: #024060;
 }
+#features table
+{
+    width: 100%;
+}
+#features table thead
+{
+    position: sticky;
+}
+#features table td
+{
+    width: calc(80%/3);
+    padding: 0.5rem 1%;
+    border: 1px solid #DDDDDD;
+    text-align: center;
+}
+#features table thead td
+{
+    border-color: inherit;
+}
+#features table td:first-of-type
+{
+    width: 20%;
+}
 @media screen and (max-width: 991px)
 {
-    #pricing .col-md-6 .card
+    #pricing > * .card
     {
         width: 100%;
     }
 }
 @media screen and (max-width: 767px)
 {
-    #pricing .col-md-6 .card
+    #pricing > * .card
     {
         width: 80%;
         margin-bottom: 3%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    #pricing > * .card
+    {
+        width: 90%;
     }
 }

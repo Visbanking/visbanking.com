@@ -1,69 +1,87 @@
 extends layout.pug
 
 block meta
-    meta(name="description", content="")
-    meta(name="keywords", content="")
+    meta(name="description" content="")
+    meta(name="keywords" content="")
 
 block styles 
-    link(rel="stylesheet", href="/css/pricing.css")
+    link(rel="stylesheet" href="/css/pricing.css")
 
 block main
-        h1 Pricing
-        aside.row#pricing
-            .col-md-6
-                .card 
-                    .card-header 
-                        h2 Free
-                    .card-body
-                        p With a Free account, you'll have complete access to:
-                        ul.list-group.list-group-flush
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                    .card-footer
-                        button Get Free Access
-            .col-md-6 
-                .card 
-                    .card-header 
-                        h2 Professional
-                        p
-                            span.price $99
-                            | /month
-                    .card-body
-                        p The Professional plan extends the Free plan's access to our services through the following:
-                        ul.list-group.list-group-flush
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                    .card-footer
-                        button Get Professional Access
-            .col-md-6 
-                .card 
-                    .card-header 
-                        h2 Premium
-                        p
-                            span.price $499
-                            | /month
-                    .card-body
-                        p The Premium plan gives you acces to most valuable features of Visbanking's services and capabilities, such as:
-                        ul.list-group.list-group-flush
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                    .card-footer
-                        button Get Premium Access
-            .col-md-6 
-                .card 
-                    .card-header 
-                        h2 Enterprise
-                        p
-                            span.price $999
-                            | /month
-                    .card-body
-                        p The Enterprise plan allows you full, unlimited access to all of Visbanking's features, including:
-                        ul.list-group.list-group-flush
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                            li.list-group-item Public reports
-                    .card-footer
-                        button Get Enterprise Access
+    h1 Pricing
+    form.row#pricing(method="POST")
+        .col-lg-4
+            .card 
+                .card-header 
+                    h2 Free
+                .card-body
+                    p With a Free account, you'll have complete access to:
+                    ul.list-group.list-group-flush
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                .card-footer
+                    input(type="submit" name="plan" value="Get Free Access")
+        .col-lg-4 
+            .card 
+                .card-header 
+                    h2 Professional
+                    p
+                        span.price $99
+                        | /month
+                .card-body
+                    p The Professional plan extends the Free plan's access to our services through the following:
+                    ul.list-group.list-group-flush
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                .card-footer
+                    input(type="submit" name="plan" value="Get Professional Access")
+        .col-lg-4
+            .card 
+                .card-header 
+                    h2 Premium
+                    p
+                        span.price $499
+                        | /month
+                .card-body
+                    p The Premium plan gives you acces to most valuable features of Visbanking's services and capabilities, such as:
+                    ul.list-group.list-group-flush
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                .card-footer
+                    input(type="submit" name="plan" value="Get Premium Access")
+        .col-lg-12
+            .card 
+                .card-header 
+                    h2 Enterprise
+                    p.price Contact Us
+                .card-body
+                    p The Enterprise plan allows you full, unlimited access to all of Visbanking's features, including:
+                    ul.list-group.list-group-flush
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                        li.list-group-item Public reports
+                .card-footer
+                    input(type="submit" name="plan" value="Get Enterprise Access")
+    section.container-fluid#features 
+        h2 Features
+        p The idea for this section is to have a table comparing the free, professional and premium plans showing which each plan has and which it doesn't. The table would have a fixed footer prompting for the enterprise plan.
+        table 
+            thead 
+                td Feature/Plan
+                td Free
+                td Professional
+                td Premium
+            tr 
+                td Feature Name
+                td 
+                    i.bi-x-lg
+                td 
+                    i.bi-check-lg
+                td 
+                    i.bi-check-lg
+
+block scripts 
+    script(src="/js/pricing.js") 
