@@ -2,9 +2,9 @@ const { createConnection } = require("mysql");
 require("dotenv").config();
 
 const connection = createConnection({
-    host: 'database-visbanking-mysql.cysrondf3cdf.us-east-2.rds.amazonaws.com',
+    host: process.env.DB_HOST,
     user: 'webmaster',
-    password: process.env.visbankingMySQLDatabaseInstancePasswordForWebmaster,
+    password: process.env.DB_PASS,
     database: 'Users'
 });
 

@@ -7,12 +7,13 @@ const phoneUtil = phoneVerify.PhoneNumberUtil.getInstance();
 const PNF = phoneVerify.PhoneNumberFormat;
 const { customList } = require("country-codes-list");
 const connection = require("./dbconnection");
+require("dotenv").config();
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended: true}));
 
 client.setConfig({
-	apiKey: '6bb1c5f44f13466f606092b33b099bd5-us5',
+	apiKey: process.env.MAILCHIMP,
 	server: 'us5'
 });
 
