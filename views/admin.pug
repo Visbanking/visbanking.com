@@ -1,0 +1,16 @@
+extends layout.pug 
+
+block styles 
+    link(rel="stylesheet", href="/css/login.css")
+
+block header 
+    aside.center#login
+        h1 Admin Login 
+        form(method="POST")
+            label(for="username") Username *
+            input#username(type="text", name="username", required)
+            label(for="password") Password *
+            input#password(type="password", name="pass", required, aria-describedBy="error")
+            if error
+                p.form-text#error #{error}
+            input(type="submit", value="Log In")
