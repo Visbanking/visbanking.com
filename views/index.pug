@@ -38,7 +38,7 @@ block main
                 a(href="/about") Learn more
             aside.tab(v-if="tabs[1]")
                 h2 Our Services tab
-                p Some information regarding the services provided by Visbanking
+                p We provide all sorts of previously-analyzed relevant data for you, so that you can focus on what matters. Making Decisions
                 a(href="/services") Learn more
             aside.tab(v-if="tabs[2]")
                 h2 Insights 
@@ -49,35 +49,43 @@ block main
                 i.bi-dot(@click="show('about')", :class="{ active: tabs[0] }") 
                 i.bi-dot(@click="show('services')", :class="{ active: tabs[1] }")
                 i.bi-dot(@click="show('insights')", :class="{ active: tabs[2] }")
+    section.container-fluid#reasons 
+        aside.reason#banks 
+            .text
+                p.number 10k
+                p.data Banks across the United States
+        aside.reason#records 
+            .text
+                p.number 40m
+                p.data Data Records
+        aside.reason#time 
+            .text 
+                p.number 19
+                p.data Years of Data by Quarter
+        aside.reason#views 
+            .text 
+                p.number 50
+                p.data Customizable Data Views
     section.container-fluid#newsletter 
         aside 
             h2 Join our Newsletter
-            p Paragraph 
+            p Get the latest information about US banks and the banking industry 
             a(href="/subscribe") Subscribe to our newsletter
-                i.bi-chevron-right
-    section.container-fluid#insights 
-        h2 Insights
-        article
-            h3 Article Title 
-            p Article Introduction 
-            a(href="#") Link to article
-        article
-            h3 Article Title 
-            p Article Introduction 
-            a(href="#") Link to article
-        article
-            h3 Article Title 
-            p Article Introduction 
-            a(href="#") Link to article
-        article
-            h3 Article Title 
-            p Article Introduction 
-            a(href="#") Link to article
-        article
-            h3 Article Title 
-            p Article Introduction 
-            a(href="#") Link to article 
-        a(href="/insights") See all
+                i.bi-chevron-right 
+        //- h2 Why Visbanking
+        //- .row 
+        //-     aside.col-lg-3.col-md-6.reason
+        //-         p.number 10k
+        //-         p.data Banks across the United States
+        //-     aside.col-lg-3.col-md-6.reason
+        //-         p.number 40m
+        //-         p.data Data Records
+        //-     aside.col-lg-3.col-md-6.reason
+        //-         p.number 19
+        //-         p.data Years of Data by Quarter
+        //-     aside.col-lg-3.col-md-6.reason
+        //-         p.number 50
+        //-         p.data Customizable Data Views
 
 block scripts 
     script(src="/js/index.js") 
