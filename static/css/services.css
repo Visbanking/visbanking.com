@@ -1,17 +1,66 @@
-#performance, #people, #geography
+section
 {
-    background-color: #024060;
-    color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
 }
-.center p
+section aside
+{
+    padding: 3%;
+    width: 50%;
+}
+section aside > *
+{
+    text-align: center;
+}
+section p
 {
     font-family: 'Raleway';
     font-size: 1.2rem;
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
 }
-.center h2
+section h2
 {
     font-family: 'Montserrat';
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+}
+#performance
+{
+    background-image: url('https://images.pexels.com/photos/106344/pexels-photo-106344.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
+}
+#performance aside, #people aside, #geography aside
+{
+    color: #024060;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 1.5rem #AAAAAA;
+}
+#financial
+{
+    background-image: url('https://images.pexels.com/photos/53621/calculator-calculation-insurance-finance-53621.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
+}
+#financial aside, #market aside, #regulatory aside
+{
+    color: #FFFFFF;
+    background-color: #024060;
+    box-shadow: 0 0 1.5rem #5795B5;
+}
+#people
+{
+    background-image: url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
+}
+#market
+{
+    background-image: url('https://images.pexels.com/photos/4960464/pexels-photo-4960464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
+}
+#geography
+{
+    background-image: url('https://images.pexels.com/photos/5725589/pexels-photo-5725589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
+}
+#regulatory
+{
+    background-image: url('https://images.pexels.com/photos/5668481/pexels-photo-5668481.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
 }
