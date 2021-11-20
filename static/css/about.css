@@ -114,8 +114,8 @@ h2
 }
 .member:hover
 {
-    background-color: #FFFFFF;
-    color: #024060;
+    background-color: #024060;
+    color: #FFFFFF;
 }
 .member:last-of-type
 {
@@ -144,12 +144,12 @@ h2
 {
     font-size: 1.1rem;
     margin-right: 1%;
-    color: #CCCCCC;
+    color: #046080;
     transition: color 0.2s linear;
 }
 .member:hover .socials i
 {
-    color: #046080;
+    color: #CCCCCC;
 }
 .member .socials i:hover
 {
