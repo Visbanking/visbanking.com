@@ -1,7 +1,6 @@
 #contact
 {
-    background-color: #024060;
-    color: #FFFFFF;
+    color: #024060;
     border-bottom: 1px solid;
 }
 form label, form input, textarea
@@ -17,7 +16,7 @@ form input, textarea
 form input
 {
     background-color: transparent;
-    color: #FFFFFF;
+    color: #024060;
     border: none;
     border-bottom: 1px solid;
     width: 40%;
@@ -26,11 +25,11 @@ form input
 textarea
 {
     background-color: transparent;
-    color: #FFFFFF;
+    color: #024060;
     border: 1px solid;
     width: 60%;
 }
-form input:focus
+form input:focus, textarea:focus
 {
     outline: none;
 }
@@ -41,9 +40,20 @@ form input[type="submit"]
     padding: 0.3rem 1rem 0.2rem;
     border: 1px solid;
     border-radius: 5px;
-    background-color: #FFFFFF;
+    background-color: transparent;
     color: #024060;
     font-weight: 700;
+    transition: all 0.15s linear;
+}
+form input[type="submit"]:hover
+{
+    background-color: #024060;
+    color: #FFFFFF;
+    border-color: transparent;
+}
+form input[type="submit"]:focus, form input[type="submit"]:hover
+{
+    box-shadow: 0 0 0.5rem #5795B5;
 }
 @media screen and (max-width: 991px)
 {
