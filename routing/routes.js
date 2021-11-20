@@ -15,4 +15,10 @@ router.get("/services", (req, res) => {
     });
 });
 
+router.get("/pricing", (req, res) => {
+	res.render("pricing", {
+		title: "Pricing Plans - Visbanking",
+	});
+});
+
 module.exports = router;
