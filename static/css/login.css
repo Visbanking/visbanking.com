@@ -11,6 +11,10 @@ nav.navbar, footer
 {
     border-radius: 5px;
 }
+header .center p
+{
+    font-size: 0.875rem;
+}
 h1
 {
     font-size: 2.5rem;
@@ -84,7 +88,7 @@ form input[type="submit"]:hover
     background: #FFFFFF;
     color: #024060;
 }
-.signup
+header .center p.signup
 {
     margin-top: 1%;
     font-family: 'Quicksand';
