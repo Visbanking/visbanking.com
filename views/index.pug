@@ -33,11 +33,11 @@ block main
             div(@click="show('insights')", :class="{ active: tabs[2] }") Insights 
         .tabs 
             aside.tab(v-if="tabs[0]")
-                h2 Who We Are tab
+                h2 Who We Are
                 p Some information regarding Visbanking
                 a(href="/about") Learn more
             aside.tab(v-if="tabs[1]")
-                h2 Our Services tab
+                h2 Our Services
                 p We provide all sorts of previously-analyzed relevant data for you, so that you can focus on what matters. Making Decisions
                 a(href="/services") Learn more
             aside.tab(v-if="tabs[2]")
