@@ -9,8 +9,9 @@ const contact = require("./routing/contact");
 const login = require("./routing/login");
 const user = require("./routing/user");
 const subscribe = require("./routing/subscribe");
-const pricing = require("./routing/pricing");
+// const buy = require("./routing/buy");
 const privacy = require("./routing/privacy");
+const admin = require("./routing/admin");
 const files = require("./routing/files");
 const error = require("./routing/error");
 const app = express();
@@ -35,9 +36,11 @@ app.use("/users", user);
 
 app.use("/subscribe", subscribe);
 
-app.use(pricing);
+// app.use(buy);
 
 app.use(privacy);
+
+app.use("/admin", admin);
 
 app.use(files);
 
