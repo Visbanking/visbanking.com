@@ -1,3 +1,17 @@
+section aside:not(.quote)
+{
+    text-align: center;
+    padding: 3%;
+    width: 50%;
+}
+section aside:not(.quote) p
+{
+    font-family: 'Raleway';
+    margin: 1rem auto 0;
+    width: 80%;
+    text-align: center;
+    font-size: 1.1rem;
+}
 #intro .col-md-6
 {
     padding: 1%;
@@ -71,119 +85,110 @@ h2
     display: flex;
     align-items: center;
     justify-content: center;
+    background-position: center;
 }
-#mission > small, #vision > small
+#mission
 {
-    position: absolute;
-    top: 3%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Montserrat';
-    font-weight: 700;
-    font-size: 1rem;
+    background-image: url('https://images.pexels.com/photos/6945/sunset-summer-golden-hour-paul-filitchkin.jpg?auto=compress&cs=tinysrgb&dpr=2&h=553&w=800');
+}
+#mission aside
+{
+    background-color: #FFFFFF;
+    color: #024060;
 }
 #mission aside h2, #vision aside h2
 {
     margin: 0 auto 1%;
     font-weight: 700;
 }
-#mission aside p, #vision aside p
-{
-    max-width: 50%;
-    margin: 1% auto 0;
-    font-family: 'Raleway';
-    font-size: 1.2rem;
-    text-align: center;
-    font-weight: 700;
-}
 #vision
 {
-    background: #024060;
-    color: #FFFFFF;
+    background-image: url('https://images.pexels.com/photos/66997/pexels-photo-66997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
 }
-#team
-{
-    padding: 3%;
-}
-.member
-{
-    border-bottom: 1px solid;
-    padding: 1%;
-    font-family: 'Montserrat';
-    transition: background-color 0.2s linear, color 0.2s linear;
-}
-.member:hover
+#vision aside
 {
     background-color: #024060;
     color: #FFFFFF;
 }
-.member:last-of-type
+#team
 {
-    border: none;
+    background-image: url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=484&w=700');
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
-.member .col-md-2
+#team aside
 {
-    text-align: center;
-}
-.member .sm
-{
-    display: none;
-}
-.member h3
-{
-    font-family: 'Raleway';
-    font-weight: 700;
-    margin-bottom: 0;
-    margin-top: 1%;
-}
-.member .socials
-{
-    margin-bottom: 1%;
-}
-.member .socials i
-{
-    font-size: 1.1rem;
-    margin-right: 1%;
-    color: #046080;
-    transition: color 0.2s linear;
-}
-.member:hover .socials i
-{
-    color: #CCCCCC;
-}
-.member .socials i:hover
-{
-    color: #FFFFFF;
-}
-.member:hover .socials i:hover
-{
+    background-color: #FFFFFF;
     color: #024060;
 }
-.member .profile
+#team h2
 {
-    max-width: 5%;
-    height: auto;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+#team button
+{
+    border: 1px solid;
+    background-color: transparent;
+    color: inherit;
+    padding: 0.3rem 1rem;
+    font-family: 'Montserrat';
+    margin-top: 1rem;
+}
+#team button:hover
+{
+    background-color: #024060;
+    color: #FFFFFF;
+    transition: all 0.2s linear;
+}
+#team button a
+{
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+@media screen and (max-width: 991px)
+{
+    section aside:not(.quote)
+    {
+        width: 70%;
+    }
 }
 @media screen and (max-width: 767px)
 {
+    section aside:not(.quote)
+    {
+        width: 90%;
+    }
     h2
     {
         margin-bottom: 3%;
     }
-    .member
+}
+@media screen and (max-width: 600px)
+{
+    section aside:not(.quote)
     {
-        text-align: center;
+        padding: 5% 1%;
     }
-    .member .col-md-2
+    section h2
     {
-        display: none;
+        font-size: 1.8rem;
     }
-    .member .col-md-2.sm
+    section aside:not(.quote) p
     {
-        display: block;
+        font-size: 1rem;
+        width: 90%;
     }
-    .member .col-md-2.sm img
+}
+@media screen and (max-width: 450px)
+{
+    section aside:not(.quote)
     {
-        margin: 3% 0;
+        width: 100%;
     }
 }
