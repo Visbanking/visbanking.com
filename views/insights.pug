@@ -1,1 +1,16 @@
 extends layout.pug
+
+block meta
+    meta(name="description", content="")
+    meta(name="keywords", content="")
+
+block styles 
+    link(rel="stylesheet", href="/css/insights.css")
+
+block header
+    each post in posts.slice(0, 3)
+        article.post 
+            img(src=post.Image, alt=post.Title)
+            h2 #{post.Title}
+            p.intro #{post.body[0].slice(0, 100)}...
+            a(href=`/insights/article/${post.ID}`) Read more
