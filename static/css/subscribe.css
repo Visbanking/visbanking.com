@@ -5,9 +5,8 @@ header .center p
 }
 #newsletter
 {
-    background-color: #024060;
-    color: #FFFFFF;
     border-bottom: 1px solid;
+    color: #024060;
 }
 h2
 {
@@ -39,8 +38,8 @@ form .col-md-6 input, select
     padding: 0.3rem;
     border: none;
     background: transparent;
-    border-bottom: 1px solid #FFFFFF;
-    color: #FFFFFF;
+    border-bottom: 1px solid #024060;
+    color: #024060;
     transition: all 0.2s linear;
 }
 #emailError, #phoneError, span.required
@@ -50,8 +49,8 @@ form .col-md-6 input, select
 form .col-md-6 input:focus, select:focus
 {
     outline: none;
-    background-color: #FFFFFF;
-    color: #000000;
+    border: 1px solid #024060;
+    box-shadow: 0 0 0.5rem #5795B5;
 }
 form .col-md-6 input:focus
 {
@@ -61,11 +60,7 @@ select
 {
     appearance: none;
     background: url('./svg/chevron-down.svg') right center no-repeat;
-    color: #FFFFFF;
-}
-select:focus
-{
-    color: #000000;
+    color: #024060;
 }
 form input[type="submit"]
 {
@@ -76,11 +71,12 @@ form input[type="submit"]
     font-weight: 600;
     font-family: 'Montserrat';
     font-size: 1.1rem;
+    color: #024060;
 }
 form input[type="submit"]:hover
 {
-    background-color: #FFFFFF;
-    color: #024060;
+    background-color: #024060;
+    color: #FFFFFF;
 }
 @media screen and (max-width: 991px)
 {
