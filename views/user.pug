@@ -24,6 +24,20 @@ block main
             if user===userInfo.Email 
                 a#pass Change Password
             input(type="submit", value="Save")
+    section#account 
+        h2 Your Account
+        if userInfo.Tier === 'Free'
+            .card 
+                .card-header 
+                    h3 Free
+                    p $0. Always
+                .card-body
+        if userInfo.Tier !== 'Free'
+            p Free 
+        if userInfo.Tier !== 'Profesional'
+            p Professional 
+        if userInfo.Tier !== 'Enterprise'
+            p Enterprise
 
 
 block scripts 
