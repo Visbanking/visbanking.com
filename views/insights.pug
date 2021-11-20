@@ -8,7 +8,7 @@ block styles
     link(rel="stylesheet", href="/css/insights.css")
 
 block header
-    each post in posts.slice(0, 3)
+    each post in posts
         article.post 
             img(src=post.Image, alt=post.Title)
             h2 #{post.Title}
