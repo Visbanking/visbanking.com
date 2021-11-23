@@ -4,7 +4,7 @@ require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
 
 router.get("/", async (req, res) => {
-    console.log(req.url);
+    if (!req.query.tier) return res.redirect("/pricing");
 	const prices = await stripe.prices.list({
 		lookup_keys: [req.query.tier],
 		expand: ["data.product"]
