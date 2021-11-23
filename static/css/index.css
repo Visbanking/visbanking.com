@@ -310,6 +310,14 @@ section#reasons .reason#views
 }
 @media screen and (max-width: 700px)
 {
+    section#reasons .reason#banks .text, section#reasons .reason#time .text, section#reasons .reason#records .text, section#reasons .reason#views .text
+    {
+        background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3), transparent);
+    }
+    .reason#banks p.number, .reason#banks p.data, .reason#time p.number, .reason#time p.data, .reason#records p.number, .reason#records p.data, .reason#views p.number, .reason#views p.data
+    {
+        text-align: center;
+    }
     #newsletter aside
     {
         width: 100%;
@@ -354,10 +362,6 @@ section#reasons .reason#views
     #capabilities .indicator .bi-dot
     {
         font-size: 2rem;
-    }
-    section#reasons
-    {
-        padding: 2%;
     }
     section#reasons .row .reason
     {
