@@ -9,7 +9,7 @@ const contact = require("./routing/contact");
 const login = require("./routing/login");
 const user = require("./routing/user");
 const subscribe = require("./routing/subscribe");
-// const buy = require("./routing/buy");
+const buy = require("./routing/buy");
 const privacy = require("./routing/privacy");
 const admin = require("./routing/admin");
 const files = require("./routing/files");
@@ -36,7 +36,7 @@ app.use("/users", user);
 
 app.use("/subscribe", subscribe);
 
-// app.use(buy);
+app.use("/buy", buy);
 
 app.use(privacy);
 
