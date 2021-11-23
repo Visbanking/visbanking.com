@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE);
+const stripe = require("stripe")(process.env.STRIPE_TEST);
 
 router.get("/", async (req, res) => {
     if (!req.query.tier) return res.redirect("/pricing");
@@ -18,18 +18,26 @@ router.get("/", async (req, res) => {
 			},
 		],
 		mode: "subscription",
-		success_url: `${req.protocol}://${req.hostname}/buy/success?session_id={CHECKOUT_SESSION_ID}`,
-		cancel_url: `${req.protocol}://${req.hostname}/buy/failure`,
+		success_url: `${req.protocol}://${req.hostname}:3004/buy/success?tier=${req.query.tier}&session_id={CHECKOUT_SESSION_ID}`,
+		cancel_url: `${req.protocol}://${req.hostname}:3004/buy/failure?tier=${req.query.tier}`,
 	});
 	res.redirect(303, session.url);
 });
 
 router.get("/success", (req, res) => {
-    res.send("Success");
+	res.render("success", {
+		title: "Payment Successful - Visbanking",
+		path: "/buy/success",
+		tier: req.query.tier
+	});
 });
 
 router.get("/failure", (req, res) => {
-    res.send("Failure");
+	res.render("failure", {
+		title: "Payment Failed - Visbanking",
+		path: "/buy/failure",
+		tier: req.query.tier
+	});
 });
 
 module.exports = router;

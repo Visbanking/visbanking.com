@@ -7,8 +7,17 @@ block header
     .center
         i.bi-person-x-fill
         h1 We're sorry
-        p The server couldn't connect to the MailChimp API
-    p You can 
-        span(onclick="window.history.back()") try again
-        |  or go to our 
-        span(onclick="window.location.replace('/')") homepage
+        if path.includes("subscribe")
+            p The server couldn't connect to the MailChimp API
+        else if path.includes("buy")
+            p The payment couldn't be processed
+    if path.includes("subscribe")
+        p You can 
+            span(onclick="window.history.back()") try again
+            |  or go back to our 
+            span(onclick="window.location.replace('/')") homepage
+    else if path.includes("buy")
+        p You can 
+            span(onclick=`window.location.replace('/buy?tier=${tier}')`) try again
+            | or go back to our
+            span(onclick="window.location.replace('/pricing')") pricing page

@@ -23,7 +23,7 @@ router.get("/login", (req, res) => {
             incorrectPassword: logInError,
             emailAfterRedirect,
             usernameError,
-            username: req.cookies.username || ''
+            username: req.cookies.username || '',
         });
     }
 });
@@ -57,6 +57,7 @@ router.get("/signup", (req, res) => {
             title: "Sign Up - Visbanking",
             path: "/signup",
             action: "Sign Up",
+            tier: req.query.tier || 'Free',
             signUpError: signUpError,
             emailError: emailError,
             username: req.cookies.username || ''
@@ -65,7 +66,7 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-    const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex");
+    const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex"), tier = req.body.tier;
     check(email, (err, response) => {
         if (err) {
             console.error(err);
@@ -75,7 +76,7 @@ router.post("/signup", (req, res) => {
             res.redirect("/signup");
         }
         else {
-            connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`, (err, results, fields) => {
+            connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${tier[0].toUpperCase()+tier.slice(1)}');`, (err, results, fields) => {
                 if (err && err.code==='ER_DUP_ENTRY') {
                     emailAfterRedirect = email;
                     if (err.sqlMessage.includes("Email")) {
@@ -88,7 +89,7 @@ router.post("/signup", (req, res) => {
                     connection.query(`SELECT ID FROM Users WHERE Email='${email}';`, (err, results, fields) => {
                         if (err) throw err;
                         const date = new Date();
-                        connection.query(`INSERT INTO Subscriptions (UserID, StartDate, EndDate) VALUES (${results[0].ID}, '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}', '${date.getFullYear()+1}-${date.getMonth()+1}-${date.getDate()}');`, (err, results, fields) => {
+                        connection.query(`INSERT INTO Subscriptions (UserID, StartDate, EndDate) VALUES (${results[0].ID}, '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}', '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}');`, (err, results, fields) => {
                             if (err) {
                                 console.error(err);
                                 res.redirect("/error");
