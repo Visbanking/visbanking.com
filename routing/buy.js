@@ -18,8 +18,8 @@ router.get("/", async (req, res) => {
 			},
 		],
 		mode: "subscription",
-		success_url: `${req.protocol}://${req.hostname}:3004/buy/success?tier=${req.query.tier}&session_id={CHECKOUT_SESSION_ID}`,
-		cancel_url: `${req.protocol}://${req.hostname}:3004/buy/failure?tier=${req.query.tier}`,
+		success_url: `${req.protocol}://${req.hostname}/buy/success?tier=${req.query.tier}&session_id={CHECKOUT_SESSION_ID}`,
+		cancel_url: `${req.protocol}://${req.hostname}/buy/failure?tier=${req.query.tier}`,
 	});
 	res.redirect(303, session.url);
 });
