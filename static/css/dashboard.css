@@ -22,6 +22,17 @@ h2
     background-color: #024060;
     color: #FFFFFF;
 }
+p.message
+{
+    text-align: center;
+    font-family: 'Raleway';
+    font-size: 1.2rem;
+    color: #024060;
+    font-weight: 700;
+    text-decoration: underline;
+    margin: 0 auto;
+    padding: 1% 0;
+}
 #panel
 {
     display: flex;
