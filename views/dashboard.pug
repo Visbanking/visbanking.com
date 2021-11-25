@@ -12,15 +12,73 @@ html(lang="en")
         link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;600&display=swap", rel="stylesheet")
         link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We", crossorigin="anonymous")
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
-        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js", integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj", crossorigin="anonymous")
         link(rel="stylesheet", href="/css/dashboard.css")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js", integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj", crossorigin="anonymous")
+        script(src="https://unpkg.com/vue@next")
     body 
         section.container-fluid#dashboard
             h1 Hello, #{admin.Username}
-            aside.row 
-                h2 What do you want to do today?
-                .col-md-6 
-                    h3 Add new admin
-                    h3 Create new article
-                    h3 Add new team member
+            h2 What do you want to do today?
+            p.message #{message||''}
+            aside#panel
+                div
+                    h3#profile(:class="{ active:profile }", @click="updateProfile") Manage profile information
+                    h3#admins(:class="{ active:admins }", @click="updateAdmins") Manage admins
+                    h3#articles(:class="{ active:articles }", @click="updateInsights") Manage insights
+                    h3#members(:class="{ active:members }", @click="updateMembers") Manage team members
+                div
+                    form.profile(action="/admin/dashboard/profile", method="POST", :class="{ active:profile }")
+                        label(for="username") Username
+                        input#username(type="text", name="username")
+                        label(for="pass") Password
+                        input#pass(type="password", name="pass")
+                        input(type="submit", value="Update profile information")
+                    aside.admins(:class="{ active:admins }")
+                        button Add admin
+                        form(action="/admin/dashboard/admins", method="POST")
+                            label(for="username") Username *
+                            input#username(type="text", name="username", required)
+                            label(for="pass") Password *
+                            input#pass(type="password", name="pass", required)
+                            input(type="submit", name="action", value="Add admin")
+                        button Delete admin
+                        form(action="/admin/dashboard/admins", method="POST")
+                            label(for="username") Username *
+                            input#username(type="text", name="username", required)
+                            input.danger(type="submit", name="action", value="Delete admin") 
+                    aside.articles(:class="{ active:insights }")
+                        button Add new insight 
+                        form(action="/admin/dashboard/insights", method="POST", enctype="multipart/form-data")
+                            label(for="title") Title *
+                            input#title(type="text", name="title", required)
+                            label(for="image") Image *
+                            input#image(type="file", name="image", accept="image/jpeg, image/png", required)
+                            label(for="body") Body *
+                            textarea#body(name="body", rows="5", required)
+                            label(for="topics") Topics *
+                            input#topics(type="text", name="topics", maxlength="300", required)
+                            input(type="submit", name="action", value="Add insight")
+                        button Remove insight 
+                        form(action="/admin/dashboard/articles", method="POST")
+                            label(for="title") Title *
+                            input#title(type="text", name="title", required)
+                            input.danger(type="submit", name="action", value="Delete insight")
+                    aside.members(:class="{ active:members }")
+                        button Add new team member
+                        form(action="/admin/dashboard/members", method="POST", enctype="multipart/form-data")
+                            label(for="name") Name *
+                            input#name(type="text", name="name", required)
+                            label(for="photo") Photo *
+                            input#photo(type="file", name="photo", accept="image/jpeg, image/png", required)
+                            label(for="bio") Bio/Intro *
+                            textarea#bio(name="bio", rows="5", maxlength="50", required)
+                            label(for="linkedin") LinkedIn *
+                            input#linkedin(type="url", name="linkedin", required)
+                            input(type="submit", name="action", value="Add member")
+                        button Remove team member 
+                        form(action="/admin/dashboard/members", method="POST")
+                            label(for="name") Name *
+                            input#name(type="text", name="name", required)
+                            input.danger(type="submit", name="action", value="Delete member")
+        a#logout(href="/admin/logout") LOGOUT
         script(src="/js/dashboard.js") 
