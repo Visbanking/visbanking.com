@@ -24,7 +24,7 @@ html(lang="en")
                 div
                     h3#profile(:class="{ active:profile }", @click="updateProfile") Manage profile information
                     h3#admins(:class="{ active:admins }", @click="updateAdmins") Manage admins
-                    h3#articles(:class="{ active:articles }", @click="updateInsights") Manage insights
+                    h3#articles(:class="{ active:insights }", @click="updateInsights") Manage insights
                     h3#members(:class="{ active:members }", @click="updateMembers") Manage team members
                 div
                     form.profile(action="/admin/dashboard/profile", method="POST", :class="{ active:profile }")
