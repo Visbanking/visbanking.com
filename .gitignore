@@ -1,3 +1,7 @@
 .env
 *.ppk
 *.pem
+static/images/insights/*.jpg
+static/images/insights/*.png
+static/images/members/*.jpg
+static/images/members/*.png
