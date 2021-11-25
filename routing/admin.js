@@ -23,7 +23,7 @@ const insightStorage = multer.diskStorage({
 });
 const memberStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        debug(null, path.join(__dirname, "..", "static", "images", "members"));
+        cb(null, path.join(__dirname, "..", "static", "images", "members"));
     },
     filename: (req, file, cb) => {
         cb(null, `${lodash.camelCase(req.body.name)}.jpg`);
@@ -100,25 +100,69 @@ router.get("/dashboard", (req, res) => {
 });
 
 router.post("/dashboard/profile", (req, res) => {
-    const cb = (err, results, fields) => {
-        if (err) {
-            console.error(err);
-            message = "Profile information couldn't be updated. Please try again.";
-            res.redirect("/admin/dashboard");
-        } else {
-            res.clearCookie("admin");
-            res.redirect("/admin");
-        }
-    }
     if (req.body.username.trim() !== '' && req.body.pass.trim() !== '') {
         const username = req.body.username.trim(), pass = hash.sha512().update(req.body.pass.trim()).digest("hex");
-        connection.query(`UPDATE Admins SET Username = '${username}', Password = '${pass}' WHERE ID = (SELECT ID FROM Admins WHERE Username = '${req.cookies.admin}');`, cb(err, results, fields));
+        connection.query(`SELECT ID FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                message = "Profile information couldn't be updated. Please try again.";
+                res.redirect("/admin/dashboard");
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Admins SET Username = '${username}', Password = '${pass}' WHERE ID = '${id}';`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        message = "Profile information couldn't be updated. Please try again.";
+                        res.redirect("/admin/dashboard");
+                    } else {
+                        res.clearCookie("admin");
+                        res.redirect("/admin");
+                    }
+                });
+            }
+        });
     } else if (req.body.pass.trim() !== '') {
         const pass = hash.sha512().update(req.body.pass.trim()).digest("hex");
-        connection.query(`UPDATE Admins SET Password = '${pass}' WHERE ID = (SELECT ID FROM Admins WHERE Username = '${req.cookies.admin}');`, cb(err, results, fields));
+        connection.query(`SELECT ID FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                message = "Profile information couldn't be updated. Please try again.";
+                res.redirect("/admin/dashboard");
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Admins SET Password = '${pass}' WHERE ID = '${id}';`, (err, results, fields) => {
+                if (err) {
+                    console.error(err);
+                    message = "Profile information couldn't be updated. Please try again.";
+                    res.redirect("/admin/dashboard");
+                } else {
+                    res.clearCookie("admin");
+                    res.redirect("/admin");
+                }
+            });
+            }
+        });
     } else if (req.body.username.trim() !== '') {
         const username = req.body.username.trim();
-        connection.query(`UPDATE Admins SET Username = '${username}' WHERE ID = (SELECT ID FROM Admins WHERE Username = '${req.cookies.admin}');`, cb(err, results, fields));
+        connection.query(`SELECT ID FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                message = "Profile information couldn't be updated. Please try again.";
+                res.redirect("/admin/dashboard");
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Admins SET Username = '${username}' WHERE ID = '${id}';`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        message = "Profile information couldn't be updated. Please try again.";
+                        res.redirect("/admin/dashboard");
+                    } else {
+                        res.clearCookie("admin");
+                        res.redirect("/admin");
+                    }
+                });
+            }
+        });
     }
 });
 
