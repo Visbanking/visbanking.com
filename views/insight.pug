@@ -1,0 +1,21 @@
+extends layout.pug
+
+block meta
+    meta(name="description", content=post.Body.slice(0, 100))
+    meta(name="keywords", content=post.Topics)
+
+block styles
+    link(rel="stylesheet", href="/css/insight.css")
+
+block main
+    article 
+        h1 #{post.Title}
+        p.date #{new Date(post.Date).toDateString()}
+        img(src=post.Image, alt=post.Title)
+        p.topics Topics: #{post.Topics.split(", ").slice(0, 5)}
+        main 
+            each par in post.Body
+                p #{par}
+
+block scripts 
+    script(src="/js/insight.js") 
