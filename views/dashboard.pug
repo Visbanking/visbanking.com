@@ -59,7 +59,7 @@ html(lang="en")
                             input#topics(type="text", name="topics", maxlength="300", required)
                             input(type="submit", name="action", value="Add insight")
                         button Remove insight 
-                        form(action="/admin/dashboard/articles", method="POST")
+                        form(action="/admin/dashboard/insights", method="POST")
                             label(for="title") Title *
                             input#title(type="text", name="title", required)
                             input.danger(type="submit", name="action", value="Delete insight")
@@ -71,7 +71,7 @@ html(lang="en")
                             label(for="photo") Photo *
                             input#photo(type="file", name="photo", accept="image/jpeg, image/png", required)
                             label(for="bio") Bio/Intro *
-                            textarea#bio(name="bio", rows="5", maxlength="50", required)
+                            textarea#bio(name="bio", rows="5", maxlength="250", required)
                             label(for="linkedin") LinkedIn *
                             input#linkedin(type="url", name="linkedin", required)
                             input(type="submit", name="action", value="Add member")
