@@ -57,6 +57,10 @@ h3
     border-bottom: 1px solid;
     margin: 0 auto;
 }
+h3:last-of-type
+{
+    border: none;
+}
 h3.active, #panel div:last-of-type form.active
 {
     background-color: #024060;

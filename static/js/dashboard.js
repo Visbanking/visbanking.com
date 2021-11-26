@@ -33,3 +33,7 @@ document.querySelectorAll("#panel div:last-of-type aside button").forEach(button
         button.nextElementSibling.classList.toggle("active");
     });
 });
+
+setTimeout(() => {
+    document.querySelector("p.message").innerHTML = '';
+}, 10000);
