@@ -28,6 +28,7 @@ main a
     text-decoration: none;
     color: #024060;
     transition: box-shadow 0.2s linear;
+    height: 35vh;
 }
 main a:hover
 {
@@ -39,18 +40,14 @@ main article.post img
     max-width: 100%;
     margin-bottom: 5%;
 }
-.post .intro
+.post .date
 {
-    margin-bottom: 0;
-    font-size: 1.1rem;
+    font-family: 'Raleway';
+    font-size: 0.9rem;
 }
-.post .intro a
+h2, .post .date
 {
-    color: inherit;
-}
-.post > a
-{
-    font-size: 0.95rem;
+    margin: 0 5%;
 }
 @media screen and (max-width: 991px)
 {
