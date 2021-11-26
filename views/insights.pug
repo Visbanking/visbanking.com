@@ -13,8 +13,8 @@ block main
         article.post(id=post.ID)
             img(src=post.Image, alt=post.Title)
             h2 #{post.Title}
-            p.intro #{post.Body.slice(0, 100)}
-            a(href=`/insights/insight/${post.ID}`) Read more...
+            p.intro #{post.Body.slice(0, 100)}...
+            a(href=`/insights/insight/${post.ID}`) Read more
 
 block scripts 
     script(src="/js/insights.js") 
