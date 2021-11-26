@@ -12,9 +12,12 @@ block main
     each post in posts
         a(href=`/insights/insight/${post.ID}`)
             article.post(id=post.ID)
-                img(src=post.Image, alt=post.Title)
+                div 
+                    img(src=post.Image, alt=post.Title)
+                p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
                 h3 #{post.Title}
                 p.date #{post.Date.toDateString()}
+    h2 
 
 block scripts 
     script(src="/js/insights.js") 
