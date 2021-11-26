@@ -14,6 +14,7 @@ block main
             article.post(id=post.ID)
                 img(src=post.Image, alt=post.Title)
                 h2 #{post.Title}
+                p.date #{post.Date.toDateString()}
 
 block scripts 
     script(src="/js/insights.js") 
