@@ -1,0 +1,96 @@
+header
+{
+    min-height: auto;
+}
+main
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+h1
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 2%;
+}
+main article.post
+{
+    width: 25%;
+    border: 1px solid #024060;
+    padding: 2%;
+    margin: 2%;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+main article.post:hover
+{
+    background-color: #024060;
+    color: #FFFFFF;
+}
+main article.post:hover > a
+{
+    color: #CCCCCC;
+}
+main article.post img
+{
+    max-width: 100%;
+    margin-bottom: 5%;
+}
+.post .intro
+{
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+.post .intro a
+{
+    color: inherit;
+}
+.post > a
+{
+    font-size: 0.95rem;
+}
+@media screen and (max-width: 991px)
+{
+    main article.post
+    {
+        width: 40%;
+        padding: 3%;
+    }
+}
+@media screen and (max-width: 700px)
+{
+    main article.post
+    {
+        width: 60%;
+    }
+    h2
+    {
+        font-size: 1.5rem;
+    }
+    .post .intro
+    {
+        font-size: 1rem;
+    }
+    .post > a
+    {
+        font-size: 0.9rem;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    main article.post
+    {
+        width: 75%;
+        padding: 5%;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    main article.post
+    {
+        width: 90%;
+    }
+}
