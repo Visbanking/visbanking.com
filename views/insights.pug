@@ -10,11 +10,10 @@ block styles
 block main
     h1 Insights
     each post in posts
-        article.post(id=post.ID)
-            img(src=post.Image, alt=post.Title)
-            h2 #{post.Title}
-            p.intro #{post.Body.slice(0, 100)}...
-            a(href=`/insights/insight/${post.ID}`) Read more
+        a(href=`/insights/insight/${post.ID}`)
+            article.post(id=post.ID)
+                img(src=post.Image, alt=post.Title)
+                h2 #{post.Title}
 
 block scripts 
     script(src="/js/insights.js") 
