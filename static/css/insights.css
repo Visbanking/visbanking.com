@@ -45,6 +45,12 @@ main article.post img
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+h3
+{
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 1.8rem;
+}
 .post .date
 {
     font-family: 'Raleway';
@@ -52,7 +58,7 @@ main article.post img
     position: absolute;
     bottom: 3%;
 }
-h2, .post .date
+h3, .post .date
 {
     margin: 0 5%;
 }
@@ -69,7 +75,7 @@ h2, .post .date
     {
         width: 40%;
     }
-    h2
+    h3
     {
         font-size: 1.5rem;
     }
