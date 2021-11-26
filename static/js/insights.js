@@ -1,6 +1,6 @@
 document.querySelectorAll("article.post").forEach(post => {
     post.addEventListener("click", () => {
-        document.querySelector(`.post#${post.id} > a`).click();
+        post.children[post.children.length-1].click();
     });
 });
 
