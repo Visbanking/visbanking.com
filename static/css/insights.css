@@ -32,7 +32,7 @@ main a
 main a:hover
 {
     color: #024060;
-    box-shadow: 0 0 2rem #000000;
+    box-shadow: 0 0 1.5rem #000000;
 }
 main article.post img
 {
