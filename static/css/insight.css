@@ -32,4 +32,46 @@ article main
 {
     margin: 2% auto;
     font-size: 1.3rem;
+    font-family: 'Montserrat';
+}
+@media screen and (max-width: 991px)
+{
+    article
+    {
+        width: 75%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    article
+    {
+        text-align: justify;
+    }
+    h1
+    {
+        font-size: 2rem;
+    }
+    article main
+    {
+        font-size: 1.2rem;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    article
+    {
+        width: 90%;
+    }
+    h1
+    {
+        font-size: 1.8rem;
+    }
+    .date, .topics
+    {
+        font-size: 0.9rem;
+    }
+    article main
+    {
+        font-size: 1.1rem;
+    }
 }
