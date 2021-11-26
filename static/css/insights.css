@@ -23,7 +23,7 @@ main a
     margin: 2% 1%;
     cursor: pointer;
     transition: all 0.2s linear;
-    box-shadow: 0 0 1.5rem #555555;
+    box-shadow: 0 0 1.5rem #777777;
     border-radius: 10px;
     text-decoration: none;
     color: #024060;
@@ -32,7 +32,7 @@ main a
 main a:hover
 {
     color: #024060;
-    box-shadow: 0 0 1.5rem #000000;
+    box-shadow: 0 0 2rem #000000;
 }
 main article.post img
 {
