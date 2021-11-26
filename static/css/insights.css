@@ -16,24 +16,17 @@ h1
     text-align: center;
     margin-top: 2%;
 }
-main article.post
+main a
 {
-    width: 25%;
+    width: 20%;
     border: 1px solid #024060;
     margin: 2% 1%;
     cursor: pointer;
     transition: all 0.2s linear;
     box-shadow: 0 0 1.5rem #555555;
     border-radius: 10px;
-}
-main article.post:hover
-{
-    background-color: #024060;
-    color: #FFFFFF;
-}
-main article.post:hover > a
-{
-    color: #CCCCCC;
+    text-decoration: none;
+    color: #024060;
 }
 main article.post img
 {
@@ -55,43 +48,33 @@ main article.post img
 }
 @media screen and (max-width: 991px)
 {
-    main article.post
+    main a
     {
-        width: 40%;
-        padding: 3%;
+        width: 30%;
     }
 }
 @media screen and (max-width: 700px)
 {
-    main article.post
+    main a
     {
-        width: 60%;
+        width: 40%;
     }
     h2
     {
         font-size: 1.5rem;
     }
-    .post .intro
-    {
-        font-size: 1rem;
-    }
-    .post > a
-    {
-        font-size: 0.9rem;
-    }
 }
 @media screen and (max-width: 550px)
 {
-    main article.post
+    main a
     {
-        width: 75%;
-        padding: 5%;
+        width: 50%;
     }
 }
 @media screen and (max-width: 400px)
 {
-    main article.post
+    main a
     {
-        width: 90%;
+        width: 70%;
     }
 }
