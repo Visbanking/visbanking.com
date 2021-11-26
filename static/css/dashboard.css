@@ -136,11 +136,12 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
     right: 0;
     padding: 0.2rem 0.5rem;
     color: #AA0000;
+    background-color: #FFFFFF;
     border: 1px solid;
     text-decoration: none;
     font-weight: 700;
 }
-#logout:hover, #logout:focus, form input.danger.focus, form input.danger:hover
+#logout:hover, #logout:focus, form input.danger:focus, form input.danger:hover
 {
     background-color: #AA0000;
     color: #FFFFFF;
