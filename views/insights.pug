@@ -13,7 +13,7 @@ block main
         article.post(id=post.ID)
             img(src=post.Image, alt=post.Title)
             h2 #{post.Title}
-            p.intro #{post.Body.slice(0, 100)}...
+            p.intro #{post.Body.slice(0, 150)}...
             a(href=`/insights/insight/${post.ID}`) Read more
 
 block scripts 
