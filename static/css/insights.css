@@ -24,6 +24,7 @@ main article.post
     cursor: pointer;
     transition: all 0.2s linear;
     box-shadow: 0 0 1.5rem #555555;
+    border-radius: 10px;
 }
 main article.post:hover
 {
