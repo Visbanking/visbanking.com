@@ -19,7 +19,7 @@ h1
 main a
 {
     width: 20%;
-    border: 1px solid #024060;
+    border: 1px solid;
     margin: 2% 1%;
     cursor: pointer;
     transition: all 0.2s linear;
@@ -27,6 +27,12 @@ main a
     border-radius: 10px;
     text-decoration: none;
     color: #024060;
+    transition: box-shadow 0.2s linear;
+}
+main a:hover
+{
+    color: #024060;
+    box-shadow: #000000;
 }
 main article.post img
 {
