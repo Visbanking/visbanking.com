@@ -2,13 +2,14 @@ header
 {
     min-height: auto;
 }
-main
+main > section
 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    min-height: auto;
     padding: 0 3% 1%;
 }
 h1
@@ -17,11 +18,11 @@ h1
     text-align: center;
     margin-top: 2%;
 }
-main a
+section > a
 {
     width: 18%;
     border: 1px solid;
-    margin: 2% 1%;
+    margin: 2% 2% 2% 0;
     cursor: pointer;
     transition: all 0.2s linear;
     box-shadow: 0 0 1.5rem transparent;
@@ -32,12 +33,12 @@ main a
     height: 40vh;
     position: relative;
 }
-main a:hover
+section a:hover
 {
     color: #024060;
     box-shadow: 0 0 1rem #024060;
 }
-main article.post > div
+article.post > div
 {
     border-bottom: 1px solid #024060;
     border-top-left-radius: 10px;
@@ -46,7 +47,7 @@ main article.post > div
     text-align: center;
     margin-bottom: 3%;
 }
-main article.post img
+article.post img
 {
     max-width: 100%;
     height: 20vh;
@@ -78,16 +79,42 @@ h3
 {
     margin: 0 5%;
 }
+section#latest > button
+{
+    border: 1px solid;
+    border-radius: 15px;
+    color: #024060;
+    background-color: #FFFFFF;
+    margin-right: 0.5rem;
+    font-family: 'Quicksand';
+    padding: 0.2rem 0.8rem;
+}
+section#latest > button.active
+{
+    font-weight: 600;
+    background: #024060;
+    color: #FFFFFF;
+}
+section#latest > button:last-of-type
+{
+    margin-right: 0;
+}
+.articles
+{
+    width: 100%;
+    margin-top: 1%;
+    display: flex;
+}
 @media screen and (max-width: 991px)
 {
-    main a
+    article.post a
     {
         width: 30%;
     }
 }
 @media screen and (max-width: 700px)
 {
-    main a
+    article.post a
     {
         width: 40%;
     }
@@ -98,11 +125,11 @@ h3
 }
 @media screen and (max-width: 550px)
 {
-    main
+    section#top
     {
         justify-content: center;
     }
-    main a
+    article.post a
     {
         width: 45%;
         margin: 2%;
@@ -110,28 +137,28 @@ h3
 }
 @media screen and (max-width: 450px)
 {
-    main a
+    article.post a
     {
         width: 55%;
     }
 }
 @media screen and (max-width: 400px)
 {
-    main a
+    article.post a
     {
         width: 65%;
     }
 }
 @media screen and (max-width: 350px)
 {
-    main a
+    article.post a
     {
         width: 75%;
     }
 }
 @media screen and (max-width: 300px)
 {
-    main a
+    article.post a
     {
         width: 90%;
     }

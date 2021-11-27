@@ -9,15 +9,31 @@ block styles
 
 block main
     h1 Insights
-    each post in posts
-        a(href=`/insights/insight/${post.ID}`)
-            article.post(id=post.ID)
-                div 
-                    img(src=post.Image, alt=post.Title)
-                p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
-                h3 #{post.Title}
-                p.date #{post.Date.toDateString()}
-    h2 
+    section#top
+        each post in posts
+            a(href=`/insights/insight/${post.ID}`)
+                article.post(id=post.ID)
+                    div 
+                        img(src=post.Image, alt=post.Title)
+                    p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
+                    h3 #{post.Title}
+                    p.date #{post.Date.toDateString()}
+    section#latest
+        button(:class="{ active:business }", @click="showBusiness") Business
+        button(:class="{ active:banks }", @click="showBanks") Banks
+        button(:class="{ active:financial }", @click="showFinancial") Financial
+        button(:class="{ active:market }", @click="showMarket") Market
+        button(:class="{ active:politics }", @click="showPolitics") Politics
+        aside.articles(v-if="business")
+            h2 Business articles
+        aside.articles(v-if="banks")
+            h2 Banks articles
+        aside.articles(v-if="financial")
+            h2 Financial articles
+        aside.articles(v-if="market")
+            h2 Market articles
+        aside.articles(v-if="politics")
+            h2 Politics articles
 
 block scripts 
     script(src="/js/insights.js") 
