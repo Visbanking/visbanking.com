@@ -10,7 +10,11 @@ main > section
     justify-content: flex-start;
     align-items: flex-start;
     min-height: auto;
-    padding: 0 3% 1%;
+    padding: 0 3%;
+}
+main > section:not(#top)
+{
+    padding-bottom: 1%;
 }
 h1
 {
@@ -18,7 +22,7 @@ h1
     text-align: center;
     margin-top: 2%;
 }
-section > a
+section  a
 {
     width: 18%;
     border: 1px solid;
@@ -79,6 +83,11 @@ h3
 {
     margin: 0 5%;
 }
+h2
+{
+    width: 100%;
+    margin-bottom: 1%;
+}
 section#latest > button
 {
     border: 1px solid;
@@ -102,8 +111,15 @@ section#latest > button:last-of-type
 .articles
 {
     width: 100%;
-    margin-top: 1%;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.articles > a
+{
+    margin-top: 0;
 }
 @media screen and (max-width: 991px)
 {
