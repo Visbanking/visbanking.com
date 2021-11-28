@@ -27,11 +27,15 @@ Vue.createApp({
     }
 }).mount("#panel");
 
-document.querySelectorAll("#panel div:last-of-type aside button").forEach(button => {
+document.querySelectorAll("#panel div:last-of-type aside button:not(aside.articles button:first-of-type)").forEach(button => {
     button.addEventListener("click", () => {
         button.classList.toggle("active");
         button.nextElementSibling.classList.toggle("active");
     });
+});
+
+document.querySelector("aside.articles button:first-of-type").addEventListener("click", () => {
+    document.querySelector("aside.articles button:first-of-type a").click();
 });
 
 setTimeout(() => {

@@ -204,6 +204,21 @@ router.post("/dashboard/admins", (req, res) => {
     }
 });
 
+router.get("/dashboard/insights", (req, res) => {
+    if (req.cookies.admin) {
+        connection.query(`SELECT COUNT(*) FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } else if (results[0]["COUNT(*)"] !== 0) {
+                res.render("create");
+            }
+        });
+    } else {
+        res.redirect("/admin");
+    }
+});
+
 router.post("/dashboard/insights", insight.single('image'), (req, res) => {
     const action = req.body.action;
     if (action === "Add insight") {

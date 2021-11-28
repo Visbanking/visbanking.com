@@ -47,17 +47,8 @@ html(lang="en")
                             input#username(type="text", name="username", required)
                             input.danger(type="submit", name="action", value="Delete admin") 
                     aside.articles(:class="{ active:insights }")
-                        button Add new insight 
-                        form(action="/admin/dashboard/insights", method="POST", enctype="multipart/form-data")
-                            label(for="title") Title *
-                            input#title(type="text", name="title", required)
-                            label(for="image") Image *
-                            input#image(type="file", name="image", accept="image/jpeg, image/png", required)
-                            label(for="body") Body *
-                            textarea#body(name="body", rows="5", required)
-                            label(for="topics") Topics *
-                            input#topics(type="text", name="topics", maxlength="300", required)
-                            input(type="submit", name="action", value="Add insight")
+                        button 
+                            a(href="/admin/dashboard/insights") Add new insight
                         button Remove insight 
                         form(action="/admin/dashboard/insights", method="POST")
                             label(for="title") Title *
