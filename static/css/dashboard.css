@@ -112,6 +112,11 @@ form input, form textarea
     border: none;
     border-bottom: 1px solid;
 }
+form textarea
+{
+    text-align: left;
+    width: 75%;
+}
 form input:focus, form textarea:focus
 {
     border: 1px solid;
