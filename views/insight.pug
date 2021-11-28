@@ -15,7 +15,7 @@ block main
         p.topics Topics: #{`${post.Topics.slice(0, 5)}`}
         main 
             each par in post.Body
-                p #{par}
+                div #{par}
 
 block scripts 
     script(src="/js/insight.js") 
