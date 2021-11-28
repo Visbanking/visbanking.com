@@ -7,6 +7,7 @@ const lodash = require("lodash");
 const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+const marked = require("marked");
 const router = Router();
 
 router.use(bodyParser.urlencoded({extended: true}));
@@ -206,7 +207,7 @@ router.post("/dashboard/admins", (req, res) => {
 router.post("/dashboard/insights", insight.single('image'), (req, res) => {
     const action = req.body.action;
     if (action === "Add insight") {
-        connection.query(`INSERT INTO Insights VALUES ('${uuidv4()}', '${req.body.title}', '${req.body.body}', '/images/insights/${req.file.filename}', '${req.body.topics}', '${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}');`, (err, results, fields) => {
+        connection.query(`INSERT INTO Insights VALUES ('${uuidv4()}', '${req.body.title}', '${marked(req.body.body)}', '/images/insights/${req.file.filename}', '${req.body.topics}', '${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}', 0);`, (err, results, fields) => {
             if (err) {
                 console.error(err);
                 message = "Insight couldn't be created. Please try again.";
