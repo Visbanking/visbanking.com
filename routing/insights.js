@@ -54,7 +54,7 @@ router.get("/insight/:article_id", (req, res) => {
             });
             const body = [], topics = [];
             results[0].Body.split("  ").forEach(par => {
-                body.push(`<p>${par}</p>`);
+                body.push(par);
             });
             results[0].Topics.split(",").forEach(topic => {
                 topics.push(lodash.capitalize(topic.trim()));
