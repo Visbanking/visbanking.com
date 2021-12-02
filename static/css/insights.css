@@ -127,9 +127,9 @@ section#latest > button:last-of-type
 }
 @media screen and (max-width: 991px)
 {
-    article.post a
+    section a
     {
-        width: 30%;
+        width: calc(100%/2);
     }
 }
 @media screen and (max-width: 700px)
