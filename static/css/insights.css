@@ -129,7 +129,7 @@ section#latest > button:last-of-type
 {
     section a
     {
-        width: calc(100%/2);
+        width: calc(100%/3);
     }
 }
 @media screen and (max-width: 700px)
