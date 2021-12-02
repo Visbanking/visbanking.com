@@ -56,15 +56,12 @@ router.get("/insight/:article_id", (req, res) => {
             results[0].Body.split("  ").forEach(par => {
                 body.push(par);
             });
-            results[0].Topics.split(",").forEach(topic => {
-                topics.push(lodash.capitalize(topic.trim()));
-            });
             const post = {
                 Title: results[0].Title,
                 Body: body,
                 Image: results[0].Image,
                 Date: results[0].Date,
-                Topics: topics
+                Topics: results[0].Topics
             }
             res.render("insight", {
                 title: results[0].Title,

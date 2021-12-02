@@ -54,7 +54,6 @@ article.post > div
 article.post img
 {
     max-width: 100%;
-    height: 20vh;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     object-fit: cover;
@@ -116,6 +115,7 @@ section#latest > button:last-of-type
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
+    padding-top: 2%;
 }
 .articles > a
 {

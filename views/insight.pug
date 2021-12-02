@@ -12,7 +12,7 @@ block main
         h1 #{post.Title}
         p.date #{new Date(post.Date).toDateString()}
         img(src=post.Image, alt=post.Title)
-        p.topics Topics: #{`${post.Topics.slice(0, 5)}`}
+        p.topics Topics: #{`${post.Topics}`}
         main 
             each par in post.Body
                 div #{par}
