@@ -34,6 +34,10 @@ article main
     font-size: 1.3rem;
     font-family: 'Montserrat';
 }
+h2
+{
+    margin: 5% 0;
+}
 @media screen and (max-width: 991px)
 {
     article
