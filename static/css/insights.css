@@ -24,7 +24,7 @@ h1
 }
 section a
 {
-    width: calc(100%/3);
+    width: calc(100%/5);
     border: 1px solid;
     margin: 2% 2% 2% 0;
     cursor: pointer;
@@ -34,7 +34,7 @@ section a
     text-decoration: none;
     color: #024060;
     transition: box-shadow 0.2s linear;
-    height: 40vh;
+    height: 60vh;
     position: relative;
 }
 section a:hover
