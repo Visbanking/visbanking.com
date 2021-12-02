@@ -22,6 +22,11 @@ app.use(favicon(path.join(__dirname, "favicon.ico")));
 app.use(cors());
 app.set("view engine", "pug");
 
+app.use((req, res, next) => {
+    res.removeHeader('X-Powered-By');
+    next();
+});
+
 app.use(routes);
 
 app.use("/about", about);

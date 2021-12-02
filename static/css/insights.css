@@ -7,7 +7,7 @@ main > section
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: flex-start;
     min-height: auto;
     padding: 0 3%;
@@ -146,10 +146,10 @@ section#latest > button:last-of-type
 }
 @media screen and (max-width: 550px)
 {
-    section#top
+    /* section#top
     {
         justify-content: center;
-    }
+    } */
     section a
     {
         width: 70%;
