@@ -87,6 +87,10 @@ h2
     width: 100%;
     margin-bottom: 1%;
 }
+section#latest
+{
+    justify-content: flex-start;
+}
 section#latest > button
 {
     border: 1px solid;
