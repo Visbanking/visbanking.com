@@ -31,7 +31,7 @@ block main
                     article.post(id=post.ID)
                         div 
                             img(src=post.Image, alt=post.Title)
-                        p.topics Business
+                        p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
                         h3 #{post.Title}
                         p.date #{post.Date.toDateString()}
         aside.articles(v-if="banks")
@@ -40,7 +40,7 @@ block main
                     article.post(id=post.ID)
                         div 
                             img(src=post.Image, alt=post.Title)
-                        p.topics Banks
+                        p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
                         h3 #{post.Title}
                         p.date #{post.Date.toDateString()}
         aside.articles(v-if="financial")
@@ -49,7 +49,7 @@ block main
                     article.post(id=post.ID)
                         div 
                             img(src=post.Image, alt=post.Title)
-                        p.topics Financial
+                        p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
                         h3 #{post.Title}
                         p.date #{post.Date.toDateString()}
         aside.articles(v-if="market")
@@ -58,7 +58,7 @@ block main
                     article.post(id=post.ID)
                         div 
                             img(src=post.Image, alt=post.Title)
-                        p.topics Market
+                        p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
                         h3 #{post.Title}
                         p.date #{post.Date.toDateString()}
         aside.articles(v-if="politics")
@@ -67,7 +67,7 @@ block main
                     article.post(id=post.ID)
                         div 
                             img(src=post.Image, alt=post.Title)
-                        p.topics Politics
+                        p.topics #{post.Topics.split(",")[0][0].toUpperCase()+post.Topics.split(",")[0].slice(1)}
                         h3 #{post.Title}
                         p.date #{post.Date.toDateString()}
 
