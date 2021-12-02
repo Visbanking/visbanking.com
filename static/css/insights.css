@@ -134,9 +134,10 @@ section#latest > button:last-of-type
 }
 @media screen and (max-width: 700px)
 {
-    article.post a
+    section a
     {
-        width: 40%;
+        width: calc(100%/2);
+        margin-right: 1%;
     }
     h3
     {
