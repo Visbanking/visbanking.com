@@ -30,7 +30,7 @@ nav.navbar button.navbar-toggler:focus
 }
 nav.navbar-dark .navbar-nav a.nav-link
 {
-    font-family: 'Quicksand';
+    font-family: 'Raleway';
     font-weight: 400;
     font-size: 1.1rem;
     color: #DDDDDD;
@@ -167,6 +167,10 @@ footer .socials a
     nav.navbar .navbar-nav
     {
         padding-right: 2%;
+    }
+    nav.navbar .navbar-nav li.nav-item:first-of-type
+    {
+        margin-top: 1%;
     }
     nav.navbar .navbar-nav li.nav-item:last-of-type
     {
