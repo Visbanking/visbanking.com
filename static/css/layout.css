@@ -34,7 +34,6 @@ nav.navbar-dark .navbar-nav a.nav-link
     font-weight: 400;
     font-size: 1.1rem;
     color: #DDDDDD;
-    text-transform: uppercase;
     transition: color 0.2s linear, font-weight 0.2s linear;
 }
 nav.navbar-dark .navbar-nav a.nav-link:hover
