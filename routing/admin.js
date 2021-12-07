@@ -34,6 +34,17 @@ const memberStorage = multer.diskStorage({
 const insight = multer({ storage:insightStorage });
 const member = multer({ storage:memberStorage });
 
+router.use((req, res, next) => {
+    const userAgent = req.headers["user-agent"];
+    if (userAgent.includes("Android") || userAgent.includes("iPhone") || userAgent.includes("iPad"))
+    {
+        return res.render("redirect", {
+            title: 'Page Unavailable'
+        });
+    }
+    next();
+});
+
 router.all("/", (req, res) => {
     res.redirect("/admin/login");
 });
@@ -258,7 +269,8 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
 router.post("/dashboard/members", member.single('photo'), (req, res) => {
     const action = req.body.action;
     if (action === "Add member") {
-        connection.query(`INSERT INTO Members (Name, Photo, Bio, LinkedIn) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.bio}', '${req.body.linkedin}');`, (err, results, fields) => {
+        console.log(req.file);
+        connection.query(`INSERT INTO Members (Name, Photo, Bio, LinkedIn, Title, Website) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.bio}', '${req.body.linkedin}', '${req.body.title}', '${req.body.website||null}');`, (err, results, fields) => {
             if (err) {
                 console.error(err);
                 message = "Member couldn't be created. Please try again.";
