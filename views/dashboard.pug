@@ -61,10 +61,20 @@ html(lang="en")
                             input#name(type="text", name="name", required)
                             label(for="photo") Photo *
                             input#photo(type="file", name="photo", accept="image/jpeg, image/png", required)
+                            label(for="title") Title *
+                            input#title(type="text", name="title", maxlength="100", required)
                             label(for="bio") Bio/Intro *
                             textarea#bio(name="bio", rows="5", maxlength="250", required)
+                            label(for="department") Department *
+                            select#department(name="department") 
+                                option(value="Leadership") Leadership
+                                option(value="Administrative") Administrative
+                                option(value="Software") Software
+                                option(value="Marketing") Marketing
                             label(for="linkedin") LinkedIn *
                             input#linkedin(type="url", name="linkedin", required)
+                            label(for="website") Website 
+                            input#website(type="url", name="website")
                             input(type="submit", name="action", value="Add member")
                         button Remove team member 
                         form(action="/admin/dashboard/members", method="POST")
