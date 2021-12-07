@@ -117,11 +117,6 @@ form input, form select
     border: none;
     border-bottom: 1px solid;
 }
-form select
-{
-    text-align: left;
-    width: 75%;
-}
 form input:focus, form select:focus
 {
     border: 1px solid;
