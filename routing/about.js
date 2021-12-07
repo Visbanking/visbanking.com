@@ -1,4 +1,5 @@
 const express = require("express");
+const connection = require("./dbconnection");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -9,9 +10,17 @@ router.get("/", (req, res) => {
 });
 
 router.get("/team", (req, res) => {
-    res.render("team", {
-        title: "Our Team - Visbanking",
-        path: "/about/team"
+    connection.query('SELECT * FROM Members;', (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        } else {
+            res.render("team", {
+                title: "Our Team - Visbanking",
+                path: "/about/team",
+                members: results
+            });
+        }
     });
 });
 
