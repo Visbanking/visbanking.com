@@ -24,6 +24,12 @@ block header
                 img(src=member.Photo, alt=member.Name)
                 h3 #{member.Name}
                 p.title #{member.Title}
+                p.links 
+                    a(href=member.LinkedIn, target="_blank", rel="noreferrer noopener nofollow", title="LinkedIn")
+                        i.bi-linkedin 
+                    if member.Website 
+                        a(href=member.Website, target="_blank", rel="noreferrer noopener nofollow", title="Website")
+                            i.bi-globe
     section#marketing 
         h2 Marketing and Sales
         each member in members.filter(member => member.Department === "Marketing")
@@ -32,7 +38,7 @@ block header
                 h3 #{member.Name}
                 p.title #{member.Title}
     section#administrative 
-        h2 MAdministrative
+        h2 Administrative
         each member in members.filter(member => member.Department === "Administrative")
             aside.member
                 img(src=member.Photo, alt=member.Name)
