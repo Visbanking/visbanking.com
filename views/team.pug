@@ -8,3 +8,33 @@ block styles
     link(rel="stylesheet", href="/css/team.css")
 
 block header
+    h1 Our Team
+    p Based in Bogotá, Colombia, our team is composed of data scientists, engineers, marketing and operations professionals.
+    section#leadership 
+        h2 Leadership
+        each member in members.filter(member => member.Department === "Leadership")
+            aside.member
+                img(src=member.Photo, alt=member.Name)
+                h3 #{member.Name}
+                p.title #{member.Title}
+    section#software
+        h2 Software
+        each member in members.filter(member => member.Department === "Software")
+            aside.member
+                img(src=member.Photo, alt=member.Name)
+                h3 #{member.Name}
+                p.title #{member.Title}
+    section#marketing 
+        h2 Marketing and Sales
+        each member in members.filter(member => member.Department === "Marketing")
+            aside.member
+                img(src=member.Photo, alt=member.Name)
+                h3 #{member.Name}
+                p.title #{member.Title}
+    section#administrative 
+        h2 MAdministrative
+        each member in members.filter(member => member.Department === "Administrative")
+            aside.member
+                img(src=member.Photo, alt=member.Name)
+                h3 #{member.Name}
+                p.title #{member.Title}
