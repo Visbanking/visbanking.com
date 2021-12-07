@@ -275,7 +275,7 @@ router.post("/dashboard/members", member.single('photo'), (req, res) => {
     const action = req.body.action;
     if (action === "Add member") {
         console.log(req.file);
-        connection.query(`INSERT INTO Members (Name, Photo, Bio, LinkedIn, Title, Website) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.bio}', '${req.body.linkedin}', '${req.body.title}', '${req.body.website||null}');`, (err, results, fields) => {
+        connection.query(`INSERT INTO Members (Name, Photo, Bio, LinkedIn, Title, Website, Department) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.bio}', '${req.body.linkedin}', '${req.body.title}', '${req.body.website||null}', '${req.body.department}');`, (err, results, fields) => {
             if (err) {
                 console.error(err);
                 message = "Member couldn't be created. Please try again.";
