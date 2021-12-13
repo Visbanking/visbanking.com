@@ -9,7 +9,7 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const marked = require("marked");
 const tinify = require("tinify");
-const { check } = require("email-existence");
+const fs = require("fs");
 require("dotenv").config();
 const router = Router();
 
@@ -290,44 +290,41 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
 router.post("/dashboard/members", member.single('photo'), (req, res) => {
     const action = req.body.action;
     if (action === "Add member") {
-        check(`${req.body.email}@birddogpartners.com`, (err, response) => {
+        connection.query(`INSERT INTO Members (Name, Photo, LinkedIn, Title, Email, Department) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.linkedin}', '${req.body.title}', '${req.body.email}', '${req.body.department}');`, (err, results, fields) => {
             if (err) {
                 console.error(err);
                 message = "Member couldn't be created. Please try again.";
                 res.redirect("/admin/dashboard");
-            } else if (!response) {
-                message = "Entered member email is invalid. Please try again.";
-                res.redirect("/admin/dashboard");
             } else {
-                connection.query(`INSERT INTO Members (Name, Photo, LinkedIn, Title, Email, Department) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.linkedin}', '${req.body.title}', '${req.body.email}', '${req.body.department}');`, (err, results, fields) => {
-                    if (err) {
-                        console.error(err);
-                        message = "Member couldn't be created. Please try again.";
-                        res.redirect("/admin/dashboard");
-                    } else {
-                        message = "Member created successfully.";
-                        res.redirect("/admin/dashboard");
-                        tinify.fromFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename)).toFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename));
-                    }
-                });
+                message = "Member created successfully.";
+                res.redirect("/admin/dashboard");
+                tinify.fromFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename)).toFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename));
             }
         });
     } else if (action === "Delete member") {
-        connection.query(`SELECT ID FROM Members WHERE Name = '${req.body.name}';`, (err, results, fields) => {
+        fs.rm(path.join(__dirname, "..", "static", "images", "members", `${lodash.camelCase(req.body.name)}.jpg`), (err) => {
             if (err) {
                 console.error(err);
                 message = "Member couldn't be deleted. Please try again.";
                 res.redirect("/admin/dashboard");
             } else {
-                const id = results[0].ID;
-                connection.query(`DELETE FROM Members WHERE ID = '${id}';`, (err, results, fields) => {
+                connection.query(`SELECT ID FROM Members WHERE Name = '${req.body.name}';`, (err, results, fields) => {
                     if (err) {
                         console.error(err);
                         message = "Member couldn't be deleted. Please try again.";
                         res.redirect("/admin/dashboard");
                     } else {
-                        message = "Member deleted successfully.";
-                        res.redirect("/admin/dashboard");
+                        const id = results[0].ID;
+                        connection.query(`DELETE FROM Members WHERE ID = '${id}';`, (err, results, fields) => {
+                            if (err) {
+                                console.error(err);
+                                message = "Member couldn't be deleted. Please try again.";
+                                res.redirect("/admin/dashboard");
+                            } else {
+                                message = "Member deleted successfully.";
+                                res.redirect("/admin/dashboard");
+                            }
+                        });
                     }
                 });
             }
