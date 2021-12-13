@@ -18,8 +18,11 @@
 {
     height: 100%;
     transition: opacity 0.2s linear;
-    background-position: center;
-    background-size: cover;
+}
+#intro .carousel-slide img
+{
+    width: 100%;
+    transform: translateY(-20%);
 }
 #intro .carousel-slide .carousel-text
 {
