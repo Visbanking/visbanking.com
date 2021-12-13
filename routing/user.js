@@ -26,7 +26,7 @@ router.get("/:email", (req, res, next) => {
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
                 userInfo: results[0],
-                user: req.cookies.username||""
+                user: req.cookies.user||""
             });
         }
     });
@@ -56,14 +56,14 @@ router.post("/:email", (req, res) => {
 });
 
 router.get("/:email/update", (req, res) => {
-    if (req.cookies.username === req.params.email) {
+    if (req.cookies.user === req.params.email) {
         res.render("update", {
             title: "Update Password", 
             error: error || ''
         });
         error = '';
     } else {
-        res.redirect(`/${req.params.email}`);
+        res.redirect(`/users/${req.params.email}`);
     }
 });
 
