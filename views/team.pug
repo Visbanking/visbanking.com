@@ -17,6 +17,11 @@ block header
                 img(src=member.Photo, alt=member.Name)
                 h3 #{member.Name}
                 p.title #{member.Title}
+                p.links 
+                    a(href=member.LinkedIn, target="_blank", rel="noreferrer noopener nofollow", title="LinkedIn")
+                        i.bi-linkedin 
+                    a(href=`mailto:${member.Email}`, target="_blank", rel="noopener noreferrer", title="Email") 
+                        i.bi-envelope-fill 
     section#software
         h2 Software
         each member in members.filter(member => member.Department === "Software")
@@ -27,9 +32,8 @@ block header
                 p.links 
                     a(href=member.LinkedIn, target="_blank", rel="noreferrer noopener nofollow", title="LinkedIn")
                         i.bi-linkedin 
-                    if member.Website 
-                        a(href=member.Website, target="_blank", rel="noreferrer noopener nofollow", title="Website")
-                            i.bi-globe
+                    a(href=`mailto:${member.Email}`, target="_blank", rel="noopener noreferrer", title="Email") 
+                        i.bi-envelope-fill 
     section#marketing 
         h2 Marketing and Sales
         each member in members.filter(member => member.Department === "Marketing")
@@ -37,6 +41,11 @@ block header
                 img(src=member.Photo, alt=member.Name)
                 h3 #{member.Name}
                 p.title #{member.Title}
+                p.links 
+                    a(href=member.LinkedIn, target="_blank", rel="noreferrer noopener nofollow", title="LinkedIn")
+                        i.bi-linkedin 
+                    a(href=`mailto:${member.Email}`, target="_blank", rel="noopener noreferrer", title="Email") 
+                        i.bi-envelope-fill 
     section#administrative 
         h2 Administrative
         each member in members.filter(member => member.Department === "Administrative")
@@ -44,3 +53,8 @@ block header
                 img(src=member.Photo, alt=member.Name)
                 h3 #{member.Name}
                 p.title #{member.Title}
+                p.links 
+                    a(href=member.LinkedIn, target="_blank", rel="noreferrer noopener nofollow", title="LinkedIn")
+                        i.bi-linkedin 
+                    a(href=`mailto:${member.Email}`, target="_blank", rel="noopener noreferrer", title="Email") 
+                        i.bi-envelope-fill 
