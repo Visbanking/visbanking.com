@@ -54,7 +54,7 @@ router.all("/", (req, res) => {
     res.redirect("/admin/login");
 });
 
-router.post("*", (req, res, next) => {
+router.post("/dashboard/*", (req, res, next) => {
     if (req.cookies.admin) {
         connection.query(`SELECT COUNT(*) FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
             if (err) {
