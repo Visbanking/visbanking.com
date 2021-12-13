@@ -10,18 +10,15 @@ block styles
 block header
     section.container-fluid#intro 
         i.bi-chevron-left(@click="carouselLeft")
-        aside.carousel-slide(style="background: url(/images/carousel1.jpg);", v-if="carousel===1")
+        aside.carousel-slide(style=`background: url(${insights[0].Image});`, v-if="carousel===1")
             .carousel-text
-                h2 Article Title #1
-                p Article Introduction #1
-        aside.carousel-slide(style="background: url(/images/carousel2.jpg);", v-if="carousel===2")
+                h2 #{insights[0].Title}
+        aside.carousel-slide(style=`background: url(${insights[1].Image});`, v-if="carousel===2")
             .carousel-text
-                h2 Article Title #2
-                p Article Introduction #2
-        aside.carousel-slide(style="background: url(/images/carousel3.jpg);", v-if="carousel===3")
+                h2 #{insights[1].Title}
+        aside.carousel-slide(style=`background: url(${insights[2].Image});`, v-if="carousel===3")
             .carousel-text
-                h2 Article Title #3
-                p Article Introduction #3
+                h2 #{insights[2].Title}
         i.bi-chevron-right(@click="carouselRight")
 
 block main 
