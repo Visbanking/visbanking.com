@@ -1,0 +1,1 @@
+setTimeout(() => document.querySelector("header i.bi-arrow-down-short").click(), 2000);
