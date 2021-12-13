@@ -290,13 +290,12 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
 router.post("/dashboard/members", member.single('photo'), (req, res) => {
     const action = req.body.action;
     if (action === "Add member") {
-        check(req.body.email, (err, response) => {
+        check(`${req.body.email}@birddogpartners.com`, (err, response) => {
             if (err) {
                 console.error(err);
                 message = "Member couldn't be created. Please try again.";
                 res.redirect("/admin/dashboard");
             } else if (!response) {
-                console.error(err);
                 message = "Entered member email is invalid. Please try again.";
                 res.redirect("/admin/dashboard");
             } else {
