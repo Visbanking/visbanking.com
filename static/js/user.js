@@ -17,4 +17,10 @@ document.querySelector("section > button").addEventListener("click", () => {
 
 document.querySelector("a#pass").addEventListener("click", () => {
     window.location.href += '/update'
-})
+});
+
+document.querySelectorAll("#upgrade .card .card-footer button").forEach(button => {
+    button.addEventListener("click", () => {
+        button.children[0].click();
+    });
+});
