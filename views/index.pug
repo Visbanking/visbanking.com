@@ -10,13 +10,13 @@ block styles
 block header
     section.container-fluid#intro 
         i.bi-chevron-left(@click="carouselLeft")
-        aside.carousel-slide(style=`background: url(${insights[0].Image});`, v-if="carousel===1")
+        aside.carousel-slide(style=`background: url(${insights[0].Image}) center cover;`, v-if="carousel===1")
             .carousel-text
                 h2 #{insights[0].Title}
-        aside.carousel-slide(style=`background: url(${insights[1].Image});`, v-if="carousel===2")
+        aside.carousel-slide(style=`background: url(${insights[1].Image}) center cover;`, v-if="carousel===2")
             .carousel-text
                 h2 #{insights[1].Title}
-        aside.carousel-slide(style=`background: url(${insights[2].Image});`, v-if="carousel===3")
+        aside.carousel-slide(style=`background: url(${insights[2].Image}) center cover;`, v-if="carousel===3")
             .carousel-text
                 h2 #{insights[2].Title}
         i.bi-chevron-right(@click="carouselRight")
