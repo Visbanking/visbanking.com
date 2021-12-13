@@ -54,6 +54,21 @@ router.all("/", (req, res) => {
     res.redirect("/admin/login");
 });
 
+router.post("*", (req, res, next) => {
+    if (req.cookies.admin) {
+        connection.query(`SELECT COUNT(*) FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } else if (results[0]['COUNT(*)'] === 0) {
+                res.redirect("/");
+            } else {
+                next();
+            }
+        });
+    } else res.redirect("/admin");
+});
+
 router.get("/login", (req, res) => {
     if (req.cookies.admin) {
         connection.query(`SELECT COUNT(*) FROM Admins WHERE Username = '${req.cookies.admin}';`, (err, results, fields) => {
