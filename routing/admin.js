@@ -9,6 +9,7 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const marked = require("marked");
 const tinify = require("tinify");
+const { check } = require("email-existence");
 require("dotenv").config();
 const router = Router();
 
@@ -274,16 +275,27 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
 router.post("/dashboard/members", member.single('photo'), (req, res) => {
     const action = req.body.action;
     if (action === "Add member") {
-        console.log(req.file);
-        connection.query(`INSERT INTO Members (Name, Photo, LinkedIn, Title, Website, Department) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.linkedin}', '${req.body.title}', '${req.body.website||null}', '${req.body.department}');`, (err, results, fields) => {
+        check(req.body.email, (err, response) => {
             if (err) {
                 console.error(err);
                 message = "Member couldn't be created. Please try again.";
                 res.redirect("/admin/dashboard");
-            } else {
-                message = "Member created successfully.";
+            } else if (!response) {
+                console.error(err);
+                message = "Entered member email is invalid. Please try again.";
                 res.redirect("/admin/dashboard");
-                tinify.fromFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename)).toFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename));
+            } else {
+                connection.query(`INSERT INTO Members (Name, Photo, LinkedIn, Title, Email, Department) VALUES ('${req.body.name}', '/images/members/${req.file.filename}', '${req.body.linkedin}', '${req.body.title}', '${req.body.email}', '${req.body.department}');`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        message = "Member couldn't be created. Please try again.";
+                        res.redirect("/admin/dashboard");
+                    } else {
+                        message = "Member created successfully.";
+                        res.redirect("/admin/dashboard");
+                        tinify.fromFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename)).toFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename));
+                    }
+                });
             }
         });
     } else if (action === "Delete member") {
