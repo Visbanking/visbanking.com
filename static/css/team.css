@@ -32,12 +32,12 @@ h2
     border: 1px solid #68A6C6;
     border-radius: 15px;
     position: relative;
-    box-shadow: 0 0 0.5rem #68A6C6 inset;
+    box-shadow: 0 0 0.5rem #68A6C6;
     transition: box-shadow 0.15s linear;
 }
 .member:hover
 {
-    box-shadow: 0 0 0 transparent inset;
+    box-shadow: 0 0 0 transparent;
 }
 .member img
 {
