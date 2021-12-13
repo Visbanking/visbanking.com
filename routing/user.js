@@ -17,11 +17,13 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:email", (req, res, next) => {
+router.get("/:email", (req, res) => {
     connection.query(`SELECT * FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
         if (err) {
             console.error(err);
             res.redirect("/error");
+        } else if (results.length === 0) {
+            res.redirect("/");
         } else {
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
