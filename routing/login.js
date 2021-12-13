@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
-var logInError, emailAfterRedirect, signUpError, emailError, usernameError;
+var logInError, emailAfterRedirect, signUpError, emailError;
 
 router.get("/login", (req, res) => {
     if (req.cookies.username) {
@@ -21,9 +21,7 @@ router.get("/login", (req, res) => {
             path: "/login",
             action: "Log In",
             incorrectPassword: logInError,
-            emailAfterRedirect,
-            usernameError,
-            username: req.cookies.username || '',
+            emailAfterRedirect
         });
     }
 });
@@ -37,7 +35,7 @@ router.post("/login", (req, res) => {
         } else if (results.length < 1) {
             res.redirect("/signup");
         } else if (pass === results[0].Password) {
-            res.cookie("username", email, {
+            res.cookie("user", email, {
                 httpOnly: true,
                 expires: new Date(Date.now() + 241_920_000),
             });
@@ -59,8 +57,6 @@ router.get("/signup", (req, res) => {
             action: "Sign Up",
             tier: req.query.tier || 'Free',
             signUpError: signUpError,
-            emailError: emailError,
-            username: req.cookies.username || ''
         });
     }
 });
@@ -94,7 +90,7 @@ router.post("/signup", (req, res) => {
                                 console.error(err);
                                 res.redirect("/error");
                             } else {
-                                res.cookie("username", email, {
+                                res.cookie("user", email, {
                                     httpOnly: true,
                                     expires: new Date(Date.now() + 241_920_000)
                                 });
