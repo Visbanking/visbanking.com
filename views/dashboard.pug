@@ -59,6 +59,8 @@ html(lang="en")
                         form(action="/admin/dashboard/members", method="POST", enctype="multipart/form-data")
                             label(for="name") Name *
                             input#name(type="text", name="name", required)
+                            label(for="email") Email * 
+                            input#email(type="email", name="email", required)
                             label(for="photo") Photo *
                             input#photo(type="file", name="photo", accept="image/jpeg, image/png", required)
                             label(for="title") Title *
@@ -71,8 +73,6 @@ html(lang="en")
                                 option(value="Marketing") Marketing
                             label(for="linkedin") LinkedIn *
                             input#linkedin(type="url", name="linkedin", required)
-                            label(for="website") Website 
-                            input#website(type="url", name="website")
                             input(type="submit", name="action", value="Add member")
                         button Remove team member 
                         form(action="/admin/dashboard/members", method="POST")
