@@ -12,15 +12,15 @@ block header
         i.bi-chevron-left(@click="carouselLeft")
         aside.carousel-slide(v-if="carousel===1")
             img(src=insights[0].Image, alt=insights[0].Title)
-            .carousel-text
+            a.carousel-text(href=`insights/insight/${insights[0].ID}`) 
                 h2 #{insights[0].Title}
         aside.carousel-slide(v-if="carousel===2")
             img(src=insights[1].Image, alt=insights[1].Title)
-            .carousel-text
+            a.carousel-text(href=`insights/insight/${insights[1].ID}`)
                 h2 #{insights[1].Title}
         aside.carousel-slide(v-if="carousel===3")
             img(src=insights[2].Image, alt=insights[2].Title)
-            .carousel-text
+            a.carousel-text(href=`insights/insight/${insights[2].ID}`)
                 h2 #{insights[2].Title}
         i.bi-chevron-right(@click="carouselRight")
 

@@ -22,17 +22,24 @@
 #intro .carousel-slide img
 {
     width: 100%;
-    transform: translateY(-20%);
+    max-height: 100%;
+    object-fit: cover;
 }
 #intro .carousel-slide .carousel-text
 {
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
     color: #FFFFFF;
     text-align: center;
     padding: 3% 1%;
+}
+#intro .carousel-slide .carousel-text:hover
+{
+    text-decoration: underline;
 }
 #intro h2
 {
