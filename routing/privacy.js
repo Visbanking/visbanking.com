@@ -31,7 +31,7 @@ router.get("/cookies", (req, res) => {
 router.get("/disclaimer", (req, res) => {  
     const disclaimer = readFileSync(path.join(__dirname, "..", "static", "files", "disclaimer.md"));
     res.render("privacy", {
-        title: 'Cookie Policy',
+        title: 'Disclaimer',
         text: disclaimer.toString("utf-8")
     });
 });
