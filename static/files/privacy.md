@@ -1,19 +1,3 @@
-<title>Privacy Policy</title>
-<style>
-    body {
-        font-family: sans-serif;
-        margin: 0 1%;
-    }
-    h1, p
-    {
-        margin: 1% auto 0;
-    }
-    ul
-    {
-        padding-inline-start: 20px;
-    }
-</style>
-
 <h1>Privacy Policy</h1>
 <p>Last updated: September 13, 2021</p>
 <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>

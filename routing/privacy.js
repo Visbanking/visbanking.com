@@ -1,34 +1,38 @@
 const express = require("express");
 const path = require("path");
-const { readFile } = require("fs");
+const { readFileSync, read } = require("fs");
 const marked = require("marked");
 const router = express.Router();
 
 router.get("/privacy", (req, res) => {
-    readFile(path.join(__dirname, "..", "static", "files", "privacy.md"), "utf8", (err, data) => {
-        if (err) throw err;
-        res.send(marked(data.toString()));
+    const privacy = readFileSync(path.join(__dirname, "..", "static", "files", "privacy.md"));
+    res.render("privacy", {
+        title: 'Privacy Policy',
+        text: privacy.toString("utf-8")
     });
 });
 
 router.get("/terms", (req, res) => {
-    readFile(path.join(__dirname, "..", "static", "files", "terms.md"), "utf8", (err, data) => {
-        if (err) throw err;
-        res.send(marked(data.toString()));
+    const terms = readFileSync(path.join(__dirname, "..", "static", "files", "terms.md"));
+    res.render("privacy", {
+        title: 'Terms of Use',
+        text: terms.toString("utf-8")
     });
 });
 
-router.get("/cookies", (req, res) => {  
-    readFile(path.join(__dirname, "..", "static", "files", "cookies.md"), "utf8", (err, data) => {
-        if (err) throw err;
-        res.send(marked(data.toString()));
+router.get("/cookies", (req, res) => {
+    const cookies = readFileSync(path.join(__dirname, "..", "static", "files", "cookies.md"));
+    res.render("privacy", {
+        title: 'Cookie Policy',
+        text: cookies.toString("utf-8")
     });
 });
 
 router.get("/disclaimer", (req, res) => {  
-    readFile(path.join(__dirname, "..", "static", "files", "disclaimer.md"), "utf8", (err, data) => {
-        if (err) throw err;
-        res.send(marked(data.toString()));
+    const disclaimer = readFileSync(path.join(__dirname, "..", "static", "files", "disclaimer.md"));
+    res.render("privacy", {
+        title: 'Cookie Policy',
+        text: disclaimer.toString("utf-8")
     });
 });
 

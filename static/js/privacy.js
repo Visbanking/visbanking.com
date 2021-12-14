@@ -1,0 +1,1 @@
+document.querySelector("header section").innerHTML = document.querySelector("header section").innerText;

@@ -1,19 +1,3 @@
-<title>Disclaimer</title>
-<style>
-    body {
-        font-family: sans-serif;
-        margin: 0 1%;
-    }
-    h1, p
-    {
-        margin: 1% auto 0;
-    }
-    ul
-    {
-        padding-inline-start: 20px;
-    }
-</style>
-
 <h1>Disclaimer</h1>
 <p>Last updated: September 13, 2021</p>
 <h2>Interpretation and Definitions</h2>

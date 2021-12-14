@@ -1,19 +1,3 @@
-<title>Cookies Policy</title>
-<style>
-    body {
-        font-family: sans-serif;
-        margin: 0 1%;
-    }
-    h1, p
-    {
-        margin: 1% auto 0;
-    }
-    ul
-    {
-        padding-inline-start: 20px;
-    }
-</style>
-
 <h1>Cookies Policy</h1>
 <p>Last updated: September 13, 2021</p>
 <p>This Cookies Policy explains what Cookies are and how We use them. You should read this policy so You can understand what type of cookies We use, or the information We collect using Cookies and how that information is used. This Cookies Policy has been created with the help of the <a href="https://www.privacypolicies.com/cookies-policy-generator/" target="_blank">Cookies Policy Generator</a>.</p>
