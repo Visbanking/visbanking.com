@@ -9,22 +9,24 @@ block styles
 
 block main 
     section(id=userInfo.username)
-        if user===userInfo.Email
-            button#logout Log Out
-        form(method="POST")
+        form(method="POST", enctype="multipart/form-data")
             if userInfo.Image
-                img(src=userInfo.Image, alt=`${userInfo.FirstName} ${userInfo.LastName}`)
+                img#profile(src=userInfo.Image, alt=`${userInfo.FirstName} ${userInfo.LastName}`, title="Update Profile Picture")
             else 
-                i.bi-person-fill
+                i.bi-person-fill#profile(title="Update Profile Picture")
+            if access
+                input(type="file", name="image", accept="image/jpeg, image/png")
             h1(data) #{userInfo.FirstName} #{userInfo.LastName}
-                if user===userInfo.Email
+                if access
                     i.bi-pencil-square#name(title="Update Name")
-                    input#name(type="text", name="name", placeholder="Name Surname")
+                    input(type="text", name="name", placeholder="Name Surname")
             p#email(title="Your Email") (#{userInfo.Email}) 
-            if user===userInfo.Email 
+            if access
                 a#pass Change Password
             input(type="submit", value="Save")
-    if user===userInfo.Email
+        if access
+            button#logout Log Out
+    if access
         section#account 
             h2 Your Account
             if userInfo.Tier === 'Free'
@@ -37,7 +39,21 @@ block main
         section#upgrade
             h2 Upgrade
             if userInfo.Tier !== 'Free'
-                p Free 
+                .card 
+                    .card-header 
+                        h3 Free 
+                        p
+                            span.price $0
+                            | /Always 
+                    .card-body 
+                        p Downgrade to Free to access: 
+                        ul.list-group.list-group-flush
+                            li.list-group-item Feature #1
+                            li.list-group-item Feature #2
+                            li.list-group-item Feature #3
+                    //- .card-footer
+                    //-     button
+                    //-         a(href="/buy?tier=professional") Get Professional Access
             if userInfo.Tier !== 'Profesional'
                 .card 
                     .card-header 
@@ -46,7 +62,7 @@ block main
                             span.price $49.99
                             | /month 
                     .card-body 
-                        p Upgrade to Professional to get access to: 
+                        p #{userInfo.Tier === 'Free' ? 'Upgrade' : 'Downgrade'} to Professional to get access to: 
                         ul.list-group.list-group-flush
                             li.list-group-item Feature #1
                             li.list-group-item Feature #2

@@ -29,12 +29,16 @@ section > button
     background-color: #024060;
     color: #FFFFFF;
     font-family: 'Quicksand';
-    padding: 0.2rem 1%;
+    padding: 0.2rem 1rem;
 }
 section:first-of-type img
 {
-    max-width: 8%;
+    max-width: 10%;
     border-radius: 50%;
+}
+#profile
+{
+    cursor: pointer;
 }
 i.bi-person-fill
 {
@@ -82,6 +86,11 @@ input.show
     display: block;
     font-size: 0.9rem;
 }
+input[type="file"].show
+{
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
 input[type="submit"]
 {
     padding: 0.5rem 1.2rem;
@@ -103,6 +112,8 @@ input[type="submit"]:hover
 a#pass
 {
     cursor: pointer;
+    padding: 0.3rem 1rem;
+    border: 1px solid;
 }
 h2
 {
@@ -192,7 +203,7 @@ h2
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 #upgrade h2
@@ -202,8 +213,62 @@ h2
 #upgrade > .card
 {
     margin: 2% 0;
-}
-#upgrade > .card:not(:nth-of-type(3))
-{
     width: calc(100%/2.5);
+}
+@media screen and (max-width: 991px)
+{
+    section:first-of-type img
+    {
+        max-width: 15%;
+    }
+    #upgrade > .card
+    {
+        width: calc(100%/2.2);
+    }
+}
+@media screen and (max-width: 767px)
+{
+    #upgrade
+    {
+        justify-content: center;
+    }
+    #upgrade > .card
+    {
+        width: calc(100%/1.8);
+    }
+}
+@media screen and (max-width: 600px)
+{
+    section:first-of-type img
+    {
+        max-width: 25%;
+    }
+    #upgrade > .card
+    {
+        width: calc(100%/1.2);
+    }
+}
+@media screen and (max-width: 400px)
+{
+    section
+    {
+        text-align: center;
+    }
+    section > button
+    {
+        position: static;
+    }
+    section:first-of-type img
+    {
+        max-width: 35%;
+    }
+    a#pass
+    {
+        display: inline-block;
+        margin: 2% auto 3%;
+    }
+    #upgrade > .card
+    {
+        width: 100%;
+    }
 }
