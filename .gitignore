@@ -1,4 +1,5 @@
 .env
+deploy.sh
 *.ppk
 *.pem
 static/images/insights/*.jpg
