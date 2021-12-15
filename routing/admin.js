@@ -8,12 +8,9 @@ const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const marked = require("marked");
-const tinify = require("tinify");
 const fs = require("fs");
 require("dotenv").config();
 const router = Router();
-
-tinify.key = process.env.TINIFY;
 
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(cookieParser());
@@ -261,7 +258,6 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
             } else {
                 message = "Insight created successfully.";
                 res.redirect("/admin/dashboard");
-                tinify.fromFile(path.join(__dirname, "..", "static", "images", "insights", req.file.filename)).toFile(path.join(__dirname, "..", "static", "images", "insights", req.file.filename));
             }
         });
     } else if (action === "Delete insight") {
@@ -298,7 +294,6 @@ router.post("/dashboard/members", member.single('photo'), (req, res) => {
             } else {
                 message = "Member created successfully.";
                 res.redirect("/admin/dashboard");
-                tinify.fromFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename)).toFile(path.join(__dirname, "..", "static", "images", "members", req.file.filename));
             }
         });
     } else if (action === "Delete member") {
