@@ -15,7 +15,7 @@ const admin = require("./routing/admin");
 const files = require("./routing/files");
 const error = require("./routing/error");
 const app = express();
-const port = 3004;
+const port = 3020;
 
 app.use(express.static(path.join(__dirname, "static")));
 app.use(favicon(path.join(__dirname, "favicon.ico")));
