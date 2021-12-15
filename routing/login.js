@@ -13,8 +13,8 @@ router.use(cookieParser());
 var logInError, emailAfterRedirect, signUpError, emailError;
 
 router.get("/login", (req, res) => {
-    if (req.cookies.username) {
-        res.redirect(`/users/${req.cookies.username}`);
+    if (req.cookies.user) {
+        res.redirect(`/users/${req.cookies.user}`);
     } else {
         res.render("login", {
             title: "Log In - Visbanking",
@@ -48,8 +48,8 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-    if (req.cookies.username) {
-        res.redirect(`/users/${req.cookies.username}`);
+    if (req.cookies.user) {
+        res.redirect(`/users/${req.cookies.user}`);
     } else {
         res.render("login", {
             title: "Sign Up - Visbanking",
