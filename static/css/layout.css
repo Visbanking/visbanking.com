@@ -1,20 +1,32 @@
+html
+{
+    scroll-behavior: smooth;
+}
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
 header
 {
     min-height: 100vh;
 }
 nav.navbar
 {
-    background-color: #024060;
-    padding: 0 1%;
-    border-bottom: 1px solid #FFFFFF;
+    padding: 1% 3%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 a.navbar-brand
 {
-    max-width: 75%;
+    max-width: 30%;
 }
-a.navbar-brand img
+img.logo
 {
-    max-width: 25%;
+    max-width: 90%;
     height: auto;
     margin-left: 1%;
 }
@@ -22,33 +34,39 @@ nav.navbar button.navbar-toggler
 {
     border: none;
     font-size: 2rem;
-    color: #FFFFFF;
+    display: none;
 }
 nav.navbar button.navbar-toggler:focus
 {
     box-shadow: none;
 }
-nav.navbar-dark .navbar-nav a.nav-link
+nav.navbar .navbar-collapse
 {
-    font-family: 'Raleway';
+    width: 70%;
+}
+nav.navbar .navbar-collapse a.nav-link
+{
     font-weight: 400;
-    font-size: 1.1rem;
-    color: #DDDDDD;
-    transition: color 0.2s linear, font-weight 0.2s linear;
+    transition: all 0.1s linear;
+    text-transform: uppercase;
+    color: #000000;
+    text-decoration: none;
+    padding: 1% 3%;
+    letter-spacing: 1px;
 }
-nav.navbar-dark .navbar-nav a.nav-link:hover
+nav.navbar .navbar-collapse a.nav-link:hover
 {
-    font-weight: 700;
-    color: #FFFFFF;
+    font-weight: 600;
 }
-nav.navbar-dark .navbar-nav li.nav-item:last-of-type
+nav.navbar .navbar-collapse a.nav-link:last-of-type
 {
-    background: #FFFFFF;
     border-radius: 5px;
 }
-nav.navbar-dark .navbar-nav li.nav-item:last-of-type a.nav-link
+nav.navbar .navbar-collapse a.nav-link:last-of-type
 {
-    color: #024060;
+    background-color: #4684EE;
+    border-radius: 15px;
+    color: #FFFFFF;
 }
 .center
 {
@@ -61,13 +79,11 @@ nav.navbar-dark .navbar-nav li.nav-item:last-of-type a.nav-link
 }
 h1
 {
-    font-family: 'Montserrat';
     font-weight: 700;
     font-size: 3rem;
 }
 header .center p
 {
-    font-family: 'Raleway';
     font-size: 1.2rem;
     width: 50%;
     margin: 0 auto;
@@ -95,11 +111,101 @@ main section
 }
 h2
 {
-    font-family: 'Montserrat';
     font-weight: 600;
     font-size: 1.8rem;
 }
 footer
+{
+    background-color: #024060;
+    padding: 1% 3%;
+    color: #FFFFFF;
+}
+footer img
+{
+    width: 10%;
+    height: auto;
+    display: block;
+}
+footer aside, .copyright
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+footer aside
+{
+    border-top: 2px solid;
+    padding: 2% 1%;
+}
+footer aside div:not(.links)
+{
+    width: 45%;
+}
+footer aside div.links
+{
+    width: calc(50%/4);
+}
+footer h3
+{
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 600;
+}
+footer p:not(.heading), footer a
+{
+    color: #CCCCCC;
+}
+footer p.heading
+{
+    font-weight: 600;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 0.3rem #000000);
+    margin: 0 0 5%;
+}
+footer .links a
+{
+    text-decoration: none;
+    padding-left: 3%;
+    display: block;
+    margin-bottom: 5%;
+}
+footer .links a:hover
+{
+    color: #FFFFFF;
+}
+.copyright
+{
+    background-color: #000000;
+    color: #AAAAAA;
+    padding: 1% 4% 2%;
+    font-size: 0.9rem;
+}
+.copyright > p
+{
+    width: 40%;
+}
+.copyright  *
+{
+    margin-top: 0;
+    color: inherit;
+    text-decoration: none;
+}
+.copyright .links
+{
+    width: 60%;
+    text-align: right;
+}
+.copyright a
+{
+    margin: 0 1%;
+}
+.copyright a:hover
+{
+    color: #CCCCCC;
+}
+/* footer
 {
     background-color: #024060;
     padding: 1% 5%;
@@ -112,7 +218,6 @@ footer aside
 }
 footer aside a
 {
-    font-family: 'Montserrat';
     color: inherit;
     padding: 0 1%;
     margin: 2% 0;
@@ -144,10 +249,9 @@ footer .socials a
 {
     color: #BBBBBB;
     text-align: center;
-    font-family: 'Raleway';
     font-weight: 700;
     margin: 1rem 0 0.5rem;
-}
+} */
 @keyframes down
 {
     from {
@@ -164,26 +268,26 @@ footer .socials a
     {
         border-top: 1px solid #CCCCCC;
     }
-    nav.navbar .navbar-nav
+    nav.navbar .navbar-collapse
     {
         padding-right: 2%;
     }
-    nav.navbar .navbar-nav li.nav-item:first-of-type
+    nav.navbar .navbar-collapse li.nav-item:first-of-type
     {
         margin-top: 1%;
     }
-    nav.navbar .navbar-nav li.nav-item:last-of-type
+    nav.navbar .navbar-collapse li.nav-item:last-of-type
     {
         margin: 0;
         background: none;
         padding-bottom: 2%;
     }
-    nav.navbar-dark .navbar-nav a.nav-link
+    nav.navbar .navbar-collapse a.nav-link
     {
         padding: 0;
         text-align: right;
     }
-    nav.navbar-dark .navbar-nav li.nav-item:last-of-type a.nav-link
+    nav.navbar .navbar-collapse li.nav-item:last-of-type a.nav-link
     {
         color: #DDDDDD;
     }
@@ -231,7 +335,7 @@ footer .socials a
     {
         font-size: 1.5rem;
     }
-    nav.navbar .navbar-nav a.nav-link
+    nav.navbar .navbar-collapse a.nav-link
     {
         font-size: 1rem;
     }
