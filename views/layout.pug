@@ -3,72 +3,75 @@ doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(name="author", content="Visbanking.com")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="author" content="Visbanking.com")
         meta(name="title" content=title)
         block meta
         title #{title}
-        link(rel="preconnect", href="https://fonts.googleapis.com")
-        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
-        link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;600&display=swap", rel="stylesheet")
-        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We", crossorigin="anonymous")
-        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
-        link(rel="stylesheet", href="/css/layout.css")
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap")
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+        link(rel="stylesheet" href="/css/layout.css")
         block styles 
-        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js", integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj", crossorigin="anonymous")
         script(src="https://unpkg.com/vue@next")
         script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-214131359-1")
         script(src="/js/analytics.js") 
     body 
         header 
-            nav.navbar.navbar-expand-lg.navbar-dark.sticky-top
+            nav.navbar.navbar-expand-lg.sticky-top
                 a.navbar-brand(href=path==="/"?"#":"/")
-                    img(src="/images/logo.png.webp", alt="Visbanking") 
-                button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbar", aria-controls="navbar", aria-expanded="false", aria-label="Toggle navigation")
+                    img.logo(src="/images/logo-visbanking.png" alt="Visbanking") 
+                button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation")
                     i.bi-list
                 .collapse.navbar-collapse#navbar 
-                    ul.navbar-nav.ms-auto
-                        li.nav-item 
-                            a.nav-link(href=path==="/about"?"#":"/about") Who We Are 
-                        li.nav-item 
-                            a.nav-link(href=path==="/services"?"#":"/services") Our Services 
-                        li.nav-item 
-                            a.nav-link(href=path==="/insights"?"#":"/insights") Insights
-                        li.nav-item 
-                            a.nav-link(href=path==="/contact"?"#":"/contact") Contact
-                        li.nav-item 
-                            a.nav-link(href=path==="/login"?"#":"/login") Login
+                    a.nav-link(href=path==="/about"?"#":"/about") Company
+                    a.nav-link(href=path==="/services"?"#":"/services") Services
+                    a.nav-link(href=path==="/pricing"?"#":"/pricing") Pricing
+                    a.nav-link(href=path==="/insights"?"#":"/insights") Insights
+                    a.nav-link(href=path==="/contact"?"#":"/contact") Contact
+                    a.nav-link(href=path==="/login"?"#":"/login") Log in
             block header
         main
             block main 
-        footer.container-fluid
-            aside.links 
-                a(href="/") Homepage
-                a(href="/about") Who We Are
-                a(href="/services") Our Services
-                a(href="/insights") Insights
-                a(href="/contact") Contact Us
-            aside.links
-                a(href="/pricing") Pricing
-                a(href="/login") Log In
-                a(href="/signup") Sign Up
-            aside.links
-                a(href="/terms") Terms of Use
-                a(href="/privacy") Privacy Policy
-                a(href="/cookies") Cookie Policy
-                a(href="/disclaimer") Disclaimer
-            aside.socials
-                a(href="https://www.linkedin.com/company/visbanking/", target="_blank", rel="noreferrer noopener nofollow")
-                    i.bi-linkedin
-                a(href="https://www.facebook.com/visbanking", target="_blank", rel="noreferrer noopener nofollow")
-                    i.bi-facebook
-                a(href="https://www.instagram.com/visbanking/", target="_blank", rel="noreferrer noopener nofollow")
-                    i.bi-instagram
-                a(href="mailto:info@visbanking.com")
-                    i.bi-envelope-fill
-            p#copyright &copy; 
-                span#year 
-                |  Visbanking - All Rights Reserved
+        footer
+            a(href=path==="/"?"#":"/") 
+                img.logo(src="/images/logo.png.webp", alt="Visbanking logo")
+            aside
+                div
+                    h3 Banks. Visualized.
+                    p We have data from over 12 sources with key information like financials, performance, news, and regulatory.
+                .links
+                    p.heading Visbanking
+                    a(href=path==="/services"?"#":"/services") Services
+                    a(href=path==="/pricing"?"#":"/pricing") Pricing
+                    a(href=path==="/about"?"#":"/about") Company
+                    a(href=path==="/insights"?"#":"/insights") Insights
+                .links
+                    p.heading Support
+                    a(href="#") Support
+                    a(href="/privacy") Privacy Policy
+                    a(href="/terms") Terms of Service
+                .links
+                    p.heading Social
+                    a(href="https://www.facebook.com/visbanking", target="_blank", rel="noopener noreferrer noifollow") Facebook
+                    a(href="https://www.linkedin.com/company/visbanking/", target="_blank", rel="noopener noreferrer nofollow") LinkedIn
+                    a(href="https://www.instagram.com/visbanking/", target="_blank", rel="noopener noreferrer nofollow") Instagram
+                .links
+                    p.heading Contact
+                    a(href="#") 
+                        i.bi-telephone 
+                        | Phone
+                    a(href="mailto:info@visbanking.com") 
+                        i.bi-envelope 
+                        | Email
+                    a(href="#") Address
+        aside.copyright
+            p &copy; 
+                span#year
+                |  Visbanking All Rights Reserved
+            .links
+                a(href=path==="/contact"?"#":"/contact") Contact Us
         script(src="/js/layout.js") 
         block scripts
