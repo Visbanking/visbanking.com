@@ -1,4 +1,3 @@
-<h1 id="terms-and-conditions">Terms and Conditions</h1>
 <p>Last updated: September 13, 2021<br>Please read these terms and conditions carefully before using Our Service.</p>
 <h2 id="interpretation-and-definitions">Interpretation and Definitions</h2>
 <h3 id="interpretation">Interpretation</h3>

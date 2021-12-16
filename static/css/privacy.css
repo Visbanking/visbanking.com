@@ -1,4 +1,30 @@
-header section
+header
 {
     padding: 1%;
+}
+header aside
+{
+    padding: 1%;
+    text-align: center;
+    border-bottom: 2px solid #024099;
+    width: 80%;
+    margin: 0 auto 5%;
+}
+h1, h2, header h3, h4
+{
+    color: #024099;
+}
+h1
+{
+    margin: 0 auto;
+    text-transform: uppercase;
+}
+section
+{
+    padding: 0 4%;
+}
+section ul
+{
+    list-style-type: none;
+    padding-left: 1%;
 }

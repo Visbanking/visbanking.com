@@ -1,4 +1,3 @@
-<h1>Disclaimer</h1>
 <p>Last updated: September 13, 2021</p>
 <h2>Interpretation and Definitions</h2>
 <h3>Interpretation</h3>
