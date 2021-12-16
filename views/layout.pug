@@ -11,7 +11,7 @@ html(lang="en")
         title #{title}
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
-        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap")
         link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
         link(rel="stylesheet" href="/css/layout.css")
         block styles 
@@ -26,11 +26,11 @@ html(lang="en")
                 button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation")
                     i.bi-list
                 .collapse.navbar-collapse#navbar 
-                    a.nav-link(href=path==="/about"?"#":"/about") Company
-                    a.nav-link(href=path==="/services"?"#":"/services") Services
-                    a.nav-link(href=path==="/pricing"?"#":"/pricing") Pricing
-                    a.nav-link(href=path==="/insights"?"#":"/insights") Insights
-                    a.nav-link(href=path==="/contact"?"#":"/contact") Contact
+                    a.nav-link(href=path==="/about"?"#":"/about", class=path==="/about"?"active":"") Company
+                    a.nav-link(href=path==="/services"?"#":"/services", class=path==="/services"?"active":"") Services
+                    a.nav-link(href=path==="/pricing"?"#":"/pricing", class=path==="/pricing"?"active":"") Pricing
+                    a.nav-link(href=path==="/insights"?"#":"/insights", class=path==="/insights"?"active":"") Insights
+                    a.nav-link(href=path==="/contact"?"#":"/contact", class=path==="/contact"?"active":"") Contact
                     a.nav-link(href=path==="/login"?"#":"/login") Log in
             block header
         main
