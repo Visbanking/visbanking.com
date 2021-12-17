@@ -195,6 +195,7 @@ footer .links a:hover
 .copyright > p
 {
     width: 35%;
+    color: #FFFFFF;
 }
 .copyright  *
 {
@@ -223,6 +224,80 @@ footer .links a:hover
     } to {
         bottom: 0;
         opacity: 1;
+    }
+}
+@media screen and (max-width: 991px)
+{
+    footer img
+    {
+        margin: 0 auto;
+        width: 20%;
+    }
+    footer aside div:not(.links)
+    {
+        width: 100%;
+        margin-bottom: 1%;
+        text-align: center;
+    }
+    footer aside div:not(.links) p
+    {
+        margin-top: 1%;
+    }
+    footer aside div.links
+    {
+        width: calc(100%/4);
+    }
+}
+@media screen and (max-width: 767px)
+{
+    .copyright
+    {
+        padding: 2%;
+        flex-direction: column;
+    }
+    .copyright > p, .copyright > .links
+    {
+        text-align: center;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    footer img
+    {
+        width: 30%;
+    }
+    footer aside div.links
+    {
+        width: calc(100%/2.2);
+        margin: 2% 0;
+    }
+}
+@media screen and (max-width: 500px)
+{
+    .copyright > p
+    {
+        margin-bottom: 0;
+    }
+    .copyright .links a
+    {
+        display: block;
+        margin: 2% auto;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    footer img
+    {
+        width: 50%;
+    }
+    .copyright
+    {
+        padding: 4% 2% 0;
+    }
+    .copyright .links a
+    {
+        margin: 4% auto;
     }
 }
 /*@media screen and (max-width: 991px)
