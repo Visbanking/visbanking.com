@@ -2,7 +2,103 @@ header
 {
     min-height: auto;
 }
-nav.navbar.fixed-top
+h1, h2
+{
+    color: #005487;
+    margin: 0 auto;
+    text-align: center;
+    text-transform: uppercase;
+}
+h2 + p
+{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 3% auto 1%;
+    font-weight: 600;
+}
+#pricing
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.plan
+{
+    width: calc(100%/4.5);
+    text-align: center;
+    border: 2px solid #128AF9;
+    padding: 2% 1%;
+    position: relative;
+}
+.plan h3
+{
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 1.75rem;
+}
+#professional
+{
+    background-color: #128AF9;
+    color: #FFFFFF;
+}
+#professional > div:first-of-type
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3%;
+    border-radius: 15px;
+    text-transform: uppercase;
+    width: 60%;
+    background-color: #015193;
+}
+.plan h3 + p
+{
+    margin: 2% auto 5%;
+}
+.price
+{
+    font-size: 1.3rem;
+}
+ul.features
+{
+    list-style-type: none;
+    padding: 1% 2% 0;
+    margin: 0 auto 20%;
+    text-align: left;
+    width: 80%;
+}
+.features li
+{
+    padding: 7% 0;
+}
+.features p
+{
+    margin: 0;
+}
+a.button
+{
+    padding: 4% 10%;
+    border-radius: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.plan:not(#professional) a.button
+{
+    background-color: #015193;
+    color: #FFFFFF;
+}
+#professional a.button
+{
+    background-color: #EEF5FF;
+    color: #015193;
+}
+/*nav.navbar.fixed-top
 {
     position: static;
     z-index: 0;
@@ -148,4 +244,4 @@ h1
     {
         width: 90%;
     }
-}
+} */

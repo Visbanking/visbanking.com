@@ -27,6 +27,7 @@ router.get("/services", (req, res) => {
 router.get("/pricing", (req, res) => {
 	res.render("pricing", {
 		title: "Pricing Plans - Visbanking",
+        path: "/pricing"
 	});
 });
 
