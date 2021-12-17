@@ -22,28 +22,30 @@ block main
     section.container-fluid#contact
         form(method="POST")
             h2 Talk with us
-            aside.col-md-6
+            aside
                 input#name(type="text", name="fname", required, placeholder="First Name")
                 input#email(type="text", name="lname", required, placeholder="Last Name")
                 input#subject(type="email", name="email", required, placeholder="Email")
                 input#phone(type="tel", name="phone", placeholder="Phone")
                 input#message(type="text", name="message", rows="2", required, placeholder="Message") 
-                input(type="submit", value="Send >")
+                input(type="submit", value="Send")
         aside.information 
-            h3 Contact Information
-            a(href="mailto:contact@visbanking.com")
-                i.bi-envelope 
-                |  Email
-            a(href="#")
-                i.bi-telephone 
-                |  Phone
-            a(href="#") Address
+            div
+                h3 Contact Information
+                a(href="mailto:contact@visbanking.com")
+                    i.bi-envelope 
+                    |  Email
+                a(href="#")
+                    i.bi-telephone 
+                    |  Phone
+                a(href="#") Address
             br
-            h3 Company
-            a(href="/about") About Us
-            a(href="/privacy") Privacy Policy
-            a(href="#") Support 
-            a(href="/terms") Terms and Conditions
+            div
+                h3 Company
+                a(href="/about") About Us
+                a(href="/privacy") Privacy Policy
+                a(href="#") Support 
+                a(href="/terms") Terms and Conditions
 
 block scripts 
     script(src="/js/contact.js") 

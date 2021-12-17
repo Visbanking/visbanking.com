@@ -58,6 +58,8 @@ form input
     border: none;
     font-size: 1.1rem;
     padding: 1% 2%;
+    width: 35%;
+    margin: 2% 5%;
 }
 form input:focus
 {
@@ -66,11 +68,6 @@ form input:focus
 form input:not([type="submit"])
 {
     background-color: #FFFFFF;
-}
-form input
-{
-    width: 35%;
-    margin: 2% 5%;
 }
 form input::placeholder
 {
@@ -125,6 +122,72 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
 {
     font-weight: 600;
 }
+@media screen and (max-width: 991px)
+{
+    form input, input#message
+    {
+        display: block;
+        width: 85%;
+        margin: 5% auto;
+        padding: 2% 3%;
+    }
+    .information
+    {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    #contact
+    {
+        flex-direction: column;
+    }
+    #contact > *
+    {
+        width: 90%;
+    }
+    #contact > form
+    {
+        margin-bottom: 5%;
+    }
+    form input, input#message
+    {
+        padding: 2%;
+    }
+    .information
+    {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+    .information > div
+    {
+        width: 45%;
+    }
+}
+@media screen and (max-width: 500px)
+{
+    .information > div
+    {
+        width: 100%;
+        margin: 2% auto 2% 0;
+    }
+}
+@media screen and (max-width: 450px)
+{
+    form input
+    {
+        font-size: 1rem;
+        padding: 2% 3%;
+    }
+    form input[type="submit"]
+    {
+        padding: 2% 5%;
+        font-weight: 600;
+    }
+}
 /* form label, form input, textarea
 {
     display: block;
@@ -177,7 +240,7 @@ form input[type="submit"]:focus, form input[type="submit"]:hover
 {
     box-shadow: 0 0 0.5rem #5795B5;
 } */
-@media screen and (max-width: 991px)
+/* @media screen and (max-width: 991px)
 {
     form input
     {
@@ -194,4 +257,4 @@ form input[type="submit"]:focus, form input[type="submit"]:hover
     {
         width: 80%;
     }
-}
+} */
