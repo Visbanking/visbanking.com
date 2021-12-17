@@ -17,8 +17,9 @@ nav.navbar
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    background-color: #FFFFFF;
 }
 a.navbar-brand
 {
@@ -32,8 +33,11 @@ img.logo
 nav.navbar button.navbar-toggler
 {
     border: none;
+    background-color: transparent;
+    border-radius: 5px;
     font-size: 2rem;
     display: none;
+    cursor: pointer;
 }
 nav.navbar button.navbar-toggler:focus
 {
@@ -42,6 +46,11 @@ nav.navbar button.navbar-toggler:focus
 nav.navbar .navbar-collapse
 {
     width: 70%;
+    text-align: center;
+}
+nav.navbar .navbar-collapse.show
+{
+    display: block;
 }
 nav.navbar .navbar-collapse a.nav-link
 {
@@ -228,6 +237,25 @@ footer .links a:hover
 }
 @media screen and (max-width: 991px)
 {
+    nav.navbar
+    {
+        justify-content: space-between;
+        padding: 2% 5%;
+    }
+    a.navbar-brand
+    {
+        max-width: 50%;
+    }
+    nav.navbar button.navbar-toggler
+    {
+        display: block;
+    }
+    nav.navbar .navbar-collapse
+    {
+        display: none;
+        width: 100%;
+        margin: 2% auto;
+    }
     footer img
     {
         margin: 0 auto;
@@ -250,6 +278,22 @@ footer .links a:hover
 }
 @media screen and (max-width: 767px)
 {
+    nav.navbar .navbar-collapse
+    {
+        margin: 0;
+    }
+    nav.navbar .navbar-collapse a.nav-link
+    {
+        display: block;
+        width: 15%;
+        margin-left: auto;
+        text-align: right;
+    }
+    nav.navbar .navbar-collapse a.nav-link:last-of-type
+    {
+        color: #000000;
+        background-color: #FFFFFF;
+    }
     .copyright
     {
         padding: 2%;
@@ -263,6 +307,15 @@ footer .links a:hover
 }
 @media screen and (max-width: 550px)
 {
+    a.navbar-brand
+    {
+        max-width: 70%;
+    }
+    nav.navbar .navbar-collapse a.nav-link
+    {
+        width: 25%;
+        padding: 0.5rem 3%;
+    }
     footer img
     {
         width: 30%;
@@ -287,6 +340,15 @@ footer .links a:hover
 }
 @media screen and (max-width: 400px)
 {
+    nav.navbar button.navbar-toggler
+    {
+        font-size: 1.5rem;
+    }
+    nav.navbar .navbar-collapse a.nav-link
+    {
+        width: 50%;
+        font-size: 0.95rem;
+    }
     footer img
     {
         width: 50%;
@@ -300,88 +362,3 @@ footer .links a:hover
         margin: 4% auto;
     }
 }
-/*@media screen and (max-width: 991px)
-{
-    nav.navbar .navbar-collapse.show
-    {
-        border-top: 1px solid #CCCCCC;
-    }
-    nav.navbar .navbar-collapse
-    {
-        padding-right: 2%;
-    }
-    nav.navbar .navbar-collapse li.nav-item:first-of-type
-    {
-        margin-top: 1%;
-    }
-    nav.navbar .navbar-collapse li.nav-item:last-of-type
-    {
-        margin: 0;
-        background: none;
-        padding-bottom: 2%;
-    }
-    nav.navbar .navbar-collapse a.nav-link
-    {
-        padding: 0;
-        text-align: right;
-    }
-    nav.navbar .navbar-collapse li.nav-item:last-of-type a.nav-link
-    {
-        color: #DDDDDD;
-    }
-}
-@media screen and (max-width: 800px)
-{
-    header .center p
-    {
-        width: 75%;
-    }
-}
-@media screen and (max-width: 550px)
-{
-    h1
-    {
-        font-size: 2.5rem;
-    }
-    header .center p
-    {
-        width: 100%;
-        font-size: 1rem;
-    }
-    i.bi-arrow-down-short
-    {
-        font-size: 2.5rem;
-    }
-    footer .links
-    {
-        border-bottom: 1px solid;
-    }
-    footer .links:last-of-type
-    {
-        border: none;
-    }
-    footer .links a
-    {
-        display: block;
-        margin: 1% 0;
-        border: none;
-    }
-}
-@media screen and (max-width: 350px)
-{
-    nav.navbar button.navbar-toggler
-    {
-        font-size: 1.5rem;
-    }
-    nav.navbar .navbar-collapse a.nav-link
-    {
-        font-size: 1rem;
-    }
-}
-@media screen and (max-width: 300px)
-{
-    h1
-    {
-        font-size: 2.5rem;
-    }
-} */
