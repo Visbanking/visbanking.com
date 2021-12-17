@@ -13,7 +13,7 @@ header
 }
 nav.navbar
 {
-    padding: 1% 3%;
+    padding: 1%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -28,7 +28,6 @@ img.logo
 {
     max-width: 90%;
     height: auto;
-    margin-left: 1%;
 }
 nav.navbar button.navbar-toggler
 {
@@ -53,7 +52,6 @@ nav.navbar .navbar-collapse a.nav-link
     text-decoration: none;
     padding: 1% 3%;
     letter-spacing: 1px;
-    font-size: 1.1rem;
 }
 nav.navbar .navbar-collapse a.nav-link.active
 {
@@ -146,13 +144,18 @@ footer aside
     border-top: 2px solid;
     padding: 2% 1%;
 }
+footer aside div
+{
+    box-sizing: border-box;
+    padding-right: 2%;
+}
 footer aside div:not(.links)
 {
     width: 45%;
 }
 footer aside div.links
 {
-    width: calc(50%/4);
+    width: calc(55%/4);
 }
 footer h3
 {
@@ -191,7 +194,7 @@ footer .links a:hover
 }
 .copyright > p
 {
-    width: 40%;
+    width: 35%;
 }
 .copyright  *
 {
@@ -201,7 +204,7 @@ footer .links a:hover
 }
 .copyright .links
 {
-    width: 60%;
+    width: 65%;
     text-align: right;
 }
 .copyright a
