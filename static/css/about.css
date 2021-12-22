@@ -27,7 +27,7 @@ p#intro
     line-height: 2;
     font-size: 1.2rem;
     padding-bottom: 5%;
-    border-bottom: 1px solid #128AF9;
+    /* border-bottom: 1px solid #128AF9; */
 }
 main section
 {
@@ -82,21 +82,19 @@ hr
     width: calc(100%/3.5);
     padding: 2%;
     text-transform: uppercase;
+    line-height: 1.2;
 }
 .member img
 {
     border-radius: 50%;
     border: 5px solid #015193;
 }
-.member .name
-{
-    margin-bottom: 0;
-}
 .member .title
 {
     font-weight: 700;
     font-size: 1rem;
-    margin-top: 0;
+    margin: 0;
+    padding: 2% 0;
 }
 #team > a
 {
@@ -106,6 +104,87 @@ hr
     background-color: #015193;
     padding: 1% 2%;
     border-radius: 15px;
+    margin-bottom: 2%;
+}
+@media screen and (max-width: 767px)
+{
+    p#intro
+    {
+        width: 85%;
+    }
+    hr
+    {
+        width: 70%;
+    }
+    main section > aside
+    {
+        max-width: 70%;
+    }
+    #team > a
+    {
+        padding: 2% 3%;
+    }
+}
+@media screen and (max-width: 600px)
+{
+    h1, header h2
+    {
+        width: 90%;
+    }
+    h1
+    {
+        margin: 5% auto 0;
+    }
+    header h2
+    {
+        margin: 0 auto 5%;
+    }
+    p#intro
+    {
+        font-size: 1rem;
+    }
+    hr
+    {
+        width: 80%;
+    }
+    main section
+    {
+        padding: 10% 5%;
+    }
+    main section > aside
+    {
+        text-align: center;
+        max-width: 100%;
+    }
+    .member
+    {
+        width: 80%;
+        margin: 0 2%;
+        padding: 5% 0;
+    }
+    .member:not(:last-of-type)
+    {
+        border-bottom: 1px solid #015193;
+    }
+    #team > a
+    {
+        padding: 2% 4%;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    p#intro, main section > aside
+    {
+        text-align: justify;
+    }
+    h2
+    {
+        text-align: center;
+    }
+    .member
+    {
+        padding: 10% 0;
+    }
 }
 /* #mission aside
 {
