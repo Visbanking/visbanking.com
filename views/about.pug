@@ -8,40 +8,56 @@ block styles
     link(rel="stylesheet", href="/css/about.css")
 
 block header 
-    aside.center 
-        h1 Who We Are 
-        p We are a team of enthusiastic developers, data scientists, and marketing and operations professionals keen on building the leading banking information service platform.
-    a(href="#quotes")
-        i.bi-arrow-down-short
+    h1 We are visbanking
+    h2 Visualize banking data like never before
+    img(src="/images/logo.png", alt="Visbanking")
+    p#intro Gone are the days of combing through Excel files of flat data and comparing performance of one bank to another. 
+        br
+        | With Visbanking, you will visualize the latest data on all banks across the United States. You will receive the latest updates each quarter to ensure you are on top of the latest developments across the banking industry.
 
 block main 
-    section.container-fluid#quotes
-        h2 Brian Pillmore, Co-founder
-        aside.quote 
-            div 
-                img(src="/images/message.png", alt="Brian Pillmore")
-                p.profile Brian started his career as an engineer with GE.  After a few years in product development, he moved into finance and then financial services.  Helping GE Capital launch a bank in the middle of the 2008 financial crisis motivated him to continue learning about banking.  He spent time in Europe and across the US in financial services and banking businesses with GE.  Eventually Brian joined Wells Fargo as a Business Development Representative and then went on to lead UMB Bank in Oklahoma.  The experience inside the banking industry provides crucial insights that we integrate into the information services that Visbanking provides everyday.
-            div 
-                p
-                    em "As the President and Regional CEO for a regional bank, I found myself in a dogfight every day trying to win new business against my banking competitors. Often I felt like I was flying in the dark. What I did not have at my disposal was a good "heads-up display" of all of the participants in this competitive market. I knew there must be a better way. That is why I founded Visbanking.
-                p 
-                    em With a leading data science team, we developed Visbanking from the ground up. It serves as the "heads up" display for bank owners, Boards of Directors, banking leaders, commercial sales executives, macroeconomists and anyone else that needs a visual tool to drill down and zoom out on the banking sector. Updated every quarter and delivered to all customers, Visbanking serves as an invaluable decision tool for every customer. Don't fly in the dark - add Visbanking to your team's decision-making tools now!"
-        //- h2 Erdem Akkaş, Co-founder 
-        //- aside.quote
-    section.container-fluid#mission 
+    section#about
         aside
-                h2 Bringing transparency and understanding to banking
-                p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the banking industry in a simple, more comprehensible manner.
-    section.container-fluid#vision  
+            h2 About us
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis sagittis ante. Aliquam sodales vitae leo eget tristique. Quisque eget nisl lobortis, cursus ex sit amet, lacinia felis. Sed enim massa, feugiat a egestas at, cursus id augue. Pellentesque eu accumsan magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    hr
+    section#why 
         aside
+            h2 Why We Do It
+            p As the President and Regional CEO for a regional bank, I found myself in a dogfight every day trying to win new business against my banking competitors. Often I felt like I was flying in the dark.
+                br
+                | What I did not have at my disposal was a good "heads-up display" of all of the participants in this competitive market. I knew there must be a better way. 
+                br
+                | That is why I founded Visbanking. 
+                br
+            p 
+                em Brian pillmore, Founder
+    hr
+    section#mission
+        aside 
+            h2 Bringing transparency and understanding to banking
+            p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the banking industry in a simple, more comprehensible manner.
+    hr
+    section#vision 
+        aside 
             h2 Banking. Visualized.
-            p Following our mission, at Visbanking we envision a much simpler, more understandable and transparent banking industry where everything is easily accesible and comprehensible. Visually.
-    section.container-fluid#team 
-        aside
-            h2 Our Team 
-            p Based in Bogotá, Colombia, our team is composed of data scientists, engineers, marketing and operations professionals.
-            button
-                a(href="/about/team") Our Team
+            p At Visbanking we envision a much simpler, more understandable and transparent banking industry where everything is easily accesible and comprehensible. Visually.
+    hr
+    section#team
+        h2 Our team
+        aside.member
+            img(src="/images/logo.png", alt="")
+            p.name Brian Pillmore
+            p.title CEO
+        aside.member
+            img(src="/images/logo.png", alt="")
+            p.name Erdem Akkas
+            p.title CTO
+        aside.member
+            img(src="/images/logo.png", alt="")
+            p.name Jose Otero
+            p.title SALES &amp; MARKETING LEADER
+        a(href="/about/team") OUR TEAM
 
 block scripts 
     script(src="/js/about.js") 

@@ -1,4 +1,117 @@
-section aside:not(.quote)
+header
+{
+    min-height: auto;
+}
+h1
+{
+    margin-bottom: 0;
+}
+header h2
+{
+    margin-top: 0;
+    text-align: center;
+    text-transform: uppercase;
+    color: #616161;
+    font-weight: 400;
+}
+h2 + img
+{
+    display: block;
+    margin: 3% auto 1%;
+}
+p#intro
+{
+    width: 70%;
+    margin: 2% auto 0;
+    text-align: center;
+    line-height: 2;
+    font-size: 1.2rem;
+    padding-bottom: 5%;
+    border-bottom: 1px solid #128AF9;
+}
+main section
+{
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: auto;
+}
+main section > aside
+{
+    max-width: 55%;
+    line-height: 2;
+    margin: 0 5%;
+}
+h2
+{
+    color: #005487;
+    text-transform: uppercase;
+    line-height: 1.2;
+    width: 100%;
+}
+hr
+{
+    width: 60%;
+    border: 0;
+    border-bottom: 1px solid #128AF9;
+}
+#why, #vision
+{
+    justify-content: flex-end;
+    text-align: right;
+}
+#why p:last-of-type
+{
+    font-weight: 600;
+}
+#team
+{
+    justify-content: space-evenly;
+}
+#team h2
+{
+    text-align: center;
+}
+.member
+{
+    margin: 3% 0;
+    text-align: center;
+    width: calc(100%/3.5);
+    padding: 2%;
+    text-transform: uppercase;
+}
+.member img
+{
+    border-radius: 50%;
+    border: 5px solid #015193;
+}
+.member .name
+{
+    margin-bottom: 0;
+}
+.member .title
+{
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 0;
+}
+#team > a
+{
+    text-decoration: none;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #015193;
+    padding: 1% 2%;
+    border-radius: 15px;
+}
+/* #mission aside
+{
+    max-width: 100%;
+} */
+/* section aside:not(.quote)
 {
     text-align: center;
     padding: 3%;
@@ -191,4 +304,4 @@ h2
     {
         width: 100%;
     }
-}
+} */

@@ -95,6 +95,8 @@ h1
     font-weight: 700;
     font-size: 3rem;
     color: #005487;
+    text-transform: uppercase;
+    text-align: center;
 }
 header .center p
 {
