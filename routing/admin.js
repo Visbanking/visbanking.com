@@ -298,7 +298,7 @@ router.post("/dashboard/members", member.single('photo'), (req, res) => {
         });
     } else if (action === "Delete member") {
         fs.rm(path.join(__dirname, "..", "static", "images", "members", `${lodash.camelCase(req.body.name)}.jpg`), (err) => {
-            if (err) {
+            if (err.code !== 'ENOENT') {
                 console.error(err);
                 message = "Member couldn't be deleted. Please try again.";
                 res.redirect("/admin/dashboard");
