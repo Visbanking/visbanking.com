@@ -1,9 +1,75 @@
+header, main section
+{
+    min-height: auto;
+}
 h1
 {
-    text-align: center;
-    margin: 2% auto 1%;
+    margin-bottom: 1%;
 }
-h1 + p
+h1 + img
+{
+    display: block;
+    margin: 0 auto 3%;
+}
+hr
+{
+    width: 60%;
+    border: none;
+    border-bottom: 1px solid #128AF9;
+}
+main section
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.member
+{
+    text-align: center;
+    width: calc(100%/4.5);
+    padding: 1% 2%;
+    text-transform: uppercase;
+    line-height: 1;
+}
+.member img
+{
+    border-radius: 50%;
+    border: 5px solid #015193;
+    width: 40%;
+}
+.member .name
+{
+    margin: 5% auto 0;
+}
+.member .title
+{
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0;
+    padding: 2% 0 0;
+}
+.member .links
+{
+    margin: 3% auto 0;
+    font-size: 1.1rem;
+}
+.member a
+{
+    color: inherit;
+    text-decoration: none;
+    margin: 0 1%;
+}
+#top .member
+{
+    width: calc(100%/3.5);
+}
+#top .member img
+{
+    width: 30%;
+}
+/* h1 + p
 {
     width: 60%;
     margin: 0 auto;
@@ -67,4 +133,4 @@ p.links a
 {
     color: inherit;
     text-decoration: none;
-}
+} */
