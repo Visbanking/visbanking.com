@@ -4,38 +4,42 @@ const router = express.Router();
 const connection = require("./dbconnection");
 
 router.get("/", (req, res) => {
-	connection.query("SELECT * FROM Insights ORDER BY Views DESC;", (err, results, fields) => {
-		if (err) {
-			console.error(err);
-			res.redirect("/error");
-		} else {
-            const business = results.filter(result => {
-                return result.Topics.split(", ").includes("business")
-            });
-            const banks = results.filter(result => {
-                return result.Topics.split(", ").includes("banks")
-            });
-            const financial = results.filter(result => {
-                return result.Topics.split(", ").includes("financial")
-            });
-            const market = results.filter(result => {
-                return result.Topics.split(", ").includes("market")
-            });
-            const politics = results.filter(result => {
-                return result.Topics.split(", ").includes("politics")
-            });
-			res.render("insights", {
-				title: "Insights - Visbanking",
-				path: "/insights",
-                posts: results,
-                business,
-                banks,
-                financial,
-                market,
-                politics
-			});
-        }
-	});
+    connection.query("SELECT * FROM Insights ORDER BY Date DESC", (err, results, fields) => {
+        const newest = results;
+        connection.query("SELECT * FROM Insights ORDER BY Views DESC;", (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } else {
+                const business = results.filter(result => {
+                    return result.Topics.split(", ").includes("business")
+                });
+                const banks = results.filter(result => {
+                    return result.Topics.split(", ").includes("banks")
+                });
+                const financial = results.filter(result => {
+                    return result.Topics.split(", ").includes("financial")
+                });
+                const market = results.filter(result => {
+                    return result.Topics.split(", ").includes("market")
+                });
+                const politics = results.filter(result => {
+                    return result.Topics.split(", ").includes("politics")
+                });
+                res.render("insights", {
+                    title: "Insights - Visbanking",
+                    path: "/insights",
+                    top: results,
+                    newest,
+                    business,
+                    banks,
+                    financial,
+                    market,
+                    politics
+                });
+            }
+        });
+    })
 });
 
 router.get("/insight/:article_id", (req, res) => {
