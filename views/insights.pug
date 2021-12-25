@@ -27,7 +27,7 @@ block main
                     p.title #{post.Title}
     section#last
         h2 Last news
-        each post in newest.slice(1, 4)
+        each post in newest.slice(1, 5)
             article.post
                 img(src=post.Image, alt=post.Title)
                 a(href=`/insights/insight/${post.ID}`) 
