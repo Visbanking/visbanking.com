@@ -130,6 +130,8 @@ section#last
     float: left;
     max-width: 45%;
     margin-right: 5%;
+    max-height: 25vh;
+    object-fit: contain;
     filter: drop-shadow(0px 20px 20px 0px #00000040);
 }
 #last p.title
