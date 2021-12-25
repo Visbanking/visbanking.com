@@ -276,6 +276,7 @@ section#categories h2 button:last-of-type
     border: 1px solid #B9B8B8;
     transition: all 0.2s linear;
     margin-bottom: 2%;
+    cursor: default;
 }
 .articles .post:hover
 {
