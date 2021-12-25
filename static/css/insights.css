@@ -281,7 +281,7 @@ section#categories h2 button:last-of-type
 {
     box-shadow: 10px 10px 10px 0px #00000040;
 }
-.articles .post a
+.articles .post > a
 {
     display: block;
     margin: 1% auto;
