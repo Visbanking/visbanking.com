@@ -61,7 +61,7 @@ block main
                         img(src=post.Image, alt=post.Title)
                     p.title #{post.Title}
                     p.intro #{post.Body}
-                    a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
         aside.articles(v-if="business")
             each post in business
                 article.post(id=post.ID)
@@ -69,7 +69,7 @@ block main
                         img(src=post.Image, alt=post.Title)
                     p.title #{post.Title}
                     p.intro #{post.Body}
-                    a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
         aside.articles(v-if="banks")
             each post in banks
                 article.post(id=post.ID)
@@ -77,7 +77,7 @@ block main
                         img(src=post.Image, alt=post.Title)
                     p.title #{post.Title}
                     p.intro #{post.Body}
-                    a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
         aside.articles(v-if="financial")
             each post in financial
                 article.post(id=post.ID)
@@ -85,7 +85,7 @@ block main
                         img(src=post.Image, alt=post.Title)
                     p.title #{post.Title}
                     p.intro #{post.Body}
-                    a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
         aside.articles(v-if="market")
             each post in market
                 article.post(id=post.ID)
@@ -93,7 +93,7 @@ block main
                         img(src=post.Image, alt=post.Title)
                     p.title #{post.Title}
                     p.intro #{post.Body}
-                    a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
         aside.articles(v-if="politics")
             each post in politics
                 article.post(id=post.ID)
@@ -101,7 +101,7 @@ block main
                         img(src=post.Image, alt=post.Title)
                     p.title #{post.Title}
                     p.intro #{post.Body}
-                    a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
 
 block scripts 
     script(src="/js/insights.js") 
