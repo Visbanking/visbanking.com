@@ -29,7 +29,6 @@ h1 + img
     margin-right: 1%;
     border-radius: 10px;
     box-shadow: 0px 20px 20px 0px #00000040;
-
 }
 #latest > div:not(img)
 {
@@ -40,22 +39,30 @@ p.title
     font-weight: 700;
     font-size: 1.2rem;
     color: inherit;
-
 }
 #latest p.title
 {
     text-transform: uppercase;
     font-size: 1.5rem;
+    margin-top: 0;
 }
 p.intro
 {
     line-height: 1.8;
+}
+#latest .intro
+{
+    margin-bottom: 0;
 }
 p.date
 {
     font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 5%;
+}
+#latest .date
+{
+    margin: 3% 0 5%;
 }
 #latest a, .articles .post a
 {
@@ -141,99 +148,6 @@ section#last
 {
     width: calc(100%/2.2);
 }
-/* header
-{
-    min-height: auto;
-}
-main > section
-{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    min-height: auto;
-    padding: 0 3%;
-}
-main > section:not(#top)
-{
-    padding-bottom: 1%;
-}
-h1
-{
-    width: 100%;
-    text-align: center;
-    margin-top: 2%;
-}
-section a
-{
-    width: 25%;
-    border: 1px solid;
-    margin: 2% 2% 2% 0;
-    cursor: pointer;
-    transition: all 0.2s linear;
-    box-shadow: 0 0 1.5rem transparent;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #024060;
-    transition: box-shadow 0.2s linear;
-    height: 60vh;
-    position: relative;
-}
-section a:hover
-{
-    color: #024060;
-    box-shadow: 0 0 1rem #024060;
-}
-article.post > div
-{
-    border-bottom: 1px solid #024060;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    /* padding: 5%;
-    text-align: center;
-    margin-bottom: 3%;
-}
-article.post img
-{
-    max-width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    object-fit: cover;
-}
-article.post .topics
-{
-    opacity: 0.8;
-    font-size: 0.9rem;
-}
-h3
-{
-    font-family: 'Montserrat';
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-.post .date
-{
-    font-family: 'Raleway';
-    font-size: 0.9rem;
-    position: absolute;
-    bottom: 2%;
-    margin-bottom: 0;
-    font-weight: 600;
-}
-.post > *:not(div)
-{
-    margin: 0 5%;
-}
-h2
-{
-    width: 100%;
-    margin-bottom: 1%;
-}
-section#latest
-{
-    justify-content: flex-start;
-}*/
 #categories h2
 {
     margin-bottom: 1%;
