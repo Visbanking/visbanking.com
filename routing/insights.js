@@ -72,7 +72,7 @@ router.get("/insight/:article_id", (req, res) => {
                 connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topics LIKE '%${results[0].Topics.split(", ")[0]}%' LIMIT 0, 3;`, (err, results, fields) => {
                     const related = results;
                     res.render("insight", {
-                        title: results[0].Title,
+                        title: post.Title,
                         path: req.originalUrl,
                         post,
                         latest,
