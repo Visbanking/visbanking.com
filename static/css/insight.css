@@ -80,10 +80,16 @@ article #latest
 h2
 {
     width: 100%;
+    margin: 5% 0 2%;
+}
+h3
+{
     margin-top: 0;
-    text-transform: uppercase;
     color: #005487;
+    width: 100%;
+    text-transform: uppercase;
     border-bottom: 1px solid;
+    font-size: 1.5rem;
     padding: 1rem 0.2rem;
 }
 #latest .post

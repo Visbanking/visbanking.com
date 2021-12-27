@@ -24,14 +24,14 @@ block main
                 each par in post.Body
                     div #{par}
             aside#latest
-                h2 Latest news
+                h3 Latest news
                 each post in latest 
                     article.post 
                         img(src=post.Image, alt=post.Title)
                         a(href=`/insights/insight/${post.ID}`) 
                             p.title #{post.Title}
     #related
-        h2 Related news
+        h3 Related news
         each post in related
             article.post
                 div 
