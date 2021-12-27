@@ -1,7 +1,7 @@
 extends layout.pug
 
 block meta
-    meta(name="description", content=post.Body.slice(0, 100))
+    meta(name="description", content=post.Body[0])
     meta(name="keywords", content=post.Topics)
 
 block styles
@@ -10,12 +10,35 @@ block styles
 block main
     article 
         h1 #{post.Title}
-        p.date #{new Date(post.Date).toDateString()}
         img(src=post.Image, alt=post.Title)
-        p.topics Topics: #{`${post.Topics}`}
-        main 
-            each par in post.Body
-                div #{par}
+        //- p.date #{new Date(post.Date).toDateString()}
+        div#share
+            a.button#linkedin(target="_blank", title="Share to LinkedIn")
+                i.bi-linkedin 
+            a.button#facebook(target="_blank", title="Share to Facebook")
+                i.bi-facebook
+            a.button#twitter(target="_blank", title="Share to Twitter")
+                i.bi-twitter
+        .body
+            main 
+                each par in post.Body
+                    div #{par}
+            aside#latest
+                h2 Latest news
+                each post in latest 
+                    article.post 
+                        img(src=post.Image, alt=post.Title)
+                        a(href=`/insights/insight/${post.ID}`) 
+                            p.title #{post.Title}
+    #related
+        h2 Related news
+        each post in related
+            article.post
+                div 
+                    img(src=post.Image, alt=post.Title)
+                p.title #{post.Title}
+                p.intro #{post.Body}
+                a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
 
-block scripts 
+block scripts
     script(src="/js/insight.js") 
