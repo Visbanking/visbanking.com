@@ -43,37 +43,45 @@ router.get("/", (req, res) => {
 });
 
 router.get("/insight/:article_id", (req, res) => {
-    connection.query(`SELECT * FROM Insights WHERE ID = '${req.params.article_id}';`, (err, results, fields) => {
-        if (err) {
-            console.error(err);
-            res.redirect("/error");
-        } else if (results.length === 0) {
-            res.redirect("/insights");
-        } else {
-            connection.query(`UPDATE Insights SET Views = ${results[0].Views+1} WHERE ID = '${req.params.article_id}';`, (err, results, fields) => {
-                if (err) {
-                    console.error(err);
-                    res.redirect("/error");
+    connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' LIMIT 0, 3`, (err, results, fields) => {
+        const latest = results;
+        connection.query(`SELECT * FROM Insights WHERE ID = '${req.params.article_id}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } else if (results.length === 0) {
+                res.redirect("/insights");
+            } else {
+                connection.query(`UPDATE Insights SET Views = ${results[0].Views+1} WHERE ID = '${req.params.article_id}';`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        res.redirect("/error");
+                    }
+                });
+                const body = [];
+                results[0].Body.split("  ").forEach(par => {
+                    body.push(par);
+                });
+                const post = {
+                    Title: results[0].Title,
+                    Body: body,
+                    Image: results[0].Image,
+                    Date: results[0].Date,
+                    Topics: results[0].Topics
                 }
-            });
-            const body = [], topics = [];
-            results[0].Body.split("  ").forEach(par => {
-                body.push(par);
-            });
-            const post = {
-                Title: results[0].Title,
-                Body: body,
-                Image: results[0].Image,
-                Date: results[0].Date,
-                Topics: results[0].Topics
+                connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topics LIKE '%${results[0].Topics.split(", ")[0]}%' LIMIT 0, 3;`, (err, results, fields) => {
+                    const related = results;
+                    res.render("insight", {
+                        title: results[0].Title,
+                        path: req.originalUrl,
+                        post,
+                        latest,
+                        related
+                    });
+                });
             }
-            res.render("insight", {
-                title: results[0].Title,
-                path: req.originalUrl,
-                post
-            });
-        }
-    });
+        });
+    })
 });
 
 module.exports = router;
