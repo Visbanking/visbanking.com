@@ -1,0 +1,62 @@
+{
+    "free": {
+        "features": [
+        "Single bank reports",
+        "Bank industry report",
+        "Top bank lists",
+        "Bank footprint"
+        ],
+        "price": 0
+    },
+    "professional": {
+        "features": [
+        "Single bank reports",
+        "Bank industry report",
+        "Top bank lists",
+        "Bank footprint",
+        "Regulatory Enforcement",
+        "News feed",
+        "Stock pricing information",
+        "Financial statements",
+        "Enterprise value",
+        "Bank compare & merge"
+        ],
+        "price": 199
+    },
+    "premium": {
+        "features": [
+            "Single bank reports",
+            "Bank industry report",
+            "Top bank lists",
+            "Bank footprint",
+            "Regulatory Enforcement",
+            "News feed",
+            "Stock pricing information",
+            "Financial statements",
+            "Enterprise value",
+            "Bank compare & merge",
+            "Peer benchmarks",
+            "Legal entity structure",
+            "Organization chart"
+        ],
+        "price": 499
+    },
+    "enterprise": {
+        "features": [
+            "Single bank reports",
+            "Bank industry report",
+            "Top bank lists",
+            "Bank footprint",
+            "Regulatory Enforcement",
+            "News feed",
+            "Stock pricing information",
+            "Financial statements",
+            "Enterprise value",
+            "Bank compare & merge",
+            "Peer benchmarks",
+            "Legal entity structure",
+            "Organization chart",
+            "API integration"
+        ]
+    }
+}
