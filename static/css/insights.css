@@ -127,6 +127,7 @@ section#last
 #last .post
 {
     padding: 1%;
+    width: 100%;
 }
 #last .post:not(:last-of-type)
 {
