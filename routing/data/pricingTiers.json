@@ -1,30 +1,48 @@
 {
     "free": {
-        "features": [
-        "Single bank reports",
-        "Bank industry report",
-        "Top bank lists",
-        "Bank footprint"
+        "included": [
+            "Single bank reports",
+            "Bank industry report",
+            "Top bank lists",
+            "Bank footprint"
+        ],
+        "notIncluded": [
+            "Regulatory Enforcement",
+            "News feed",
+            "Stock pricing information",
+            "Financial statements",
+            "Enterprise value",
+            "Bank compare & merge",
+            "Peer benchmarks",
+            "Legal entity structure",
+            "Organization chart",
+            "API integration"
         ],
         "price": 0
     },
     "professional": {
-        "features": [
-        "Single bank reports",
-        "Bank industry report",
-        "Top bank lists",
-        "Bank footprint",
-        "Regulatory Enforcement",
-        "News feed",
-        "Stock pricing information",
-        "Financial statements",
-        "Enterprise value",
-        "Bank compare & merge"
+        "included": [
+            "Single bank reports",
+            "Bank industry report",
+            "Top bank lists",
+            "Bank footprint",
+            "Regulatory Enforcement",
+            "News feed",
+            "Stock pricing information",
+            "Financial statements",
+            "Enterprise value",
+            "Bank compare & merge"
+        ],
+        "notIncluded": [
+            "Peer benchmarks",
+            "Legal entity structure",
+            "Organization chart",
+            "API integration"
         ],
         "price": 199
     },
     "premium": {
-        "features": [
+        "included": [
             "Single bank reports",
             "Bank industry report",
             "Top bank lists",
@@ -38,6 +56,9 @@
             "Peer benchmarks",
             "Legal entity structure",
             "Organization chart"
+        ],
+        "notIncluded": [
+            "API integration"
         ],
         "price": 499
     },
