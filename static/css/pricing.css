@@ -11,11 +11,11 @@ h1, h2
 }
 h2 + p
 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     text-align: center;
     margin: 3% auto 1%;
-    font-weight: 600;
+    font-weight: 700;
 }
 #pricing
 {
@@ -43,6 +43,7 @@ h2 + p
 {
     background-color: #128AF9;
     color: #FFFFFF;
+    font-weight: 600;
 }
 #professional > div:first-of-type
 {
@@ -75,6 +76,7 @@ ul.features
 .features li
 {
     padding: 7% 0;
+    text-transform: capitalize;
 }
 .features p
 {
