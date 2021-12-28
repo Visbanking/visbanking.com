@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE);
+const stripe = require("stripe")(process.env.STRIPE_TEST);
 
 router.get("/", async (req, res) => {
     if (!req.query.tier) return res.redirect("/pricing");

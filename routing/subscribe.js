@@ -6,7 +6,7 @@ const phoneVerify = require("google-libphonenumber");
 const phoneUtil = phoneVerify.PhoneNumberUtil.getInstance();
 const PNF = phoneVerify.PhoneNumberFormat;
 const { customList } = require("country-codes-list");
-const connection = require("./dbconnection");
+const connection = require("./data/dbconnection");
 require("dotenv").config();
 const router = express.Router();
 

@@ -6,7 +6,9 @@ const hash = require("hash.js");
 const multer = require("multer");
 const path = require("path");
 const lodash = require("lodash");
-const connection = require("./dbconnection");
+const connection = require("./data/dbconnection");
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_TEST);
 
 router.use(urlencoded({extended: true}));
 router.use(cookieParser());
@@ -29,7 +31,17 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:email", (req, res) => {
+router.get("/:email", async (req, res) => {
+    const customer = await stripe.customers.list({
+        email: req.cookies.user
+    });
+    const subscription = await stripe.subscriptions.list({
+        customer: customer.data[0].id
+    });
+    const plan = await stripe.prices.list({
+        product: subscription.data[0].plan.product
+    });
+    const tier = lodash.capitalize(plan.data[0].lookup_key);
     connection.query(`SELECT * FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
         if (err) {
             console.error(err);
@@ -40,6 +52,7 @@ router.get("/:email", (req, res) => {
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
                 userInfo: results[0],
+                tier,
                 user: req.cookies.user||"",
                 access: req.cookies.user===results[0].Email
             });
@@ -146,8 +159,30 @@ router.post("/:email/update", (req, res) => {
 });
 
 router.get("/:email/logout", (req, res) => {
-    res.clearCookie("username");
+    res.clearCookie("user");
     res.redirect("/");
+});
+
+router.get("/:email/subscription", async (req, res) => {
+    const customer = await stripe.customers.list({
+        email: req.cookies.user
+    });
+    const subscription = await stripe.subscriptions.list({
+        customer: customer.data[0].id
+    });
+    const endTier = req.query.tier;
+	const prices = await stripe.prices.list({
+		lookup_keys: [endTier],
+		expand: ["data.product"]
+	});
+    stripe.subscriptions.update(subscription.data[0].id, {
+        cancel_at_period_end: false,
+        proration_behavior: 'create_prorations',
+        items: [{
+            id: subscription.data[0].id,
+            price: prices.data[0].id
+        }]
+    });
 });
 
 module.exports = router;

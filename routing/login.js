@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const { check } = require("email-existence");
 const hash = require("hash.js");
 const cookieParser = require("cookie-parser");
-const connection = require("./dbconnection");
+const connection = require("./data/dbconnection");
 require("dotenv").config();
 const router = express.Router();
 

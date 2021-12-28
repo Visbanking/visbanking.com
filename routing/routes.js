@@ -1,5 +1,6 @@
 const express = require("express");
-const connection = require("./dbconnection");
+const connection = require("./data/dbconnection");
+const tiers = require("./data/pricingTiers.json");
 const router = express.Router();
 
 router.get("/", (req, res) => {

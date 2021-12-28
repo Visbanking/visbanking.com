@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const existence = require("email-existence");
-const connection = require("./dbconnection");
+const connection = require("./data/dbconnection");
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended: true}));
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    const name = req.body.name, email = req.body.email, subject = req.body.subject, message = req.body.message;
+    const name = `${req.body.fname} ${req.body.lname}`, email = req.body.email, subject = req.body.subject, message = req.body.message;
     existence.check(email, (err, response) => {
         if (err) {
             console.error(err);
