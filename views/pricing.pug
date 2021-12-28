@@ -17,15 +17,10 @@ block main
             p
                 span.price $#{tiers.free.price}
             ul.features
-                each feature in tiers.free.included
+                each feature in tiers.free.features
                     li 
                         p
                             i.bi-check2-square 
-                            | #{feature}
-                each feature in tiers.free.notIncluded
-                    li 
-                        p
-                            i.bi-x-square 
                             | #{feature}
             a.button(href="/buy?tier=free") Subscribe 
         aside.plan#professional
@@ -35,15 +30,10 @@ block main
                 span.price $#{tiers.professional.price}
                 | /month
             ul.features
-                each feature in tiers.professional.included
+                each feature in tiers.professional.features
                     li 
                         p
                             i.bi-check2-square 
-                            | #{feature}
-                each feature in tiers.professional.notIncluded
-                    li 
-                        p
-                            i.bi-x-square 
                             | #{feature}
             a.button(href="/buy?tier=professional") Subscribe 
         aside.plan#premium 
@@ -52,15 +42,10 @@ block main
                 span.price $#{tiers.premium.price}
                 | /month
             ul.features
-                each feature in tiers.premium.included
+                each feature in tiers.premium.features
                     li 
                         p
                             i.bi-check2-square 
-                            | #{feature}
-                each feature in tiers.premium.notIncluded
-                    li 
-                        p
-                            i.bi-x-square 
                             | #{feature}
             a.button(href="/buy?tier=premium") Subscribe 
         aside.plan#enterprise 
@@ -73,85 +58,6 @@ block main
                             i.bi-check2-square 
                             | #{feature}
             a.button(href="mailto:sales@visbanking.com") Contact Sales 
-    //- h1 Pricing
-    //- form.row#pricing(method="POST")
-    //-     .col-lg-4
-    //-         .card 
-    //-             .card-header 
-    //-                 h2 Free
-    //-                 p.price Forever
-    //-             .card-body
-    //-                 p With a Free account, you'll have complete access to:
-    //-                 ul.list-group.list-group-flush
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-             .card-footer
-    //-                 button 
-    //-                     a(href="/buy?tier=free") Get Free Access 
-    //-     .col-lg-4 
-    //-         .card 
-    //-             .card-header 
-    //-                 h2 Professional
-    //-                 p
-    //-                     span.price $99
-    //-                     | /month
-    //-             .card-body
-    //-                 p The Professional plan extends the Free plan's access to our services through the following:
-    //-                 ul.list-group.list-group-flush
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-             .card-footer
-    //-                 button 
-    //-                     a(href="/buy?tier=professional") Get Professional Access
-    //-     .col-lg-4
-    //-         .card 
-    //-             .card-header 
-    //-                 h2 Premium
-    //-                 p
-    //-                     span.price $499
-    //-                     | /month
-    //-             .card-body
-    //-                 p The Premium plan gives you acces to most valuable features of Visbanking, such as:
-    //-                 ul.list-group.list-group-flush
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-             .card-footer
-    //-                 button 
-    //-                     a(href="/buy?tier=premium") Get Premium Access
-    //-     .col-lg-12
-    //-         .card 
-    //-             .card-header 
-    //-                 h2 Enterprise
-    //-                 p.price Contact Us
-    //-             .card-body
-    //-                 p The Enterprise plan allows you full, unlimited access to all of Visbanking's features, including:
-    //-                 ul.list-group.list-group-flush
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-                     li.list-group-item Public reports
-    //-             .card-footer
-    //-                 button 
-    //-                     a(href="mailto:info@visbanking.com") Get Enterprise Access 
-    //- section.container-fluid#features 
-    //-     h2 Features
-    //-     p The idea for this section is to have a table comparing the free, professional and premium plans showing which each plan has and which it doesn't. The table would have a fixed footer prompting for the enterprise plan.
-    //-     table 
-    //-         thead 
-    //-             td Feature/Plan
-    //-             td Free
-    //-             td Professional
-    //-             td Premium
-    //-         tr 
-    //-             td Feature Name
-    //-             td 
-    //-                 i.bi-x-lg
-    //-             td 
-    //-                 i.bi-check-lg
-    //-             td 
-    //-                 i.bi-check-lg
 
 block scripts 
     script(src="/js/pricing.js") 

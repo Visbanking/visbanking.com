@@ -32,6 +32,7 @@ h2 + p
     border: 2px solid #128AF9;
     padding: 2% 1%;
     position: relative;
+    height: 600px;
 }
 .plan h3
 {
@@ -75,7 +76,7 @@ ul.features
 }
 .features li
 {
-    padding: 7% 0;
+    padding: 3% 0;
     text-transform: capitalize;
 }
 .features p
@@ -89,6 +90,11 @@ a.button
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 700;
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+    transform: translateX(-50%);
+    width: 50%;
 }
 .plan:not(#professional) a.button
 {
