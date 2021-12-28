@@ -15,92 +15,63 @@ block main
         aside.plan#free
             h3 Free
             p
-                span.price $0
+                span.price $#{tiers.free.price}
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Banking Industry Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
+                each feature in tiers.free.included
+                    li 
+                        p
+                            i.bi-check2-square 
+                            | #{feature}
+                each feature in tiers.free.notIncluded
+                    li 
+                        p
+                            i.bi-x-square 
+                            | #{feature}
             a.button(href="/buy?tier=free") Subscribe 
         aside.plan#professional
             div Recommended
             h3 Professional
             p
-                span.price $99
+                span.price $#{tiers.professional.price}
                 | /month
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Banking Industry Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-            a.button(href="/buy?tier=free") Subscribe 
+                each feature in tiers.professional.included
+                    li 
+                        p
+                            i.bi-check2-square 
+                            | #{feature}
+                each feature in tiers.professional.notIncluded
+                    li 
+                        p
+                            i.bi-x-square 
+                            | #{feature}
+            a.button(href="/buy?tier=professional") Subscribe 
         aside.plan#premium 
             h3 Premium
             p
-                span.price $499
+                span.price $#{tiers.premium.price}
                 | /month
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Banking Industry Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-            a.button(href="/buy?tier=free") Subscribe 
+                each feature in tiers.premium.included
+                    li 
+                        p
+                            i.bi-check2-square 
+                            | #{feature}
+                each feature in tiers.premium.notIncluded
+                    li 
+                        p
+                            i.bi-x-square 
+                            | #{feature}
+            a.button(href="/buy?tier=premium") Subscribe 
         aside.plan#enterprise 
             h3 Enterprise
             p.price Contact sales
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Banking Industry Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
-                li 
-                    p
-                        i.bi-check2-square 
-                        | Single Bank Report
+                each feature in tiers.enterprise.features
+                    li 
+                        p
+                            i.bi-check2-square 
+                            | #{feature}
             a.button(href="mailto:sales@visbanking.com") Contact Sales 
     //- h1 Pricing
     //- form.row#pricing(method="POST")
