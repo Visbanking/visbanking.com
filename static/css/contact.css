@@ -122,6 +122,10 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
 {
     font-weight: 600;
 }
+.information sup
+{
+    font-size: 0.65rem;
+}
 @media screen and (max-width: 991px)
 {
     form input, input#message
