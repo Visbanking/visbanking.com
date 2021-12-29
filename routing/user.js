@@ -9,7 +9,7 @@ const lodash = require("lodash");
 const connection = require("./data/dbconnection");
 const tiers = require("./data/pricingTiers.json");
 require("dotenv").config();
-const stripe = require("stripe")(process.env.STRIPE_TEST);
+const stripe = require("stripe")(process.env.STRIPE);
 
 router.use(urlencoded({extended: true}));
 router.use(cookieParser());
@@ -33,28 +33,28 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:email", async (req, res, next) => {
-    const customer = await stripe.customers.list({
-        email: req.cookies.user
-    });
-    const subscription = await stripe.subscriptions.list({
-        customer: customer.data[0].id
-    });
-    const plan = await stripe.prices.list({
-        product: subscription.data[0].plan.product
-    });
-    const tier = lodash.capitalize(plan.data[0].lookup_key);
-    res.cookie('tier', tier, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 241920000)
-    });
-    connection.query(`SELECT * FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+router.get("/:email", (req, res, next) => {
+    connection.query(`SELECT * FROM Users WHERE Email = '${req.params.email}';`, async (err, results, fields) => {
         if (err) {
             console.error(err);
             res.redirect("/error");
         } else if (results.length === 0) {
             next();
         } else {
+            const customer = await stripe.customers.list({
+                email: req.cookies.user
+            });
+            const subscription = await stripe.subscriptions.list({
+                customer: customer.data[0].id
+            });
+            const plan = await stripe.prices.list({
+                product: subscription.data[0].plan.product
+            });
+            const tier = lodash.capitalize(plan.data[0].lookup_key);
+            res.cookie('tier', tier, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 241920000)
+            });
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
                 userInfo: results[0],
@@ -71,60 +71,62 @@ router.get("/:email", async (req, res, next) => {
 });
 
 router.post("/:email", user.single('image'), (req, res) => {
-    if (req.body.name.split(" ").length > 1 && req.file) {
-        const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
-        connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-            if (err) {
-                console.error(err);
-                res.redirect("/error");
-            } else {
-                const id = results[0].ID;
-                connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}', Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
-                    if (err) {
-                        error = 'Name and/or profile picture couldn\'t be updated';
-                    } else {
-                        message = 'Name and profile picture updated successfully';
-                    }
-                    res.redirect(`/users/${req.params.email}`);
-                });
-            }
-        });
-    } else if (!req.file) {
-        const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
-        connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-            if (err) {
-                console.error(err);
-                res.redirect("/error");
-            } else {
-                const id = results[0].ID;
-                connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}' WHERE ID = ${id};`, (err, results, fields) => {
-                    if (err) {
-                        error = 'Name couldn\'t be updated'
-                    } else {
-                        message = 'Name updated successfully';
-                    }
-                    res.redirect(`/users/${req.params.email}`);
-                });
-            }
-        });
-    } else if (!(req.body.name.split(" ").length > 1)) {
-        connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-            if (err) {
-                console.error(err);
-                res.redirect("/error");
-            } else {
-                const id = results[0].ID;
-                connection.query(`UPDATE Users SET Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
-                    if (err) {
-                        error = 'Profile picture couldn\'t be updated';
-                    } else {
-                        message = 'Profile picture updated successfully';
-                    }
-                    res.redirect(`/users/${req.params.email}`);
-                });
-            }
-        });
-    }
+    if (req.cookies.user === req.params.email) {
+        if (req.body.name.split(" ").length > 1 && req.file) {
+            const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
+            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                if (err) {
+                    console.error(err);
+                    res.redirect("/error");
+                } else {
+                    const id = results[0].ID;
+                    connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}', Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
+                        if (err) {
+                            error = 'Name and/or profile picture couldn\'t be updated';
+                        } else {
+                            message = 'Name and profile picture updated successfully';
+                        }
+                        res.redirect(`/users/${req.params.email}`);
+                    });
+                }
+            });
+        } else if (!req.file) {
+            const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
+            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                if (err) {
+                    console.error(err);
+                    res.redirect("/error");
+                } else {
+                    const id = results[0].ID;
+                    connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}' WHERE ID = ${id};`, (err, results, fields) => {
+                        if (err) {
+                            error = 'Name couldn\'t be updated'
+                        } else {
+                            message = 'Name updated successfully';
+                        }
+                        res.redirect(`/users/${req.params.email}`);
+                    });
+                }
+            });
+        } else if (!(req.body.name.split(" ").length > 1)) {
+            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                if (err) {
+                    console.error(err);
+                    res.redirect("/error");
+                } else {
+                    const id = results[0].ID;
+                    connection.query(`UPDATE Users SET Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
+                        if (err) {
+                            error = 'Profile picture couldn\'t be updated';
+                        } else {
+                            message = 'Profile picture updated successfully';
+                        }
+                        res.redirect(`/users/${req.params.email}`);
+                    });
+                }
+            });
+        }
+    } else res.redirect(`/users/${req.cookies.user}`);
 });
 
 router.get("/:email/update", (req, res) => {
@@ -178,71 +180,76 @@ router.get("/:email/logout", (req, res) => {
 });
 
 router.get("/:email/subscription", async (req, res) => {
-    const customer = await stripe.customers.list({
-        email: req.cookies.user
-    });
-    const subscription = await stripe.subscriptions.list({
-        customer: customer.data[0].id
-    });
-    const endTier = req.query.tier;
-    const prices = await stripe.prices.list({
-        lookup_keys: [endTier]
-    });
-    await stripe.subscriptions.update(subscription.data[0].id, {
-        cancel_at_period_end: false,
-        proration_behavior: 'create_prorations',
-        items: [{
-            id: subscription.data[0].items.data[0].id,
-            price: prices.data[0].id
-        }]
-    });
-    if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
-    else message = 'Your plan will be updated at the end of the current period';
-    res.redirect(`/users/${req.cookies.user}`);
+    if (req.cookies.user === req.params.email) {
+        const customer = await stripe.customers.list({
+            email: req.cookies.user
+        });
+        const subscription = await stripe.subscriptions.list({
+            customer: customer.data[0].id
+        });
+        const endTier = req.query.tier;
+        const prices = await stripe.prices.list({
+            lookup_keys: [endTier]
+        });
+        await stripe.subscriptions.update(subscription.data[0].id, {
+            cancel_at_period_end: false,
+            proration_behavior: 'create_prorations',
+            items: [{
+                id: subscription.data[0].items.data[0].id,
+                price: prices.data[0].id
+            }]
+        });
+        if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
+        else message = `Your plan will be updated to ${lodash.capitalize(endTier)} at the end of the current period`;
+        res.redirect(`/users/${req.cookies.user}`);
+    } else res.redirect(`/users/${req.cookies.user}`)
 });
 
 router.get("/:email/delete", async (req, res) => {
-    const customer = await stripe.customers.list({
-        email: req.cookies.user
-    });
-    const subscription = await stripe.subscriptions.list({
-        customer: customer.data[0].id
-    });
-    stripe.subscriptions.del(subscription.data[0].id, (err, result) => {
-        if (err) {
-            error = 'Your account couldn\'t be deleted';
-            res.redirect(`/users/${req.cookies.user}`);
-        } else {
-            stripe.customers.del(customer.data[0].id, (err, result) => {
-                if (err) {
-                    error = 'Your account couldn\'t be deleted';
-                    res.redirect(`/users/${req.cookies.user}`);
-                } else {
-                    connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                        if (err) {
-                            error = 'Your account couldn\'t be deleted';
-                            res.redirect(`/users/${req.cookies.user}`);
-                        } else {
-                            connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
-                                if (err) {
-                                    error = 'Your account couldn\'t be deleted';
-                                    return res.redirect(`/users/${req.cookies.user}`);
-                                }
-                                res.cookie('user', 'deleted');
-                                res.redirect("/users/deleted");
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
+    if (req.cookies.user === req.params.email) {
+        const customer = await stripe.customers.list({
+            email: req.cookies.user
+        });
+        const subscription = await stripe.subscriptions.list({
+            customer: customer.data[0].id
+        });
+        stripe.subscriptions.del(subscription.data[0].id, { invoice_now: false }, (err, result) => {
+            if (err) {
+                error = 'Your account couldn\'t be deleted';
+                res.redirect(`/users/${req.cookies.user}`);
+            } else {
+                stripe.customers.del(customer.data[0].id, (err, result) => {
+                    if (err) {
+                        error = 'Your account couldn\'t be deleted';
+                        res.redirect(`/users/${req.cookies.user}`);
+                    } else {
+                        connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                            if (err) {
+                                error = 'Your account couldn\'t be deleted';
+                                res.redirect(`/users/${req.cookies.user}`);
+                            } else {
+                                connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
+                                    if (err) {
+                                        error = 'Your account couldn\'t be deleted';
+                                        return res.redirect(`/users/${req.cookies.user}`);
+                                    }
+                                    res.cookie('user', 'deleted');
+                                    res.redirect("/users/deleted");
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    } else res.redirect(`/users/${req.cookies.user}`);
 });
 
 router.get("/deleted", (req, res) => {
     if (req.cookies.user === 'deleted') {
-        res.render("deleted");
         res.clearCookie('user');
+        res.clearCookie('tier');
+        res.render("deleted");
     } else {
         res.redirect(`/users/${req.cookies.user}`);
     }
