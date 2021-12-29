@@ -19,18 +19,9 @@ client.setConfig({
 
 var error = "";
 
-router.get("/", (req, res) => {
-	res.render("subscribe", {
-		title: "Subscribe to our Newsletter - Visbanking",
-		path: "/subscribe",
-		error: error,
-	});
-	error = "";
-});
-
 router.post("/", (req, res) => {
-	const firstName = req.body.fname,
-	lastName = req.body.lname,
+	const fName = req.body.name.split(" ")[0],
+	lName = req.body.name.split(" ")[1],
 	email = req.body.email,
 	company = req.body.company,
 	country = req.body.country,
@@ -52,8 +43,8 @@ router.post("/", (req, res) => {
 							email_address: email,
 							status: "subscribed",
 							merge_fields: {
-								FNAME: firstName,
-								LNAME: lastName,
+								FNAME: fName,
+								LNAME: lName,
 								COMPANY: company,
 								PHONE: phoneUtil.format(
 									phone,
@@ -72,7 +63,7 @@ router.post("/", (req, res) => {
 				const run = async () => {
 					const response = await client.lists.batchListMembers("71c3a51cce", new_client);
 					if (response.error_count === 0) {
-        				connection.query(`INSERT INTO Mailings (Address1, Address2, City, State, Country, Phone, Role, FirstName, LastName, Company, Email) VALUES ("${address1?address1:"NULL"}", "${address2?address2:"NULL"}", "${city?city:"NULL"}", "${state?state:"NULL"}", "${country?country:"NULL"}", "${phone?phoneUtil.format(phone, PNF.INTERNATIONAL):"NULL"}", "${role?role:"NULL"}", "${firstName}", "${lastName}", "${company}", "${email}");`);
+        				connection.query(`INSERT INTO Mailings (Address1, Address2, City, State, Country, Phone, Role, FirstName, LastName, Company, Email) VALUES ("${address1?address1:"NULL"}", "${address2?address2:"NULL"}", "${city?city:"NULL"}", "${state?state:"NULL"}", "${country?country:"NULL"}", "${phone?phoneUtil.format(phone, PNF.INTERNATIONAL):"NULL"}", "${role?role:"NULL"}", "${fName}", "${lName}", "${company}", "${email}");`);
 						res.redirect("/subscribe/success");
 					} else {
 						if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
