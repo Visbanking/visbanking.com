@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const connection = require("./data/dbconnection");
 require("dotenv").config();
 const router = express.Router();
-
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
@@ -37,7 +36,7 @@ router.post("/login", (req, res) => {
         } else if (pass === results[0].Password) {
             res.cookie("user", email, {
                 httpOnly: true,
-                expires: new Date(Date.now() + 241_920_000),
+                expires: new Date(Date.now() + 241920000),
             });
             res.redirect(`/users/${email}`);
         } else {
@@ -50,12 +49,14 @@ router.post("/login", (req, res) => {
 router.get("/signup", (req, res) => {
     if (req.cookies.user) {
         res.redirect(`/users/${req.cookies.user}`);
+    } else if (!req.query.tier) {
+        res.redirect("/buy?tier=free");
     } else {
         res.render("login", {
             title: "Sign Up - Visbanking",
             path: "/signup",
             action: "Sign Up",
-            tier: req.query.tier || 'Free',
+            tier: req.query.tier,
             signUpError: signUpError,
         });
     }
@@ -92,7 +93,7 @@ router.post("/signup", (req, res) => {
                             } else {
                                 res.cookie("user", email, {
                                     httpOnly: true,
-                                    expires: new Date(Date.now() + 241_920_000)
+                                    expires: new Date(Date.now() + 241920000)
                                 });
                                 res.redirect(`/users/${email}`);
                             }
