@@ -1,3 +1,8 @@
+setTimeout(() => {
+    if (document.querySelector("p#message")) document.querySelector("p#message").innerHTML = "";
+    else if (document.querySelector("p#error")) document.querySelector("p#error").innerHTML = "";
+}, 10000);
+
 document.querySelector("#profile").addEventListener("click", (event) => {
     document.querySelector(`#${event.target.id} + input[type='file']`).classList.toggle("show");
     if (document.querySelector(`#${event.target.id} + input[type='file']`).classList.contains("show")) {
