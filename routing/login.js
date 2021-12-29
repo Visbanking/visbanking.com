@@ -84,20 +84,16 @@ router.post("/signup", (req, res) => {
                     }
                 } else {
                     connection.query(`SELECT ID FROM Users WHERE Email='${email}';`, (err, results, fields) => {
-                        if (err) throw err;
-                        const date = new Date();
-                        connection.query(`INSERT INTO Subscriptions (UserID, StartDate, EndDate) VALUES (${results[0].ID}, '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}', '${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}');`, (err, results, fields) => {
-                            if (err) {
-                                console.error(err);
-                                res.redirect("/error");
-                            } else {
-                                res.cookie("user", email, {
-                                    httpOnly: true,
-                                    expires: new Date(Date.now() + 241920000)
-                                });
-                                res.redirect(`/users/${email}`);
-                            }
-                        });
+                        if (err) {
+                            console.error(err);
+                            res.redirect("/error");
+                        } else {
+                            res.cookie("user", email, {
+                                httpOnly: true,
+                                expires: new Date(Date.now() + 241920000)
+                            });
+                            res.redirect(`/users/${email}`);
+                        }
                     });
                 }
             });
