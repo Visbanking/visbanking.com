@@ -32,7 +32,6 @@ h2 + p
     border: 2px solid #128AF9;
     padding: 2% 1%;
     position: relative;
-    height: 600px;
 }
 .plan h3
 {
@@ -70,7 +69,7 @@ ul.features
 {
     list-style-type: none;
     padding: 1% 2% 0;
-    margin: 0 auto 20%;
+    margin: 0 auto 10%;
     text-align: left;
     width: 80%;
 }
