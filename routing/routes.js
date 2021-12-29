@@ -22,12 +22,12 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/services", (req, res) => {
-    res.render("services", {
-        title: "Our Services - Visbanking",
-        path: "/services"
-    });
-});
+// router.get("/services", (req, res) => {
+//     res.render("services", {
+//         title: "Our Services - Visbanking",
+//         path: "/services"
+//     });
+// });
 
 router.get("/pricing", (req, res) => {
 	res.render("pricing", {
