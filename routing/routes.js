@@ -4,17 +4,21 @@ const tiers = require("./data/pricingTiers.json");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    connection.query("SELECT * FROM Insights ORDER BY Views DESC LIMIT 0, 3;", (err, results, fields) => {
-        if (err) {
-            console.error(err);
-            res.redirect("/error");
-        } else {
-            res.render("index", {
-                title: "Visbanking - US Banking Data Visualized",
-                path: "/",
-                insights: results
-            });
-        }
+    connection.query("SELECT * FROM Insights ORDER BY Date DESC LIMIT 0, 3;", (err, results, fields) => {
+        const latest = results;
+        connection.query("SELECT * FROM Insights ORDER BY Views DESC LIMIT 0, 2;", (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } else {
+                res.render("index", {
+                    title: "Visbanking - US Banking Data Visualized",
+                    path: "/",
+                    latest,
+                    featured: results
+                });
+            }
+        });
     });
 });
 
