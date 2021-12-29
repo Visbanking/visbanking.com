@@ -30,17 +30,3 @@ document.querySelector("input[name='name']").addEventListener("keydown", (event)
         document.querySelector(`input[type="submit"]`).classList.remove("show");
     }
 });
-
-document.querySelector("section > button").addEventListener("click", () => {
-    window.location.href += '/logout';
-});
-
-document.querySelector("a#pass").addEventListener("click", () => {
-    window.location.href += '/update'
-});
-
-document.querySelectorAll("#upgrade .card .card-footer button").forEach(button => {
-    button.addEventListener("click", () => {
-        button.children[0].click();
-    });
-});

@@ -21,16 +21,19 @@ block main
                     i.bi-pencil-square#name(title="Update Name")
                     input(type="text", name="name", placeholder="Name Surname")
             p#email(title="Your Email") (#{userInfo.Email}) 
-            if access
-                a#pass Change Password
             input(type="submit", value="Save")
-        if access
-            button#logout Log Out
         if message 
             p#message #{message}
     if access
+        section#actions
+            h2 Account Actions
+            .safe
+                a#pass(href=`/users/${userInfo.Email}/update`) Change Password
+                a#logout(href=`/users/${userInfo.Email}/logout`) Log Out
+            .danger
+                a#delete(href=`/users/${userInfo.Email}/delete`) Delete Account
         section#account 
-            h2 Your Account
+            h2 Your Subscription
             if tier === 'Free'
                 .card 
                     .card-header 
