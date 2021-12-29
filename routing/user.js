@@ -140,33 +140,36 @@ router.get("/:email/update", (req, res) => {
 });
 
 router.post("/:email/update", (req, res) => {
-    const old = hash.sha512().update(req.body.old).digest("hex");
-    connection.query(`SELECT Password FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-        if (err) {
-            console.error(err);
-            res.redirect("/error");
-        } else if (old !== results[0].Password) {
-            error = 'Old password is incorrect';
-            res.redirect(`/users/${req.params.email}/update`);
-        } else {
-            if (old === hash.sha512().update(req.body.pass).digest("hex")) {
-                error = 'New password can\'t be the same as old password';
+    if (req.cookies.user === req.params.email) {
+        const old = hash.sha512().update(req.body.old).digest("hex");
+        connection.query(`SELECT Password FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } else if (old !== results[0].Password) {
+                error = 'Old password is incorrect';
                 res.redirect(`/users/${req.params.email}/update`);
-            } else if (old === results[0].Password) {
-                const pass = hash.sha512().update(req.body.pass).digest("hex");
-                connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                    if (err) {
-                        error = `Password couldn\'t be updated`;
-                    }
-                    else {
-                        message = 'Password updated successfully';
-                    }
-                    res.clearCookie('user');
-                    res.redirect("/login");
-                });
+            } else {
+                if (old === hash.sha512().update(req.body.pass).digest("hex")) {
+                    error = 'New password can\'t be the same as old password';
+                    res.redirect(`/users/${req.params.email}/update`);
+                } else if (old === results[0].Password) {
+                    const pass = hash.sha512().update(req.body.pass).digest("hex");
+                    connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                        if (err) {
+                            error = `Password couldn\'t be updated`;
+                        } else {
+                            message = 'Password updated successfully';
+                        }
+                        res.clearCookie('user');
+                        res.redirect("/login");
+                    });
+                }
             }
-        }
-    });
+        });
+    } else {
+        res.redirect(`/users/${req.cookies.user}`);
+    }
 });
 
 router.get("/:email/logout", (req, res) => {
@@ -196,6 +199,53 @@ router.get("/:email/subscription", async (req, res) => {
     if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
     else message = 'Your plan will be updated at the end of the current period';
     res.redirect(`/users/${req.cookies.user}`);
+});
+
+router.get("/:email/delete", async (req, res) => {
+    const customer = await stripe.customers.list({
+        email: req.cookies.user
+    });
+    const subscription = await stripe.subscriptions.list({
+        customer: customer.data[0].id
+    });
+    stripe.subscriptions.del(subscription.data[0].id, (err, result) => {
+        if (err) {
+            error = 'Your account couldn\'t be deleted';
+            res.redirect(`/users/${req.cookies.user}`);
+        } else {
+            stripe.customers.del(customer.data[0].id, (err, result) => {
+                if (err) {
+                    error = 'Your account couldn\'t be deleted';
+                    res.redirect(`/users/${req.cookies.user}`);
+                } else {
+                    connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                        if (err) {
+                            error = 'Your account couldn\'t be deleted';
+                            res.redirect(`/users/${req.cookies.user}`);
+                        } else {
+                            connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
+                                if (err) {
+                                    error = 'Your account couldn\'t be deleted';
+                                    return res.redirect(`/users/${req.cookies.user}`);
+                                }
+                                res.cookie('user', 'deleted');
+                                res.redirect("/users/deleted");
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+router.get("/deleted", (req, res) => {
+    if (req.cookies.user === 'deleted') {
+        res.render("deleted");
+        res.clearCookie('user');
+    } else {
+        res.redirect(`/users/${req.cookies.user}`);
+    }
 });
 
 module.exports = router;
