@@ -181,7 +181,7 @@ section#categories h2 button:last-of-type
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 .articles .post
@@ -190,7 +190,7 @@ section#categories h2 button:last-of-type
     padding: 1%;
     border: 1px solid #B9B8B8;
     transition: all 0.2s linear;
-    margin-bottom: 2%;
+    margin: 0 2% 2% 0;
     cursor: default;
 }
 .articles .post:hover
