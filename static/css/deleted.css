@@ -1,0 +1,17 @@
+.center i
+{
+    font-size: 3.5rem;
+}
+h1
+{
+    font-size: 2.5rem;
+    margin: 0;
+}
+header > p
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+}
