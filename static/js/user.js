@@ -30,3 +30,8 @@ document.querySelector("input[name='name']").addEventListener("keydown", (event)
         document.querySelector(`input[type="submit"]`).classList.remove("show");
     }
 });
+
+document.querySelector(".danger > #delete").addEventListener("click", () => {
+    const confirmation = confirm("Are you sure you want to delete you account?");
+    if (confirmation) window.location.href += "/delete";
+});

@@ -31,7 +31,7 @@ block main
                 a#pass(href=`/users/${userInfo.Email}/update`) Change Password
                 a#logout(href=`/users/${userInfo.Email}/logout`) Log Out
             .danger
-                a#delete(href=`/users/${userInfo.Email}/delete`) Delete Account
+                a#delete Delete Account
         section#account 
             h2 Your Subscription
             if tier === 'Free'
