@@ -7,13 +7,15 @@ const multer = require("multer");
 const path = require("path");
 const lodash = require("lodash");
 const connection = require("./data/dbconnection");
+const tiers = require("./data/pricingTiers.json");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_TEST);
 
 router.use(urlencoded({extended: true}));
 router.use(cookieParser());
 
-let error;
+let error, message;
+
 const userStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, "..", "static", "images", "users"));
@@ -31,7 +33,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:email", async (req, res) => {
+router.get("/:email", async (req, res, next) => {
     const customer = await stripe.customers.list({
         email: req.cookies.user
     });
@@ -42,20 +44,28 @@ router.get("/:email", async (req, res) => {
         product: subscription.data[0].plan.product
     });
     const tier = lodash.capitalize(plan.data[0].lookup_key);
+    res.cookie('tier', tier, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 241920000)
+    });
     connection.query(`SELECT * FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
         if (err) {
             console.error(err);
             res.redirect("/error");
         } else if (results.length === 0) {
-            res.redirect("/");
+            next();
         } else {
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
                 userInfo: results[0],
                 tier,
+                tiers,
                 user: req.cookies.user||"",
-                access: req.cookies.user===results[0].Email
+                access: req.cookies.user===results[0].Email,
+                message,
+                error: error||''
             });
+            error = message = '';
         }
     });
 });
@@ -71,11 +81,11 @@ router.post("/:email", user.single('image'), (req, res) => {
                 const id = results[0].ID;
                 connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}', Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
                     if (err) {
-                        console.error(err);
-                        res.redirect("/error");
+                        error = 'Name and/or profile picture couldn\'t be updated';
                     } else {
-                        res.redirect(`/users/${req.params.email}`);
+                        message = 'Name and profile picture updated successfully';
                     }
+                    res.redirect(`/users/${req.params.email}`);
                 });
             }
         });
@@ -89,11 +99,11 @@ router.post("/:email", user.single('image'), (req, res) => {
                 const id = results[0].ID;
                 connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}' WHERE ID = ${id};`, (err, results, fields) => {
                     if (err) {
-                        console.error(err);
-                        res.redirect("/error");
+                        error = 'Name couldn\'t be updated'
                     } else {
-                        res.redirect(`/users/${req.params.email}`);
+                        message = 'Name updated successfully';
                     }
+                    res.redirect(`/users/${req.params.email}`);
                 });
             }
         });
@@ -106,11 +116,11 @@ router.post("/:email", user.single('image'), (req, res) => {
                 const id = results[0].ID;
                 connection.query(`UPDATE Users SET Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
                     if (err) {
-                        console.error(err);
-                        res.redirect("/error");
+                        error = 'Profile picture couldn\'t be updated';
                     } else {
-                        res.redirect(`/users/${req.params.email}`);
+                        message = 'Profile picture updated successfully';
                     }
+                    res.redirect(`/users/${req.params.email}`);
                 });
             }
         });
@@ -146,12 +156,13 @@ router.post("/:email/update", (req, res) => {
                 const pass = hash.sha512().update(req.body.pass).digest("hex");
                 connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.params.email}';`, (err, results, fields) => {
                     if (err) {
-                        console.error(err);
-                        res.redirect("/error");
+                        error = `Password couldn\'t be updated`;
                     }
                     else {
-                        res.redirect(`/users/${req.params.email}`);
+                        message = 'Password updated successfully';
                     }
+                    res.clearCookie('user');
+                    res.redirect("/login");
                 });
             }
         }
@@ -171,18 +182,20 @@ router.get("/:email/subscription", async (req, res) => {
         customer: customer.data[0].id
     });
     const endTier = req.query.tier;
-	const prices = await stripe.prices.list({
-		lookup_keys: [endTier],
-		expand: ["data.product"]
-	});
-    stripe.subscriptions.update(subscription.data[0].id, {
+    const prices = await stripe.prices.list({
+        lookup_keys: [endTier]
+    });
+    await stripe.subscriptions.update(subscription.data[0].id, {
         cancel_at_period_end: false,
         proration_behavior: 'create_prorations',
         items: [{
-            id: subscription.data[0].id,
+            id: subscription.data[0].items.data[0].id,
             price: prices.data[0].id
         }]
     });
+    if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
+    else message = 'Your plan will be updated at the end of the current period';
+    res.redirect(`/users/${req.cookies.user}`);
 });
 
 module.exports = router;
