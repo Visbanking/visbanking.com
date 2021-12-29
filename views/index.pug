@@ -7,71 +7,59 @@ block meta
 block styles 
     link(rel="stylesheet", href="/css/index.css")
 
-block header
-    section.container-fluid#intro 
-        i.bi-chevron-left(@click="carouselLeft")
-        aside.carousel-slide(v-if="carousel===1")
-            img(src=insights[0].Image, alt=insights[0].Title)
-            a.carousel-text(href=`insights/insight/${insights[0].ID}`) 
-                h2 #{insights[0].Title}
-        aside.carousel-slide(v-if="carousel===2")
-            img(src=insights[1].Image, alt=insights[1].Title)
-            a.carousel-text(href=`insights/insight/${insights[1].ID}`)
-                h2 #{insights[1].Title}
-        aside.carousel-slide(v-if="carousel===3")
-            img(src=insights[2].Image, alt=insights[2].Title)
-            a.carousel-text(href=`insights/insight/${insights[2].ID}`)
-                h2 #{insights[2].Title}
-        i.bi-chevron-right(@click="carouselRight")
-
 block main 
-    section.container-fluid#capabilities 
-        h1 Visbanking
-        .indicator
-            div(@click="show('about')", :class="{ active: tabs[0] }") Who We Are 
-            div(@click="show('services')", :class="{ active: tabs[1] }") Our Services 
-            div(@click="show('insights')", :class="{ active: tabs[2] }") Insights 
-        .tabs 
-            aside.tab(v-if="tabs[0]")
-                h2 Who We Are
-                p We are a team of enthusiastic developers, data scientists, and marketing and operations professionals keen on building the leading banking information service platform.
-                a(href="/about") Learn more
-            aside.tab(v-if="tabs[1]")
-                h2 Our Services
-                p We provide all sorts of previously-analyzed relevant data for you, so that you can focus on what matters. Making Decisions
-                a(href="/services") Learn more
-            aside.tab(v-if="tabs[2]")
-                h2 Insights 
-                p Some general information about the insights provided by Visbanking
-                a(href="/insights") Learn more
-        .indicator
-            div 
-                i.bi-dot(@click="show('about')", :class="{ active: tabs[0] }") 
-                i.bi-dot(@click="show('services')", :class="{ active: tabs[1] }")
-                i.bi-dot(@click="show('insights')", :class="{ active: tabs[2] }")
-    section.container-fluid#reasons 
-        aside.reason#banks 
-            .text
-                p.number 10k
-                p.data Banks across the United States
-        aside.reason#records 
-            .text
-                p.number 40m
-                p.data Data Records
-        aside.reason#time 
-            .text 
-                p.number 19
-                p.data Years of Data by Quarter
-        aside.reason#views 
-            .text 
-                p.number 50
-                p.data Customizable Data Views
-    section.container-fluid#newsletter 
-        aside 
-            h2 Join our Newsletter
-            p Get the latest information about US banks and the banking industry 
-            a(href="/subscribe") Subscribe to our newsletter
-                i.bi-chevron-right 
+    h1 We are banks visualized
+    h2 Visualize banking data like never before
+    aside#latest
+        each post in latest
+            article.post 
+                div
+                    img(src=post.Image, alt=post.Title)
+                p.title #{post.Title}
+                a(href=`/insights/insight/${post.ID}`) Learn More
+    hr
+    h2 Ways that Visbanking will change your perspective
+    h3 Services
+    aside#reasons 
+        .reason 
+            p.title Competitive analysis
+            p View a group of customized competitors to assess comparative performance.
+        .reason 
+            p.title Market Share
+            p Define a market and measure the market share from banks in that market.
+        .reason 
+            p.title M&amp;A due dilligence
+            p Merger on the horizon? Dig into credit quality before combining portfolios.
+        .reason 
+            p.title Credit Quality Trends
+            p View a group of customized competitors to assess comparative performance.
+        .reason 
+            p.title Geographic Coverage
+            p Considering entering a new market? Quickly assess the other banks in that geography.
+        .reason 
+            p.title Competitive analysis
+            p Interested in seeing deposit or loan growth or decline in the overall economy to capture macro trends? Pull the entire US banking landscape with deposit or loan growth over time.
+    aside#newsletter 
+        i.bi-envelope-open
+        div
+            h3 Data delivered to your inbox
+            p Keep up with the latest data and most popular content.
+            form(action="/subscribe", method="POST")
+                input#name(type="text", name="name", placeholder="John Doe", required)
+                input#email(type="email", name="email", placeholder="johndoe@example.com", required)
+                br
+                input(type="submit", value="Subscribe")
+    h2 Featured News
+    aside#featured 
+        #about
+            h3 About Visbanking
+            p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the banking industry in a simple, more comprehensible manner.
+        #news
+            each post in featured 
+                article.post 
+                    img(src=post.Image, alt=post.Title)
+                    p.title #{post.Title}
+                    a(href=`/insights/insight/${post.ID}`) Read more &gt;
 
 block scripts 
     script(src="/js/index.js") 
