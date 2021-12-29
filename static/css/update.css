@@ -1,10 +1,14 @@
-header, footer
+header, footer, .copyright
 {
     display: none;
 }
 main
 {
     min-height: 100vh;
+}
+h1
+{
+    margin: 0;
 }
 form
 {
@@ -23,6 +27,8 @@ form input
     border-bottom-color: inherit;
     width: 20%;
     padding: 0.3rem;
+    font-family: inherit;
+    font-size: 1rem;
 }
 form input:not([type="submit"]):focus
 {
@@ -41,7 +47,12 @@ form input[type="submit"]
     background: #000000;
     color: #FFFFFF;
     width: auto;
-    padding: 0.2rem 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 10px;
 }
 @media screen and (max-width: 900px)
 {
