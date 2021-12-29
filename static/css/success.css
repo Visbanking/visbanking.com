@@ -23,3 +23,10 @@ header > p > span
     cursor: pointer;
     text-decoration: underline;
 }
+@media screen and (max-width: 500px)
+{
+    header .center > p
+    {
+        width: 90%;
+    }
+}
