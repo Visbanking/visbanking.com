@@ -10,7 +10,7 @@ h1
 {
     font-weight: 600;
     font-size: 2.5rem;
-    margin: 1% auto 0;
+    margin: 1% auto 2%;
     width: 90%;
 }
 main img
@@ -57,13 +57,12 @@ article .body
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: flex-start;
 }
 article main
 {
-    margin: 0 2%;
-    padding: 0 1%;
+    padding: 0 2% 0 1%;
     width: 55%;
     font-size: 1.3rem;
 }
@@ -91,6 +90,10 @@ main h3
     border-bottom: 1px solid;
     font-size: 1.5rem;
     padding: 1rem 0.2rem;
+}
+.post
+{
+    cursor: pointer;
 }
 #latest .post
 {
@@ -164,43 +167,112 @@ p.title
 }
 @media screen and (max-width: 991px)
 {
-    article
+    article h1 + img
     {
+        max-width: 75%;
+    }
+    article main
+    {
+        margin: 0;
+        padding: 0 2%;
         width: 75%;
+        text-align: justify;
+    }
+    article #latest
+    {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+    #latest .post
+    {
+        width: calc(100%/3.5);
+    }
+    #latest .post img
+    {
+        width: 80%;
+        margin: 0 10% 5%;
+        float: top;
+    }
+    #related .post
+    {
+        width: calc(100%/2.5);
     }
 }
 @media screen and (max-width: 767px)
 {
-    article
-    {
-        text-align: justify;
-    }
     h1
     {
         font-size: 2rem;
-        text-align: left;
+    }
+    article h1 + img
+    {
+        max-width: 85%;
+    }
+    #share a
+    {
+        padding: 0.5rem 10%;
     }
     article main
     {
         font-size: 1.2rem;
+        width: 85%;
+    }
+    main h3
+    {
+        text-align: center;
+    }
+    #latest .post
+    {
+        width: calc(100%/1.5);
+        padding: 1%;
+        text-align: center;
+        margin-top: 3%;
+    }
+    #related .post
+    {
+        width: calc(100%/1.5);
+        padding: 3%;
     }
 }
 @media screen and (max-width: 550px)
 {
-    article
-    {
-        width: 90%;
-    }
     h1
     {
         font-size: 1.8rem;
+    }
+    article h1 + img
+    {
+        max-width: 95%;
     }
     .date, .topics
     {
         font-size: 0.9rem;
     }
+    #share a#linkedin, #share a#facebook, #share a#twitter
+    {
+        background-color: #FFFFFF;
+    }
+    #share a#linkedin
+    {
+        color: #2867B2;
+    }
+    #share a#facebook
+    {
+        color: #1877F2;
+    }
+    #share a#twitter
+    {
+        color: #1DA1F2;
+    }
     article main
     {
         font-size: 1.1rem;
+        width: 95%;
+    }
+    #latest .post, #related .post
+    {
+        width: 80%;
     }
 }

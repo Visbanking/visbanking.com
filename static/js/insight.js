@@ -13,3 +13,9 @@ document.querySelectorAll("#related .intro").forEach(intro => {
     intro.innerHTML = intro.innerText;
     intro.innerText = intro.innerText.split("\n\n")[0];
 });
+
+document.querySelectorAll(".post").forEach(post => {
+    post.addEventListener("click", () => {
+        post.children[post.children.length-1].click();
+    });
+});
