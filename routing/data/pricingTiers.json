@@ -4,7 +4,8 @@
             "Single bank reports",
             "Bank industry report",
             "Top bank lists",
-            "Bank footprint"
+            "Bank footprint",
+            "5 banks per quarter"
         ],
         "price": 0
     },
@@ -19,7 +20,8 @@
             "Stock pricing information",
             "Financial statements",
             "Enterprise value",
-            "Bank compare & merge"
+            "Bank compare & merge",
+            "Unlimited banks per quarter"
         ],
         "price": 199
     },
@@ -37,7 +39,8 @@
             "Bank compare & merge",
             "Peer benchmarks",
             "Legal entity structure",
-            "Organization chart"
+            "Organization chart",
+            "Unlimited banks per quarter"
         ],
         "price": 499
     },
@@ -56,7 +59,8 @@
             "Peer benchmarks",
             "Legal entity structure",
             "Organization chart",
-            "API integration"
+            "API integration",
+            "Unlimited banks per quarter"
         ]
     }
 }

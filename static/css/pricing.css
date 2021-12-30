@@ -22,7 +22,7 @@ h2 + p
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
 }
 .plan
@@ -104,4 +104,55 @@ a.button
 {
     background-color: #EEF5FF;
     color: #015193;
+}
+@media screen and (max-width: 991px)
+{
+    .plan
+    {
+        width: calc(100%/2.5);
+    }
+    .plan:not(#premium, #enterprise)
+    {
+        margin-bottom: 3%;
+    }
+    .plan h3
+    {
+        margin-top: 3%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    .plan
+    {
+        width: calc(100%/2.2);
+    }
+    .plan:not(#premium, #enterprise)
+    {
+        margin-bottom: 5%;
+    }
+    .plan h3
+    {
+        margin-top: 5%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    h2
+    {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .plan, .plan:not(#premium, #enterprise)
+    {
+        width: calc(100%/1.2);
+        margin-bottom: 8%;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    .plan, .plan:not(#premium, #enterprise)
+    {
+        width: 100%;
+        margin-bottom: 8%;
+    }
 }
