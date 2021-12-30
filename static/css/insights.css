@@ -24,13 +24,12 @@ h1 + img
 }
 #latest img
 {
-    /* float: left; */
     max-width: 45%;
     margin-right: 1%;
     border-radius: 10px;
     box-shadow: 0px 20px 20px 0px #00000040;
 }
-#latest > div:not(img)
+#latest > div
 {
     max-width: 50%;
 }
@@ -139,7 +138,7 @@ section#last
     max-width: 45%;
     margin-right: 5%;
     max-height: 25vh;
-    object-fit: contain;
+    object-fit: cover;
 }
 #last p.title
 {
@@ -186,12 +185,12 @@ section#categories h2 button:last-of-type
 }
 .articles .post
 {
-    width: calc(100%/3.5);
+    width: calc(100%/3.7);
     padding: 1%;
     border: 1px solid #B9B8B8;
     transition: all 0.2s linear;
-    margin: 0 2% 2% 0;
-    cursor: default;
+    margin: 2%;
+    cursor: pointer;
 }
 .articles .post:hover
 {
@@ -202,6 +201,109 @@ section#categories h2 button:last-of-type
     display: block;
     margin: 1% auto;
     width: 50%;
+}
+@media screen and (max-width: 900px)
+{
+    section#last
+    {
+        float: left;
+        width: 96%;
+        flex-direction: row;
+    }
+    h2
+    {
+        margin-top: 0;
+    }
+    #last .post
+    {
+        width: calc(100%/2.2);
+        box-shadow: 10px 10px 10px 0px #00000040;
+    }
+    #categories
+    {
+        margin-top: 2%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    #latest
+    {
+        flex-direction: column;
+        text-align: center;
+    }
+    #latest img
+    {
+        margin: 0 0 5%;
+        max-width: 60%;
+    }
+    #latest > div
+    {
+        max-width: 80%;
+    }
+    #featured, #last
+    {
+        justify-content: space-around;
+    }
+    #featured .post
+    {
+        width: calc(100%/2.2);
+        margin: 1% 1% 2%;
+    }
+    #last .post
+    {
+        width: calc(100%/1.5);
+    }
+    #last .post:not(:last-of-type)
+    {
+        margin-bottom: 5%;
+    }
+    .articles .post
+    {
+        width: calc(100%/2.3);
+        padding: 3%;
+    }
+}
+@media screen and (max-width: 600px)
+{
+    #latest img
+    {
+        max-width: 80%;
+    }
+    #latest > div
+    {
+        max-width: 100%;
+    }
+    h2
+    {
+        text-align: center;
+    }
+    #featured .post
+    {
+        margin: 1% 1% 2%;
+    }
+    #featured .post, #last .post, #business .post, #banks .post, .articles .post
+    {
+        width: calc(100%/1.2);
+    }
+    #business, #banks, .articles
+    {
+        justify-content: space-around;
+    }
+    #business .post:first-of-type, #banks .post:first-of-type
+    {
+        margin-bottom: 5%;
+    }
+    #last .post:not(:last-of-type)
+    {
+        margin-bottom: 5%;
+    }
+}
+@media screen and (max-width: 450px)
+{
+    #featured .post, #last .post, #business .post, #banks .post, .articles .post
+    {
+        width: 100%;
+    }
 }
 /*
 @media screen and (max-width: 991px)

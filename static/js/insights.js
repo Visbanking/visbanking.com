@@ -47,3 +47,9 @@ Vue.createApp({
         }
     }
 }).mount("#categories");
+
+document.querySelectorAll(".articles .post").forEach(post => {
+    post.addEventListener("click", () => {
+        post.children[post.children.length-1].click();
+    });
+});
