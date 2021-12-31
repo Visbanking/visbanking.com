@@ -99,6 +99,22 @@ aside#reasons
     width: 70%;
     margin: 1% auto 3%;
 }
+#dashboards
+{
+    width: 70%;
+    margin: 0 auto;
+}
+#dashboards img
+{
+    box-sizing: border-box;
+    max-width: 100%;
+    display: block;
+    padding: 5% 2%;
+}
+#dashboards img:not(:last-of-type)
+{
+    border-bottom: 1px solid #128AF9;
+}
 #newsletter
 {
     background-color: #128AF9;
@@ -280,6 +296,10 @@ aside#reasons
     {
         width: calc(100%/2.3);
     }
+    #dashboards
+    {
+        width: 80%;
+    }
     #newsletter
     {
         flex-direction: column;
@@ -353,6 +373,10 @@ aside#reasons
         width: calc(100%/1.2);
         padding: 5% 1%;
     }
+    #dashboards
+    {
+        width: 90%;
+    }
     #newsletter > i
     {
         font-size: 4rem;
@@ -398,6 +422,10 @@ aside#reasons
     #reasons > .reason
     {
         width: 100%;
+    }
+    #dashboards
+    {
+        width: 95%;
     }
     #newsletter input:not([type="submit"])
     {
