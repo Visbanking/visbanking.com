@@ -126,7 +126,7 @@ section#last
 }
 #last .post
 {
-    padding: 1%;
+    padding: 2%;
     width: 100%;
 }
 #last .post:not(:last-of-type)
@@ -144,6 +144,7 @@ section#last
 #last p.title
 {
     text-align: left;
+    margin: 0;
 }
 #business .post, #banks .post
 {
@@ -163,12 +164,11 @@ section#categories h2 button
     margin-right: 0.5rem;
     padding: 0.5rem 1.5rem;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1rem;
 }
 section#categories h2 button.active
 {
-    font-weight: 600;
     background: #024060;
     color: #FFFFFF;
 }
@@ -276,6 +276,14 @@ section#categories h2 button:last-of-type
     {
         margin-bottom: 5%;
     }
+    section#categories h2
+    {
+        text-align: center;
+    }
+    section#categories h2 button
+    {
+        margin: 1%;
+    }
     .articles .post
     {
         width: calc(100%/2.5);
@@ -322,6 +330,10 @@ section#categories h2 button:last-of-type
     #featured .post, #last .post, #business .post, #banks .post, .articles .post
     {
         width: 100%;
+    }
+    section#categories h2 button
+    {
+        font-size: 0.9rem;
     }
 }
 /*

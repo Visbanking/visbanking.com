@@ -6,7 +6,7 @@ document.querySelectorAll("article.post").forEach(post => {
 
 document.querySelectorAll("article .intro").forEach(intro => {
     intro.innerHTML = intro.innerText;
-    intro.innerText = intro.innerText.split("\n\n")[0];
+    intro.innerText = intro.innerText.split("\n\n")[0].slice(0, 140)+"...";
 });
 
 Vue.createApp({
