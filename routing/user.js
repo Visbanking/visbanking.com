@@ -8,6 +8,7 @@ const path = require("path");
 const lodash = require("lodash");
 const connection = require("./data/dbconnection");
 const tiers = require("./data/pricingTiers.json");
+const fs = require("fs");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
 
@@ -179,34 +180,50 @@ router.get("/:email/logout", (req, res) => {
     res.redirect("/");
 });
 
-router.get("/:email/subscription", async (req, res) => {
+router.get("/:email/subscription", (req, res) => {
     if (req.cookies.user === req.params.email) {
-        const customer = await stripe.customers.list({
-            email: req.cookies.user
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+            if (err) {
+                error = 'Your subscription couldn\'t be updated';
+                res.redirect(`/users/${req.cookies.email}`);
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Users SET Tier = '${lodash.capitalize(req.query.tier)}' WHERE ID = ${id};`, async (err, results, fields) => {
+                    if (err) {
+                        error = 'Your subscription couldn\'t be updated';
+                        res.redirect(`/users/${req.cookies.user}`);
+                    } else {
+                        const customer = await stripe.customers.list({
+                            email: req.cookies.user
+                        });
+                        const subscription = await stripe.subscriptions.list({
+                            customer: customer.data[0].id
+                        });
+                        const endTier = req.query.tier;
+                        const prices = await stripe.prices.list({
+                            lookup_keys: [endTier]
+                        });
+                        await stripe.subscriptions.update(subscription.data[0].id, {
+                            cancel_at_period_end: false,
+                            proration_behavior: 'always_invoice',
+                            items: [{
+                                id: subscription.data[0].items.data[0].id,
+                                price: prices.data[0].id
+                            }]
+                        });
+                        if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
+                        else message = `Your plan has been updated to ${lodash.capitalize(endTier)}`;
+                        res.redirect(`/users/${req.cookies.user}`);
+                    }
+                });
+            }
         });
-        const subscription = await stripe.subscriptions.list({
-            customer: customer.data[0].id
-        });
-        const endTier = req.query.tier;
-        const prices = await stripe.prices.list({
-            lookup_keys: [endTier]
-        });
-        await stripe.subscriptions.update(subscription.data[0].id, {
-            cancel_at_period_end: false,
-            proration_behavior: 'create_prorations',
-            items: [{
-                id: subscription.data[0].items.data[0].id,
-                price: prices.data[0].id
-            }]
-        });
-        if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
-        else message = `Your plan will be updated to ${lodash.capitalize(endTier)} at the end of the current period`;
-        res.redirect(`/users/${req.cookies.user}`);
     } else res.redirect(`/users/${req.cookies.user}`)
 });
 
 router.get("/:email/delete", async (req, res) => {
     if (req.cookies.user === req.params.email) {
+        fs.rm(path.join)
         const customer = await stripe.customers.list({
             email: req.cookies.user
         });
@@ -233,8 +250,15 @@ router.get("/:email/delete", async (req, res) => {
                                         error = 'Your account couldn\'t be deleted';
                                         return res.redirect(`/users/${req.cookies.user}`);
                                     }
-                                    res.cookie('user', 'deleted');
-                                    res.redirect("/users/deleted");
+                                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
+                                        if (err.code !== 'ENOENT') {
+                                            error = 'Your account couldn\'t be deleted';
+                                            res.redirect(`/users/${req.cookies.email}`)
+                                        } else {
+                                            res.cookie('user', 'deleted');
+                                            res.redirect("/users/deleted");
+                                        }
+                                    });
                                 });
                             }
                         });
