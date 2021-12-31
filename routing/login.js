@@ -50,7 +50,7 @@ router.get("/signup", (req, res) => {
     if (req.cookies.user) {
         res.redirect(`/users/${req.cookies.user}`);
     } else if (!req.query.tier) {
-        res.redirect("/buy?tier=free");
+        res.redirect("/signup?tier=free");
     } else {
         res.render("login", {
             title: "Sign Up - Visbanking",
@@ -92,7 +92,7 @@ router.post("/signup", (req, res) => {
                                 httpOnly: true,
                                 expires: new Date(Date.now() + 241920000)
                             });
-                            res.redirect(`/users/${email}`);
+                            res.redirect(`/buy?tier=${req.body.tier}`);
                         }
                     });
                 }
