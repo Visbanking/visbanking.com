@@ -261,21 +261,29 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
             }
         });
     } else if (action === "Delete insight") {
-        connection.query(`SELECT ID FROM Insights WHERE Title = '${req.body.title}';`, (err, results, fields) => {
-            if (err) {
+        fs.rm(path.join(__dirname, "..", "static", "images", "insights", `${lodash.camelCase(req.body.title)}.jpg`), (err) => {
+            if (err.code !== 'ENOENT') {
                 console.error(err);
-                message = "Insight couldn't be deleted. Please try again";
+                message = "Insight couldn't be deleted. Please try again.";
                 res.redirect("/admin/dashboard");
             } else {
-                const id = results[0].ID;
-                connection.query(`DELETE FROM Insights WHERE ID = '${id}';`, (err, results, fields) => {
+                connection.query(`SELECT ID FROM Insights WHERE Title = '${req.body.title}';`, (err, results, fields) => {
                     if (err) {
                         console.error(err);
                         message = "Insight couldn't be deleted. Please try again";
                         res.redirect("/admin/dashboard");
                     } else {
-                        message = "Insight deleted successfully.";
-                        res.redirect("/admin/dashboard");
+                        const id = results[0].ID;
+                        connection.query(`DELETE FROM Insights WHERE ID = '${id}';`, (err, results, fields) => {
+                            if (err) {
+                                console.error(err);
+                                message = "Insight couldn't be deleted. Please try again";
+                                res.redirect("/admin/dashboard");
+                            } else {
+                                message = "Insight deleted successfully.";
+                                res.redirect("/admin/dashboard");
+                            }
+                        });
                     }
                 });
             }
