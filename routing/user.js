@@ -45,9 +45,11 @@ router.get("/:email", (req, res, next) => {
             const customer = await stripe.customers.list({
                 email: req.cookies.user
             });
+            if (customer.data.length === 0) return res.redirect("/");
             const subscription = await stripe.subscriptions.list({
                 customer: customer.data[0].id
             });
+            if (subscription.data.length === 0) return res.redirect("/");
             const plan = await stripe.prices.list({
                 product: subscription.data[0].plan.product
             });
