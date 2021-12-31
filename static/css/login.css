@@ -29,6 +29,7 @@ h1
 }
 form
 {
+    box-sizing: border-box;
     width: 35%;
     border-radius: 5px;
     padding: 2% 3%;
@@ -65,9 +66,9 @@ form .form-text
     color: #CCCCCC;
     margin: 0;
 }
-#usernameError
+form .error
 {
-    color: #FF0000;
+    color: #FFFFFF;
 }
 form input:not([type="submit"]):focus
 {

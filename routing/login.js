@@ -23,6 +23,8 @@ router.get("/login", (req, res) => {
             emailAfterRedirect
         });
     }
+    logInError = false;
+    emailAfterRedirect = '';
 });
 
 router.post("/login", (req, res) => {
@@ -58,17 +60,16 @@ router.get("/signup", (req, res) => {
             action: "Sign Up",
             tier: req.query.tier,
             signUpError: signUpError,
+            emailError
         });
     }
+    emailError = signUpError = false;
 });
 
 router.post("/signup", (req, res) => {
     const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex"), tier = req.body.tier;
     check(email, (err, response) => {
-        if (err) {
-            console.error(err);
-            res.redirect("/error");
-        } else if (!response) {
+        if (err || !response) {
             emailError = true;
             res.redirect("/signup");
         }
