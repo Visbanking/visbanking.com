@@ -223,7 +223,6 @@ router.get("/:email/subscription", (req, res) => {
 
 router.get("/:email/delete", async (req, res) => {
     if (req.cookies.user === req.params.email) {
-        fs.rm(path.join)
         const customer = await stripe.customers.list({
             email: req.cookies.user
         });
