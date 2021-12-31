@@ -35,7 +35,7 @@ form
     margin: 0 auto;
     text-align: center;
     color: #FFFFFF;
-    background-color: #024060;
+    background-color: #128AF9;
 }
 form label
 {
@@ -47,17 +47,18 @@ form input
     width: 60%;
     margin: inherit;
     font-size: 1rem;
+    font-family: inherit;
     padding: 0.4rem 0.6rem;
     border: 1px solid #DDDDDD;
-    background-color: transparent;
     border-radius: 5px;
     display: block;
-    color: #FFFFFF;
+    background-color: #FFFFFF;
     transition: border-color 0.2s linear, box-shadow 0.2s linear;
 }
-form input:first-of-type
+form label:not(:first-of-type)
 {
-    margin-bottom: 3%;
+    display: block;
+    margin-top: 3%;
 }
 form .form-text
 {
@@ -68,7 +69,7 @@ form .form-text
 {
     color: #FF0000;
 }
-form input:focus
+form input:not([type="submit"]):focus
 {
     outline: none;
     border-color: #FFFFFF;
@@ -81,16 +82,20 @@ form input[type="submit"]
     border: 0.1rem solid;
     border-radius: 5px;
     padding: 0.4rem 1.5rem;
-    background-color: #024060;
+    background-color: #128AF9;
     color: #FFFFFF;
     width: auto;
     transition: color 0.2s linear, background-color 0.2s linear;
-    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 700;
 }
-form input[type="submit"]:hover
+form input[type="submit"]:hover, form input[type="submit"]:focus
 {
+    outline: none;
     background: #FFFFFF;
-    color: #024060;
+    color: #128AF9;
+    box-shadow: 5px 5px 0.5rem #02406080;
 }
 header #login p.signup
 {
