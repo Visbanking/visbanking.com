@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
 var logInError, emailAfterRedirect, signUpError, emailError;
-const verifier = new EmailVerifier(60000);
+const verifier = new EmailVerifier(10000);
 
 router.get("/login", (req, res) => {
     if (req.cookies.user) {
