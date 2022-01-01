@@ -18,7 +18,7 @@ client.setConfig({
 });
 
 var error = "";
-const verifier = new EmailVerifier(10000);
+const verifier = new EmailVerifier(60000);
 
 router.post("/", (req, res) => {
 	const fName = req.body.name.split(" ")[0],
