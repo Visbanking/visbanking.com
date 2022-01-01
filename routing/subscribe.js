@@ -81,11 +81,11 @@ router.post("/", (req, res) => {
 			// }
 		} else {
 			error = "The email you entered doesn't exist";
-			res.redirect("/subscribe#newsletter");
+			res.redirect("/#newsletter");
 		}
 	}).catch(() => {
 		error = "There was a problem. Please try again.";
-		res.redirect("/subscribe#newsletter");
+		res.redirect("/#newsletter");
 	});
 });
 
