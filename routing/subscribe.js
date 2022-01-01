@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const client = require("@mailchimp/mailchimp_marketing");
 const phoneVerify = require("google-libphonenumber");
 const phoneUtil = phoneVerify.PhoneNumberUtil.getInstance();
@@ -18,6 +18,7 @@ client.setConfig({
 });
 
 var error = "";
+const verifier = new EmailVerifier(10000);
 
 router.post("/", (req, res) => {
 	const fName = req.body.name.split(" ")[0],
@@ -31,11 +32,8 @@ router.post("/", (req, res) => {
 	city = req.body.city,
 	address1 = req.body.address1,
 	address2 = req.body.address2;
-	check(email, (err, response) => {
-		if (err || !response) {
-			error = "The email you entered doesn't exist";
-			res.redirect("/subscribe#newsletter");
-		} else {
+	verifier.verify(email).then(result => {
+		if (result) {
 			if (phoneUtil.isValidNumber(phone)) {
 				let new_client = {
 					members: [
@@ -81,7 +79,13 @@ router.post("/", (req, res) => {
 					"The phone number you entered is invalid to the country";
 				res.redirect("/subscribe#newsletter");
 			}
+		} else {
+			error = "The email you entered doesn't exist";
+			res.redirect("/subscribe#newsletter");
 		}
+	}).catch(() => {
+		error = "There was a problem. Please try again.";
+		res.redirect("/subscribe#newsletter");
 	});
 });
 

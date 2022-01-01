@@ -1,12 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const existence = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const connection = require("./data/dbconnection");
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended: true}));
 
 let error;
+const verifier = new EmailVerifier(10000);
 
 router.get("/", (req, res) => {
     res.render("contact", {
@@ -18,13 +19,8 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const name = `${req.body.fname} ${req.body.lname}`, email = req.body.email, subject = req.body.subject, message = req.body.message;
-    existence.check(email, (err, response) => {
-        if (err) {
-            console.error(err);
-            error = 'There was a problem. Please try again.';
-        } else if (!response) {
-            error = `${email} doesn't exist`;
-        } else {
+    verifier.verify(email).then(result => {
+        if (result) {
             connection.query(`INSERT INTO Contacts (Name, Email, Subject, Message) VALUES ('${name}', '${email}', '${subject}', '${message}');`, (err, results, fields) => {
                 if (err) {
                     console.error(err);
@@ -33,7 +29,13 @@ router.post("/", (req, res) => {
                     res.redirect("/contact/success");
                 }
             });
+        } else {
+            error = `${email} doesn't exist`;
+            res.redirect("/contact");
         }
+    }).catch(() => {
+        error = 'There was a problem. Please try again.';
+        res.redirect("/contact");
     });
 });
 

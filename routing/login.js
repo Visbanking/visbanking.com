@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const hash = require("hash.js");
 const cookieParser = require("cookie-parser");
 const connection = require("./data/dbconnection");
@@ -10,6 +10,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
 var logInError, emailAfterRedirect, signUpError, emailError;
+const verifier = new EmailVerifier(10000);
 
 router.get("/login", (req, res) => {
     if (req.cookies.user) {
@@ -68,12 +69,8 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", (req, res) => {
     const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex"), tier = req.body.tier;
-    check(email, (err, response) => {
-        if (err || !response) {
-            emailError = true;
-            res.redirect("/signup");
-        }
-        else {
+    verifier.verify(email).then(result => {
+        if (result) {
             connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${tier[0].toUpperCase()+tier.slice(1)}');`, (err, results, fields) => {
                 if (err && err.code==='ER_DUP_ENTRY') {
                     emailAfterRedirect = email;
@@ -98,6 +95,9 @@ router.post("/signup", (req, res) => {
                     });
                 }
             });
+        } else {
+            emailError = true;
+            res.redirect("/signup");
         }
     });
 });

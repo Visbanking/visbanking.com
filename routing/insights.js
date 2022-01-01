@@ -1,5 +1,4 @@
 const express = require("express");
-const lodash = require("lodash");
 const router = express.Router();
 const connection = require("./data/dbconnection");
 
