@@ -138,7 +138,7 @@ section#last
     float: left;
     max-width: 45%;
     margin-right: 5%;
-    max-height: 25vh;
+    max-height: 20vh;
     object-fit: cover;
 }
 #last p.title
