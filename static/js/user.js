@@ -31,6 +31,13 @@ document.querySelector("input[name='name']").addEventListener("keydown", (event)
     }
 });
 
+if (document.querySelector(".danger > #cancel")) {
+    document.querySelector(".danger > #cancel").addEventListener("click", () => {
+        const confirmation = confirm("Are you sure you want to cancel your subscription?");
+        if (confirmation) window.location.href += "/cancel";
+    });
+}
+
 document.querySelector(".danger > #delete").addEventListener("click", () => {
     const confirmation = confirm("Are you sure you want to delete your account?");
     if (confirmation) window.location.href += "/delete";

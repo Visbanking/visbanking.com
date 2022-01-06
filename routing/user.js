@@ -67,8 +67,8 @@ router.post("/:email", user.single('image'), (req, res) => {
             const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
             connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
                 if (err) {
-                    console.error(err);
-                    res.redirect("/error");
+                    error = 'Name and/or profile picture couldn\'t be updated';
+                    res.redirect(`/users/${req.params.email}`);
                 } else {
                     const id = results[0].ID;
                     connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}', Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
@@ -85,8 +85,8 @@ router.post("/:email", user.single('image'), (req, res) => {
             const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
             connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
                 if (err) {
-                    console.error(err);
-                    res.redirect("/error");
+                    error = 'Name couldn\'t be updated'
+                    res.redirect(`/users/${req.params.email}`);
                 } else {
                     const id = results[0].ID;
                     connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}' WHERE ID = ${id};`, (err, results, fields) => {
@@ -102,8 +102,8 @@ router.post("/:email", user.single('image'), (req, res) => {
         } else if (!(req.body.name.split(" ").length > 1)) {
             connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
                 if (err) {
-                    console.error(err);
-                    res.redirect("/error");
+                    error = 'Profile picture couldn\'t be updated';
+                    res.redirect(`/users/${req.params.email}`);
                 } else {
                     const id = results[0].ID;
                     connection.query(`UPDATE Users SET Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
@@ -151,11 +151,12 @@ router.post("/:email/update", (req, res) => {
                     connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.params.email}';`, (err, results, fields) => {
                         if (err) {
                             error = `Password couldn\'t be updated`;
+                            res.redirect(`/users/${req.cookies.user}`);
                         } else {
                             message = 'Password updated successfully';
+                            res.clearCookie('user');
+                            res.redirect("/login");
                         }
-                        res.clearCookie('user');
-                        res.redirect("/login");
                     });
                 }
             }
@@ -187,7 +188,6 @@ router.get("/:email/subscription", (req, res) => {
                         if (tier === 'Free') {
                             return res.redirect("/buy?tier=free");
                         }
-                        console.log("Here");
                         const customer = await stripe.customers.list({
                             email: req.cookies.user
                         });
@@ -216,18 +216,57 @@ router.get("/:email/subscription", (req, res) => {
     } else res.redirect(`/users/${req.cookies.user}`)
 });
 
+router.get("/:email/cancel", (req, res) => {
+    if (req.cookies.user === req.params.email) {
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+            if (err) {
+                error = 'Your subscription coudln\'t be canceled';
+                res.redirect(`/users/${req.cookies.user}`);
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Users SET Tier = 'Free' WHERE ID = ${id};`, async (err, results, fields) => {
+                    if (err) {
+                        error = 'Your subscription coudln\'t be canceled';
+                        res.redirect(`/users/${req.cookies.user}`);
+                    } else {
+                        const customer = await stripe.customers.list({
+                            email: req.cookies.user
+                        });
+                        const subscription = await stripe.subscriptions.list({
+                            customer: customer.data[0].id
+                        });
+                        const prices = await stripe.prices.list({
+                            lookup_keys: ['free']
+                        });
+                        await stripe.subscriptions.update(subscription.data[0].id, {
+                            cancel_at_period_end: false,
+                            proration_behavior: 'always_invoice',
+                            items: [{
+                                id: subscription.data[0].items.data[0].id,
+                                price: prices.data[0].id
+                            }]
+                        });
+                        message = 'Your subscription has been cancelled';
+                        res.redirect(`/users/${req.cookies.user}`);
+                    }
+                });
+            }
+        });
+    }
+});
+
 router.get("/:email/delete", async (req, res) => {
     if (req.cookies.user === req.params.email) {
         if (req.cookies.tier === 'Free') {
             connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
                 if (err) {
-                    error = 'Your account couldn\'t be deleted. Please try again';
+                    error = 'Your account couldn\'t be deleted';
                     res.redirect(`/users/${req.cookies.user}`);
                 } else {
                     const id = results[0].ID;
                     connection.query(`DELETE FROM Users WHERE ID = ${id};`, (err, results, fields) => {
                         if (err) {
-                            error = 'Your account couldn\'t be deleted. Please try again';
+                            error = 'Your account couldn\'t be deleted';
                             res.redirect(`/users/${req.cookies.user}`);
                         } else {
                             res.redirect("/users/deleted");
