@@ -218,48 +218,67 @@ router.get("/:email/subscription", (req, res) => {
 
 router.get("/:email/delete", async (req, res) => {
     if (req.cookies.user === req.params.email) {
-        const customer = await stripe.customers.list({
-            email: req.cookies.user
-        });
-        const subscription = await stripe.subscriptions.list({
-            customer: customer.data[0].id
-        });
-        stripe.subscriptions.del(subscription.data[0].id, { invoice_now: false }, (err, result) => {
-            if (err) {
-                error = 'Your account couldn\'t be deleted';
-                res.redirect(`/users/${req.cookies.user}`);
-            } else {
-                stripe.customers.del(customer.data[0].id, (err, result) => {
-                    if (err) {
-                        error = 'Your account couldn\'t be deleted';
-                        res.redirect(`/users/${req.cookies.user}`);
-                    } else {
-                        connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                            if (err) {
-                                error = 'Your account couldn\'t be deleted';
-                                res.redirect(`/users/${req.cookies.user}`);
-                            } else {
-                                connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
-                                    if (err) {
-                                        error = 'Your account couldn\'t be deleted';
-                                        return res.redirect(`/users/${req.cookies.user}`);
-                                    }
-                                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
-                                        if (err.code !== 'ENOENT') {
+        if (req.cookies.tier === 'Free') {
+            connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+                if (err) {
+                    error = 'Your account couldn\'t be deleted. Please try again';
+                    res.redirect(`/users/${req.cookies.user}`);
+                } else {
+                    const id = results[0].ID;
+                    connection.query(`DELETE FROM Users WHERE ID = ${id};`, (err, results, fields) => {
+                        if (err) {
+                            error = 'Your account couldn\'t be deleted. Please try again';
+                            res.redirect(`/users/${req.cookies.user}`);
+                        } else {
+                            res.redirect("/users/deleted");
+                        }
+                    });
+                }
+            });
+        } else {
+            const customer = await stripe.customers.list({
+                email: req.cookies.user
+            });
+            const subscription = await stripe.subscriptions.list({
+                customer: customer.data[0].id
+            });
+            stripe.subscriptions.del(subscription.data[0].id, { invoice_now: false }, (err, result) => {
+                if (err) {
+                    error = 'Your account couldn\'t be deleted';
+                    res.redirect(`/users/${req.cookies.user}`);
+                } else {
+                    stripe.customers.del(customer.data[0].id, (err, result) => {
+                        if (err) {
+                            error = 'Your account couldn\'t be deleted';
+                            res.redirect(`/users/${req.cookies.user}`);
+                        } else {
+                            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+                                if (err) {
+                                    error = 'Your account couldn\'t be deleted';
+                                    res.redirect(`/users/${req.cookies.user}`);
+                                } else {
+                                    connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
+                                        if (err) {
                                             error = 'Your account couldn\'t be deleted';
-                                            res.redirect(`/users/${req.cookies.email}`)
-                                        } else {
-                                            res.cookie('user', 'deleted');
-                                            res.redirect("/users/deleted");
+                                            return res.redirect(`/users/${req.cookies.user}`);
                                         }
+                                        fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
+                                            if (err.code !== 'ENOENT') {
+                                                error = 'Your account couldn\'t be deleted';
+                                                res.redirect(`/users/${req.cookies.email}`)
+                                            } else {
+                                                res.cookie('user', 'deleted');
+                                                res.redirect("/users/deleted");
+                                            }
+                                        });
                                     });
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     } else res.redirect(`/users/${req.cookies.user}`);
 });
 
