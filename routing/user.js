@@ -252,7 +252,7 @@ router.get("/:email/cancel", (req, res) => {
                 });
             }
         });
-    }
+    } else res.redirect(`/users/${req.cookies.user}`);
 });
 
 router.get("/:email/delete", async (req, res) => {
