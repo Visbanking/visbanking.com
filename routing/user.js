@@ -269,6 +269,7 @@ router.get("/:email/delete", async (req, res) => {
                             error = 'Your account couldn\'t be deleted';
                             res.redirect(`/users/${req.cookies.user}`);
                         } else {
+                            res.cookie('user', 'deleted');
                             res.redirect("/users/deleted");
                         }
                     });
@@ -302,7 +303,7 @@ router.get("/:email/delete", async (req, res) => {
                                             return res.redirect(`/users/${req.cookies.user}`);
                                         }
                                         fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
-                                            if (err.code !== 'ENOENT') {
+                                            if (err && err.code !== 'ENOENT') {
                                                 error = 'Your account couldn\'t be deleted';
                                                 res.redirect(`/users/${req.cookies.email}`)
                                             } else {
