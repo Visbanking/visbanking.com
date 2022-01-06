@@ -42,26 +42,14 @@ router.get("/:email", (req, res, next) => {
         } else if (results.length === 0) {
             next();
         } else {
-            const customer = await stripe.customers.list({
-                email: req.cookies.user
-            });
-            if (customer.data.length === 0) return res.redirect("/");
-            const subscription = await stripe.subscriptions.list({
-                customer: customer.data[0].id
-            });
-            if (subscription.data.length === 0) return res.redirect("/");
-            const plan = await stripe.prices.list({
-                product: subscription.data[0].plan.product
-            });
-            const tier = lodash.capitalize(plan.data[0].lookup_key);
-            res.cookie('tier', tier, {
+            res.cookie('tier', results[0].Tier, {
                 httpOnly: true,
                 expires: new Date(Date.now() + 241920000)
             });
             res.render("user", {
                 title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
                 userInfo: results[0],
-                tier,
+                tier: results[0].Tier,
                 tiers,
                 user: req.cookies.user||"",
                 access: req.cookies.user===results[0].Email,
@@ -184,17 +172,22 @@ router.get("/:email/logout", (req, res) => {
 
 router.get("/:email/subscription", (req, res) => {
     if (req.cookies.user === req.params.email) {
-        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+        connection.query(`SELECT ID, Tier FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
             if (err) {
                 error = 'Your subscription couldn\'t be updated';
-                res.redirect(`/users/${req.cookies.email}`);
+                res.redirect(`/users/${req.cookies.user}`);
             } else {
                 const id = results[0].ID;
+                const tier = results[0].Tier;
                 connection.query(`UPDATE Users SET Tier = '${lodash.capitalize(req.query.tier)}' WHERE ID = ${id};`, async (err, results, fields) => {
                     if (err) {
                         error = 'Your subscription couldn\'t be updated';
                         res.redirect(`/users/${req.cookies.user}`);
                     } else {
+                        if (tier === 'Free') {
+                            return res.redirect("/buy?tier=free");
+                        }
+                        console.log("Here");
                         const customer = await stripe.customers.list({
                             email: req.cookies.user
                         });

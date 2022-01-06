@@ -26,10 +26,25 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/success", (req, res) => {
-	res.render("success", {
-		title: "Payment Successful - Visbanking",
-		path: "/buy/success",
-		tier: req.query.tier
+	connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+		if (err) {
+			console.error(err);
+			res.redirect("/error");
+		} else {
+			const id = results[0].ID;
+			connection.query(`UPDATE Users SET Tier = '${req.query.tier}' WHERE ID = ${id};`, (err, results, fields) => {
+				if (err) {
+					console.error(err);
+					res.redirect("/error");
+				} else {
+					res.render("success", {
+						title: "Payment Successful - Visbanking",
+						path: "/buy/success",
+						tier: req.query.tier
+					});
+				}
+			});
+		}
 	});
 });
 
