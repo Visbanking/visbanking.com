@@ -90,6 +90,9 @@ router.post("/signup", (req, res) => {
                                 httpOnly: true,
                                 expires: new Date(Date.now() + 241920000)
                             });
+                            if (tier === 'free') {
+                                return res.redirect(`/users/${req.body.email}`);
+                            }
                             res.redirect(`/buy?tier=${req.body.tier}`);
                         }
                     });
