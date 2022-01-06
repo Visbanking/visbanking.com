@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const router = Router();
+const connection = require("./data/dbconnection");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
 
@@ -33,10 +34,28 @@ router.get("/success", (req, res) => {
 });
 
 router.get("/failure", (req, res) => {
-	res.render("failure", {
-		title: "Payment Failed - Visbanking",
-		path: "/buy/failure",
-		tier: req.query.tier
+	connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+		if (err) {
+			console.error(err);
+			res.clearCookie('user');
+			res.cookie('DEL_USER', req.cookies.user);
+			res.redirect("/error");
+		} else {
+			connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
+				if (err) {
+					console.error(err);
+					res.clearCookie('user');
+					res.cookie('DEL_USER', req.cookies.user);
+					res.redirect("/error");
+				} else {
+					res.render("failure", {
+						title: "Payment Failed - Visbanking",
+						path: "/buy/failure",
+						tier: req.query.tier
+					});
+				}
+			});
+		}
 	});
 });
 
