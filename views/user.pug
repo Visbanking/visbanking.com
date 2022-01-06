@@ -24,6 +24,8 @@ block main
             input(type="submit", value="Save")
         if message 
             p#message #{message}
+        if error 
+            p#error #{error}
     if access
         section#actions
             h2 Account Actions
@@ -116,7 +118,10 @@ block main
                                     i.bi-check2-square 
                                     | #{feature}
                     .card-footer
-                        a(href=`/users/${userInfo.Email}/subscription?tier=professional`) Get Professional Access
+                        if tier === 'Free'
+                            a(href=`/buy?tier=professional`) Get Professional Access
+                        else
+                            a(href=`/users/${userInfo.Email}/subscription?tier=professional`) Get Professional Access
             if tier !== 'Premium'
                 .card 
                     .card-header
@@ -131,7 +136,10 @@ block main
                                     i.bi-check2-square 
                                     | #{feature}
                     .card-footer 
-                        a(href=`/users/${userInfo.Email}/subscription?tier=premium`) Get Premium Access
+                        if tier === 'Free'
+                            a(href=`/buy?tier=premium`) Get Premium Access
+                        else
+                            a(href=`/users/${userInfo.Email}/subscription?tier=premium`) Get Premium Access
             if tier !== 'Enterprise'
                 .card 
                     .card-header 

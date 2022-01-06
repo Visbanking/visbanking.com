@@ -8,6 +8,7 @@ document.querySelector("input[type='submit']").addEventListener("click", (event)
         event.preventDefault();
         document.querySelector("p#error").innerHTML = "New passwords don't match";
     } else {
+        alert('You will be logged out');
         window.onbeforeunload = () => {};
     }
 });

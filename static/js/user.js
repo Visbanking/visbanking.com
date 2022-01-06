@@ -32,6 +32,6 @@ document.querySelector("input[name='name']").addEventListener("keydown", (event)
 });
 
 document.querySelector(".danger > #delete").addEventListener("click", () => {
-    const confirmation = confirm("Are you sure you want to delete you account?");
+    const confirmation = confirm("Are you sure you want to delete your account?");
     if (confirmation) window.location.href += "/delete";
 });
