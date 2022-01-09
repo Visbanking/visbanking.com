@@ -24,6 +24,7 @@ h2 + p
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
+    min-height: auto;
 }
 .plan
 {
@@ -69,7 +70,7 @@ ul.features
 {
     list-style-type: none;
     padding: 1% 2% 0;
-    margin: 0 auto 20%;
+    margin: 0 auto 10%;
     text-align: left;
     width: 80%;
 }
