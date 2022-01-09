@@ -1,6 +1,6 @@
 const express = require("express");
 const connection = require("./data/dbconnection");
-const tiers = require("./data/pricingTiers.json");
+const tiers = require("./data/.pricingTiers.json");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -22,12 +22,12 @@ router.get("/", (req, res) => {
     });
 });
 
-// router.get("/services", (req, res) => {
-//     res.render("services", {
-//         title: "Our Services - Visbanking",
-//         path: "/services"
-//     });
-// });
+router.get("/services", (req, res) => {
+    res.render("services", {
+        title: "Our Services - Visbanking",
+        path: "/services"
+    });
+});
 
 router.get("/pricing", (req, res) => {
 	res.render("pricing", {

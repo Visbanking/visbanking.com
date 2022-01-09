@@ -7,7 +7,7 @@ const multer = require("multer");
 const path = require("path");
 const lodash = require("lodash");
 const connection = require("./data/dbconnection");
-const tiers = require("./data/pricingTiers.json");
+const tiers = require("./data/.pricingTiers.json");
 const fs = require("fs");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
