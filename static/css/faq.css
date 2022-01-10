@@ -1,0 +1,73 @@
+header
+{
+    min-height: auto;
+}
+h1
+{
+    margin-bottom: 1%;
+}
+h2
+{
+    margin-top: 1%;
+    text-align: center;
+    text-transform: uppercase;
+    color: #005487;
+    margin-bottom: 3%;
+}
+header p
+{
+    width: 60%;
+    text-align: center;
+    margin: 0 auto 2%;
+    text-transform: uppercase;
+    color: #616161;
+}
+main h3
+{
+    color: #005487;
+    text-transform: capitalize;
+    margin-top: 0;
+}
+main section
+{
+    min-height: auto;
+}
+.question
+{
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 1% ;
+    margin: 0;
+    font-weight: 600;
+    transition: all 0.2s linear;
+}
+.faq:not(:last-of-type) .question
+{
+    border-bottom: 1px solid;
+}
+.faq.active .question
+{
+    background-color: #005487;
+    color: #FFFFFF;
+    border-bottom: none;
+}
+.question i
+{
+    font-size: 0.9rem;
+}
+.answer
+{
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    color: #005487;
+    transition: all 0.2s linear;
+}
+.faq.active .answer
+{
+    opacity: 1;
+    height: auto;
+    padding: 1%;
+    border: 1px solid;
+}

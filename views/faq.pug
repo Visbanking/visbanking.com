@@ -1,0 +1,49 @@
+extends layout.pug
+
+block meta
+    meta(name="keywords", content="")
+    meta(name="description", content="")
+
+block styles 
+    link(rel="stylesheet", href="/css/faq.css")
+
+block header
+    h1 Frequently Asked Questions
+    h2 Everything you need to know
+    p Below you'll find answers to our most commonly asked questions. If you don't find the answer you are looking for, please contact us.
+
+block main 
+    section#faq
+        h3 Product Information
+        each question in questions.filter(question => question.Category === 'Product')
+            aside.faq
+                p.question #{question.Question} 
+                    i.bi-caret-down-fill
+                p.answer #{question.Answer}
+        h3 Services
+        each question in questions.filter(question => question.Category === 'Services')
+            aside.faq
+                p.question #{question.Question} 
+                    i.bi-caret-down-fill
+                p.answer #{question.Answer}
+        h3 Payment
+        each question in questions.filter(question => question.Category === 'Payment')
+            aside.faq
+                p.question #{question.Question} 
+                    i.bi-caret-down-fill
+                p.answer #{question.Answer}
+        h3 Account Management
+        each question in questions.filter(question => question.Category === 'Account')
+            aside.faq
+                p.question #{question.Question} 
+                    i.bi-caret-down-fill
+                p.answer #{question.Answer}
+        h3 Customer Support
+        each question in questions.filter(question => question.Category === 'Support')
+            aside.faq
+                p.question #{question.Question} 
+                    i.bi-caret-down-fill
+                p.answer #{question.Answer}
+
+block scripts 
+    script(src="/js/faq.js") 

@@ -37,4 +37,18 @@ router.get("/pricing", (req, res) => {
 	});
 });
 
+router.get("/faq", (req, res) => {
+    connection.query("SELECT * FROM Questions;", (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        } else {
+            res.render("faq", {
+                title: 'Frequently Asked Questions - Visbanking',
+                questions: results
+            });
+        }
+    });
+});
+
 module.exports = router;
