@@ -13,6 +13,7 @@ h2
     text-transform: uppercase;
     color: #005487;
     margin-bottom: 3%;
+    font-size: 2rem;
 }
 header p
 {
@@ -26,11 +27,13 @@ main h3
 {
     color: #005487;
     text-transform: capitalize;
-    margin-top: 0;
+    margin: 2% 0 1%;
+    font-size: 1.5rem;
 }
 main section
 {
     min-height: auto;
+    padding-top: 0;
 }
 .question
 {
@@ -41,9 +44,9 @@ main section
     font-weight: 600;
     transition: all 0.2s linear;
 }
-.faq:not(:last-of-type) .question
+.faq + .faq .question
 {
-    border-bottom: 1px solid;
+    border-top: 1px solid;
 }
 .faq.active .question
 {
