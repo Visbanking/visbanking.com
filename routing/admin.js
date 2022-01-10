@@ -335,6 +335,42 @@ router.post("/dashboard/members", member.single('photo'), (req, res) => {
     }
 });
 
+router.post("/dashboard/questions", (req, res) => {
+    const action = req.body.action;
+    if (action === "Add FAQ") {
+        connection.query(`INSERT INTO Questions (Question, Answer, Category) VALUES ('${req.body.question}', '${req.body.answer}', '${req.body.category}');`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                message = 'FAQ couldn\'t be created. Please try again.';
+                res.redirect("/admin/dashboard");
+            } else {
+                message = 'FAQ created successfully';
+                res.redirect("/admin/dashboard");
+            }
+        });
+    } else if (action === "Delete FAQ") {
+        connection.query(`SELECT ID FROM Questions WHERE Question = '${req.body.question}';`, (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                message = 'FAQ couldn\'t be deleted. Please try again.';
+                res.redirect("/admin/dashboard");
+            } else {
+                const id = results[0].ID;
+                connection.query(`DELETE FROM Questions WHERE ID = ${id};`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        message = 'FAQ couldn\'t be deleted. Please try again.';
+                        res.redirect("/admin/dashboard");
+                    } else {
+                        message = 'FAQ deleted successfully';
+                        res.redirect("/admin/dashboard");
+                    }
+                });
+            }
+        });
+    }
+});
+
 router.get("/logout", (req, res) => {
     res.clearCookie('admin');
     res.redirect("/");

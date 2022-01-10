@@ -26,6 +26,7 @@ html(lang="en")
                     h3#admins(:class="{ active:admins }", @click="updateAdmins") Manage admins
                     h3#articles(:class="{ active:insights }", @click="updateInsights") Manage insights
                     h3#members(:class="{ active:members }", @click="updateMembers") Manage team members
+                    h3#questions(:class="{ active:questions }", @click="updateQuestions") Manage FAQs
                 div
                     form.profile(action="/admin/dashboard/profile", method="POST", :class="{ active:profile }")
                         label(for="username") Username
@@ -79,5 +80,25 @@ html(lang="en")
                             label(for="name") Name *
                             input#name(type="text", name="name", required)
                             input.danger(type="submit", name="action", value="Delete member")
+                    aside.questions(:class="{ active:questions }")
+                        button Add new FAQ
+                        form(action="/admin/dashboard/questions", method="POST")
+                            label(for="question") Question *
+                            input#question(type="text", name="question", required)
+                            label(for="answer") Answer *
+                            input#answer(type="text", name="answer", required)
+                            label(for="category") Category *
+                            select#category(name="category") 
+                                option(value="Product") Product Information
+                                option(value="Services") Services
+                                option(value="Payment") Payment
+                                option(value="Account") Account Management
+                                option(value="Support") Customer Support
+                            input(type="submit", name="action", value="Add FAQ")
+                        button Remove FAQ
+                        form(action="/admin/dashboard/questions", method="POST")
+                            label(for="question") Question *
+                            input#question(type="text", name="question", required)
+                            input.danger(type="submit", name="action", value="Delete FAQ") 
         a#logout(href="/admin/logout") LOGOUT
         script(src="/js/dashboard.js") 

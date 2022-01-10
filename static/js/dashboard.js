@@ -4,25 +4,30 @@ Vue.createApp({
             profile: false,
             admins: false,
             insights: false,
-            members: false
+            members: false,
+            questions: false
         }
     },
     methods: {
         updateProfile() {
-            this.admins = this.insights = this.members = false;
+            this.admins = this.insights = this.members = this.questions = false;
             this.profile = !this.profile;
         },
         updateAdmins() {
-            this.profile = this.insights = this.members = false;
+            this.profile = this.insights = this.members = this.questions = false;
             this.admins = !this.admins;
         },
         updateInsights() {
-            this.admins = this.profile = this.members = false;
+            this.admins = this.profile = this.members = this.questions = false;
             this.insights = !this.insights;
         },
         updateMembers() {
-            this.admins = this.insights = this.profile = false;
+            this.admins = this.insights = this.profile = this.questions = false;
             this.members = !this.members;
+        },
+        updateQuestions() {
+            this.admins = this.insights = this.profile = this.members = false;
+            this.questions = !this.questions;
         }
     }
 }).mount("#panel");
