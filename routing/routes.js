@@ -45,6 +45,7 @@ router.get("/faq", (req, res) => {
         } else {
             res.render("faq", {
                 title: 'Frequently Asked Questions - Visbanking',
+                path: "/faq",
                 questions: results
             });
         }
