@@ -115,6 +115,21 @@ aside#reasons
 {
     border-bottom: 1px solid #128AF9;
 }
+#dashboards a
+{
+    display: block;
+    margin: 0 auto 2%;
+    width: 15%;
+    text-align: center;
+    text-decoration: none;
+    padding: 2%;
+    background-color: #015193;
+    border-radius: 10px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1rem;
+}
 #newsletter
 {
     background-color: #128AF9;
@@ -268,6 +283,10 @@ aside#reasons
     {
         width: calc(100%/3);
     }
+    #dashboards a
+    {
+        width: 25%;
+    }
     #newsletter
     {
         padding: 3% 2%;
@@ -303,6 +322,7 @@ aside#reasons
     #newsletter
     {
         flex-direction: column;
+        margin: 5% 0;
     }
     #newsletter h3
     {
@@ -377,6 +397,10 @@ aside#reasons
     {
         width: 90%;
     }
+    #dashboards a
+    {
+        width: 35%;
+    }
     #newsletter > i
     {
         font-size: 4rem;
@@ -426,6 +450,10 @@ aside#reasons
     #dashboards
     {
         width: 95%;
+    }
+    #dashboards a
+    {
+        width: 45%;
     }
     #newsletter input:not([type="submit"])
     {
