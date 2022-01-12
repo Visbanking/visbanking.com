@@ -20,12 +20,12 @@ block main
                 p.question #{question.Question} 
                     i.bi-caret-down-fill
                 p.answer #{question.Answer}
-        //- h3 Services
-        //- each question in questions.filter(question => question.Category === 'Services')
-        //-     aside.faq
-        //-         p.question #{question.Question} 
-        //-             i.bi-caret-down-fill
-        //-         p.answer #{question.Answer}
+        h3 Services
+        each question in questions.filter(question => question.Category === 'Services')
+            aside.faq
+                p.question #{question.Question} 
+                    i.bi-caret-down-fill
+                p.answer #{question.Answer}
         h3 Payment
         each question in questions.filter(question => question.Category === 'Payment')
             aside.faq
