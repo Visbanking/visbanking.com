@@ -90,7 +90,7 @@ label
 }
 label, select
 {
-    width: 85%;
+    width: 88%;
 }
 form select
 {
@@ -159,6 +159,10 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
         width: 85%;
         margin: 5% auto;
         padding: 2% 3%;
+    }
+    select
+    {
+        width: 89%;
     }
     .information
     {
