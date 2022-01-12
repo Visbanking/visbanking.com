@@ -54,6 +54,10 @@ main section
     color: #FFFFFF;
     border-bottom: none;
 }
+.faq.active + .faq .question
+{
+    border-top: 0;
+}
 .question i
 {
     font-size: 0.9rem;
