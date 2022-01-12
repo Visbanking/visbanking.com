@@ -39,7 +39,7 @@ main section
 {
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 1% ;
+    padding: 1%;
     margin: 0;
     font-weight: 600;
     transition: all 0.2s linear;
@@ -77,4 +77,35 @@ main section
     height: auto;
     padding: 1%;
     border: 1px solid;
+}
+@media screen and (max-width: 767px)
+{
+    .question, .faq.active .answer
+    {
+        padding: 2%;
+    }
+}
+@media screen and (max-width: 500px)
+{
+    h2
+    {
+        font-size: 1.5rem;
+        margin-bottom: 5%;
+    }
+    header p
+    {
+        width: 80%;
+    }
+    main h3
+    {
+        font-size: 1.2rem;
+    }
+    .question
+    {
+        font-size: 1rem;
+    }
+    .question i
+    {
+        font-size: 0.7rem;
+    }
 }
