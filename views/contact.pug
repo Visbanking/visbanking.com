@@ -27,6 +27,11 @@ block main
                 input#email(type="text", name="lname", required, placeholder="Last Name")
                 input#subject(type="email", name="email", required, placeholder="Email")
                 input#phone(type="tel", name="phone", placeholder="Phone")
+                label(for="topic") Topic:
+                select#topic(name="topic")
+                    option(value="General") General
+                    option(value="Sales") Sales
+                    option(value="Support") Support
                 input#message(type="text", name="message", rows="2", required, placeholder="Message") 
                 input(type="submit", value="Send")
         aside.information 

@@ -51,7 +51,7 @@ form h2
     color: #FFFFFF;
     margin-bottom: 4%;
 }
-form input
+form input, select
 {
     box-shadow: 5px 5px 4px 0px #00000040;
     border-radius: 13px;
@@ -60,19 +60,44 @@ form input
     padding: 1% 2%;
     width: 35%;
     margin: 2% 5%;
+    transition: box-shadow 0.2s linear;
 }
-form input:focus
+form input:focus, select:focus
 {
     outline: none;
+    box-shadow: 5px 5px 4px 0px #000000AA;
 }
-form input:not([type="submit"])
+form input:not([type="submit"]), select
 {
     background-color: #FFFFFF;
 }
-form input::placeholder
+form input::placeholder, select
 {
     text-transform: uppercase;
     color: #616161;
+}
+label
+{
+    display: block;
+    width: 35%;
+    margin: 1% 5%;
+    padding: 1% 0;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+label, select
+{
+    width: 85%;
+}
+form select
+{
+    appearance: none;
+    background: url('./svg/chevron-down.svg') #FFFFFF right center no-repeat;
+    cursor: pointer;
+    margin: 0 5% 2%;
 }
 form #message
 {
@@ -128,7 +153,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
 }
 @media screen and (max-width: 991px)
 {
-    form input, input#message
+    form input, input#message, select
     {
         display: block;
         width: 85%;
@@ -154,7 +179,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
     {
         margin-bottom: 5%;
     }
-    form input, input#message
+    form input, input#message, select
     {
         padding: 2%;
     }
@@ -181,7 +206,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
 }
 @media screen and (max-width: 450px)
 {
-    form input
+    form input, select
     {
         font-size: 1rem;
         padding: 2% 3%;
@@ -192,73 +217,3 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
         font-weight: 600;
     }
 }
-/* form label, form input, textarea
-{
-    display: block;
-    margin: 0 auto;
-    font-family: 'Raleway';
-}
-form input, textarea
-{
-    margin-bottom: 2%;
-}
-form input
-{
-    background-color: transparent;
-    color: #024060;
-    border: none;
-    border-bottom: 1px solid;
-    width: 40%;
-    padding: 0.2rem;
-}
-textarea
-{
-    background-color: transparent;
-    color: #024060;
-    border: 1px solid;
-    width: 60%;
-}
-form input:focus, textarea:focus
-{
-    outline: none;
-}
-form input[type="submit"]
-{
-    margin-bottom: 0;
-    width: auto;
-    padding: 0.3rem 1rem 0.2rem;
-    border: 1px solid;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #024060;
-    font-weight: 700;
-    transition: all 0.15s linear;
-}
-form input[type="submit"]:hover
-{
-    background-color: #024060;
-    color: #FFFFFF;
-    border-color: transparent;
-}
-form input[type="submit"]:focus, form input[type="submit"]:hover
-{
-    box-shadow: 0 0 0.5rem #5795B5;
-} */
-/* @media screen and (max-width: 991px)
-{
-    form input
-    {
-        width: 60%;
-    }
-    textarea
-    {
-        width: 75%;
-    }
-}
-@media screen and (max-width: 400px)
-{
-    form input, textarea
-    {
-        width: 80%;
-    }
-} */
