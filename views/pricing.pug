@@ -10,12 +10,12 @@ block styles
 block main
     h1 Banks. Visualized.
     h2 Subscription plans to meet your needs
-    p Our plans
     section#pricing
         aside.plan#free
             h3 Free
             p
                 span.price $#{tiers.free.price}
+            hr
             ul.features
                 each feature in tiers.free.features
                     li 
@@ -29,11 +29,11 @@ block main
             p
                 span.price $#{tiers.professional.price}
                 | /month
+            hr
+            p All Free Features 
+                br
+                i.bi-plus
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | All Free features
                 each feature in tiers.professional.features
                     li 
                         p
@@ -45,11 +45,11 @@ block main
             p
                 span.price $#{tiers.premium.price}
                 | /month
+            hr
+            p All Professional Features 
+                br
+                i.bi-plus    
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | All Professional features
                 each feature in tiers.premium.features
                     li 
                         p
@@ -59,11 +59,11 @@ block main
         aside.plan#enterprise 
             h3 Enterprise
             p.price Contact sales
+            hr
+            p All Premium Features 
+                br
+                i.bi-plus
             ul.features
-                li 
-                    p
-                        i.bi-check2-square 
-                        | All Premium features
                 each feature in tiers.enterprise.features
                     li 
                         p
