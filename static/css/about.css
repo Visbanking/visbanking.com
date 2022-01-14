@@ -106,10 +106,9 @@ main section:nth-of-type(2n):not(#team)
 .member .intro
 {
     font-size: 0.9rem;
-    width: 75%;
     margin: 2% auto 0;
     border-top: 1px solid #015193;
-    padding-top: 5%;
+    padding-top: 3%;
     text-transform: none;
     text-align: justify;
 }
@@ -121,7 +120,7 @@ main section:nth-of-type(2n):not(#team)
     background-color: #015193;
     padding: 1% 2%;
     border-radius: 15px;
-    margin-bottom: 2%;
+    margin-top: 2%;
 }
 #contact
 {
@@ -144,6 +143,17 @@ main section:nth-of-type(2n):not(#team)
 {
     color: inherit;
 }
+@media screen and (max-width: 991px)
+{
+    #contact h2
+    {
+        width: 80%;
+    }
+    #contact p
+    {
+        width: 70%;
+    }
+}
 @media screen and (max-width: 767px)
 {
     p#intro
@@ -156,11 +166,23 @@ main section:nth-of-type(2n):not(#team)
     }
     main section > aside
     {
-        max-width: 70%;
+        max-width: 80%;
+    }
+    .member img
+    {
+        width: 60%;
     }
     #team > a
     {
         padding: 2% 3%;
+    }
+    #contact h2
+    {
+        font-size: 1.5rem;
+    }
+    #contact p
+    {
+        font-size: 1rem;
     }
 }
 @media screen and (max-width: 600px)
@@ -200,13 +222,26 @@ main section:nth-of-type(2n):not(#team)
         margin: 0 2%;
         padding: 5% 0;
     }
-    .member:not(:last-of-type)
+    .member img
     {
-        border-bottom: 1px solid #015193;
+        width: 30%;
+    }
+    .member .name
+    {
+        margin-top: 5%;
     }
     #team > a
     {
         padding: 2% 4%;
+    }
+    #contact h2
+    {
+        width: 100%;
+    }
+    #contact p
+    {
+        width: 85%;
+        margin: 5% auto 0;
     }
 }
 @media screen and (max-width: 400px)
@@ -222,6 +257,10 @@ main section:nth-of-type(2n):not(#team)
     .member
     {
         padding: 10% 0;
+    }
+    #contact p
+    {
+        width: 100%;
     }
 }
 /* #mission aside
