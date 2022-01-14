@@ -55,6 +55,8 @@ router.get("/failure", (req, res) => {
 			res.clearCookie('user');
 			res.cookie('DEL_USER', req.cookies.user);
 			res.redirect("/error");
+		} else if (results.length === 0) {
+			res.redirect("/");
 		} else {
 			connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
 				if (err) {
