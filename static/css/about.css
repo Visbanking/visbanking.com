@@ -41,9 +41,9 @@ main section
 }
 main section > aside
 {
-    max-width: 55%;
+    max-width: 60%;
     line-height: 2;
-    margin: 0 5%;
+    margin: 0 2%;
 }
 h2
 {
@@ -58,14 +58,15 @@ hr
     border: 0;
     border-bottom: 1px solid #128AF9;
 }
-#why, #vision
+main section:nth-of-type(2n):not(#team)
 {
     justify-content: flex-end;
     text-align: right;
 }
-#why p:last-of-type
+#history h3
 {
-    font-weight: 600;
+    margin-top: 5%;
+    font-size: 1.2rem;
 }
 #team
 {
@@ -93,13 +94,24 @@ hr
 .member .name
 {
     margin: 10% auto 0;
+    font-size: 1.1rem;
 }
 .member .title
 {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin: 0;
     padding: 2% 0;
+}
+.member .intro
+{
+    font-size: 0.9rem;
+    width: 75%;
+    margin: 2% auto 0;
+    border-top: 1px solid #015193;
+    padding-top: 5%;
+    text-transform: none;
+    text-align: justify;
 }
 #team > a
 {
@@ -110,6 +122,27 @@ hr
     padding: 1% 2%;
     border-radius: 15px;
     margin-bottom: 2%;
+}
+#contact
+{
+    text-align: center;
+}
+#contact h2
+{
+    margin: 0 auto;
+    width: 60%;
+    font-size: 2rem;
+}
+#contact p
+{
+    margin: 3% auto 0;
+    padding: 0 1%;
+    width: 50%;
+    font-size: 1.2rem;
+}
+#contact a
+{
+    color: inherit;
 }
 @media screen and (max-width: 767px)
 {
