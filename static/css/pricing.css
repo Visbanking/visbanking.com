@@ -66,6 +66,34 @@ h2 + p
 {
     font-size: 1.3rem;
 }
+.plan hr
+{
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    margin-bottom: 5%;
+}
+.plan:not(#professional) hr
+{
+    border-color: #128AF9;
+}
+#professional hr
+{
+    border-color: #FFFFFF;
+}
+.plan > hr + p
+{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.plan > hr + p i
+{
+    font-size: 2rem;
+}
 ul.features
 {
     list-style-type: none;
