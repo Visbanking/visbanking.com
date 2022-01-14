@@ -46,7 +46,7 @@ nav.navbar button.navbar-toggler:focus
 nav.navbar .navbar-collapse
 {
     width: 70%;
-    text-align: center;
+    text-align: right;
 }
 nav.navbar .navbar-collapse.show
 {
