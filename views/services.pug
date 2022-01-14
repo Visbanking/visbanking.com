@@ -7,40 +7,35 @@ block meta
 block styles 
     link(rel="stylesheet", href="/css/services.css")
 
-block header
-    aside.center
-        h1 Our Services
-        p We provide all sorts of previously-analyzed relevant data for you, so that you can focus on what matters
-            br
-            | Making Decisions
-    a(href="#performance")
-        i.bi-arrow-down-short
-
 block main 
-    section.container-fluid#performance
-        aside
-            h2 Performance
-            p We track, analyze and display bank's performance data quarter after quarter, allowing you to see each bank's progress and growth over time
-    section.container-fluid#financial 
-        aside
-            h2 Financial
-            p Explanation
-    section.container-fluid#people
-        aside
-            h2 People
-            p Explanation
-    section.container-fluid#market 
-        aside
-            h2 Market
-            p Explanation
-    section.container-fluid#geography 
-        aside
-            h2 Geography
-            p Explanation
-    section.container-fluid#regulatory 
-        aside
-            h2 Regulatory
-            p Explanation
-
-block scripts 
-    script(src="/js/services.js") 
+    h1 Our services
+    //- hr
+    section#services
+        //- h2 Services
+        aside.service
+            p.title Competitive Analysis
+            p View a group of customized competitors to assess comparative performance.
+        aside.service
+            p.title Market Share
+            p Define a market and measure the market share from banks in that market.
+        aside.service
+            p.title M&amp;A Due Dilligence
+            p Merger on the horizon? Dig into credit quality before combining portfolios.
+        aside.service
+            p.title Credit Quality Trends
+            p View a group of customized competitors to assess comparative performance.
+        aside.service
+            p.title Geographic Coverage
+            p Considering entering a new market? Quickly assess the other banks in that geography.
+        aside.service
+            p.title Competitive Analysis
+            p Pull the entire US banking landscape with deposit or loan growth over time.
+    hr
+    section#platform 
+        h2 Our Platform
+        img(src="/images/dashboard1.png", alt="Individual Bank Reports")
+        img(src="/images/dashboard2.png", alt="National Bank Rankings")
+        img(src="/images/dashboard3.png", alt="Banks with Demographic Data")
+        img(src="/images/dashboard4.png", alt="Individual Bank Assets in Numbers")
+        img(src="/images/dashboard5.png", alt="Individual Bank Assets through Time")
+        img(src="/images/dashboard6.png", alt="Individual Bank Balance Sheet")

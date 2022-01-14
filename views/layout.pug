@@ -17,6 +17,7 @@ html(lang="en")
         block styles 
         script(src="https://unpkg.com/vue@next")
         script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-214131359-1")
+        script(src="https://accounts.google.com/gsi/client", async, defer)
         script(src="/js/analytics.js") 
     body 
         header 
@@ -27,7 +28,7 @@ html(lang="en")
                     i.bi-list
                 .collapse.navbar-collapse#navbar 
                     a.nav-link(href=path==="/about"?"#":"/about", class=path==="/about"?"active":"") Company
-                    //- a.nav-link(href=path==="/services"?"#":"/services", class=path==="/services"?"active":"") Services
+                    a.nav-link(href=path==="/services"?"#":"/services", class=path==="/services"?"active":"") Services
                     a.nav-link(href=path==="/pricing"?"#":"/pricing", class=path==="/pricing"?"active":"") Pricing
                     a.nav-link(href=path==="/insights"?"#":"/insights", class=path==="/insights"?"active":"") Insights
                     a.nav-link(href=path==="/contact"?"#":"/contact", class=path==="/contact"?"active":"") Contact
@@ -44,7 +45,7 @@ html(lang="en")
                     p We have data from over 12 sources with key information like financials, performance, news, and regulatory.
                 .links
                     p.heading Visbanking
-                    //- a(href=path==="/services"?"#":"/services") Services
+                    a(href=path==="/services"?"#":"/services") Services
                     a(href=path==="/pricing"?"#":"/pricing") Pricing
                     a(href=path==="/about"?"#":"/about") Company
                     a(href=path==="/insights"?"#":"/insights") Insights
