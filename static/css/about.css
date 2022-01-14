@@ -19,15 +19,17 @@ h2 + img
     display: block;
     margin: 3% auto 1%;
 }
-p#intro
+p.intro
 {
-    width: 70%;
+    width: 80%;
     margin: 2% auto 0;
     text-align: center;
-    line-height: 2;
+    line-height: 1.5;
     font-size: 1.2rem;
+}
+p.intro:last-of-type
+{
     padding-bottom: 5%;
-    /* border-bottom: 1px solid #128AF9; */
 }
 main section
 {
@@ -58,7 +60,7 @@ hr
     border: 0;
     border-bottom: 1px solid #128AF9;
 }
-main section:nth-of-type(2n):not(#team)
+main section:nth-of-type(2n):not(#team, #contact)
 {
     justify-content: flex-end;
     text-align: right;
