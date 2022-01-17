@@ -4,7 +4,7 @@ const { readFileSync, read } = require("fs");
 const router = express.Router();
 
 router.get("/privacy", (req, res) => {
-    const privacy = readFileSync(path.join(__dirname, "..", "static", "files", "privacy.md"));
+    const privacy = readFileSync(path.join(__dirname, "..", "static", "files", "policies", "privacy.md"));
     res.render("privacy", {
         title: 'Privacy Policy',
         text: privacy.toString("utf-8")
@@ -12,7 +12,7 @@ router.get("/privacy", (req, res) => {
 });
 
 router.get("/terms", (req, res) => {
-    const terms = readFileSync(path.join(__dirname, "..", "static", "files", "terms.md"));
+    const terms = readFileSync(path.join(__dirname, "..", "static", "files", "policies", "terms.md"));
     res.render("privacy", {
         title: 'Terms and Conditions',
         text: terms.toString("utf-8")
@@ -20,7 +20,7 @@ router.get("/terms", (req, res) => {
 });
 
 router.get("/cookies", (req, res) => {
-    const cookies = readFileSync(path.join(__dirname, "..", "static", "files", "cookies.md"));
+    const cookies = readFileSync(path.join(__dirname, "..", "static", "files", "policies", "cookies.md"));
     res.render("privacy", {
         title: 'Cookies Policy',
         text: cookies.toString("utf-8")
@@ -28,7 +28,7 @@ router.get("/cookies", (req, res) => {
 });
 
 router.get("/disclaimer", (req, res) => {  
-    const disclaimer = readFileSync(path.join(__dirname, "..", "static", "files", "disclaimer.md"));
+    const disclaimer = readFileSync(path.join(__dirname, "..", "static", "files", "policies", "disclaimer.md"));
     res.render("privacy", {
         title: 'Disclaimer',
         text: disclaimer.toString("utf-8")
