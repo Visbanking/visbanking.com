@@ -6,10 +6,10 @@ The following definitions shall have the same meaning regardless of whether they
 <h3>Definitions</h3>
 <p>For the purposes of this Disclaimer:</p>
 <ul>
-<li><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Disclaimer) refers to Visbanking Inc., 701 Kingston Dr., Yukon, OK 73099.</li>
+<li><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Disclaimer) refers to VB Inc., 701 Kingston Dr., Yukon, OK 73099.</li>
 <li><strong>Service</strong> refers to the Website.</li>
 <li><strong>You</strong> means the individual accessing the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
-<li><strong>Website</strong> refers to Visbanking, accessible from <a href="http://www.visbanking.com" rel="external nofollow noopener" target="_blank">http://www.visbanking.com</a></li>
+<li><strong>Website</strong> refers to VB, accessible from <a href="http://www.visbanking.com" rel="external nofollow noopener" target="_blank">http://www.visbanking.com</a></li>
 </ul>
 <h2>Disclaimer</h2>
 <p>The information contained on the Service is for general information purposes only.</p>

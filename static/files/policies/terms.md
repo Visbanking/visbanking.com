@@ -9,7 +9,7 @@
 </li>
 <li><p><strong>Country</strong> refers to Oklahome, United States.</p>
 </li>
-<li><p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Visbanking Inc., 701 Kingston Dr., Yukon, OK 73099.</p>
+<li><p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to VB Inc., 701 Kingston Dr., Yukon, OK 73099.</p>
 </li>
 <li><p><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</p>
 </li>
@@ -19,7 +19,7 @@
 </li>
 <li><p><strong>Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</p>
 </li>
-<li><p><strong>Website</strong> refers to Visbanking, accessible from <a href="https://visbanking.com/">visbanking.com</a>.</p>
+<li><p><strong>Website</strong> refers to VB, accessible from <a href="https://visbanking.com/">visbanking.com</a>.</p>
 </li>
 <li><p><strong>Your</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
 </li>

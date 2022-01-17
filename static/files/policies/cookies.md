@@ -8,9 +8,9 @@
 <h3>Definitions</h3>
 <p>For the purposes of this Cookies Policy:</p>
 <ul>
-<li><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Cookies Policy) refers to Visbanking Inc., 701 Kingston Dr., Yukon, OK 73099.</li>
+<li><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Cookies Policy) refers to VB Inc., 701 Kingston Dr., Yukon, OK 73099.</li>
 <li><strong>Cookies</strong> means small files that are placed on Your computer, mobile device or any other device by a website, containing details of your browsing history on that website among its many uses.</li>
-<li><strong>Website</strong> refers to Visbanking, accessible from <a href="http://www.visbanking.com" rel="external nofollow noopener" target="_blank">http://www.visbanking.com</a></li>
+<li><strong>Website</strong> refers to VB, accessible from <a href="http://www.visbanking.com" rel="external nofollow noopener" target="_blank">http://www.visbanking.com</a></li>
 <li><strong>You</strong> means the individual accessing or using the Website, or a company, or any legal entity on behalf of which such individual is accessing or using the Website, as applicable.</li>
 </ul>
 <h2>The use of the Cookies</h2>
