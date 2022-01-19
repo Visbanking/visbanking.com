@@ -146,10 +146,9 @@ aside#reasons
 {
     color: inherit;
 }
-#newsletter > i
+#newsletter i
 {
-    width: 20%;
-    font-size: 5rem;
+    font-size: 4rem;
 }
 #newsletter > div
 {
@@ -198,6 +197,30 @@ aside#reasons
     font-family: inherit;
     font-size: 1rem;
 }
+#newsletter + h2
+{
+    text-align: center;
+}
+#about
+{
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#about p
+{
+    margin: 0;
+    font-size: 1.2rem;
+    width: 50%;
+    font-weight: 600;
+}
+#about svg
+{
+    max-width: 15%;
+}
 #featured
 {
     display: flex;
@@ -207,26 +230,6 @@ aside#reasons
     align-items: center;
     padding: 2% 0;
 }
-#featured > #about
-{
-    height: 100%;
-    width: 25%;
-    padding: 2%;
-    background-color: #128AF9;
-}
-#about h3
-{
-    color: inherit;
-    margin: 0 0 5%;
-    color: #FFFFFF;
-}
-#about p
-{
-    margin: 0;
-    color: #EEEEEE;
-    width: 80%;
-    font-weight: 600;
-}
 #featured #news
 {
     display: flex;
@@ -234,11 +237,11 @@ aside#reasons
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    width: 60%;
+    width: 100%;
 }
 #news > .post
 {
-    width: calc(100%/2.1);
+    width: calc(100%/3.8);
     height: 35vh;
     background-color: #F5F5F5;
     position: relative;
@@ -295,6 +298,10 @@ aside#reasons
     {
         width: 35%;
     }
+    #news > .post
+    {
+        width: calc(100%/3.2);
+    }
 }
 @media screen and (max-width: 767px)
 {
@@ -343,19 +350,25 @@ aside#reasons
     {
         flex-direction: column;
     }
-    #featured #about, #featured #news
+    #about, #featured #news
     {
         margin: 1%;
     }
-    #featured #about
+    #about
     {
-        width: 60%;
+        flex-direction: column-reverse;
         padding: 2% 1%;
     }
     #about p
     {
-        margin: 0 auto;
+        margin: 1% auto;
+        width: 80%;
         text-align: center;
+        font-size: 1rem;
+    }
+    #about svg
+    {
+        max-width: 20%;
     }
     #featured #news
     {
@@ -401,9 +414,9 @@ aside#reasons
     {
         width: 35%;
     }
-    #newsletter > i
+    #newsletter i
     {
-        font-size: 4rem;
+        font-size: 3rem;
     }
     #newsletter form
     {
@@ -419,11 +432,11 @@ aside#reasons
     {
         padding: 3% 5%;
     }
-    #featured #about, #news .post
+    #about, #news .post
     {
         width: 80%;
     }
-    #featured #about
+    #about
     {
         margin: 2% auto 5%;
         padding: 5% 1%;
@@ -465,7 +478,7 @@ aside#reasons
     {
         padding: 3% 5%;
     }
-    #featured #about, #news .post
+    #about, #news .post
     {
         width: 90%;
     }

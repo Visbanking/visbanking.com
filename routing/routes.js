@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
     connection.query("SELECT * FROM Insights ORDER BY Date DESC LIMIT 0, 3;", (err, results, fields) => {
         const latest = results;
-        connection.query("SELECT * FROM Insights ORDER BY Views DESC LIMIT 0, 2;", (err, results, fields) => {
+        connection.query("SELECT * FROM Insights ORDER BY Views DESC LIMIT 0, 3;", (err, results, fields) => {
             if (err) {
                 console.error(err);
                 res.redirect("/error");

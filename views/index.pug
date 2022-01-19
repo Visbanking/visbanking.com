@@ -47,8 +47,8 @@ block main
         img(src="/images/dashboard3.png", alt="Banks with Demographic Data", loading="lazy")
         a(href="/services") Our Services
     aside#newsletter 
-        i.bi-envelope-open
         div
+            i.bi-envelope-open
             h3 Data delivered to your inbox
             p Keep up with the latest data and most popular content.
             form(action="/subscribe", method="POST")
@@ -56,11 +56,20 @@ block main
                 input#email(type="email", name="email", placeholder="johndoe@example.com", required)
                 br
                 input(type="submit", value="Subscribe")
+    h2 About Visbanking
+    aside#about
+        p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the banking industry in a simple, more comprehensible manner.
+        <svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" data-name="Capa 1" viewBox="0 0 100 100">
+            <defs>
+                <style>.cls-1{fill:#2569a9;}</style>
+            </defs>
+            <title>Logo-Visbanking</title>
+            <path class="cls-1" d="M59.05,42.34c-5-4.11-12-3.86-15.86-1.19a6.53,6.53,0,0,1,1.73,8.17c-1.67,3-4.87,4.08-8.68,2.79A12.48,12.48,0,0,0,37.5,58.9L48,50.3l4.59,4,1.69-1.4L57.8,50l-1.7-1.94,6.45-.66-2,6-1.27-1.77-4.16,3.64-2.71,2.59-4.52-3.92L39,61.31A14,14,0,0,0,62.5,59.38,13.76,13.76,0,0,0,59.05,42.34Z"/>
+            <path class="cls-1" d="M97.34,48.22a8.85,8.85,0,0,0-1-1.74,69.34,69.34,0,0,0-4.68-7.12C79.36,24.75,67.85,21.63,65.73,21a57.65,57.65,0,0,0-35.92,1.63,51.77,51.77,0,0,0-11,6.26,46.68,46.68,0,0,0-9.78,9.51C6.73,41.5,4.76,44.9,2.69,48.21a1.62,1.62,0,0,0-.06,1.39c1.26,2.2,2.55,4.38,4,6.49a56.37,56.37,0,0,0,9.47,10.29,5.93,5.93,0,0,0,1,.52,2.65,2.65,0,0,0-.19-.72A22.79,22.79,0,0,1,14,59.27a35.8,35.8,0,0,1-1.45-11.59,3.74,3.74,0,0,1,.5-1.74,34.56,34.56,0,0,1,2.41-3.25,39.55,39.55,0,0,1,8.34-7.85,30,30,0,0,0-6.1,18.34C17.79,70.29,32.18,84.05,50,84c18,0,32.27-13.87,32.25-31.25a29.63,29.63,0,0,0-7-19,54.64,54.64,0,0,1,5.36,4.69,55.59,55.59,0,0,1,6.24,7.29C91,54,85.23,61.3,84.32,64a19.59,19.59,0,0,1-1.26,2.56l.21.22,1.94-1.68A52.9,52.9,0,0,0,97.38,49.63,1.92,1.92,0,0,0,97.34,48.22ZM49.76,76.64C36.37,76.6,25.41,66,25.43,53s11-23.56,24.65-23.54S74.57,40.13,74.55,53.1,63.44,76.68,49.76,76.64Z"/>
+        </svg>
+    hr
     h2 Featured News
     aside#featured 
-        #about
-            h3 About Visbanking
-            p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the banking industry in a simple, more comprehensible manner.
         #news
             each post in featured 
                 article.post 
