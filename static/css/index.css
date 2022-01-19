@@ -214,6 +214,7 @@ aside#reasons
 {
     margin: 0;
     font-size: 1.2rem;
+    line-height: 2;
     width: 50%;
     font-weight: 600;
 }
@@ -298,6 +299,10 @@ aside#reasons
     {
         width: 35%;
     }
+    #about p
+    {
+        line-height: 1.5;
+    }
     #news > .post
     {
         width: calc(100%/3.2);
@@ -365,6 +370,7 @@ aside#reasons
         width: 80%;
         text-align: center;
         font-size: 1rem;
+        line-height: 1.2;
     }
     #about svg
     {
