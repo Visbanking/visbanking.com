@@ -9,6 +9,18 @@ document.querySelectorAll("article .intro").forEach(intro => {
     intro.innerText = intro.innerText.split("\n\n")[0].slice(0, 140)+"...";
 });
 
+const postHeights = [];
+
+document.querySelectorAll("#categories article.post").forEach(post => {
+    postHeights.push(post.offsetHeight);
+});
+
+const maxPostHeight = Math.max(...postHeights);
+
+document.querySelectorAll("#categories article.post").forEach(post => {
+    post.style.height = `${maxPostHeight+22}px`;
+});
+
 Vue.createApp({
     data() {
         return {
