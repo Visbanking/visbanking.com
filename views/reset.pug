@@ -1,0 +1,23 @@
+extends layout.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/recover.css")
+    link(rel="stylesheet", href="/css/reset.css")
+
+block header 
+    if access
+        h1 Reset your password
+        form(method="POST") 
+            label(for="pass") New Password *
+            input#pass(type="password", name="pass", required)
+            label(for="confirm") Confirm New Password *
+            input#confirm(type="password", name="confirm", required)
+            p#error
+            input(type="submit", value="Reset password")
+    if !access
+        h1 We're sorry
+        p User #{user} has not requested password recovery
+        p You'll be redirected to our homepage in a moment
+
+block scripts 
+    script(src="/js/reset.js") 

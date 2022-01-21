@@ -11,9 +11,13 @@ block header
             p The server couldn't connect to the MailChimp API
         else if path.includes("buy")
             p The payment couldn't be processed
+        else if path.includes("recovery/recover")
+            p There was an issue sending the email
+        else if path.includes("recovery/reset")
+            p Your password couldn't be updated
     if path.includes("subscribe")
         p You can 
-            span(onclick="window.history.back()") try again
+            span(onclick="window.location.replace('/#newsletter')") try again
             |  or go back to our 
             span(onclick="window.location.replace('/')") homepage
     else if path.includes("buy")
@@ -21,3 +25,11 @@ block header
             span(onclick=`window.location.replace('/buy?tier=${tier}')`) try again
             |  or go back to our 
             span(onclick="window.location.replace('/pricing')") pricing page
+    else if path.includes("recovery/recover")
+        p You can 
+            span(onclick=`window.location.replace('/recovery')`) try again
+            |  or go back to our 
+            span(onclick="window.location.replace('/')") homepage
+    else if path.includes("recovery/reset")
+        p Please refer back to the link in your email or go to our
+            span(onclick="window.location.replace('/')") homepage

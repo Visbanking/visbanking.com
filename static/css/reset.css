@@ -1,0 +1,18 @@
+h1
+{
+    margin-bottom: 0;
+}
+h1 + p
+{
+    margin-top: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+header > p:last-of-type
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

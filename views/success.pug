@@ -5,18 +5,31 @@ block styles
 
 block header 
     .center
-        i.bi-person-check-fill 
-        h1 Thank you
+        i.bi-person-check-fill
+        if path.includes("recovery/recover") 
+            h1 A link has been sent
+        else if path.includes("recovery/reset")
+            h1 Password updated
+        else 
+            h1 Thank you
         if path.includes("subscribe")
             p You have been successfully added to our mailing list
         else if path.includes("contact")
-            p You're request has been saved successfully
+            p Your request has been saved successfully
         else if path.includes("buy")
             p Your payment (
                 span#tier #{tier[0].toUpperCase()+tier.slice(1)} 
                 | plan) has been processed successfully
+        else if path.includes("recovery/recover")
+            p A password recovery link has been sent to your email
+        else if path.includes("/recovery/reset")
+            p Your password has been successfully reset
     if path.includes("buy")
         p You'll be redirected to your personal user page in a moment
+    else if path.includes("recovery/recover")
+        p Check your inbox for the link we just sent you
+    else if path.includes("recovery/reset")
+        p You'll be redirected to our login page in a moment
     else
         p You'll be redirected to our homepage in a moment
 

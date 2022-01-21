@@ -1,0 +1,12 @@
+extends layout.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/recover.css")
+
+block header 
+    h1 Reset your password
+    form(method="POST")
+        p We will send you a link to restore your password
+        label(for="email") Email *
+        input#email(type="email", name="email", required, placeholder="Enter your email")
+        input(type="submit", value="Send Link")

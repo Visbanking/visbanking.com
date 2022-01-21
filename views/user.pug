@@ -30,8 +30,9 @@ block main
         section#actions
             h2 Account Actions
             .safe
-                a#pass(href=`/users/${userInfo.Email}/update`) Change Password
                 a#logout(href=`/users/${userInfo.Email}/logout`) Log Out
+                a#pass(href=`/users/${userInfo.Email}/update`) Change Password
+                a#recovery(href="/recovery") Recover Password
             .danger
                 if tier !== 'Free'
                     a#cancel Cancel Subscription
