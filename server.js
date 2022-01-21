@@ -10,6 +10,7 @@ const login = require("./routing/login");
 const user = require("./routing/user");
 const subscribe = require("./routing/subscribe");
 const buy = require("./routing/buy");
+const recovery = require("./routing/recovery");
 const privacy = require("./routing/privacy");
 const admin = require("./routing/admin");
 const files = require("./routing/files");
@@ -46,6 +47,8 @@ app.use("/users", user);
 app.use("/subscribe", subscribe);
 
 app.use("/buy", buy);
+
+app.use("/recovery", recovery);
 
 app.use(privacy);
 
