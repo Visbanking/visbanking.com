@@ -11,24 +11,18 @@ router.get("/robots.txt", (req, res) => {
 router.get("/sitemap.xml", async (req, res) => {
     let sitemap = '<?xml version="1.1" encoding="UTF-8"?>\n';
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-    const static = ["/", "/about", "/about/team", "/services", "/insights", "/contact", "/subscribe", "/buy", "/pricing", "/login", "/signup", "/terms", "/privacy", "/cookies", "/disclaimer"];
+    const static = ["/", "/about", "/about/team", "/services", "/insights", "/contact", "/buy", "/pricing", "/login", "/signup", "/terms", "/privacy", "/cookies", "/disclaimer"];
     for (let path of static) {
         sitemap += `\t<url><loc>https://visbanking.com${path}</loc></url>\n`;
     }
     connection.query('SELECT ID FROM Insights;', (err, insights, fields) => {
         if (err) throw err
-        connection.query('SELECT Email FROM Users;', (err, users, fields) => {
-            if (err) throw err
-            for (let insight of insights) {
-                sitemap += `\t<url><loc>https://visbanking.com/insights/insight/${insight.ID}</loc></url>\n`;
-            }
-            for (let user of users) {
-                sitemap += `\t<url><loc>https://visbanking.com/users/user/${user.Email}</loc></url>\n`;
-            }
-            sitemap += '</urlset>';
-            writeFile(path.join(__dirname, "..", "sitemap.xml"), sitemap, () => {
-                res.sendFile(path.join(__dirname, "..", "sitemap.xml"));
-            });
+        for (let insight of insights) {
+            sitemap += `\t<url><loc>https://visbanking.com/insights/insight/${insight.ID}</loc></url>\n`;
+        }
+        sitemap += '</urlset>';
+        writeFile(path.join(__dirname, "..", "sitemap.xml"), sitemap, () => {
+            res.sendFile(path.join(__dirname, "..", "sitemap.xml"));
         });
     });
 });
