@@ -45,7 +45,8 @@ form label
 }
 form input
 {
-    width: 60%;
+    box-sizing: border-box;
+    width: 70%;
     margin: inherit;
     font-size: 1rem;
     font-family: inherit;
@@ -66,6 +67,17 @@ form .form-text
 {
     color: #333333;
     margin: 0;
+}
+#login form #recovery
+{
+    text-align: right;
+    width: 70%;
+    margin: 1% auto 0;
+}
+#recovery a
+{
+    color: #128AF9;
+    font-weight: 600;
 }
 form .error
 {
