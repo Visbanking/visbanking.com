@@ -17,8 +17,9 @@ block header
             p.form-text#emailMessage(class=emailError?"error":"") #{emailError||action==="Sign Up"?"We'll never share your email":""}
             label.form-label(for="password") Password: 
             input#password(type="password", name="pass", minlength="8", maxlength="30", required, aria-describedBy="error")
-            p.form-text#recovery
-                a(href="/recovery") Forgot your password?
+            if action === "Log In"
+                p.form-text#recovery
+                    a(href="/recovery") Forgot your password?
             if action==="Sign Up"
                 input#tier(type="hidden", name="tier", value=`${tier}`)
             if incorrectPassword    
