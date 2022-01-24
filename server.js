@@ -42,7 +42,7 @@ app.use("/contact", contact);
 
 app.use(login);
 
-app.use("/users", user);
+app.use("/me", user);
 
 app.use("/subscribe", subscribe);
 

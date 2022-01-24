@@ -4,18 +4,17 @@ setTimeout(() => {
 }, 10000);
 
 document.querySelector("#profile").addEventListener("click", (event) => {
-    document.querySelector(`#${event.target.id} + input[type='file']`).classList.toggle("show");
-    if (document.querySelector(`#${event.target.id} + input[type='file']`).classList.contains("show")) {
-        document.querySelector(`#${event.target.id} + input[type='file']`).click();
-        event.target.title = "";
-    } else event.target.title = "Update Profile Picture";
+    document.querySelector(`#${event.target.id} + input[type='file']`).click();
 });
 
 document.querySelector("input[type='file']").addEventListener("input", (event) => {
-    if (event.target.value.includes("C:"))
-        document.querySelector(`input[type="submit"]`).classList.add("show");
-    else
-        document.querySelector(`input[type="submit"]`).classList.remove("show");
+    const [file] = event.target.files;
+    if (file) {
+        document.querySelector("#profile").src = URL.createObjectURL(file);
+        document.querySelector("#profile").classList.add("unsaved");
+    }
+    if (event.target.value.includes("C:")) document.querySelector(`input[type="submit"]`).classList.add("show");
+    else document.querySelector(`input[type="submit"]`).classList.remove("show");
 });
 
 document.querySelector("i.bi-pencil-square").addEventListener("click", (event) => {

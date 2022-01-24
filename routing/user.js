@@ -27,15 +27,19 @@ const userStorage = multer.diskStorage({
 });
 const user = multer({ storage:userStorage });
 
-router.get("/", (req, res) => {
-    res.render("users", {
-        title: "Users - Visbanking",
-        path: "/users"
+router.get("/*", (req, res, next) => {
+    if (!req.cookies.session_id) return res.redirect("/login");
+    connection.query(`SELECT Email FROM Users WHERE Session_ID = '${req.cookies.session_id}';`, (err, results, fields) => {
+        if (err || !req.cookies.user || results.length === 0 || req.cookies.user !== results[0].Email) {
+            res.redirect("/login");
+        } else if (req.cookies.user === results[0].Email) {
+            next();
+        }
     });
 });
 
-router.get("/:email", (req, res, next) => {
-    connection.query(`SELECT * FROM Users WHERE Email = '${req.params.email}';`, async (err, results, fields) => {
+router.get("/", (req, res, next) => {
+    connection.query(`SELECT * FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
         if (err) {
             console.error(err);
             res.redirect("/error");
@@ -44,6 +48,7 @@ router.get("/:email", (req, res, next) => {
         } else {
             res.cookie('tier', results[0].Tier, {
                 httpOnly: true,
+                secure: true,
                 expires: new Date(Date.now() + 241920000)
             });
             res.render("user", {
@@ -52,7 +57,6 @@ router.get("/:email", (req, res, next) => {
                 tier: results[0].Tier,
                 tiers,
                 user: req.cookies.user||"",
-                access: req.cookies.user===results[0].Email,
                 message,
                 error: error||''
             });
@@ -61,274 +65,255 @@ router.get("/:email", (req, res, next) => {
     });
 });
 
-router.post("/:email", user.single('image'), (req, res) => {
-    if (req.cookies.user === req.params.email) {
-        if (req.body.name.split(" ").length > 1 && req.file) {
-            const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
-            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                if (err) {
-                    error = 'Name and/or profile picture couldn\'t be updated';
-                    res.redirect(`/users/${req.params.email}`);
-                } else {
-                    const id = results[0].ID;
-                    connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}', Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
-                        if (err) {
-                            error = 'Name and/or profile picture couldn\'t be updated';
-                        } else {
-                            message = 'Name and profile picture updated successfully';
-                        }
-                        res.redirect(`/users/${req.params.email}`);
-                    });
-                }
-            });
-        } else if (!req.file) {
-            const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
-            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                if (err) {
-                    error = 'Name couldn\'t be updated'
-                    res.redirect(`/users/${req.params.email}`);
-                } else {
-                    const id = results[0].ID;
-                    connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}' WHERE ID = ${id};`, (err, results, fields) => {
-                        if (err) {
-                            error = 'Name couldn\'t be updated'
-                        } else {
-                            message = 'Name updated successfully';
-                        }
-                        res.redirect(`/users/${req.params.email}`);
-                    });
-                }
-            });
-        } else if (!(req.body.name.split(" ").length > 1)) {
-            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                if (err) {
-                    error = 'Profile picture couldn\'t be updated';
-                    res.redirect(`/users/${req.params.email}`);
-                } else {
-                    const id = results[0].ID;
-                    connection.query(`UPDATE Users SET Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
-                        if (err) {
-                            error = 'Profile picture couldn\'t be updated';
-                        } else {
-                            message = 'Profile picture updated successfully';
-                        }
-                        res.redirect(`/users/${req.params.email}`);
-                    });
-                }
-            });
-        }
-    } else res.redirect(`/users/${req.cookies.user}`);
-});
-
-router.get("/:email/update", (req, res) => {
-    if (req.cookies.user === req.params.email) {
-        res.render("update", {
-            title: "Update Password", 
-            error: error || ''
-        });
-        error = '';
-    } else {
-        res.redirect(`/users/${req.params.email}`);
-    }
-});
-
-router.post("/:email/update", (req, res) => {
-    if (req.cookies.user === req.params.email) {
-        const old = hash.sha512().update(req.body.old).digest("hex");
-        connection.query(`SELECT Password FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
+router.post("/", user.single('image'), (req, res) => {
+    if (req.body.name.split(" ").length > 1 && req.file) {
+        const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
             if (err) {
-                console.error(err);
-                res.redirect("/error");
-            } else if (old !== results[0].Password) {
-                error = 'Old password is incorrect';
-                res.redirect(`/users/${req.params.email}/update`);
+                error = 'Name and/or profile picture couldn\'t be updated';
+                res.redirect(`/me`);
             } else {
-                if (old === hash.sha512().update(req.body.pass).digest("hex")) {
-                    error = 'New password can\'t be the same as old password';
-                    res.redirect(`/users/${req.params.email}/update`);
-                } else if (old === results[0].Password) {
-                    const pass = hash.sha512().update(req.body.pass).digest("hex");
-                    connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                        if (err) {
-                            error = `Password couldn\'t be updated`;
-                            res.redirect(`/users/${req.cookies.user}`);
-                        } else {
-                            message = 'Password updated successfully';
-                            res.clearCookie('user');
-                            res.redirect("/login");
-                        }
-                    });
-                }
+                const id = results[0].ID;
+                connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}', Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
+                    if (err) {
+                        error = 'Name and/or profile picture couldn\'t be updated';
+                    } else {
+                        message = 'Name and profile picture updated successfully';
+                    }
+                    res.redirect(`/me`);
+                });
             }
         });
-    } else {
-        res.redirect(`/users/${req.cookies.user}`);
+    } else if (!req.file) {
+        const fname = req.body.name.split(" ")[0], lname = req.body.name.split(" ")[1];
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+            if (err) {
+                error = 'Name couldn\'t be updated'
+                res.redirect(`/me`);
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Users SET FirstName = '${fname}', LastName = '${lname}' WHERE ID = ${id};`, (err, results, fields) => {
+                    if (err) {
+                        error = 'Name couldn\'t be updated'
+                    } else {
+                        message = 'Name updated successfully';
+                    }
+                    res.redirect(`/me`);
+                });
+            }
+        });
+    } else if (!(req.body.name.split(" ").length > 1)) {
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+            if (err) {
+                error = 'Profile picture couldn\'t be updated';
+                res.redirect(`/me`);
+            } else {
+                const id = results[0].ID;
+                connection.query(`UPDATE Users SET Image = '/images/users/${req.file.filename}' WHERE ID = ${id};`, (err, results, fields) => {
+                    if (err) {
+                        error = 'Profile picture couldn\'t be updated';
+                    } else {
+                        message = 'Profile picture updated successfully';
+                    }
+                    res.redirect(`/me`);
+                });
+            }
+        });
     }
 });
 
-router.get("/:email/logout", (req, res) => {
+router.get("/password", (req, res) => {
+    res.render("update", {
+        title: "Update Password", 
+        error: error || ''
+    });
+    error = '';
+});
+
+router.post("/password", (req, res) => {
+    const old = hash.sha512().update(req.body.old).digest("hex");
+    connection.query(`SELECT Password FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.redirect("/error");
+        } else if (old !== results[0].Password) {
+            error = 'Old password is incorrect';
+            res.redirect(`/me/password`);
+        } else {
+            if (old === hash.sha512().update(req.body.pass).digest("hex")) {
+                error = 'New password can\'t be the same as old password';
+                res.redirect(`/me/password`);
+            } else if (old === results[0].Password) {
+                const pass = hash.sha512().update(req.body.pass).digest("hex");
+                connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+                    if (err) {
+                        error = `Password couldn\'t be updated`;
+                        res.redirect(`/me`);
+                    } else {
+                        message = 'Password updated successfully';
+                        res.clearCookie('user');
+                        res.redirect("/login");
+                    }
+                });
+            }
+        }
+    });
+});
+
+router.get("/logout", (req, res) => {
+    connection.query(`UPDATE Users SET Session_ID = '' WHERE Email = '${req.cookies.user}';`);
     res.clearCookie("user");
+    res.clearCookie('tier');
+    res.clearCookie('session_id');
     res.redirect("/");
 });
 
-router.get("/:email/subscription", (req, res) => {
-    if (req.cookies.user === req.params.email) {
-        connection.query(`SELECT ID, Tier FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
-            if (err) {
-                error = 'Your subscription couldn\'t be updated';
-                res.redirect(`/users/${req.cookies.user}`);
-            } else {
-                const id = results[0].ID;
-                const tier = results[0].Tier;
-                connection.query(`UPDATE Users SET Tier = '${lodash.capitalize(req.query.tier)}' WHERE ID = ${id};`, async (err, results, fields) => {
-                    if (err) {
-                        error = 'Your subscription couldn\'t be updated';
-                        res.redirect(`/users/${req.cookies.user}`);
-                    } else {
-                        if (tier === 'Free') {
-                            return res.redirect("/buy?tier=free");
-                        }
-                        const customer = await stripe.customers.list({
-                            email: req.cookies.user
-                        });
-                        const subscription = await stripe.subscriptions.list({
-                            customer: customer.data[0].id
-                        });
-                        const endTier = req.query.tier;
-                        const prices = await stripe.prices.list({
-                            lookup_keys: [endTier]
-                        });
-                        await stripe.subscriptions.update(subscription.data[0].id, {
-                            cancel_at_period_end: false,
-                            proration_behavior: 'always_invoice',
-                            items: [{
-                                id: subscription.data[0].items.data[0].id,
-                                price: prices.data[0].id
-                            }]
-                        });
-                        if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
-                        else message = `Your plan has been updated to ${lodash.capitalize(endTier)}`;
-                        res.redirect(`/users/${req.cookies.user}`);
-                    }
-                });
-            }
-        });
-    } else res.redirect(`/users/${req.cookies.user}`)
-});
-
-router.get("/:email/cancel", (req, res) => {
-    if (req.cookies.user === req.params.email) {
-        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
-            if (err) {
-                error = 'Your subscription coudln\'t be canceled';
-                res.redirect(`/users/${req.cookies.user}`);
-            } else {
-                const id = results[0].ID;
-                connection.query(`UPDATE Users SET Tier = 'Free' WHERE ID = ${id};`, async (err, results, fields) => {
-                    if (err) {
-                        error = 'Your subscription coudln\'t be canceled';
-                        res.redirect(`/users/${req.cookies.user}`);
-                    } else {
-                        const customer = await stripe.customers.list({
-                            email: req.cookies.user
-                        });
-                        const subscription = await stripe.subscriptions.list({
-                            customer: customer.data[0].id
-                        });
-                        const prices = await stripe.prices.list({
-                            lookup_keys: ['free']
-                        });
-                        await stripe.subscriptions.update(subscription.data[0].id, {
-                            cancel_at_period_end: false,
-                            proration_behavior: 'always_invoice',
-                            items: [{
-                                id: subscription.data[0].items.data[0].id,
-                                price: prices.data[0].id
-                            }]
-                        });
-                        message = 'Your subscription has been cancelled';
-                        res.redirect(`/users/${req.cookies.user}`);
-                    }
-                });
-            }
-        });
-    } else res.redirect(`/users/${req.cookies.user}`);
-});
-
-router.get("/:email/delete", async (req, res) => {
-    if (req.cookies.user === req.params.email) {
-        if (req.cookies.tier === 'Free') {
-            connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
-                if (err) {
-                    error = 'Your account couldn\'t be deleted';
-                    res.redirect(`/users/${req.cookies.user}`);
-                } else {
-                    const id = results[0].ID;
-                    connection.query(`DELETE FROM Users WHERE ID = ${id};`, (err, results, fields) => {
-                        if (err) {
-                            error = 'Your account couldn\'t be deleted';
-                            res.redirect(`/users/${req.cookies.user}`);
-                        } else {
-                            res.cookie('user', 'deleted');
-                            res.redirect("/users/deleted");
-                        }
-                    });
-                }
-            });
+router.get("/subscription", (req, res) => {
+    connection.query(`SELECT ID, Tier FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+        if (err) {
+            error = 'Your subscription couldn\'t be updated';
+            res.redirect(`/me`);
         } else {
-            const customer = await stripe.customers.list({
-                email: req.cookies.user
-            });
-            const subscription = await stripe.subscriptions.list({
-                customer: customer.data[0].id
-            });
-            stripe.subscriptions.del(subscription.data[0].id, { invoice_now: false }, (err, result) => {
+            const id = results[0].ID;
+            const tier = results[0].Tier;
+            connection.query(`UPDATE Users SET Tier = '${lodash.capitalize(req.query.tier)}' WHERE ID = ${id};`, async (err, results, fields) => {
                 if (err) {
-                    error = 'Your account couldn\'t be deleted';
-                    res.redirect(`/users/${req.cookies.user}`);
+                    error = 'Your subscription couldn\'t be updated';
+                    res.redirect(`/me`);
                 } else {
-                    stripe.customers.del(customer.data[0].id, (err, result) => {
-                        if (err) {
-                            error = 'Your account couldn\'t be deleted';
-                            res.redirect(`/users/${req.cookies.user}`);
-                        } else {
-                            connection.query(`SELECT ID FROM Users WHERE Email = '${req.params.email}';`, (err, results, fields) => {
-                                if (err) {
-                                    error = 'Your account couldn\'t be deleted';
-                                    res.redirect(`/users/${req.cookies.user}`);
-                                } else {
-                                    connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
-                                        if (err) {
-                                            error = 'Your account couldn\'t be deleted';
-                                            return res.redirect(`/users/${req.cookies.user}`);
-                                        }
-                                        fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
-                                            if (err && err.code !== 'ENOENT') {
-                                                error = 'Your account couldn\'t be deleted';
-                                                res.redirect(`/users/${req.cookies.email}`)
-                                            } else {
-                                                res.cookie('user', 'deleted');
-                                                res.redirect("/users/deleted");
-                                            }
-                                        });
-                                    });
-                                }
-                            });
-                        }
+                    if (tier === 'Free') {
+                        return res.redirect("/buy?tier=free");
+                    }
+                    const customer = await stripe.customers.list({
+                        email: req.cookies.user
                     });
+                    const subscription = await stripe.subscriptions.list({
+                        customer: customer.data[0].id
+                    });
+                    const endTier = req.query.tier;
+                    const prices = await stripe.prices.list({
+                        lookup_keys: [endTier]
+                    });
+                    await stripe.subscriptions.update(subscription.data[0].id, {
+                        cancel_at_period_end: false,
+                        proration_behavior: 'always_invoice',
+                        items: [{
+                            id: subscription.data[0].items.data[0].id,
+                            price: prices.data[0].id
+                        }]
+                    });
+                    if (req.cookies.tier === 'Free') message = 'Your plan has been upgraded';
+                    else message = `Your plan has been updated to ${lodash.capitalize(endTier)}`;
+                    res.redirect(`/me`);
                 }
             });
         }
-    } else res.redirect(`/users/${req.cookies.user}`);
+    });
 });
 
-router.get("/deleted", (req, res) => {
-    if (req.cookies.user === 'deleted') {
-        res.clearCookie('user');
-        res.clearCookie('tier');
-        res.render("deleted");
+router.get("/cancel", (req, res) => {
+    connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+        if (err) {
+            error = 'Your subscription coudln\'t be canceled';
+            res.redirect(`/me`);
+        } else {
+            const id = results[0].ID;
+            connection.query(`UPDATE Users SET Tier = 'Free' WHERE ID = ${id};`, async (err, results, fields) => {
+                if (err) {
+                    error = 'Your subscription coudln\'t be canceled';
+                    res.redirect(`/me`);
+                } else {
+                    const customer = await stripe.customers.list({
+                        email: req.cookies.user
+                    });
+                    const subscription = await stripe.subscriptions.list({
+                        customer: customer.data[0].id
+                    });
+                    const prices = await stripe.prices.list({
+                        lookup_keys: ['free']
+                    });
+                    await stripe.subscriptions.update(subscription.data[0].id, {
+                        cancel_at_period_end: false,
+                        proration_behavior: 'always_invoice',
+                        items: [{
+                            id: subscription.data[0].items.data[0].id,
+                            price: prices.data[0].id
+                        }]
+                    });
+                    message = 'Your subscription has been cancelled';
+                    res.redirect(`/me`);
+                }
+            });
+        }
+    });
+});
+
+router.get("/delete", async (req, res) => {
+    if (req.cookies.tier === 'Free') {
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+            if (err) {
+                error = 'Your account couldn\'t be deleted';
+                res.redirect(`/me`);
+            } else {
+                const id = results[0].ID;
+                connection.query(`DELETE FROM Users WHERE ID = ${id};`, (err, results, fields) => {
+                    if (err) {
+                        error = 'Your account couldn\'t be deleted';
+                        res.redirect(`/me`);
+                    } else {
+                        res.clearCookie('user');
+                        res.clearCookie('tier');
+                        res.clearCookie('session_id');
+                        res.render("deleted");
+                    }
+                });
+            }
+        });
     } else {
-        res.redirect(`/users/${req.cookies.user}`);
+        const customer = await stripe.customers.list({
+            email: req.cookies.user
+        });
+        const subscription = await stripe.subscriptions.list({
+            customer: customer.data[0].id
+        });
+        stripe.subscriptions.del(subscription.data[0].id, { invoice_now: false }, (err, result) => {
+            if (err) {
+                error = 'Your account couldn\'t be deleted';
+                res.redirect(`/me`);
+            } else {
+                stripe.customers.del(customer.data[0].id, (err, result) => {
+                    if (err) {
+                        error = 'Your account couldn\'t be deleted';
+                        res.redirect(`/me`);
+                    } else {
+                        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+                            if (err) {
+                                error = 'Your account couldn\'t be deleted';
+                                res.redirect(`/me`);
+                            } else {
+                                connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
+                                    if (err) {
+                                        error = 'Your account couldn\'t be deleted';
+                                        return res.redirect(`/me`);
+                                    }
+                                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
+                                        if (err && err.code !== 'ENOENT') {
+                                            error = 'Your account couldn\'t be deleted';
+                                            res.redirect(`/me`)
+                                        } else {
+                                            res.clearCookie('user');
+                                            res.clearCookie('tier');
+                                            res.clearCookie('session_id');
+                                            res.render("deleted");
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 });
 

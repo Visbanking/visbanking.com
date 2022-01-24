@@ -14,7 +14,7 @@ block header
                 input#lname(type="text", name="lname", required)
             label.form-label(for="email") Email: 
             input#username(type="email", name="email", aria-describedBy="emailMessage", required, value=emailAfterRedirect||username)
-            p.form-text#emailMessage(class=emailError?"error":"") #{emailError?"The email you entered is invalid":action==="Sign Up"?"We'll never share your email":""}
+            p.form-text#emailMessage(class=emailError?"error":"") #{emailError||action==="Sign Up"?"We'll never share your email":""}
             label.form-label(for="password") Password: 
             input#password(type="password", name="pass", minlength="8", maxlength="30", required, aria-describedBy="error")
             if action==="Sign Up"
@@ -22,6 +22,9 @@ block header
             if incorrectPassword    
                 p.form-text#error The email or password entered were invalid
             input(type="submit", value=action)
+            //- aside.social 
+            //-     p Or #{action} with
+            //-     div#buttonDiv
         if action==="Log In"
             p.signup Don't have an account? 
                 a(href="/signup") Sign Up 
@@ -31,3 +34,4 @@ block header
 
 block scripts 
     script(src="/js/login.js") 
+    //- script(src="/js/googleSignInButton.js")

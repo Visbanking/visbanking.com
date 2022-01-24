@@ -20,6 +20,10 @@ section:first-of-type img
 {
     cursor: pointer;
 }
+#profile.unsaved
+{
+    filter: grayscale(0.5);
+}
 i.bi-person-fill
 {
     font-size: 4rem;
@@ -61,15 +65,10 @@ input
     display: none;
     margin-bottom: 1%;
 }
-input.show
+input:not([type="file"]).show
 {
     display: block;
     font-size: 0.9rem;
-}
-input[type="file"].show
-{
-    margin-top: 0.5rem;
-    cursor: pointer;
 }
 input[type="submit"]
 {
@@ -79,9 +78,12 @@ input[type="submit"]
     background-color: transparent;
     border: 1px solid;
     transition: all 0.2s linear;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    font-family: inherit;
     margin-left: auto;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 input[type="submit"]:hover
 {

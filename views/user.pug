@@ -14,167 +14,164 @@ block main
                 img#profile(src=userInfo.Image, alt=`${userInfo.FirstName} ${userInfo.LastName}`, title="Update Profile Picture")
             else 
                 i.bi-person-fill#profile(title="Update Profile Picture")
-            if access
-                input(type="file", name="image", accept="image/jpeg, image/png")
+            input(type="file", name="image", accept="image/jpeg, image/png")
             h1(data) #{userInfo.FirstName} #{userInfo.LastName}
-                if access
-                    i.bi-pencil-square#name(title="Update Name")
-                    input(type="text", name="name", placeholder="Name Surname")
+                i.bi-pencil-square#name(title="Update Name")
+                input(type="text", name="name", placeholder="Name Surname")
             p#email(title="Your Email") (#{userInfo.Email}) 
             input(type="submit", value="Save")
         if message 
             p#message #{message}
         if error 
             p#error #{error}
-    if access
-        section#actions
-            h2 Account Actions
-            .safe
-                a#logout(href=`/users/${userInfo.Email}/logout`) Log Out
-                a#pass(href=`/users/${userInfo.Email}/update`) Change Password
-                a#recovery(href="/recovery") Recover Password
-            .danger
-                if tier !== 'Free'
-                    a#cancel Cancel Subscription
-                a#delete Delete Account
-        section#account 
-            h2 Your Subscription
-            if tier === 'Free'
-                .card 
-                    .card-header 
-                        h3 Free
-                        p 
-                            span.price $0
-                    .card-body 
-                        ul 
-                            each feature in tiers.free.features 
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-            if tier === 'Professional'
-                .card 
-                    .card-header 
-                        h3 Professional
-                        p 
-                            span.price $#{tiers.professional.price}
-                            | /month
-                    .card-body 
-                        p All Free Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.professional.features 
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-            if tier === 'Premium'
-                .card 
-                    .card-header 
-                        h3 Premium
-                        p 
-                            span.price $#{tiers.premium.price}
-                            | /month
-                    .card-body 
-                        p All Professional Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.premium.features 
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-            if tier === 'Enterprise'
-                .card 
-                    .card-header 
-                        h3 Premium
-                        p 
-                            span.price $#{tiers.enterprise.price}
-                            | /month
-                    .card-body 
-                        p All Premium Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.enterprise.features 
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-        section#upgrade
-            h2 Change Subscription
+    section#actions
+        h2 Account Actions
+        .safe
+            a#logout(href=`/me/logout`) Log Out
+            a#pass(href=`/me/password`) Change Password
+            a#recovery(href="/recovery") Recover Password
+        .danger
             if tier !== 'Free'
-                .card 
-                    .card-header 
-                        h3 Free 
-                        p
-                            span.price $0
-                            | /Always 
-                    .card-body 
-                        ul 
-                            each feature in tiers.free.features 
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-                    .card-footer
-                        a(href=`/users/${userInfo.Email}/subscription?tier=free`) Get Free Access
-            if tier !== 'Professional'
-                .card 
-                    .card-header 
-                        h3 Professional 
-                        p
-                            span.price $#{tiers.professional.price}
-                            | /month 
-                    .card-body 
-                        p All Free Features 
-                            br
-                            i.bi-plus
-                        ul
-                            each feature in tiers.professional.features
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-                    .card-footer
-                        if tier === 'Free'
-                            a(href=`/buy?tier=professional`) Get Professional Access
-                        else
-                            a(href=`/users/${userInfo.Email}/subscription?tier=professional`) Get Professional Access
-            if tier !== 'Premium'
-                .card 
-                    .card-header
-                        h3 Premium 
-                        p 
-                            span.price $#{tiers.premium.price}
-                            | /month
-                    .card-body 
-                        p All Professional Features 
-                            br
-                            i.bi-plus
-                        ul
-                            each feature in tiers.premium.features
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-                    .card-footer 
-                        if tier === 'Free'
-                            a(href=`/buy?tier=premium`) Get Premium Access
-                        else
-                            a(href=`/users/${userInfo.Email}/subscription?tier=premium`) Get Premium Access
-            if tier !== 'Enterprise'
-                .card 
-                    .card-header 
-                        h3 Enterprise
-                        p 
-                            span.price Contact sales
-                    .card-body 
-                        p All Premium Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.enterprise.features 
-                                li 
-                                    i.bi-check2-square 
-                                    | #{feature}
-                    .card-footer 
-                        a(href='mailto:sales@visbanking.com') Get Enterprise Access
+                a#cancel Cancel Subscription
+            a#delete Delete Account
+    section#account 
+        h2 Your Subscription
+        if tier === 'Free'
+            .card 
+                .card-header 
+                    h3 Free
+                    p 
+                        span.price $0
+                .card-body 
+                    ul 
+                        each feature in tiers.free.features 
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+        if tier === 'Professional'
+            .card 
+                .card-header 
+                    h3 Professional
+                    p 
+                        span.price $#{tiers.professional.price}
+                        | /month
+                .card-body 
+                    p All Free Features 
+                        br
+                        i.bi-plus
+                    ul 
+                        each feature in tiers.professional.features 
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+        if tier === 'Premium'
+            .card 
+                .card-header 
+                    h3 Premium
+                    p 
+                        span.price $#{tiers.premium.price}
+                        | /month
+                .card-body 
+                    p All Professional Features 
+                        br
+                        i.bi-plus
+                    ul 
+                        each feature in tiers.premium.features 
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+        if tier === 'Enterprise'
+            .card 
+                .card-header 
+                    h3 Premium
+                    p 
+                        span.price $#{tiers.enterprise.price}
+                        | /month
+                .card-body 
+                    p All Premium Features 
+                        br
+                        i.bi-plus
+                    ul 
+                        each feature in tiers.enterprise.features 
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+    section#upgrade
+        h2 Change Subscription
+        if tier !== 'Free'
+            .card 
+                .card-header 
+                    h3 Free 
+                    p
+                        span.price $0
+                        | /Always 
+                .card-body 
+                    ul 
+                        each feature in tiers.free.features 
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+                .card-footer
+                    a(href=`/me/subscription?tier=free`) Get Free Access
+        if tier !== 'Professional'
+            .card 
+                .card-header 
+                    h3 Professional 
+                    p
+                        span.price $#{tiers.professional.price}
+                        | /month 
+                .card-body 
+                    p All Free Features 
+                        br
+                        i.bi-plus
+                    ul
+                        each feature in tiers.professional.features
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+                .card-footer
+                    if tier === 'Free'
+                        a(href=`/buy?tier=professional`) Get Professional Access
+                    else
+                        a(href=`/me/subscription?tier=professional`) Get Professional Access
+        if tier !== 'Premium'
+            .card 
+                .card-header
+                    h3 Premium 
+                    p 
+                        span.price $#{tiers.premium.price}
+                        | /month
+                .card-body 
+                    p All Professional Features 
+                        br
+                        i.bi-plus
+                    ul
+                        each feature in tiers.premium.features
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+                .card-footer 
+                    if tier === 'Free'
+                        a(href=`/buy?tier=premium`) Get Premium Access
+                    else
+                        a(href=`/me/subscription?tier=premium`) Get Premium Access
+        if tier !== 'Enterprise'
+            .card 
+                .card-header 
+                    h3 Enterprise
+                    p 
+                        span.price Contact sales
+                .card-body 
+                    p All Premium Features 
+                        br
+                        i.bi-plus
+                    ul 
+                        each feature in tiers.enterprise.features 
+                            li 
+                                i.bi-check2-square 
+                                | #{feature}
+                .card-footer 
+                    a(href='mailto:sales@visbanking.com') Get Enterprise Access
 
 block scripts 
     script(src="/js/user.js") 

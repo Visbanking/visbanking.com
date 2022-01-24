@@ -24,7 +24,7 @@ h1
 {
     font-size: 2.5rem;
     text-align: center;
-    padding: 2% 0 1%;
+    padding: 0 0 1%;
     margin: 0;
 }
 form
@@ -35,8 +35,8 @@ form
     padding: 2% 3%;
     margin: 0 auto;
     text-align: center;
-    color: #FFFFFF;
-    background-color: #128AF9;
+    background-color: #FFFFFF;
+    border: 1px solid #128AF9;
 }
 form label
 {
@@ -50,11 +50,12 @@ form input
     font-size: 1rem;
     font-family: inherit;
     padding: 0.4rem 0.6rem;
-    border: 1px solid #DDDDDD;
     border-radius: 5px;
     display: block;
     background-color: #FFFFFF;
-    transition: border-color 0.2s linear, box-shadow 0.2s linear;
+    border: 1px solid #128AF9;
+    box-shadow: 5px 5px 4px 2px #00000040;
+    transition: all 0.2s linear;
 }
 form label:not(:first-of-type)
 {
@@ -63,18 +64,17 @@ form label:not(:first-of-type)
 }
 form .form-text
 {
-    color: #CCCCCC;
+    color: #333333;
     margin: 0;
 }
 form .error
 {
-    color: #FFFFFF;
+    color: #F91224;
 }
 form input:not([type="submit"]):focus
 {
     outline: none;
-    border-color: #FFFFFF;
-    box-shadow: 0 0 0.5rem #FFFFFF;
+    box-shadow: 5px 5px 4px 2px #000000A0;
 }
 form input[type="submit"]
 {
@@ -83,8 +83,8 @@ form input[type="submit"]
     border: 0.1rem solid;
     border-radius: 5px;
     padding: 0.4rem 1.5rem;
-    background-color: #128AF9;
-    color: #FFFFFF;
+    color: #128AF9;
+    background-color: #FFFFFF;
     width: auto;
     transition: color 0.2s linear, background-color 0.2s linear;
     cursor: pointer;
@@ -94,10 +94,30 @@ form input[type="submit"]
 form input[type="submit"]:hover, form input[type="submit"]:focus
 {
     outline: none;
-    background: #FFFFFF;
-    color: #128AF9;
-    box-shadow: 5px 5px 0.5rem #02406080;
+    color: #FFFFFF;
+    background-color: #128AF9;
+    border-color: transparent;
+    box-shadow: 5px 5px 4px 2px #000000A0;
 }
+/* aside.social
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 5%;
+    padding: 2% 0 0;
+    border-top: 1px solid;
+    color: #128AF9;
+}
+#login aside.social > p
+{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 1% auto 2%;
+} */
 header #login p.signup
 {
     font-weight: 600;
