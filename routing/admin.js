@@ -198,7 +198,7 @@ router.post("/dashboard/profile", (req, res) => {
 router.post("/dashboard/admins", (req, res) => {
     const action = req.body.action;
     if (action === "Add admin") {
-        const username = req.body.username.trim(), pass = hash.sha512().update(req.body.pass.trim()).digest("hex");
+        const username = req.body.username.trim(), pass = hash.sha512().update(process.env.DEFAULT_ADMIN_PASS).digest("hex");
         connection.query(`INSERT INTO Admins (Username, Password) VALUES ('${username}', '${pass}');`, (err, results, fields) => {
             if (err) {
                 console.error(err);
