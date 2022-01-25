@@ -79,9 +79,16 @@ form .form-text
     color: #128AF9;
     font-weight: 600;
 }
-form .error
+#login form #error
 {
+    margin: 3% auto 5%;
     color: #F91224;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+form #error + input
+{
+    margin-top: 0;
 }
 form input:not([type="submit"]):focus
 {

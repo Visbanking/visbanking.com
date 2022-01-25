@@ -3,3 +3,7 @@ window.onload = () => {
         document.querySelector("#login form input[type='password']").focus();
     }
 }
+
+setTimeout(() => {
+    document.querySelector("#error").innerHTML = "";
+}, 5000);
