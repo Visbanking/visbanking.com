@@ -161,11 +161,12 @@ router.post("/password", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-    connection.query(`UPDATE Users SET Session_ID = '' WHERE Email = '${req.cookies.user}';`);
-    res.clearCookie("user");
-    res.clearCookie('tier');
-    res.clearCookie('session_id');
-    res.redirect("/");
+    connection.query(`UPDATE Users SET Session_ID = '' WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+        res.clearCookie("user");
+        res.clearCookie('tier');
+        res.clearCookie('session_id');
+        res.redirect("/");
+    });
 });
 
 router.get("/subscription", (req, res) => {
