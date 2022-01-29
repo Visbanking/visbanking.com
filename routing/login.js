@@ -65,39 +65,39 @@ router.post("/login", (req, res) => {
     });
 });
 
-// router.get("/login/google", (req, res) => {
-//     if (req.query.iss.includes("accounts.google.com") && req.query.aud === process.env.GOOGLE_SIGN_IN_CLIENT_ID) {
-//         connection.query(`SELECT * FROM Users WHERE Google = '${req.query.email}';`, (err, results, fields) => {
-//             if (err) {
-//                 emailError = true;
-//                 console.error(err);
-//                 res.redirect("/login");
-//             } else if (results.length < 1) {
-//                 res.redirect(`/signup/google?iss=${req.query.iss}&aud=${req.query.aud}&fname=${req.query.fname}&lname=${req.query.lname}&email=${req.query.email}&photo=${req.query.photo}&p=${req.query.p}&tier=free`);
-//             } else {
-//                 const session_id = hash.sha512().update(uuidv4()).digest("hex");
-//                 connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Google = '${req.query.email}';`, (err, results, fields) => {
-//                     if (err) {
-//                         console.error(err);
-//                         res.redirect("/login");
-//                     } else {
-//                         res.cookie('user', req.query.email, {
-//                             httpOnly: true,
-//                             secure: true,
-//                             expires: new Date(Date.now() + 241920000),
-//                         });
-//                         res.cookie("session_id", session_id, {
-//                             httpOnly: true,
-//                             secure: true,
-//                             expires: new Date(Date.now() + 241920000),
-//                         });
-//                         res.redirect(`/me`);
-//                     }
-//                 });
-//             }
-//         });
-//     } else res.redirect("/login");
-// });
+router.get("/login/google", (req, res) => {
+    if (req.query.iss.includes("accounts.google.com") && req.query.aud === process.env.GOOGLE_SIGN_IN_CLIENT_ID) {
+        connection.query(`SELECT * FROM Users WHERE Google = '${req.query.email}';`, (err, results, fields) => {
+            if (err) {
+                emailError = true;
+                console.error(err);
+                res.redirect("/login");
+            } else if (results.length < 1) {
+                res.redirect(`/signup/google?iss=${req.query.iss}&aud=${req.query.aud}&fname=${req.query.fname}&lname=${req.query.lname}&email=${req.query.email}&photo=${req.query.photo}&p=${req.query.p}&tier=free`);
+            } else {
+                const session_id = hash.sha512().update(uuidv4()).digest("hex");
+                connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Google = '${req.query.email}';`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        res.redirect("/login");
+                    } else {
+                        res.cookie('user', req.query.email, {
+                            httpOnly: true,
+                            secure: true,
+                            expires: new Date(Date.now() + 241920000),
+                        });
+                        res.cookie("session_id", session_id, {
+                            httpOnly: true,
+                            secure: true,
+                            expires: new Date(Date.now() + 241920000),
+                        });
+                        res.redirect(`/me`);
+                    }
+                });
+            }
+        });
+    } else res.redirect("/login");
+});
 
 router.get("/signup", (req, res) => {
     if (req.cookies.session_id && req.cookies.user) {
@@ -169,41 +169,41 @@ router.post("/signup", (req, res) => {
     });
 });
 
-// router.get("/signup/google", (req, res) => {
-//     if (req.query.iss.includes("accounts.google.com") && req.query.aud === process.env.GOOGLE_SIGN_IN_CLIENT_ID) {
-//         connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier, Image, Google) VALUES ('${req.query.fname}', '${req.query.lname}', '${req.query.email}', '${hash.sha512().update(req.query.p).digest("hex")}', '${req.query.tier[0].toUpperCase()+req.query.tier.slice(1)}', '${req.query.photo}', '${req.query.email}');`, (err, results, fields) => {
-//             if (err) {
-//                 if (err.code === "ER_DUP_ENTRY") {
-//                     return res.redirect(`/login/google?email=${req.query.email}`);
-//                 }
-//                 emailError = true;
-//                 res.redirect("/signup");
-//             } else {
-//                 const session_id = hash.sha512().update(uuidv4()).digest("hex");
-//                 connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Google = '${req.query.email}';`, (err, results, fields) => {
-//                     if (err) {
-//                         console.error(err);
-//                         res.redirect("/signup");
-//                     } else {
-//                         res.cookie('user', req.query.email, {
-//                             httpOnly: true,
-//                             secure: true,
-//                             expires: new Date(Date.now() + 241920000),
-//                         });
-//                         res.cookie("session_id", session_id, {
-//                             httpOnly: true,
-//                             secure: true,
-//                             expires: new Date(Date.now() + 241920000)
-//                         });
-//                         if (req.query.tier === 'free') {
-//                             return res.redirect(`/me`);
-//                         }
-//                         res.redirect(`/buy?tier=${req.query.tier}`);
-//                     }
-//                 });
-//             }
-//         });
-//     } else res.redirect("/signup");
-// });
+router.get("/signup/google", (req, res) => {
+    if (req.query.iss.includes("accounts.google.com") && req.query.aud === process.env.GOOGLE_SIGN_IN_CLIENT_ID) {
+        connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier, Image, Google) VALUES ('${req.query.fname}', '${req.query.lname}', '${req.query.email}', '${hash.sha512().update(req.query.p).digest("hex")}', '${req.query.tier[0].toUpperCase()+req.query.tier.slice(1)}', '${req.query.photo}', '${req.query.email}');`, (err, results, fields) => {
+            if (err) {
+                if (err.code === "ER_DUP_ENTRY") {
+                    return res.redirect(`/login/google?email=${req.query.email}`);
+                }
+                emailError = true;
+                res.redirect("/signup");
+            } else {
+                const session_id = hash.sha512().update(uuidv4()).digest("hex");
+                connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Google = '${req.query.email}';`, (err, results, fields) => {
+                    if (err) {
+                        console.error(err);
+                        res.redirect("/signup");
+                    } else {
+                        res.cookie('user', req.query.email, {
+                            httpOnly: true,
+                            secure: true,
+                            expires: new Date(Date.now() + 241920000),
+                        });
+                        res.cookie("session_id", session_id, {
+                            httpOnly: true,
+                            secure: true,
+                            expires: new Date(Date.now() + 241920000)
+                        });
+                        if (req.query.tier === 'free') {
+                            return res.redirect(`/me`);
+                        }
+                        res.redirect(`/buy?tier=${req.query.tier}`);
+                    }
+                });
+            }
+        });
+    } else res.redirect("/signup");
+});
 
 module.exports = router;

@@ -25,9 +25,9 @@ block header
             if incorrectPassword    
                 p.form-text#error The email or password entered were invalid
             input(type="submit", value=action)
-            //- aside.social 
-            //-     p Or #{action} with
-            //-     div#buttonDiv
+            aside.social 
+                p Or #{action} with
+                div#buttonDiv
         if action==="Log In"
             p.signup Don't have an account? 
                 a(href="/signup") Sign Up 
@@ -37,4 +37,4 @@ block header
 
 block scripts 
     script(src="/js/login.js") 
-    //- script(src="/js/googleSignInButton.js")
+    script(src="/js/googleSignInButton.js")

@@ -1,5 +1,5 @@
 window.onload = () => {
-    if (document.cookie.includes("username")) {
+    if (document.cookie.includes("user")) {
         document.querySelector("#login form input[type='password']").focus();
     }
 }

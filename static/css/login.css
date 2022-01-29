@@ -118,7 +118,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
     border-color: transparent;
     box-shadow: 5px 5px 4px 2px #000000A0;
 }
-/* aside.social
+aside.social
 {
     display: flex;
     flex-direction: row;
@@ -136,7 +136,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
     font-weight: 700;
     font-size: 1rem;
     margin: 1% auto 2%;
-} */
+}
 header #login p.signup
 {
     font-weight: 600;
