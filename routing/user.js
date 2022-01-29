@@ -27,13 +27,17 @@ const userStorage = multer.diskStorage({
 });
 const user = multer({ storage:userStorage });
 
-router.get("/*", (req, res, next) => {
-    if (!req.cookies.session_id) return res.redirect("/login");
-    connection.query(`SELECT Email FROM Users WHERE Session_ID = '${req.cookies.session_id}';`, (err, results, fields) => {
-        if (err || !req.cookies.user || results.length === 0 || req.cookies.user !== results[0].Email) {
-            res.redirect("/login");
-        } else if (req.cookies.user === results[0].Email) {
+router.all("/*", (req, res, next) => {
+    if (!req.cookies.session_id || !req.cookies.user) {
+        res.clearCookie('session_id');
+        return res.redirect("/login");
+    }
+    connection.query(`SELECT Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+        if (req.cookies.session_id === results[0].Session_ID) {
             next();
+        } else {
+            res.clearCookie('session_id');
+            res.redirect("/login");
         }
     });
 });
