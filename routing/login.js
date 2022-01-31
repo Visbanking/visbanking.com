@@ -174,7 +174,7 @@ router.get("/signup/google", (req, res) => {
         connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier, Image, Google) VALUES ('${req.query.fname}', '${req.query.lname}', '${req.query.email}', '${hash.sha512().update(req.query.p).digest("hex")}', '${req.query.tier[0].toUpperCase()+req.query.tier.slice(1)}', '${req.query.photo}', '${req.query.email}');`, (err, results, fields) => {
             if (err) {
                 if (err.code === "ER_DUP_ENTRY") {
-                    return res.redirect(`/login/google?email=${req.query.email}`);
+                    return res.redirect(`/login/google?iss=${req.query.iss}&aud=${req.query.aud}&fname=${req.query.given_name}&lname=${req.query.family_name}&email=${req.query.email}&photo=${req.query.picture}&p=${req.query.sub}`);
                 }
                 emailError = true;
                 res.redirect("/signup");
