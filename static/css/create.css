@@ -7,10 +7,10 @@ body
     flex-wrap: wrap;
     min-height: 100vh;
     background-color: #024060;
+    font-family: 'Source Sans Pro';
 }
 h1
 {
-    font-family: 'Montserrat';
     font-weight: 700;
     text-align: center;
     margin: 2% auto;
@@ -32,8 +32,9 @@ form > *
 }
 form label
 {
-    font-family: 'Raleway';
     font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
 }
 form input, form textarea
 {
@@ -44,9 +45,25 @@ form input, form textarea
     border-bottom: 1px solid;
     font-size: 1rem;
 }
+form input[type="file"]
+{
+    cursor: pointer;
+}
 form textarea
 {
     text-align: left;
+}
+form textarea + p
+{
+    margin: 0;
+    text-transform: uppercase;
+    font-family: inherit;
+}
+form input#bodyFile
+{
+    width: 20%;
+    text-align: center;
+    border: none;
 }
 form input:focus, form textarea:focus
 {

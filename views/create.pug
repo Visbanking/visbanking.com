@@ -9,7 +9,7 @@ html(lang="en")
         title Add new insight
         link(rel="preconnect", href="https://fonts.googleapis.com")
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
-        link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;600&display=swap", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", rel="stylesheet")
         link(rel="stylesheet", href="/css/create.css")
     body 
         h1 Add new Insight
@@ -20,6 +20,9 @@ html(lang="en")
             input#image(type="file", name="image", accept="image/jpeg, image/png, image/webp", required)
             label(for="body") Body *
             textarea#body(name="body", rows="10", required)
+            p or upload file
+            input#bodyFile(type="file", name="bodyFile", accept=".md")
             label(for="topics") Topics *
             input#topics(type="text", name="topics", maxlength="300", required)
             input(type="submit", name="action", value="Add insight")
+        script(src="/js/create.js") 
