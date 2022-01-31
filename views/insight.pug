@@ -3,11 +3,11 @@ extends layout.pug
 block meta
     meta(name="description", content=post.Body[0])
     meta(name="keywords", content=post.Topics)
-    meta(name="og:image", content=post.Image)
-    meta(name="og:title", content=post.Title)
-    meta(name="og:type", content="article")
-    meta(name="og:url", content=`https://visbanking.com${path}`)
-    meta(name="og:description", content)
+    meta(property="og:image", content=`https://visbanking.com/${post.Image}`)
+    meta(property="og:title", content=post.Title)
+    meta(property="og:type", content="article")
+    meta(property="og:url", content=`https://visbanking.com${path}`)
+    meta(property="og:description", content)
 
 block styles
     link(rel="stylesheet", href="/css/insight.css")
