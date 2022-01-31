@@ -2,7 +2,7 @@ document.querySelector("article main").innerHTML = document.querySelector("artic
 
 const descriptionText = document.querySelector(".body main p").innerText;
 
-document.querySelector("meta[name='og:description']").content = document.querySelector("meta[name='description']").content = descriptionText;
+document.querySelector("meta[property='og:description']").content = document.querySelector("meta[name='description']").content = descriptionText;
 
 document.querySelectorAll("article main a").forEach(link => {
     link.setAttribute('target', '_blank');
