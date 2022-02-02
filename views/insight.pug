@@ -16,7 +16,8 @@ block main
     article 
         h1 #{post.Title}
         img(src=post.Image, alt=post.Title)
-        //- p.date #{new Date(post.Date).toDateString()}
+        p.date #{post.Date.toDateString()}
+        p.author Author: #{post.Author||'Visbanking.com'}
         div#share
             a.button#linkedin(target="_blank", title="Share to LinkedIn")
                 i.bi-linkedin 
