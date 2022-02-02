@@ -11,19 +11,19 @@ router.get("/", (req, res) => {
                 res.redirect("/error");
             } else {
                 const business = results.filter(result => {
-                    return result.Topics.split(", ").includes("business")
+                    return result.Topic === "Business";
                 });
                 const banks = results.filter(result => {
-                    return result.Topics.split(", ").includes("banks")
+                    return result.Topic === "Banks";
                 });
                 const financial = results.filter(result => {
-                    return result.Topics.split(", ").includes("financial")
+                    return result.Topic === "Financial";
                 });
                 const market = results.filter(result => {
-                    return result.Topics.split(", ").includes("market")
+                    return result.Topic === "Market";
                 });
                 const politics = results.filter(result => {
-                    return result.Topics.split(", ").includes("politics")
+                    return result.Topic === "Politics";
                 });
                 res.render("insights", {
                     title: "Insights - Visbanking",
