@@ -6,7 +6,6 @@ body
     justify-content: center;
     flex-wrap: wrap;
     min-height: 100vh;
-    background-color: #024060;
     font-family: 'Source Sans Pro';
 }
 h1
@@ -14,7 +13,7 @@ h1
     font-weight: 700;
     text-align: center;
     margin: 2% auto;
-    color: #FFFFFF;
+    text-transform: uppercase;
 }
 form
 {
@@ -28,7 +27,7 @@ form > *
     text-align: center;
     margin: 0 auto;
     background-color: transparent;
-    color: #FFFFFF;
+    /* color: #FFFFFF; */
 }
 form label
 {
@@ -36,7 +35,7 @@ form label
     font-size: 1.2rem;
     text-transform: uppercase;
 }
-form input, form textarea
+form input, form textarea, select
 {
     margin-bottom: 2%;
     padding: 0.5%;
@@ -45,9 +44,18 @@ form input, form textarea
     border-bottom: 1px solid;
     font-size: 1rem;
 }
-form input[type="file"]
+option
+{
+    padding: 0;
+}
+form input[type="file"], select
 {
     cursor: pointer;
+}
+img[src]
+{
+    max-width: 30%;
+    margin: 1% auto;
 }
 form textarea
 {
@@ -65,10 +73,14 @@ form input#bodyFile
     text-align: center;
     border: none;
 }
-form input:focus, form textarea:focus
+form input#bodyFile:disabled
+{
+    cursor: not-allowed;
+}
+form input:focus, form textarea:focus, select:focus
 {
     border: 1px solid;
-    box-shadow: 0 0 0.5rem #CCCCCC;
+    box-shadow: 0 5px 0.5rem #333333;
     outline: none;
 }
 form input[type="submit"]

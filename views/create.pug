@@ -16,13 +16,24 @@ html(lang="en")
         form(method="POST", enctype="multipart/form-data")
             label(for="title") Title *
             input#title(type="text", name="title", required)
+            label(for="author") Author *
+            select#author(name="author", required)
+                option(value="Ken Chase") Ken Chase
             label(for="image") Image *
+            img
             input#image(type="file", name="image", accept="image/jpeg, image/png, image/webp", required)
             label(for="body") Body *
             textarea#body(name="body", rows="10", required)
             p or upload file
             input#bodyFile(type="file", name="bodyFile", accept=".md")
-            label(for="topics") Topics *
-            input#topics(type="text", name="topics", maxlength="300", required)
+            label(for="topic") Topic *
+            select#topic(name="topic", required)
+                option(value="Business") Business
+                option(value="Banks") Banks
+                option(value="Financial") Financial
+                option(value="Market") Market
+                option(value="Politics") Politics
+            label(for="tags") Tags *
+            input#tags(type="text", name="tags", maxlength="300", required)
             input(type="submit", name="action", value="Add insight")
         script(src="/js/create.js") 
