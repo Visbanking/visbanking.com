@@ -2,6 +2,8 @@ document.querySelector("input#image").addEventListener("change", (event) => {
     const [file] = event.target.files;
     if (file) {
         document.querySelector("img").src = URL.createObjectURL(file);
+    } else {
+        document.querySelector("img").src = '';
     }
 })
 
