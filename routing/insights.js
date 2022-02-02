@@ -42,7 +42,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/insight/:article_id", (req, res) => {
-    connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' LIMIT 0, 3`, (err, results, fields) => {
+    connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' ORDER BY Date DESC LIMIT 0, 3`, (err, results, fields) => {
         const latest = results;
         connection.query(`SELECT * FROM Insights WHERE ID = '${req.params.article_id}';`, (err, results, fields) => {
             if (err) {
@@ -68,7 +68,7 @@ router.get("/insight/:article_id", (req, res) => {
                     Date: results[0].Date,
                     Topics: results[0].Topics
                 }
-                connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topics LIKE '%${results[0].Topics.split(", ")[0]}%' LIMIT 0, 3;`, (err, results, fields) => {
+                connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topic = '${results[0].Topic}' ORDER BY Date DESC LIMIT 0, 3;`, (err, results, fields) => {
                     const related = results;
                     res.render("insight", {
                         title: post.Title,
