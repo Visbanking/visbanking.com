@@ -22,7 +22,16 @@ router.post("/", (req, res) => {
     verifier.verify(email).then(result => {
         if (result) {
             connection.query(`INSERT INTO Contacts (Name, Email, Message, Topic, Phone) VALUES ('${name}', '${email}', '${message}', '${topic}', '${phone}');`, (err, results, fields) => {
-                if (err) {
+                if (err && err.code === 'ER_DUP_ENTRY') {
+                    connection.query(`UPDATE Contacts SET Message = '${message}' WHERE Email = '${email}';`, (err, results, fields) => {
+                        if (err) {
+                            console.error(err);
+                            res.redirect("/error");
+                        } else {
+                            res.redirect("/contact/success");
+                        }
+                    })
+                } else if (err && err.code !== 'ER_DUP_ENTRY') {
                     console.error(err);
                     res.redirect("/error");
                 } else {
