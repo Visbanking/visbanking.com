@@ -18,10 +18,10 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    const name = `${req.body.fname} ${req.body.lname}`, email = req.body.email, subject = req.body.subject, message = req.body.message;
+    const name = `${req.body.fname} ${req.body.lname}`, email = req.body.email, message = req.body.message, topic = req.body.topic, phone = req.body.phone;
     verifier.verify(email).then(result => {
         if (result) {
-            connection.query(`INSERT INTO Contacts (Name, Email, Subject, Message) VALUES ('${name}', '${email}', '${subject}', '${message}');`, (err, results, fields) => {
+            connection.query(`INSERT INTO Contacts (Name, Email, Message, Topic, Phone) VALUES ('${name}', '${email}', '${message}', '${topic}', '${phone}');`, (err, results, fields) => {
                 if (err) {
                     console.error(err);
                     res.redirect("/error");
