@@ -30,6 +30,8 @@ h1 + h2
     padding: 1% 1% 2%;
     margin: 0 1%;
     cursor: pointer;
+    box-shadow: 4px 4px 16px #747474c9;
+    border-radius: 15px;
 }
 #latest img
 {
