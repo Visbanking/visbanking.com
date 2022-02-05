@@ -3,8 +3,9 @@ deploy.sh
 jsconfig.json
 *.ppk
 *.pem
-static/images/insights/*.jpg
-static/images/insights/*.png
+static/images/insights/*
+static/images/insights/*
+static/images/insights/*
 static/images/members/*.jpg
 static/images/members/*.png
 static/images/users/*.jpg
