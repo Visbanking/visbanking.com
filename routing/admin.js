@@ -18,10 +18,14 @@ router.use(cookieParser());
 let error, message;
 const insightStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "..", "static", "images", "insights"));
+	if (!fs.existsSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)))) fs.mkdirSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)));
+        cb(null, path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)));
     }, 
     filename: (req, file, cb) => {
-        cb(null, `${lodash.camelCase(req.body.title)}.jpg`);
+	if (file.fieldname === "headerImage")
+	    cb(null, `${lodash.camelCase(file.fieldname)}.jpg`);
+	if (file.fieldname === "bodyImages")
+	    cb(null, `${lodash.camelCase(file.originalname.split(".")[0])}.jpg`);
     }
 });
 const memberStorage = multer.diskStorage({
@@ -247,10 +251,10 @@ router.get("/dashboard/insights", (req, res) => {
     }
 });
 
-router.post("/dashboard/insights", insight.single('image'), (req, res) => {
+router.post("/dashboard/insights", insight.fields([{ name:'headerImage' }, { name:'bodyImages'}]), (req, res) => {
     const action = req.body.action;
     if (action === "Add insight") {
-        connection.query(`INSERT INTO Insights VALUES ('${uuidv4()}', '${req.body.title}', '${marked.marked(req.body.body)}', '/images/insights/${req.file.filename}', '${req.body.topic}', '${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}', 0, '${req.body.tags}', '${req.body.author}'});`, (err, results, fields) => {
+        connection.query(`INSERT INTO Insights VALUES ('${lodash.kebabCase(req.body.title)}', '${req.body.title}', '${marked.marked(req.body.body).trim()}', '/images/insights/${lodash.kebabCase(req.body.title)}/${req.files["headerImage"][0].filename}', '${req.body.topic}', '${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}', 0, '${req.body.tags}', '${req.body.author}');`, (err, results, fields) => {
             if (err) {
                 console.error(err);
                 message = "Insight couldn't be created. Please try again.";
@@ -261,7 +265,7 @@ router.post("/dashboard/insights", insight.single('image'), (req, res) => {
             }
         });
     } else if (action === "Delete insight") {
-        fs.rm(path.join(__dirname, "..", "static", "images", "insights", `${lodash.camelCase(req.body.title)}.jpg`), (err) => {
+        fs.rm(path.join(__dirname, "..", "static", "images", "insights", `${lodash.kebabCase(req.body.title)}.jpg`), { recursive:true }, (err) => {
             if (err && err.code !== 'ENOENT') {
                 console.error(err);
                 message = "Insight couldn't be deleted. Please try again.";
