@@ -36,8 +36,8 @@ router.post("/recover", (req, res) => {
                         port: 465,
                         secure: true,
                         auth: {
-                            user: process.env.PASSWORD_RECOVERY_EMAIL,
-                            pass: process.env.PASSWORD_RECOVERY_PASS
+                            user: process.env.NO_REPLY_EMAIL,
+                            pass: process.env.NO_REPLY_PASS
                         }
                     });
                     if (results.affectedRows === 0) {
@@ -46,7 +46,7 @@ router.post("/recover", (req, res) => {
                         const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "passwordRecovery.html"), "utf8").replace("${user}", email).replace("${recovery_id}", recovery_id);
                         emailHTML.replace("${user}", email).replace("${recovery_id}", recovery_id);
                         const message = {
-                            from: `'Visbanking.com' ${process.env.PASSWORD_RECOVERY_EMAIL}`,
+                            from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
                             to: email,
                             subject: 'Password Recovery - Visbanking',
                             html: emailHTML
