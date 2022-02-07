@@ -1,7 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { EmailVerifier } = require("simple-email-verifier");
+const nodemailer = require("nodemailer");
 const connection = require("./data/dbconnection");
+const { readFileSync } = require("fs");
+const { join } = require("path");
+require("dotenv").config();
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended: true}));
@@ -28,9 +32,34 @@ router.post("/", (req, res) => {
                             console.error(err);
                             res.redirect("/error");
                         } else {
-                            res.redirect("/contact/success");
+                            const transporter = nodemailer.createTransport({
+                                name: 'www.visbanking.com',
+                                host: 'mail.visbanking.com',
+                                port: 465,
+                                secure: true,
+                                auth: {
+                                    user: process.env.NO_REPLY_EMAIL,
+                                    pass: process.env.NO_REPLY_PASS
+                                }
+                            });
+                            const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "contactFormSubmission.html"), "utf8").replace("${name}", name).replace("${email}", email).replace("${topic}", topic).replace("${message}", message).replace("${phone}", phone);
+                            const emailMessage = {
+                                from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
+                                to: topic === 'General' ? 'info@visbanking.com' : topic === 'Sales' ? 'sales@visbanking.com' : topic === 'Support' ? 'support@visbanking.com' : '',
+                                subject: 'New Contact Submission - Visbanking',
+                                html: emailHTML
+                            }
+                            transporter.sendMail(emailMessage, (err, info) => {
+                                if (err) {
+                                    console.error(err);
+                                    res.redirect("/contact/success");
+                                } else {
+                                    console.log(info);
+                                    res.redirect("/contact/success");
+                                }
+                            });
                         }
-                    })
+                    });
                 } else if (err && err.code !== 'ER_DUP_ENTRY') {
                     console.error(err);
                     res.redirect("/error");
