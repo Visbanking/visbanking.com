@@ -149,10 +149,10 @@ router.post("/signup", (req, res) => {
                                         secure: true,
                                         expires: new Date(Date.now() + 241920000)
                                     });
-                                    if (tier === 'free') {
-                                        return res.redirect(`/me`);
-                                    }
-                                    res.redirect(`/buy?tier=${req.body.tier}`);
+                                    // if (tier === 'free') {
+                                    return res.redirect(`/signup/success`);
+                                    // }
+                                    // res.redirect(`/buy?tier=${req.body.tier}`);
                                 }
                             });
                         }
@@ -195,15 +195,22 @@ router.get("/signup/google", (req, res) => {
                             secure: true,
                             expires: new Date(Date.now() + 241920000)
                         });
-                        if (req.query.tier === 'free') {
-                            return res.redirect(`/me`);
-                        }
-                        res.redirect(`/buy?tier=${req.query.tier}`);
+                        // if (req.query.tier === 'free') {
+                        return res.redirect(`/signup/success`);
+                        // }
+                        // res.redirect(`/buy?tier=${req.query.tier}`);
                     }
                 });
             }
         });
     } else res.redirect("/signup");
+});
+
+router.get("/signup/success", (req, res) => {
+    res.render("success", {
+        title: 'Success - Visbanking',
+        path: "/signup/success"
+    });
 });
 
 module.exports = router;

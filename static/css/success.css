@@ -18,6 +18,10 @@ header > p
     text-align: center;
     font-weight: 700;
 }
+a
+{
+    color: inherit;
+}
 header > p > span
 {
     cursor: pointer;
