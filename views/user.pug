@@ -111,8 +111,8 @@ block main
                             li 
                                 i.bi-check2-square 
                                 | #{feature}
-          -//      .card-footer
-            -//        a(href=`/me/subscription?tier=free`) Get Free Access
+                 .card-footer
+                     a(href=`/me/subscription?tier=free`) Get Free Access
         if tier !== 'Professional'
             .card 
                 .card-header 
@@ -129,11 +129,11 @@ block main
                             li 
                                 i.bi-check2-square 
                                 | #{feature}
-              -//  .card-footer
-                -//    if tier === 'Free'
-                  -//      a(href=`/buy?tier=professional`) Get Professional Access
-                  -//  else
-                    -//    a(href=`/me/subscription?tier=professional`) Get Professional Access
+                 .card-footer
+                     if tier === 'Free'
+                         a(href=`/buy?tier=professional`) Get Professional Access
+                     else
+                         a(href=`/me/subscription?tier=professional`) Get Professional Access
         if tier !== 'Premium'
             .card 
                 .card-header
@@ -150,11 +150,11 @@ block main
                             li 
                                 i.bi-check2-square 
                                 | #{feature}
-              -//  .card-footer 
-              -//      if tier === 'Free'
-                -//        a(href=`/buy?tier=premium`) Get Premium Access
-                  -//  else
-                    -//    a(href=`/me/subscription?tier=premium`) Get Premium Access
+                 .card-footer 
+                     if tier === 'Free'
+                         a(href=`/buy?tier=premium`) Get Premium Access
+                     else
+                         a(href=`/me/subscription?tier=premium`) Get Premium Access
         if tier !== 'Enterprise'
             .card 
                 .card-header 
@@ -170,8 +170,8 @@ block main
                             li 
                                 i.bi-check2-square 
                                 | #{feature}
-          -//      .card-footer 
-            -//        a(href='mailto:sales@visbanking.com') Get Enterprise Access
+                 .card-footer 
+                     a(href='mailto:sales@visbanking.com') Get Enterprise Access
 
 block scripts 
     script(src="/js/user.js") 
