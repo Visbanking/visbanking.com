@@ -7,9 +7,13 @@ header
     justify-content: center;
     align-items: center;
 }
-nav.navbar, footer, .copyright
+nav.navbar > *:not(a), footer, .copyright
 {
     display: none;
+}
+nav.navbar a.navbar-brand
+{ 
+    max-width: 80%;
 }
 #login
 {
@@ -154,6 +158,10 @@ header #login p.signup
 }
 @media screen and (max-width: 991px)
 {
+    nav.navbar button.navbar-toggler
+    {
+        display: none;
+    }
     form
     {
         width: 50%;
