@@ -11,9 +11,21 @@ html(lang="en")
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", rel="stylesheet")
         link(rel="stylesheet", href="/css/create.css")
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest") 
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest") 
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest") 
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest") 
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest") 
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest") 
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest")
+        script(src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest")
+        script(src="https://cdn.jsdelivr.net/npm/marked/marked.min.js")
     body 
         h1 Add new Insight
-        form(method="POST", enctype="multipart/form-data")
+        p
+            span.md.active Markdown
+            span.txt Plain Text
+        form.active#md(method="POST", enctype="multipart/form-data")
             label(for="title") Title *
             input#title(type="text", name="title", required)
             label(for="author") Author *
@@ -38,4 +50,31 @@ html(lang="en")
             label(for="tags") Tags *
             input#tags(type="text", name="tags", maxlength="300", required)
             input(type="submit", name="action", value="Add insight")
+        section#text
+            form.active(method="POST", enctype="multipart/form-data")
+                label(for="title") Title *
+                input#title(type="text", name="title", required)
+                label(for="author") Author *
+                select#author(name="author", required)
+                    option(value="Ken Chase") Ken Chase
+                label(for="headerImage") Image *
+                img(src='')
+                input#headerImage(type="file", name="headerImage", accept="image/jpeg, image/png, image/webp", required)
+                label(for="body") Body *
+                div#article
+                textarea#body(name="body", rows="10", required)
+                //- label(for="bodyImages") In-Body images
+                //- input#bodyImages(type="file", name="bodyImages", accept="image/jpeg, image/png, image/webp", multiple)
+                label(for="topic") Topic *
+                select#topic(name="topic", required)
+                    option(value="Business") Business
+                    option(value="Banks") Banks
+                    option(value="Financial") Financial
+                    option(value="Market") Market
+                    option(value="Politics") Politics
+                label(for="tags") Tags *
+                input#tags(type="text", name="tags", maxlength="300", required)
+                input(type="submit", name="action", value="Add insight")
+            p#error
+        script(src="/js/editor.js") 
         script(src="/js/create.js") 

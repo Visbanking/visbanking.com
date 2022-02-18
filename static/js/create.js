@@ -1,13 +1,29 @@
-document.querySelector("input#image").addEventListener("change", (event) => {
-    const [file] = event.target.files;
-    if (file) {
-        document.querySelector("img").src = URL.createObjectURL(file);
-    } else {
-        document.querySelector("img").src = '';
-    }
-})
+document.querySelector("span.md").addEventListener("click", () => {
+    document.querySelector("form#md").classList.add("active");
+    document.querySelector("section#text").classList.remove("active");
+    document.querySelector("span.md").classList.add("active");
+    document.querySelector("span.txt").classList.remove("active");
+});
 
-document.querySelector("textarea").addEventListener("input", (event) => {
+document.querySelector("span.txt").addEventListener("click", () => {
+    document.querySelector("form#md").classList.remove("active");
+    document.querySelector("section#text").classList.add("active");
+    document.querySelector("span.md").classList.remove("active");
+    document.querySelector("span.txt").classList.add("active");
+});
+
+document.querySelectorAll("input#headerImage").forEach(input => {
+    input.addEventListener("change", (event) => {
+        const [file] = event.target.files;
+        if (file) {
+            input.previousElementSibling.src = URL.createObjectURL(file);
+        } else {
+            input.previousElementSibling.src = '';
+        }
+    });
+});
+
+document.querySelector("textarea#body").addEventListener("input", (event) => {
     if (event.target.value !== "") {
         document.querySelector("input#bodyFile").disabled = true;
         document.querySelector("input#bodyFile").title = 'Clear the \'BODY\' section to upload file';
@@ -22,5 +38,8 @@ document.querySelector("input#bodyFile").addEventListener("change", async (event
     const text = await event.target.files[0].text();
     document.querySelector("textarea").value = text;
     document.querySelector("input#bodyFile").disabled = true;
-    document.querySelector("input#bodyFile").title = 'Clear the \'BODY\' section to upload file';   
+    document.querySelector("input#bodyFile").title = 'Clear the \'BODY\' section to upload file';
+    document.querySelector("span.md").click();
 });
+
+document.querySelector(".codex-editor__redactor").style.paddingBottom = "0";
