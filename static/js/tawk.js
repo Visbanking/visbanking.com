@@ -6,3 +6,4 @@ s1.src='https://embed.tawk.to/6216ac5da34c24564127e24f/1fsk92jdb';
 s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
+})();
