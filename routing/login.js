@@ -73,15 +73,15 @@ router.get("/login/google", (req, res) => {
                 console.error(err);
                 res.redirect("/login");
             } else if (results.length < 1) {
-                res.redirect(`/signup/google?iss=${req.query.iss}&aud=${req.query.aud}&fname=${req.query.fname}&lname=${req.query.lname}&email=${req.query.email}&photo=${req.query.photo}&p=${req.query.p}&tier=free`);
+                res.redirect(`/signup`);
             } else {
-                const session_id = hash.sha512().update(uuidv4()).digest("hex");
+                const session_id = hash.sha512().update(uuidv4()).digest("hex"), user = results[0].Email;
                 connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Google = '${req.query.email}';`, (err, results, fields) => {
                     if (err) {
                         console.error(err);
                         res.redirect("/login");
                     } else {
-                        res.cookie('user', req.query.email, {
+                        res.cookie('user', user, {
                             httpOnly: true,
                             secure: true,
                             expires: new Date(Date.now() + 241920000),

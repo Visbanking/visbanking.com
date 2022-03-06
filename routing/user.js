@@ -30,6 +30,7 @@ const user = multer({ storage:userStorage });
 router.all("/*", (req, res, next) => {
     if (!req.cookies.session_id || !req.cookies.user) {
         res.clearCookie('session_id');
+        res.clearCookie('user');
         return res.redirect("/login");
     }
     connection.query(`SELECT Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
@@ -56,7 +57,7 @@ router.get("/", (req, res, next) => {
                 expires: new Date(Date.now() + 241920000)
             });
             res.render("user", {
-                title: `${results[0].FirstName} ${results[0].LastName} | Users - Visbanking`,
+                title: `${results[0].FirstName} ${results[0].LastName} - Visbanking`,
                 userInfo: results[0],
                 tier: results[0].Tier,
                 tiers,
@@ -162,6 +163,16 @@ router.post("/password", (req, res) => {
             }
         }
     });
+});
+
+router.get("/connect/google", (req, res) => {
+    if (req.query.iss.includes("accounts.google.com") && req.query.aud === process.env.GOOGLE_SIGN_IN_CLIENT_ID) {
+        connection.query(`UPDATE Users SET Google = '${req.query.email}' WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+            if (err) error = 'Google account couldn\'t be associated';
+            else message = 'Google account associated successfully';
+            res.redirect("/me");
+        });
+    }
 });
 
 router.get("/logout", (req, res) => {

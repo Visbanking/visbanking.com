@@ -2,100 +2,14 @@ header
 {
     min-height: auto;
 }
-main section
-{
-    min-height: auto;
-    padding: 1% 3%;
-}
-main section:last-of-type
-{
-    border-bottom: none;
-}
-section:first-of-type img
-{
-    max-width: 10%;
-    border-radius: 50%;
-}
-#profile
-{
-    cursor: pointer;
-}
-#profile.unsaved
-{
-    filter: grayscale(0.5);
-}
-i.bi-person-fill
-{
-    font-size: 4rem;
-    padding: 0 0.5rem;
-    border-radius: 5px;
-    border: 1px solid;
-}
 h1
 {
-    font-size: 2.5rem;
-    margin: 0;
+    width: 90%;
+    margin: 0 auto 1%;
     text-align: left;
-    text-transform: none;
-}
-h1 + p
-{
-    font-size: 1rem;
-    margin-bottom: 0;
-}
-p#email
-{
-    cursor: default;
-    margin: 0 auto 2%;
-}
-i.bi-pencil-square
-{
-    display: none;
-    cursor: pointer;
-    font-size: 1rem;
-    vertical-align: middle;
-    margin-left: 0.3rem;
-}
-h1:hover i.bi-pencil-square
-{
-    display: inline-block;
-}
-input
-{
-    display: none;
-    margin-bottom: 1%;
-}
-input:not([type="file"]).show
-{
-    display: block;
-    font-size: 0.9rem;
-}
-input[type="submit"]
-{
-    padding: 0.5rem 1.2rem;
-    color: #024060;
-    margin-top: 1%;
-    background-color: transparent;
-    border: 1px solid;
-    transition: all 0.2s linear;
-    font-weight: 700;
-    font-size: 1.2rem;
-    font-family: inherit;
-    margin-left: auto;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-input[type="submit"]:hover
-{
-    color: #FFFFFF;
-    background-color: #024060;
-}
-#message, #error
-{
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 2rem;
+    border-bottom: 1px solid;
+    padding: 1%;
 }
 #message
 {
@@ -105,36 +19,287 @@ input[type="submit"]:hover
 {
     color: #FF1100;
 }
-h2
+#logout
 {
-    font-size: 2rem;
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase;
-    color: #005487;
-    margin-top: 0;
+    text-align: right;
+    margin: 2% 4% 1%;
 }
-#actions
+#logout a
+{
+    border: 1px solid;
+    padding: 0.3rem 1%;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #015193;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+#logout a:hover
+{
+    background-color: #015193;
+    color: #FFFFFF;
+}
+main section
+{
+    min-height: auto;
+    padding: 1% 3%;
+}
+.identifiers
 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+.identifiers p
+{
+    padding: 1% 3%;
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: #EEF5FF;
+    color: #01519382;
+    border: 2px solid;
+    cursor: pointer;
+    margin: 0;
+    border-bottom: 0;
+}
+.identifiers p.active
+{
+    color: #015193;
+}
+main section aside:not(.identifiers)
+{
+    padding: 3%;
+    background-color: #EEF5FF;
+    border: 2px solid #015193;
+}
+.profile form
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: flex-start;
 }
-#actions > *:not(h2)
+form img, i.bi-person-fill
 {
-    padding: 0 0 2% 0;
-    width: 50%;
+    max-width: 10%;
+    border-radius: 50%;
+    display: none;
+}
+form img.show, i.bi-person-fill.show
+{
+    display: block;
+}
+#profile
+{
+    cursor: pointer;
+}
+#preview
+{
+    filter: grayscale(0.5);
+}
+i.bi-person-fill
+{
+    font-size: 4rem;
+    padding: 0 0.5rem;
+}
+form div
+{
+    box-sizing: border-box;
+    padding: 0 0 0 1.5rem;
+}
+form div.info
+{
+    width: 60%;
+}
+form div.accounts
+{
+    width: 30%;
+}
+h2
+{
+    font-size: 1.5rem;
+    border-bottom: 1px solid;
+    text-transform: uppercase;
+    color: #015193;
+    padding: 0 0.5rem 0.5rem;
+    margin-top: 0;
+}
+div.info p
+{
+    box-sizing: border-box;
+    display: inline-block;
+    width: 45%;
+}
+p.label
+{
+    color: #015193;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 3% 2% 0;
+    font-size: 1.15rem;
+}
+p.label.name, p.label.phone
+{
+    margin-top: 0;
+}
+div.info p.data
+{
+    display: none;
+}
+div.info p.data.show
+{
+    margin: 0 2%;
+    padding: 1%;
+    border-bottom: 1px solid;
+    display: block;
+    /* display: inline-block; */
+}
+.info p.data.pass.show
+{
+    border-bottom: 0;
+}
+.data.pass a
+{
+    color: inherit;
+    display: inline-block;
+}
+.data.pass a:first-of-type
+{
+    margin-bottom: 1%;
+}
+.data.pass a:hover
+{
+    color: #015193;
+}
+main section:last-of-type
+{
+    border-bottom: none;
+}
+.bi-pencil-square
+{
+    display: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    vertical-align: top;
+    margin-left: 0.3rem;
+}
+*:hover > .bi-pencil-square
+{
+    display: inline-block;
+}
+input
+{
+    display: none;
+    margin-bottom: 1%;
+}
+.info p + input.show
+{
+    display: block;
+    /* display: inline-block; */
+    width: 45%;
+    margin: 1% 2%;
+    padding: 1%;
+    border: none;
+    background-color: transparent;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px #00000050;
+    transition: all 0.1s linear;
+
+}
+.info p + input.show:focus
+{
+    outline: none;
+    box-shadow: 0 2px 5px #000000F0;
+}
+input[type="submit"].show, input[type="reset"].show
+{
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    margin: 0  2% 2% 0;
+    background-color: transparent;
+    border: 1px solid;
+    transition: all 0.2s linear;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+input[type="submit"].show
+{
+    color: #289F34;
+}
+input[type="submit"]:hover
+{
+    color: #EEF5FF;
+    background-color: #289F34;
+}
+input[type="reset"].show
+{
+    color: #FF160C;
+}
+input[type="reset"]:hover
+{
+    color: #EEF5FF;
+    background-color: #FF160C;
+}
+#message, #error
+{
     text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.accounts p
+{
+    padding: 0 0 0 0.5rem;
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+}
+.account
+{
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+}
+.account.connected
+{
+    color: #015193;
+    font-weight: 700;
+    cursor: default;
+}
+.account i
+{
+    /* vertical-align: middle; */
+    margin-right: 5%;
+}
+.accounts h3
+{
+    color: #015193;
+    padding: 0 0.5rem 0.5rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid;
+}
+#gsiButton
+{
+    display: inline-block;
+    padding: 0 0.5rem 0 0;
+}
+#actions
+{
+    border: none;
+    padding: 2rem 0 0 0;
 }
 #actions a
 {
     cursor: pointer;
     padding: 0.5rem 1rem;
-    display: block;
-    width: 50%;
-    margin: 2% auto;
+    margin-right: 2%;
     border: 1px solid;
     text-transform: uppercase;
     font-weight: 600;
@@ -145,35 +310,65 @@ h2
 {
     color: #FFFFFF;
 }
-.safe a
+.safe
 {
     color: #128AF9;
 }
-.safe a:hover
+.safe:hover
 {
     background-color: #128AF9;
 }
-.danger a
+.danger
 {
     color: #F91224;
 }
-.danger a:hover
+.danger:hover
 {
     background-color: #F91224;
 }
+.products p
+{
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 1% auto;
+    width: 100%;
+}
 .card
 {
-    width: 40%;
-    border: 2px solid #128AF9;
+    box-sizing: border-box;
+    border: 1px solid #128AF9;
     margin: 2% auto;
-    padding: 1%;
+    padding: 2%;
     width: 30%;
+    position: relative;
+}
+.products > .card
+{
+    background-color:#128AF9;
+    color: #FFFFFF;
+    margin-top: 3%;
+}
+.products > .card > div:first-of-type
+{
+    text-align: center;
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3%;
+    border-radius: 15px;
+    text-transform: uppercase;
+    width: 50%;
+    background-color: #015193;
 }
 .card-header
 {
-    padding: 0;
+    padding: 0 0 3%;
     text-align: center;
-    border-bottom: 2px solid #128AF9;
+    border-bottom: 2px solid;
 }
 .card h3
 {
@@ -200,7 +395,7 @@ h2
 {
     margin: 5% auto 0;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -211,7 +406,7 @@ h2
 .card-body ul
 {
     width: 80%;
-    margin: 2% auto;
+    margin: 0 auto;
     list-style-type: none;
     padding-left: 0;
     font-size: 1rem;
@@ -234,6 +429,10 @@ h2
     text-transform: uppercase;
     text-decoration: none;
 }
+ul li
+{
+    padding: 3% 0;
+}
 #upgrade
 {
     display: flex;
@@ -242,11 +441,215 @@ h2
     justify-content: space-evenly;
     align-items: flex-start;
 }
-ul li
+#upgrade > h3
 {
-    padding: 3% 0;
+    width: 100%;
+    text-transform: uppercase;
+    border-bottom: 1px solid;
+    color: #015193;
+    padding: 1%;
+    font-size: 1.2rem;
 }
 @media screen and (max-width: 991px)
+{
+    main section
+    {
+        padding: 1% 3% 3%;
+    }
+    .profile
+    {
+        text-align: center;
+    }
+    .profile form
+    {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    form img
+    {
+        max-width: 15%;
+        margin-bottom: 3%;
+    }
+    form > div
+    {
+        padding: 0;
+        margin: 0 0 3%;
+    }
+    form > div.info, form > div.accounts
+    {
+        width: 50%;
+    }
+    div.info p.data.show
+    {
+        text-align: center;
+        width: 70%;
+        margin: 0 auto;
+    }
+    #actions
+    {
+        padding: 1%;
+    }
+    .products h2, h3
+    {
+        text-align: center;
+    }
+    .products p
+    {
+        width: 90%;
+        margin: 1% auto 2%;
+    }
+    .products > .card
+    {
+        margin: 5% auto 0;
+    }
+    .card
+    {
+        width: 50%;
+        margin: 2%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    #logout a
+    {
+        padding: 1% 3%;
+    }
+    form img
+    {
+        max-width: 20%;
+    }
+    form > div.info, form > div.accounts
+    {
+        width: 75%;
+    }
+    #actions
+    {
+        padding: 2% 1%;
+    }
+    .products h2, h3
+    {
+        margin-bottom: 2%;
+    }
+    .products p
+    {
+        margin: 3% auto;
+    }
+    .products > .card
+    {
+        margin-top: 6%;
+    }
+    .card
+    {
+        width: 65%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    h1
+    {
+        text-align: center;
+    }
+    #logout
+    {
+        margin: 4% 4% 5%;
+    }
+    .identifiers p
+    {
+        padding: 2% 5%;
+    }
+    main section aside:not(.identifiers)
+    {
+        padding: 5% 3%;
+    }
+    form img
+    {
+        max-width: 25%;
+        margin-bottom: 5%;
+    }
+    form > div
+    {
+        margin: 0 0 5%;
+    }
+    form > div.info, form > div.accounts
+    {
+        width: 90%;
+    }
+    #actions
+    {
+        padding: 3% 1%;
+    }
+    .products > .card
+    {
+        padding: 4% 2%;
+    }
+    .card
+    {
+        width: 75%;
+    }
+}
+@media screen and (max-width: 450px)
+{
+    #logout
+    {
+        margin: 8% 4%;
+    }
+    #logout a
+    {
+        padding: 2% 5%;
+    }
+    form img
+    {
+        max-width: 35%;
+    }
+    div.info p.data.show
+    {
+        width: 85%;
+        padding: 2%;
+    }
+    #actions
+    {
+        padding: 5% 1%;
+    }
+    .products p
+    {
+        width: 100%;
+        margin: 4% auto;
+        font-size: 1rem;
+    }
+    .products > .card
+    {
+        margin-top: 8%;
+    }
+    .card
+    {
+        width: 85%;
+    }
+}
+@media screen and (max-width: 350px)
+{
+    form img
+    {
+        max-width: 50%;
+    }
+    form > div.info
+    {
+        width: 100%;
+    }
+    div.info p.data.show
+    {
+        width: 95%;
+    }
+    .products > .card
+    {
+        margin-top: 10%;
+    }
+    .card
+    {
+        width: 95%;
+    }
+}
+/* @media screen and (max-width: 991px)
 {
     section:first-of-type img
     {
@@ -319,4 +722,4 @@ ul li
     {
         width: 100%;
     }
-}
+} */
