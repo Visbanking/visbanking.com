@@ -196,7 +196,7 @@ input
     display: none;
     margin-bottom: 1%;
 }
-.info p + input.show
+.info p + input:not([type="submit"]).show
 {
     display: block;
     /* display: inline-block; */
@@ -220,7 +220,7 @@ input[type="submit"].show, input[type="reset"].show
     display: inline-block;
     padding: 0.5rem 1.5rem;
     border-radius: 5px;
-    margin: 0  2% 2% 0;
+    margin: 2% 2% 0 0;
     background-color: transparent;
     border: 1px solid;
     transition: all 0.2s linear;
