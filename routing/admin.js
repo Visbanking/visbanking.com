@@ -254,7 +254,7 @@ router.get("/dashboard/insights", (req, res) => {
 router.post("/dashboard/insights", insight.fields([{ name:'headerImage' }, { name:'bodyImages'}]), (req, res) => {
     const action = req.body.action;
     if (action === "Add insight") {
-        connection.query(`INSERT INTO Insights VALUES ('${lodash.kebabCase(req.body.title)}', '${req.body.title}', '${marked.marked(req.body.body).trim()}', '/images/insights/${lodash.kebabCase(req.body.title)}/${req.files["headerImage"][0].filename}', '${req.body.topic}', '${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}', 0, '${req.body.tags}', '${req.body.author}');`, (err, results, fields) => {
+        connection.query(`INSERT INTO Insights VALUES ('${lodash.kebabCase(req.body.title)}', '${req.body.title}', '${marked.marked(req.body.body.trim()).trim()}', '/images/insights/${lodash.kebabCase(req.body.title)}/${req.files["headerImage"][0].filename}', '${req.body.topic}', '${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}', 0, '${req.body.tags}', '${req.body.author}', '${req.body.description}', '${req.body.keywords}');`, (err, results, fields) => {
             if (err) {
                 console.error(err);
                 message = "Insight couldn't be created. Please try again.";

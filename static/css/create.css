@@ -148,7 +148,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
 {
     margin-right: 0;
 }
-#text textarea
+#text textarea#body
 {
     display: none;
 }

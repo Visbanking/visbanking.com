@@ -1,13 +1,13 @@
 extends layout.pug
 
 block meta
-    meta(name="description", content=post.Body[0])
-    meta(name="keywords", content=post.Topics)
+    meta(name="description", content=post.Description)
+    meta(name="keywords", content=post.Keywords)
     meta(property="og:image", content=`https://visbanking.com/${post.Image}`)
     meta(property="og:title", content=post.Title)
     meta(property="og:type", content="article")
     meta(property="og:url", content=`https://visbanking.com${path}`)
-    meta(property="og:description", content)
+    meta(property="og:description", content=post.Description)
 
 block styles
     link(rel="stylesheet", href="/css/insight.css")

@@ -49,6 +49,10 @@ html(lang="en")
                 option(value="Politics") Politics
             label(for="tags") Tags *
             input#tags(type="text", name="tags", maxlength="300", required)
+            label(for="description") Meta Description *
+            textarea#description(name="description", rows="10", required)
+            label(for="keywords") Keywords *
+            input#keywords(type="text", name="keywords", maxlength="300", required) 
             input(type="submit", name="action", value="Add insight")
         section#text
             form.active(method="POST", enctype="multipart/form-data")
@@ -74,6 +78,10 @@ html(lang="en")
                     option(value="Politics") Politics
                 label(for="tags") Tags *
                 input#tags(type="text", name="tags", maxlength="300", required)
+                label(for="description") Meta Description *
+                textarea#description(name="description", rows="10", required)
+                label(for="keywords") Keywords *
+                input#keywords(type="text", name="keywords", maxlength="300", required) 
                 input(type="submit", name="action", value="Add insight")
             p#error
         script(src="/js/editor.js") 

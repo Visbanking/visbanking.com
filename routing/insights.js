@@ -63,10 +63,13 @@ router.get("/insight/:article_id", (req, res) => {
                 });
                 const post = {
                     Title: results[0].Title,
+                    Author: results[0].Author,
                     Body: body,
                     Image: results[0].Image,
                     Date: results[0].Date,
-                    Topics: results[0].Topics
+                    Topics: results[0].Topics,
+                    Description: results[0].Description,
+                    Keywords: results[0].Keywords
                 }
                 connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topic = '${results[0].Topic}' ORDER BY Date DESC LIMIT 0, 3;`, (err, results, fields) => {
                     const related = results;
