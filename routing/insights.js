@@ -61,16 +61,7 @@ router.get("/insight/:article_id", (req, res) => {
                 results[0].Body.split("  ").forEach(par => {
                     body.push(par);
                 });
-                const post = {
-                    Title: results[0].Title,
-                    Author: results[0].Author,
-                    Body: body,
-                    Image: results[0].Image,
-                    Date: results[0].Date,
-                    Topics: results[0].Topics,
-                    Description: results[0].Description,
-                    Keywords: results[0].Keywords
-                }
+                const post = {...results[0], Body:body};
                 connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topic = '${results[0].Topic}' ORDER BY Date DESC LIMIT 0, 3;`, (err, results, fields) => {
                     const related = results;
                     res.render("insight", {
