@@ -69,7 +69,7 @@ main section
 {
     color: #015193;
 }
-main section aside:not(.identifiers)
+main section > aside:not(.identifiers)
 {
     padding: 3%;
     background-color: #EEF5FF;
@@ -272,11 +272,21 @@ input[type="reset"]:hover
     color: #015193;
     font-weight: 700;
     cursor: default;
+    transition: all 0.2s ease-in-out;
+}
+.account.connected:hover
+{
+    color: #289F34;
+}
+.account.connected:not(:last-of-type)
+{
+    margin-bottom: 3%;
 }
 .account i
 {
     /* vertical-align: middle; */
     margin-right: 5%;
+    font-size: 1.35rem;
 }
 .accounts h3
 {
@@ -290,12 +300,26 @@ input[type="reset"]:hover
     display: inline-block;
     padding: 0 0.5rem 0 0;
 }
-#actions
+#liButton
+{
+    font-size: 1.35rem;
+    padding: 0 0 0 0.2rem;
+}
+#liButton a
+{
+    color: #000000;
+    transition: all 0.2s ease-in-out;
+}
+#liButton a:hover
+{
+    color: #0072B1;
+}
+.actions
 {
     border: none;
-    padding: 2rem 0 0 0;
+    padding: 1.5rem 0 0 0;
 }
-#actions a
+.actions a
 {
     cursor: pointer;
     padding: 0.5rem 1rem;
@@ -306,7 +330,7 @@ input[type="reset"]:hover
     transition: all 0.2s linear;
     text-decoration: none;
 }
-#actions a:hover
+.actions a:hover
 {
     color: #FFFFFF;
 }
@@ -433,6 +457,10 @@ ul li
 {
     padding: 3% 0;
 }
+.products .actions
+{
+    text-align: center;
+}
 #upgrade
 {
     display: flex;
@@ -486,9 +514,10 @@ ul li
         width: 70%;
         margin: 0 auto;
     }
-    #actions
+    .actions
     {
-        padding: 1%;
+        padding: 1.5rem 0;
+        text-align: center;
     }
     .products h2, h3
     {
@@ -558,7 +587,7 @@ ul li
     {
         padding: 2% 5%;
     }
-    main section aside:not(.identifiers)
+    main section > aside:not(.identifiers)
     {
         padding: 5% 3%;
     }

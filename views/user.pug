@@ -56,14 +56,21 @@ block main
                         .account.connected#google(title=userInfo.Google)
                             i.bi-google
                             | Connected
-                    if !userInfo.Google /*-|| !user.info.Facebook || !userInfo.LinkedIn*/
+                    if userInfo.LinkedIn
+                        .account.connected#linkedin(title=userInfo.LinkedIn)
+                            i.bi-linkedin
+                            | Connected
+                    if !userInfo.Google || !userInfo.LinkedIn /*|| !user.info.Facebook*/
                         h3 Link
                         if !userInfo.Google
                             .account
                                 #gsiButton
-            aside#actions 
-                if tier !== 'Free'
-                    a.danger#cancel(@click="cancel") Cancel Subscription
+                        if !userInfo.LinkedIn
+                            .account 
+                                #liButton
+                                    a(href="/me/connect/linkedin") 
+                                        i.bi-linkedin
+            aside.actions 
                 a.danger#delete(@click="deleteAccount") Delete Account 
         aside.products(v-if="products")
             h2 Products
@@ -108,6 +115,9 @@ block main
                                 li 
                                     i.bi-check2-square 
                                     |  #{feature}
+            aside.actions
+                if tier !== 'Free'
+                    a.danger#cancel(@click="cancel") Cancel Subscription
             section#upgrade
                 h3 Change Subscription
                 p You'll be able to change your subscription once our product is live

@@ -6,6 +6,7 @@ const hash = require("hash.js");
 const multer = require("multer");
 const path = require("path");
 const lodash = require("lodash");
+const { get, post } = require("axios");
 const connection = require("./data/dbconnection");
 const tiers = require("./data/.pricingTiers.json");
 const fs = require("fs");
@@ -175,6 +176,46 @@ router.get("/connect/google", (req, res) => {
     }
 });
 
+router.get("/connect/linkedin", (req, res) => {
+    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=http://localhost:8080/me/connect/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`);
+    else if (req.query.state !== process.env.LINKEDIN_STATE_STRING) res.redirect("/me");
+    else if (req.query.state === process.env.LINKEDIN_STATE_STRING) {
+        if (req.query.error) {
+            error = 'LinkedIn account couldn\'t be associated';
+            res.redirect("/me");
+        } else {
+            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=http://localhost:8080/me/connect/linkedin`, {}, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(accessData => {
+                get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))", {
+                    headers: {
+                        'Authorization': `Bearer ${accessData.data.access_token}`
+                    }
+                })
+                .then(emailData => {
+                    const email = emailData.data.elements[0]["handle~"].emailAddress;
+                    connection.query(`UPDATE Users SET LinkedIn = '${email}' WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+                        if (err) error = 'LinkedIn account couldn\'t be associated';
+                        else message = 'LinkedIn account associated successfully';
+                        res.redirect("/me");
+                    });
+                })
+                .catch(err => {
+                    error = 'LinkedIn account couldn\'t be associated'
+                    res.redirect("/me")
+                });
+            })
+            .catch(err => {
+                error = 'LinkedIn account couldn\'t be associated'
+                res.redirect("/me")
+            });
+        }
+    }
+});
+
 router.get("/logout", (req, res) => {
     connection.query(`UPDATE Users SET Session_ID = '' WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
         res.clearCookie("user");
@@ -277,10 +318,12 @@ router.get("/delete", async (req, res) => {
                         error = 'Your account couldn\'t be deleted';
                         res.redirect(`/me`);
                     } else {
-                        res.clearCookie('user');
-                        res.clearCookie('tier');
-                        res.clearCookie('session_id');
-                        res.render("deleted");
+                        fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), { force:true }, (err) => {
+                            res.clearCookie('user');
+                            res.clearCookie('tier');
+                            res.clearCookie('session_id');
+                            res.render("deleted");
+                        });
                     }
                 });
             }
@@ -312,16 +355,11 @@ router.get("/delete", async (req, res) => {
                                         error = 'Your account couldn\'t be deleted';
                                         return res.redirect(`/me`);
                                     }
-                                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), (err) => {
-                                        if (err && err.code !== 'ENOENT') {
-                                            error = 'Your account couldn\'t be deleted';
-                                            res.redirect(`/me`)
-                                        } else {
-                                            res.clearCookie('user');
-                                            res.clearCookie('tier');
-                                            res.clearCookie('session_id');
-                                            res.render("deleted");
-                                        }
+                                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), { force:true }, (err) => {
+                                        res.clearCookie('user');
+                                        res.clearCookie('tier');
+                                        res.clearCookie('session_id');
+                                        res.render("deleted");
                                     });
                                 });
                             }
