@@ -127,7 +127,7 @@ aside.social
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin-top: 5%;
     padding: 2% 0 0;
@@ -140,6 +140,29 @@ aside.social
     font-weight: 700;
     font-size: 1rem;
     margin: 1% auto 2%;
+}
+aside.social #liButton
+{
+    width: 44px;
+    margin: 0 3%;
+    color: #0072B1;
+    cursor: pointer;
+}
+#liButton > div
+{
+    border-radius: 50%;
+    border: 0.05rem solid #20212425;
+    font-size: 1.35rem;
+    padding: 6px 1px;
+}
+aside.social #liButton:hover > div
+{
+    background-color: rgba(66,133,244,0.04);
+    border-color: #d2e3fc;
+}
+#liButton i
+{
+    vertical-align: text-bottom;
 }
 header #login p.signup
 {

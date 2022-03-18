@@ -22,12 +22,15 @@ block header
                     a(href="/recovery") Forgot your password?
             if action==="Sign Up"
                 input#tier(type="hidden", name="tier", value=`${tier}`)
-            if incorrectPassword    
-                p.form-text#error The email or password entered were invalid
+            if incorrectPassword || loginError
+                p.form-text#error Invalid credentials
             input(type="submit", value=action)
             aside.social 
                 p Or #{action} with
-                div#gsiButton
+                #gsiButton
+                #liButton
+                    div
+                        i.bi-linkedin
         if action==="Log In"
             p.signup Don't have an account? 
                 a(href="/signup") Sign Up 
@@ -38,3 +41,4 @@ block header
 block scripts 
     script(src="/js/login.js") 
     script(src="/js/googleSignInButton.js")
+    script(src="/js/signInWithLinkedIn.js") 
