@@ -102,12 +102,12 @@ router.get("/login/google", (req, res) => {
 });
 
 router.get("/login/linkedin", (req, res) => {
-    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=http://visbanking.com/login/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`);
+    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=https://visbanking.com/login/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`);
     else if (req.query.state !== process.env.LINKEDIN_STATE_STRING) res.redirect("/signup")
     else if (req.query.state === process.env.LINKEDIN_STATE_STRING) {
         if (req.query.error) res.redirect("/signup");
         else {
-            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=http://visbanking.com/login/linkedin`, {}, {
+            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=https://visbanking.com/login/linkedin`, {}, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -264,13 +264,13 @@ router.get("/signup/google", (req, res) => {
 });
 
 router.get("/signup/linkedin", async (req, res) => {
-    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=http://visbanking.com/signup/linkedin&state=${process.env.LINKEDIN_STATE_STRING+"_"+req.query.tier}&scope=r_liteprofile%20r_emailaddress`);
+    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=https://visbanking.com/signup/linkedin&state=${process.env.LINKEDIN_STATE_STRING+"_"+req.query.tier}&scope=r_liteprofile%20r_emailaddress`);
     else if (req.query.state.split("_")[0] !== process.env.LINKEDIN_STATE_STRING) res.redirect("/signup")
     else if (req.query.state.split("_")[0] === process.env.LINKEDIN_STATE_STRING) {
         if (req.query.error) res.redirect("/signup");
         else {
             const tier = req.query.state.split("_")[1];
-            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=http://visbanking.com/signup/linkedin`, {}, {
+            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=https://visbanking.com/signup/linkedin`, {}, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
