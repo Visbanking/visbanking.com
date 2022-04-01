@@ -35,9 +35,13 @@ router.all("/*", (req, res, next) => {
         return res.redirect("/login");
     }
     connection.query(`SELECT Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
-        if (req.cookies.session_id === results[0].Session_ID) {
-            next();
-        } else {
+        if (!results[0]) {
+            res.clearCookie("user");
+            res.clearCookie("session_id"); 
+            res.redirect("/signup");
+        }
+        else if (req.cookies.session_id === results[0].Session_ID) next();
+        else {
             res.clearCookie('session_id');
             res.redirect("/login");
         }

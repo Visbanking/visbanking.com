@@ -59,7 +59,7 @@ router.get("/failure", (req, res) => {
 		} else if (results.length === 0) {
 			res.redirect("/");
 		} else {
-			connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
+			connection.query(`UPDATE Users SET Tier = 'Free' WHERE ID = ${results[0].ID};`, (err, results, fields) => {
 				if (err) {
 					console.error(err);
 					res.clearCookie('user');

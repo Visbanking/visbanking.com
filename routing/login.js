@@ -206,10 +206,10 @@ router.post("/signup", (req, res) => {
                                         secure: true,
                                         expires: new Date(Date.now() + 241920000)
                                     });
-                                    // if (tier === 'free') {
-                                    return res.redirect(`/signup/success`);
-                                    // }
-                                    // res.redirect(`/buy?tier=${req.body.tier}`);
+                                    if (tier === 'free') {
+                                        return res.redirect(`/signup/success`);
+                                    }
+                                    res.redirect(`/buy?tier=${req.body.tier}`);
                                 }
                             });
                         }
@@ -220,8 +220,8 @@ router.post("/signup", (req, res) => {
             emailError = true;
             res.redirect("/signup");
         }
-    }).catch(() => {
-        console.error;
+    }).catch((err) => {
+        console.error(err);
         res.redirect("/signup");
     });
 });
@@ -252,10 +252,10 @@ router.get("/signup/google", (req, res) => {
                             secure: true,
                             expires: new Date(Date.now() + 241920000)
                         });
-                        // if (req.query.tier === 'free') {
-                        return res.redirect(`/signup/success`);
-                        // }
-                        // res.redirect(`/buy?tier=${req.query.tier}`);
+                        if (req.query.tier === 'free') {
+                            return res.redirect(`/signup/success`);
+                        }
+                        res.redirect(`/buy?tier=${req.query.tier}`);
                     }
                 });
             }
@@ -311,10 +311,10 @@ router.get("/signup/linkedin", async (req, res) => {
                                             secure: true,
                                             expires: new Date(Date.now() + 241920000)
                                         });
-                                        // if (req.query.tier === 'free') {
-                                        return res.redirect(`/signup/success`);
-                                        // }
-                                        // res.redirect(`/buy?tier=${req.query.tier}`);
+                                        if (req.query.tier === 'free') {
+                                            return res.redirect(`/signup/success`);
+                                        }
+                                        res.redirect(`/buy?tier=${req.query.tier}`);
                                     }
                                 });
                             }
