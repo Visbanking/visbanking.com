@@ -1,13 +1,14 @@
 const { Router } = require("express");
 const router = Router();
 const connection = require("./data/dbconnection");
+const { toLower } = require("lodash");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
 
 router.get("/", async (req, res) => {
     if (!req.query.tier) return res.redirect("/pricing");
 	const prices = await stripe.prices.list({
-		lookup_keys: [req.query.tier],
+		lookup_keys: [toLower(req.query.tier)],
 		expand: ["data.product"]
 	});
 	const session = await stripe.checkout.sessions.create({
