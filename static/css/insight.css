@@ -2,6 +2,23 @@ header
 {
     min-height: auto;
 }
+progress
+{
+    width: 100%;
+    border-radius: 0;
+    position: sticky;
+    top: 0;
+    height: 10px;
+    z-index: 2;
+}
+progress::-webkit-progress-bar
+{
+    background-color: #FFFFFF;
+}
+progress::-webkit-progress-value
+{
+    background-color: #1DA1F2;
+}
 article
 {
     padding: 2% 0;

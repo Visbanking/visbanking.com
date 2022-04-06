@@ -24,3 +24,12 @@ document.querySelectorAll(".post").forEach(post => {
         post.children[post.children.length-1].click();
     });
 });
+
+window.onscroll = () => {
+    const yAxis = window.scrollY;
+    const articleTop = document.querySelector("article").offsetTop;
+    const articleHeight = document.querySelector("article").offsetHeight;
+    const articleProgress = articleTop - yAxis;
+    if (yAxis >= articleTop) document.querySelector("progress").value = Math.abs(articleProgress/articleHeight);
+    else document.querySelector("progress").value = 0;
+}
