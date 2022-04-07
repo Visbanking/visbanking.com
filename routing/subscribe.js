@@ -14,7 +14,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 client.setConfig({
 	apiKey: process.env.MAILCHIMP,
-	server: 'us5'
+	server: 'us20'
 });
 
 var error = "";
@@ -39,9 +39,9 @@ router.post("/", (req, res) => {
 				],
 			};
 			const run = async () => {
-				const response = await client.lists.batchListMembers("71c3a51cce", new_client);
+				const response = await client.lists.batchListMembers("1675aa5465", new_client);
 				if (response.error_count === 0) {
-        			connection.query(`INSERT INTO Mailings (Address1, Address2, City, State, Country, Phone, Role, FirstName, LastName, Company, Email) VALUES ("${address1?address1:"NULL"}", "${address2?address2:"NULL"}", "${city?city:"NULL"}", "${state?state:"NULL"}", "${country?country:"NULL"}", "${phone?phoneUtil.format(phone, PNF.INTERNATIONAL):"NULL"}", "${role?role:"NULL"}", "${fName}", "${lName}", "${company?company:"NULL"}", "${email}");`);
+        			connection.query(`INSERT INTO Mailings (FirstName, LastName, Email) VALUES ( "${fName}", "${lName}", "${email}");`);
 					res.redirect("/subscribe/success");
 				} else {
 					if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
