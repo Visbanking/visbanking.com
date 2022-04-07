@@ -17,8 +17,6 @@ block main
                     img(src=post.Image, alt=post.Title)
                 p.title #{post.Title}
                 a(href=`/insights/insight/${post.ID}`) Learn More
-    hr
-    
     aside#newsletter 
         div
             i.bi-envelope-open
@@ -29,9 +27,6 @@ block main
                 input#email(type="email", name="email", placeholder="johndoe@example.com", required)
                 br
                 input(type="submit", value="Subscribe")
-                
-    hr
-    
     h2 Ways that Visbanking will change your perspective
     h3 Services
     aside#reasons 
@@ -60,7 +55,7 @@ block main
         img(src="/images/dashboard2.png", alt="National Bank Rankings", loading="lazy")
         img(src="/images/dashboard3.png", alt="Banks with Demographic Data", loading="lazy")
         a(href="/services") Our Services
-
+    hr
     h2 About Visbanking
     aside#about
         p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the banking industry in a simple, more comprehensible manner.
