@@ -202,6 +202,7 @@ aside#reasons
 h2:nth-of-type(4)
 {
     text-align: center;
+    margin-left: 0;
 }
 #about
 {
