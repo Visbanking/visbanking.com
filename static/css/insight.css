@@ -166,10 +166,6 @@ p.title
 {
     box-shadow: 10px 10px 10px 0px #00000040;
 }
-#related img
-{
-    margin: 0;
-}
 #related .post > a
 {
     text-decoration: none;
@@ -265,7 +261,7 @@ p.title
     {
         max-width: 95%;
     }
-    .date, .topics
+    .date, .author
     {
         font-size: 0.9rem;
     }
