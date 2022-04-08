@@ -33,7 +33,7 @@ h1
 main img
 {
     display: block;
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
     margin: 2% auto 1%;
 }
@@ -166,6 +166,11 @@ p.title
 {
     box-shadow: 10px 10px 10px 0px #00000040;
 }
+#related .post img
+{
+    max-width: 100%;
+    margin: 0 auto;
+}
 #related .post > a
 {
     text-decoration: none;
@@ -249,6 +254,10 @@ p.title
     {
         width: calc(100%/1.5);
         padding: 3%;
+    }
+    #related .post .intro
+    {
+        text-align: justify;
     }
 }
 @media screen and (max-width: 550px)
