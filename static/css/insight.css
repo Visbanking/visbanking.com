@@ -236,6 +236,10 @@ p.title
     {
         padding: 0.5rem 10%;
     }
+    article .body
+    {
+        width: 90%;
+    }
     article main
     {
         font-size: 1.2rem;
