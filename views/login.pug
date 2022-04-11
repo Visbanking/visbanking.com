@@ -14,7 +14,10 @@ block header
                 input#lname(type="text", name="lname", required)
             label.form-label(for="email") Email: 
             input#username(type="email", name="email", aria-describedBy="emailMessage", required, value=emailAfterRedirect||username)
-            p.form-text#emailMessage(class=emailError?"error":"") #{emailError||action==="Sign Up"?"We'll never share your email":""}
+            if emailError 
+                p.form-text.error#emailMessage #{emailError}
+            else
+                p.form-text#emailMessage #{action==="Sign Up"?"We'll never share your email":""}
             label.form-label(for="password") Password: 
             input#password(type="password", name="pass", minlength="8", maxlength="30", required, aria-describedBy="error")
             if action === "Log In"
@@ -22,8 +25,10 @@ block header
                     a(href="/recovery") Forgot your password?
             if action==="Sign Up"
                 input#tier(type="hidden", name="tier", value=`${tier}`)
+            if signUpError
+                p.form-text.error #{signUpError}
             if incorrectPassword || loginError
-                p.form-text#error Invalid credentials
+                p.form-text.error Invalid credentials
             input(type="submit", value=action)
             aside.social 
                 p Or #{action} with

@@ -12,7 +12,7 @@ require("dotenv").config();
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
-var logInError, emailAfterRedirect, signUpError, emailError;
+let logInError, emailAfterRedirect, signUpError, emailError;
 const verifier = new EmailVerifier(10000);
 
 router.get("/login", (req, res) => {
@@ -172,8 +172,8 @@ router.get("/signup", (req, res) => {
             signUpError: signUpError,
             emailError
         });
+        emailError = signUpError = '';
     }
-    emailError = signUpError = false;
 });
 
 router.post("/signup", (req, res) => {
@@ -187,8 +187,8 @@ router.post("/signup", (req, res) => {
                 } else {
                     connection.query(`SELECT ID FROM Users WHERE Email='${email}';`, (err, results, fields) => {
                         if (err) {
-                            console.error(err);
-                            res.redirect("/error");
+                            signUpError = 'Please try again';
+                            res.redirect("/signup");
                         } else {
                             const session_id = hash.sha512().update(uuidv4()).digest("hex");
                             connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Email = '${email}';`, (err, results, fields) => {
@@ -217,11 +217,13 @@ router.post("/signup", (req, res) => {
                 }
             });
         } else {
-            emailError = true;
+            console.log("here");
+            emailError = 'Entered email doesn\'t exist';
+            console.log(emailError);
             res.redirect("/signup");
         }
     }).catch((err) => {
-        console.error(err);
+        emailError = 'Please try a different email address';
         res.redirect("/signup");
     });
 });

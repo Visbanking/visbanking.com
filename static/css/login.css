@@ -83,14 +83,14 @@ form .form-text
     color: #128AF9;
     font-weight: 600;
 }
-#login form #error
+#login form .error
 {
-    margin: 3% auto 5%;
+    margin: 3% auto;
     color: #F91224;
     font-weight: 700;
     text-transform: uppercase;
 }
-form #error + input
+form .error + label
 {
     margin-top: 0;
 }
