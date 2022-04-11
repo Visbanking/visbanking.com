@@ -6,6 +6,7 @@ const routes = require("./routing/routes");
 const about = require("./routing/about");
 const insights = require("./routing/insights");
 const contact = require("./routing/contact");
+const funnel = require("./routing/funnel");
 const login = require("./routing/login");
 const user = require("./routing/user");
 const subscribe = require("./routing/subscribe");
@@ -41,6 +42,8 @@ app.use("/insights", insights);
 app.use("/contact", contact);
 
 app.use(login);
+
+app.use("/funnel", funnel);
 
 app.use("/me", user);
 
