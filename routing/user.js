@@ -181,14 +181,14 @@ router.get("/connect/google", (req, res) => {
 });
 
 router.get("/connect/linkedin", (req, res) => {
-    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=http://localhost:8080/me/connect/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`);
+    if (!req.query.state) res.redirect(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=http://visbanking.com/me/connect/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`);
     else if (req.query.state !== process.env.LINKEDIN_STATE_STRING) res.redirect("/me");
     else if (req.query.state === process.env.LINKEDIN_STATE_STRING) {
         if (req.query.error) {
             error = 'LinkedIn account couldn\'t be associated';
             res.redirect("/me");
         } else {
-            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=http://localhost:8080/me/connect/linkedin`, {}, {
+            post(`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=http://visbanking.com/me/connect/linkedin`, {}, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
