@@ -223,6 +223,7 @@ router.post("/signup", (req, res) => {
             res.redirect("/signup");
         }
     }).catch((err) => {
+        console.error(err);
         emailError = 'Please try a different email address';
         res.redirect("/signup");
     });
