@@ -1,0 +1,97 @@
+doctype html
+
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="author" content="Visbanking.com")
+        meta(name="title" content=title)
+        meta(name="description", content="")
+        meta(name="keywords", content="")
+        title #{title}
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap")
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+        link(rel="stylesheet" href="/css/layout.css")
+        link(rel="stylesheet", href="/css/funnel/newsDigest.css")
+        link(rel="canonical", href=`https://visbanking.com${path}`)
+        script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-214131359-1")
+        script(src="https://accounts.google.com/gsi/client", async, defer)
+        script(src="/js/analytics.js") 
+    body 
+        header 
+            nav.navbar
+                a.navbar-brand(href=path==="/"?"#":"/")
+                    img.logo(src="/images/logo-visbanking.png" alt="Visbanking") 
+        main 
+            .socials 
+                h1 SUBSCRIBE TO THE VISBANKING NEWS DIGEST
+                .links
+                    a(href="https://www.facebook.com/visbanking", target="_blank", rel="nofollow noopener noreferrer")  
+                        i.bi-facebook 
+                    a(href="https://twitter.com/visbanking", target="_blank", rel="nofollow noopener noreferrer") 
+                        i.bi-twitter 
+                    a(href="https://www.linkedin.com/company/visbanking", target="_blank", rel="nofollow noopener noreferrer") 
+                        i.bi-linkedin 
+                    a(href="https://www.instagram.com/visbanking/", target="_blank", rel="nofollow noopener noreferrer") 
+                        i.bi-instagram 
+            section
+                .text 
+                    p Stay informed. Get industry news with our daily News Digest. Don't miss out.
+                    p Get our News Digest, and receive daily all the news and information from the bankings in the United States.
+                    img(src="/images/funnel/slogan.png", alt="Visbanking")
+                form(method="POST")
+                    h2 Subscribe to get free data reports!
+                    input#fname(type="text", name="fname", placeholder="John *", required)
+                    input#lname(type="text", name="lname", placeholder="Doe *", required)
+                    input#email(type="email", name="email", placeholder="johndoe@example.com *", required)
+                    input#company(type="text", name="company", placeholder="Google *", required)
+                    input(type="submit", value="SUBSCRIBE")
+                    p
+                        a(href="/privacy") Privacy Policy 
+                        a(href="/terms") Terms of Service
+        footer
+            a(href=path==="/"?"#":"/") 
+                img.logo(src="/images/logo.png.webp", alt="Visbanking logo")
+            aside
+                div
+                    h3 Banks. Visualized.
+                    p We have data from over 12 sources with key information like financials, performance, news, and regulatory.
+                .links
+                    p.heading Visbanking
+                    a(href=path==="/about"?"#":"/about") Company
+                    a(href=path==="/services"?"#":"/services") Services
+                    a(href=path==="/pricing"?"#":"/pricing") Pricing
+                    a(href=path==="/insights"?"#":"/insights") Insights
+                    a(href=path==="/contact"?"#":"/contact") Contact
+                    a(href=path==="/faq"?"#":"/faq") FAQs
+                .links
+                    p.heading Support
+                    a(href="mailto:support@visbanking.com") Support
+                    a(href="/privacy") Privacy Policy
+                    a(href="/terms") Terms of Service
+                .links
+                    p.heading Social
+                    a(href="https://www.facebook.com/visbanking", target="_blank", rel="noopener noreferrer noifollow") Facebook
+                    a(href="https://www.linkedin.com/company/visbanking/", target="_blank", rel="noopener noreferrer nofollow") LinkedIn
+                    a(href="https://www.instagram.com/visbanking/", target="_blank", rel="noopener noreferrer nofollow") Instagram
+                    a(href="https://twitter.com/visbanking", target="_blank", rel="noopener noreferrer nofollow") Twitter
+                    a(href="https://www.tiktok.com/@visbanking", target="_blank", rel="noopener noreferrer nofollow") TikTok
+                .links
+                    p.heading Contact
+                    a(href="mailto:contact@visbanking.com") Contact
+                    a(href="mailto:sales@visbanking.com") Sales 
+                    a(href="mailto:info@visbanking.com") Information
+        aside.copyright
+            p &copy; 
+                span#year
+                |  VB, Inc. All Rights Reserved
+            .links
+                a(href=path==="/contact"?"#":"/contact") Contact Us
+                a(href=path==="/privacy"?"#":"/privacy") Privacy Policy
+                a(href=path==="/terms"?"#":"/terms") Terms and Conditions
+                a(href=path==="/cookies"?"#":"/cookies") Cookies
+                a(href=path==="/disclaimer"?"#":"/disclaimer") Disclaimer
+        script(src="/js/layout.js") 

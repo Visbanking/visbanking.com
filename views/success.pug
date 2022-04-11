@@ -16,6 +16,8 @@ block header
             h1 Thank you
         if path.includes("subscribe")
             p You have been successfully added to our mailing list
+        else if path.includes("funnel/newsdigest")
+            p You are now subscribed to our News Digest
         else if path.includes("contact")
             p Your request has been saved successfully
         else if path.includes("signup")
