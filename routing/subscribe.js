@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { EmailVerifier } = require("simple-email-verifier");
+const path = require("path");
+const { check } = require("email-existence");
 const client = require("@mailchimp/mailchimp_marketing");
 const connection = require("./data/dbconnection");
 require("dotenv").config();
@@ -13,15 +14,12 @@ client.setConfig({
 	server: 'us20'
 });
 
-var error = "";
-const verifier = new EmailVerifier(10000);
-
 router.post("/", (req, res) => {
 	const fName = req.body.name.split(" ")[0],
 	lName = req.body.name.split(" ")[1],
 	email = req.body.email;
-	verifier.verify(email).then(result => {
-		if (result) {
+	check(email, (err, response) => {
+		if (response) {
 			let new_client = {
 				members: [
 					{
@@ -54,20 +52,17 @@ router.post("/", (req, res) => {
 			error = "The email you entered doesn't exist";
 			res.redirect("/#newsletter");
 		}
-	}).catch(() => {
-		error = "There was a problem. Please try again.";
-		res.redirect("/#newsletter");
 	});
 });
 
-router.get("/success", (req, res) => {
+router.get("/success", async (req, res) => {
 	res.render("success", {
 		title: "Success - Visbanking",
 		path: "/subscribe/success"
 	});
 });
 
-router.get("/failure", (req, res) => {
+router.get("/failure", async (req, res) => {
 	res.render("failure", {
 		title: "Failure - Visbanking",
 		path: "/subscribe/failure"

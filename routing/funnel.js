@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const bodyParser = require("body-parser");
-const { EmailVerifier } = require("simple-email-verifier");
+const { check } = require("email-existence");
 const client = require("@mailchimp/mailchimp_marketing");
 const router = Router();
 require("dotenv").config();
@@ -12,8 +12,6 @@ client.setConfig({
 	server: 'us20'
 });
 
-const verifier = new EmailVerifier(10000);
-
 router.get("/newsdigest", (req, res) => {
     res.render("funnel/newsDigest", {
         title: 'Subscribe to our News Digest - Visbanking',
@@ -23,9 +21,8 @@ router.get("/newsdigest", (req, res) => {
 
 router.post("/newsdigest", (req, res) => {
     const { fname, lname, email, company } = req.body;
-    verifier.verify(email)
-    .then(result => {
-        if (result) {
+    check(email, (err, response) => {
+        if (response) {
 			let new_client = {
 				members: [
 					{
@@ -57,9 +54,6 @@ router.post("/newsdigest", (req, res) => {
         } else {
             res.redirect("/funnel/newsdigest");
         }
-    })
-    .catch(() => {
-        res.redirect("/funnel/newsdigest");
     });
 });
 

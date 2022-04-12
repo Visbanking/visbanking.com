@@ -5,11 +5,8 @@ const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
 const { readFileSync } = require("fs");
 const { join } = require("path");
-const { EmailVerifier } = require("simple-email-verifier");
 const router = Router();
 require("dotenv").config();
-
-const verifier = new EmailVerifier(10000);
 
 router.get("/", (req,res) => {
     res.redirect("/recovery/recover");
@@ -28,44 +25,35 @@ router.post("/recover", (req, res) => {
             console.error(err);
             res.redirect("/error");
         } else {
-            verifier.verify(email).then(result => {
-                if (result) {
-                    const transporter = nodemailer.createTransport({
-                        name: 'www.visbanking.com',
-                        host: 'mail.visbanking.com',
-                        port: 465,
-                        secure: true,
-                        auth: {
-                            user: process.env.NO_REPLY_EMAIL,
-                            pass: process.env.NO_REPLY_PASS
-                        }
-                    });
-                    if (results.affectedRows === 0) {
+            if (results.affectedRows === 0) {
+                res.redirect("/recovery/recover/failure");
+            } else {
+                const transporter = nodemailer.createTransport({
+                    name: 'www.visbanking.com',
+                    host: 'mail.visbanking.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: process.env.NO_REPLY_EMAIL,
+                        pass: process.env.NO_REPLY_PASS
+                    }
+                });
+                const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "passwordRecovery.html"), "utf8").replace("${user}", email).replace("${recovery_id}", recovery_id);
+                emailHTML.replace("${user}", email).replace("${recovery_id}", recovery_id);
+                const message = {
+                    from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
+                    to: email,
+                    subject: 'Password Recovery - Visbanking',
+                    html: emailHTML
+                }
+                transporter.sendMail(message, (err, info) => {
+                    if (err) {
                         res.redirect("/recovery/recover/failure");
                     } else {
-                        const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "passwordRecovery.html"), "utf8").replace("${user}", email).replace("${recovery_id}", recovery_id);
-                        emailHTML.replace("${user}", email).replace("${recovery_id}", recovery_id);
-                        const message = {
-                            from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
-                            to: email,
-                            subject: 'Password Recovery - Visbanking',
-                            html: emailHTML
-                        }
-                        transporter.sendMail(message, (err, info) => {
-                            if (err) {
-                                console.error(err);
-                                res.redirect("/recovery/recover/failure");
-                            } else {
-                                console.log(info);
-                                res.redirect("/recovery/recover/success");
-                            }
-                        });
+                        res.redirect("/recovery/recover/success");
                     }
-                } else res.redirect("/recovery/recover/failure");
-            }).catch((err) => {
-                console.error(err);
-                res.redirect("/recovery/recover/failure");
-            });
+                });
+            }
         }
     });
 });

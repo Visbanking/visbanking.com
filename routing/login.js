@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { EmailVerifier } = require("simple-email-verifier");
+const { check } = require("email-existence");
 const hash = require("hash.js");
 const { v4: uuidv4 } = require("uuid");
 const cookieParser = require("cookie-parser");
@@ -13,7 +13,6 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
 let logInError, emailAfterRedirect, signUpError, emailError;
-const verifier = new EmailVerifier(10000);
 
 router.get("/login", (req, res) => {
     if (req.cookies.session_id && req.cookies.user) {
@@ -178,8 +177,8 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", (req, res) => {
     const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex"), tier = req.body.tier;
-    verifier.verify(email).then(result => {
-        if (result) {
+    check(email, (err, response) => {
+        if (response) {
             connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${tier[0].toUpperCase()+tier.slice(1)}');`, (err, results, fields) => {
                 if (err && err.code==='ER_DUP_ENTRY') {
                     emailAfterRedirect = email;
@@ -222,10 +221,6 @@ router.post("/signup", (req, res) => {
             console.log(emailError);
             res.redirect("/signup");
         }
-    }).catch((err) => {
-        console.error(err);
-        emailError = 'Please try a different email address';
-        res.redirect("/signup");
     });
 });
 
@@ -295,7 +290,6 @@ router.get("/signup/linkedin", async (req, res) => {
                         connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier, LinkedIn) VALUES ('${profile.localizedFirstName}', '${profile.localizedLastName}', '${profile.email}', '${hash.sha512().update(profile.id).digest("hex")}', '${tier}', '${profile.email}')`, (err, results, fields) => {
                             if (err) {
                                 if (err.code === "ER_DUP_ENTRY") return res.redirect("/login/linkedin");
-                                emailError = true;
                                 res.redirect("/signup");
                             } else {
                                 const session_id = hash.sha512().update(uuidv4()).digest("hex");
@@ -314,7 +308,7 @@ router.get("/signup/linkedin", async (req, res) => {
                                             secure: true,
                                             expires: new Date(Date.now() + 241920000)
                                         });
-                                        if (req.query.tier === 'free') {
+                                        if (tier === 'free') {
                                             return res.redirect(`/signup/success`);
                                         }
                                         res.redirect(`/buy?tier=${req.query.tier}`);
