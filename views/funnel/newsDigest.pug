@@ -23,8 +23,7 @@ html(lang="en")
     body 
         header 
             nav.navbar
-                a.navbar-brand(href=path==="/"?"#":"/")
-                    img.logo(src="/images/logo-visbanking.png" alt="Visbanking") 
+                img.logo(src="/images/funnel/newsDigest/header.jpeg" alt="Visbanking") 
         main 
             .socials 
                 h1 SUBSCRIBE TO THE VISBANKING NEWS DIGEST
@@ -38,10 +37,13 @@ html(lang="en")
                     a(href="https://www.instagram.com/visbanking/", target="_blank", rel="nofollow noopener noreferrer") 
                         i.bi-instagram 
             section
+                .video
+                    video(src="/videos/news-digest.mp4", controls, disablePictureInPicture, controlsList="nodownload") 
+                    img(src="/images/funnel/newsDigest/slogan.png", alt="Visbanking")
                 .text 
+                    p Our Visbanking customers, can select specific banks of their interest to be informed about and get a daily selection of the news based on their preferences.
                     p Stay informed. Get industry news with our daily News Digest. Don't miss out.
                     p Get our News Digest, and receive daily all the news and information from the bankings in the United States.
-                    img(src="/images/funnel/slogan.png", alt="Visbanking")
                 form(method="POST")
                     h2 Subscribe to get free data reports!
                     input#fname(type="text", name="fname", placeholder="John *", required)
@@ -95,3 +97,4 @@ html(lang="en")
                 a(href=path==="/cookies"?"#":"/cookies") Cookies
                 a(href=path==="/disclaimer"?"#":"/disclaimer") Disclaimer
         script(src="/js/layout.js") 
+        script(src="/js/funnel/newsDigest.js") 

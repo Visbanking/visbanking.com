@@ -7,6 +7,10 @@ nav.navbar
     padding: 1% 3%;
     justify-content: flex-start;
 }
+img.logo
+{
+    max-width: 25%;
+}
 main
 {
     padding: 0 2%;
@@ -48,21 +52,33 @@ main section
 section > *
 {
     box-sizing: border-box;
-    width: 50%;
+    width: calc(100%/3);
     padding: 2%;
+}
+.video
+{
+    padding: 0;
+}
+.video video, .video img
+{
+    max-width: 100%;
+}
+.video video
+{
+    margin-bottom: 2%;
 }
 .text
 {
     font-size: 1.2rem;
     font-weight: 600;
 }
+.text p
+{
+    margin: 10% 0;
+}
 .text p:first-of-type
 {
     margin-top: 0;
-}
-.text img
-{
-    max-width: 100%;
 }
 form
 {
@@ -95,7 +111,7 @@ input:hover, input:focus
 }
 input:not([type=submit])
 {
-    width: 50%;
+    width: 55%;
 }
 input[type=submit]
 {
@@ -103,7 +119,7 @@ input[type=submit]
     color: #FFFFFF;
     font-weight: 600;
     letter-spacing: 0.1rem;
-    width: 30%;
+    width: 40%;
     cursor: pointer;
 }
 form p
@@ -125,6 +141,10 @@ form p a:hover, form p a:focus
 }
 @media screen and (max-width: 991px)
 {
+    img.logo
+    {
+        max-width: 35%;
+    }
     main
     {
         padding: 0 1%;
@@ -150,15 +170,24 @@ form p a:hover, form p a:focus
     }
     input:not([type=submit])
     {
-        width: 60%;
+        width: 75%;
     }
     input[type=submit]
     {
-        width: 40%;
+        width: 55%;
     }
 }
 @media screen and (max-width: 767px)
 {
+    nav.navbar
+    {
+        justify-content: center;
+        padding: 3%;
+    }
+    img.logo
+    {
+        max-width: 45%;
+    }
     main
     {
         padding: 0 2%;
@@ -166,6 +195,7 @@ form p a:hover, form p a:focus
     h1
     {
         font-size: 2.2rem;
+        padding: 1%;
     }
     main > section
     {
@@ -176,6 +206,19 @@ form p a:hover, form p a:focus
         padding: 3%;
         width: 90%;
     }
+    .video
+    {
+        padding: 2%;
+        text-align: center;
+    }
+    .video video, .video img
+    {
+        max-width: 80%;
+    }
+    .text p
+    {
+        margin: 3% 0;
+    }
     input
     {
         margin: 5% auto;
@@ -183,14 +226,9 @@ form p a:hover, form p a:focus
 }
 @media screen and (max-width: 550px)
 {
-    nav.navbar
-    {
-        justify-content: center;
-        padding: 3%;
-    }
     img.logo
     {
-        max-width: 100%;
+        max-width: 60%;
     }
     .socials
     {
@@ -204,6 +242,10 @@ form p a:hover, form p a:focus
     {
         width: 100%;
     }
+    .video video, .video img
+    {
+        max-width: 90%;
+    }
     .text
     {
         font-size: 1rem;
@@ -211,6 +253,10 @@ form p a:hover, form p a:focus
 }
 @media screen and (max-width: 400px)
 {
+    img.logo
+    {
+        max-width: 75%;
+    }
     h1
     {
         font-size: 1.8rem;
@@ -218,6 +264,10 @@ form p a:hover, form p a:focus
     .socials a
     {
         font-size: 1rem;
+    }
+    .video video, .video img
+    {
+        max-width: 100%;
     }
     input:not([type=submit])
     {
