@@ -27,8 +27,10 @@ block header
                 input#tier(type="hidden", name="tier", value=`${tier}`)
             if signUpError
                 p.form-text.error #{signUpError}
-            if incorrectPassword || loginError
-                p.form-text.error Invalid credentials
+            if logInError
+                p.form-text.error #{logInError}
+            else if signUpError 
+                p.form-text.error #{signUpError}
             input(type="submit", value=action)
             aside.social 
                 p Or #{action} with

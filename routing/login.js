@@ -23,7 +23,7 @@ router.get("/login", (req, res) => {
             title: "Log In - Visbanking",
             path: "/login",
             action: "Log In",
-            incorrectPassword: logInError,
+            logInError,
             emailAfterRedirect
         });
     }
@@ -35,7 +35,7 @@ router.post("/login", (req, res) => {
     const email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex");
     connection.query(`SELECT Password FROM Users WHERE Email='${email}';`, (err, results, fields) => {
         if (err) {
-            logInError = true;
+            logInError = 'Please try again';
             res.redirect("/login");
         } else if (results.length < 1) {
             res.redirect("/signup");
@@ -43,7 +43,7 @@ router.post("/login", (req, res) => {
             const session_id = hash.sha512().update(uuidv4()).digest("hex");
             connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Email = '${email}';`, (err, results, fields) => {
                 if (err) {
-                    console.error(err);
+                    logInError = 'Please try again';
                     res.redirect("/login");
                 } else {
                     res.cookie('user', email, {
@@ -60,7 +60,7 @@ router.post("/login", (req, res) => {
                 }
             });
         } else {
-            logInError = true;
+            logInError = 'Incorrect password';
             res.redirect("/login");
         }
     });
