@@ -2,6 +2,7 @@ const { Router } = require("express");
 const bodyParser = require("body-parser");
 const { check } = require("email-existence");
 const client = require("@mailchimp/mailchimp_marketing");
+const connection = require("./data/dbconnection");
 const router = Router();
 require("dotenv").config();
 
@@ -39,7 +40,9 @@ router.post("/newsdigest", (req, res) => {
 			const run = async () => {
 				const response = await client.lists.batchListMembers("6a0268299e", new_client);
 				if (response.error_count === 0) {
-					res.redirect("/funnel/newsdigest/success");
+					connection.query(`INSERT INTO NewsDigest (FirstName, LastName, Email, Company) VALUES ('${fname}', '${lname}', '${email}', '${company}');`, (err, results, fields) => {
+						res.redirect("/funnel/newsdigest/success");
+					});
 				} else {
 					if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
 						new_client.update_existing = true;
