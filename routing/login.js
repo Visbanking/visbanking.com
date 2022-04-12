@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const hash = require("hash.js");
 const { v4: uuidv4 } = require("uuid");
 const cookieParser = require("cookie-parser");
@@ -13,6 +13,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
 let logInError, emailAfterRedirect, signUpError, emailError;
+const verifier = new EmailVerifier(10000);
 
 router.get("/login", (req, res) => {
     if (req.cookies.session_id && req.cookies.user) {
@@ -177,7 +178,8 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", (req, res) => {
     const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex"), tier = req.body.tier;
-    check(email, (err, response) => {
+    verifier.verify(email)
+    .then(response => {
         if (response) {
             connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${tier[0].toUpperCase()+tier.slice(1)}');`, (err, results, fields) => {
                 if (err && err.code==='ER_DUP_ENTRY') {
@@ -216,11 +218,13 @@ router.post("/signup", (req, res) => {
                 }
             });
         } else {
-            console.log("here");
             emailError = 'Entered email doesn\'t exist';
-            console.log(emailError);
             res.redirect("/signup");
         }
+    })
+    .catch(() => {
+        signUpError = 'Please try again';
+        res.redirect("/signup");
     });
 });
 
