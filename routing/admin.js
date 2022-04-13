@@ -9,6 +9,7 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const marked = require("marked");
 const fs = require("fs");
+const { result } = require("lodash");
 require("dotenv").config();
 const router = Router();
 
@@ -18,14 +19,19 @@ router.use(cookieParser());
 let error, message;
 const insightStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-	if (!fs.existsSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)))) fs.mkdirSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)));
-        cb(null, path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)));
+    	if (!fs.existsSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)))) fs.mkdirSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)));
+            cb(null, path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title)));
     }, 
     filename: (req, file, cb) => {
-	if (file.fieldname === "headerImage")
-	    cb(null, `${lodash.camelCase(file.fieldname)}.jpg`);
-	if (file.fieldname === "bodyImages")
-	    cb(null, `${lodash.camelCase(file.originalname.split(".")[0])}.jpg`);
+    	if (file.fieldname === "headerImage") {
+            if (fs.existsSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title), `${lodash.camelCase(file.fieldname)}.jpg`)))
+                fs.rmSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title), `${lodash.camelCase(file.fieldname)}.jpg`), { force:true });
+	        cb(null, `${lodash.camelCase(file.fieldname)}.jpg`);
+        } if (file.fieldname === "bodyImages") {
+            if (fs.existsSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title), `${lodash.camelCase(file.originalname.split(".")[0])}.jpg`)))
+                fs.rmSync(path.join(__dirname, "..", "static", "images", "insights", lodash.kebabCase(req.body.title), `${lodash.camelCase(file.originalname.split(".")[0])}.jpg`), { force:true });
+	        cb(null, `${lodash.camelCase(file.originalname.split(".")[0])}.jpg`);
+        }
     }
 });
 const memberStorage = multer.diskStorage({
@@ -265,7 +271,7 @@ router.post("/dashboard/insights", insight.fields([{ name:'headerImage' }, { nam
             }
         });
     } else if (action === "Delete insight") {
-        fs.rm(path.join(__dirname, "..", "static", "images", "insights", `${lodash.kebabCase(req.body.title)}.jpg`), { recursive:true }, (err) => {
+        fs.rm(path.join(__dirname, "..", "static", "images", "insights", `${lodash.kebabCase(req.body.title)}`), { recursive:true }, (err) => {
             if (err && err.code !== 'ENOENT') {
                 console.error(err);
                 message = "Insight couldn't be deleted. Please try again.";
@@ -295,6 +301,29 @@ router.post("/dashboard/insights", insight.fields([{ name:'headerImage' }, { nam
     }
 });
 
+router.get("/dashboard/insights/edit", (req, res) => {
+    connection.query("SELECT Title FROM Insights ORDER BY Date DESC;", (err, results, fields) => {
+        if (err || !results.length) {
+            error = 'There was a problem accessing the database';
+            res.redirect("/admin/dashboard");
+        } else {
+            const insightsTitles = results.map(insightTitle => insightTitle.Title);
+            res.render("edit", {
+                insightsTitles
+            });
+        }
+    });
+});
+
+router.post("/dashboard/insights/edit", insight.fields([{ name:'headerImage' }, { name:'bodyImages'}]), (req, res) => {
+    connection.query(`UPDATE Insights SET Image = '/images/insights/${lodash.kebabCase(req.body.title)}/${req.files["headerImage"][0].filename}' WHERE Title = '${req.body.title}';`, (err, results, fields) => {
+        if (!results.affectedRows) error = 'Insight doesn\'t exist';
+        else if (err) error = 'Insight couldn\'t be updated';
+        else message = 'Insight updated successfully';
+        res.redirect("/admin/dashboard");
+    });
+});
+
 router.post("/dashboard/members", member.single('photo'), (req, res) => {
     const action = req.body.action;
     if (action === "Add member") {
@@ -307,6 +336,13 @@ router.post("/dashboard/members", member.single('photo'), (req, res) => {
                 message = "Member created successfully.";
                 res.redirect("/admin/dashboard");
             }
+        });
+    } else if (action === "Edit member") {
+        connection.query(`UPDATE Members SET Photo = '/images/members/${req.file.filename}' WHERE Name = '${req.body.name}';`, (err, results, fields) => {
+            if (!results.affectedRows) error = 'Member doesn\'t exist';
+            else if (err) error = 'Member couldn\'t be updated';
+            else message = 'Member updated successfully';
+            res.redirect("/admin/dashboard");
         });
     } else if (action === "Delete member") {
         fs.rm(path.join(__dirname, "..", "static", "images", "members", `${lodash.camelCase(req.body.name)}.jpg`), (err) => {

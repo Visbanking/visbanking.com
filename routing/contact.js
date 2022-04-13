@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const nodemailer = require("nodemailer");
 const connection = require("./data/dbconnection");
 const { readFileSync } = require("fs");
@@ -11,6 +11,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({extended: true}));
 
 let error;
+const verifier = new EmailVerifier(10000);
 
 router.get("/", (req, res) => {
     res.render("contact", {
@@ -22,7 +23,8 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const name = `${req.body.fname} ${req.body.lname}`, email = req.body.email, message = req.body.message, topic = req.body.topic, phone = req.body.phone;
-    check(email, (err, response) => {
+    verifier.verify(email)
+    .then(response => {
         if (response) {
             connection.query(`INSERT INTO Contacts (Name, Email, Message, Topic, Phone) VALUES ('${name}', '${email}', '${message}', '${topic}', '${phone}');`, (err, results, fields) => {
                 if (err && err.code === 'ER_DUP_ENTRY') {
@@ -70,6 +72,9 @@ router.post("/", (req, res) => {
             error = `${email} doesn't exist`;
             res.redirect("/contact");
         }
+    })
+    .catch(() => {
+        res.redirect("/contact");
     });
 });
 

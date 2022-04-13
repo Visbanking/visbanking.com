@@ -17,7 +17,6 @@
     "cors": "^2.8.5",
     "country-codes-list": "^1.6.8",
     "dotenv": "^8.6.0",
-    "email-existence": "^0.1.6",
     "express": "^4.17.1",
     "google-libphonenumber": "^3.2.23",
     "hash.js": "^1.1.7",
@@ -29,6 +28,7 @@
     "pug": "^3.0.2",
     "redis": "^4.0.6",
     "serve-favicon": "^2.5.0",
+    "simple-email-verifier": "^1.2.0",
     "stripe": "^8.184.0",
     "uuid": "^8.3.2"
   }

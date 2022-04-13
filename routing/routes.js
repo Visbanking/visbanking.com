@@ -1,6 +1,9 @@
 const express = require("express");
 const connection = require("./data/dbconnection");
 const tiers = require("./data/.pricingTiers.json");
+const path = require("path");
+const { checkCache, setCache } = require("./data/caching");
+const { renderFile } = require("pug");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -22,19 +25,28 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/services", (req, res) => {
+router.get("/services", checkCache, (req, res) => {
     res.render("services", {
         title: "Our Services - Visbanking",
         path: "/services"
     });
+    setCache(`visbanking.com${req.originalUrl}`, renderFile(path.join(__dirname, "..", "views", "services.pug"), {
+        title: "Our Services - Visbanking",
+        path: "/services"
+    }));
 });
 
-router.get("/pricing", (req, res) => {
+router.get("/pricing", checkCache, (req, res) => {
 	res.render("pricing", {
 		title: "Pricing Plans - Visbanking",
         path: "/pricing",
         tiers
 	});
+    setCache(`visbanking.com${req.originalUrl}`, renderFile(path.join(__dirname, "..", "views", "pricing.pug"), {
+        title: "Pricing Plans - Visbanking",
+        path: "/pricing",
+        tiers
+    }));
 });
 
 router.get("/faq", (req, res) => {

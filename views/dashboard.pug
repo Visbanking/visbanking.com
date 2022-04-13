@@ -48,6 +48,8 @@ html(lang="en")
                     aside.articles(:class="{ active:insights }")
                         button 
                             a(href="/admin/dashboard/insights") Add new insight
+                        button
+                            a(href="/admin/dashboard/insights/edit") Edit insight
                         button Remove insight 
                         form(action="/admin/dashboard/insights", method="POST")
                             label(for="title") Title *
@@ -73,6 +75,13 @@ html(lang="en")
                             label(for="linkedin") LinkedIn *
                             input#linkedin(type="url", name="linkedin", required)
                             input(type="submit", name="action", value="Add member")
+                        button Edit team member 
+                        form(action="/admin/dashboard/members", method="POST", enctype="multipart/form-data")
+                            label(for="name") Name *
+                            input#name(type="text", name="name", required)
+                            label(for="photo") Photo *
+                            input#photo(type="file", name="photo", accept="image/jpeg, image/png", required)
+                            input(type="submit", name="action", value="Edit member") 
                         button Remove team member 
                         form(action="/admin/dashboard/members", method="POST")
                             label(for="name") Name *

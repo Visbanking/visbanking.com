@@ -48,8 +48,10 @@ router.post("/recover", (req, res) => {
                 }
                 transporter.sendMail(message, (err, info) => {
                     if (err) {
+                        console.error(err);
                         res.redirect("/recovery/recover/failure");
                     } else {
+                        console.log(info);
                         res.redirect("/recovery/recover/success");
                     }
                 });

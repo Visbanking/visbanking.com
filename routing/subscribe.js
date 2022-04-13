@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const client = require("@mailchimp/mailchimp_marketing");
+const { renderFile } = require("pug");
 const connection = require("./data/dbconnection");
+const { checkCache, setCache } = require("./data/caching");
 require("dotenv").config();
 const router = express.Router();
 
@@ -14,11 +16,14 @@ client.setConfig({
 	server: 'us20'
 });
 
+const verifier = new EmailVerifier(10000);
+
 router.post("/", (req, res) => {
 	const fName = req.body.name.split(" ")[0],
 	lName = req.body.name.split(" ")[1],
 	email = req.body.email;
-	check(email, (err, response) => {
+	verifier.verify(email)
+	.then(response => {
 		if (response) {
 			let new_client = {
 				members: [
@@ -49,24 +54,34 @@ router.post("/", (req, res) => {
 			};
 			run();
 		} else {
-			error = "The email you entered doesn't exist";
 			res.redirect("/#newsletter");
 		}
+	})
+	.catch(() => {
+		res.redirect("/#newsletter");
 	});
 });
 
-router.get("/success", async (req, res) => {
+router.get("/success", checkCache, async (req, res) => {
 	res.render("success", {
 		title: "Success - Visbanking",
 		path: "/subscribe/success"
 	});
+	setCache(`visbanking.com${req.originalUrl}`, renderFile(path.join(__dirname, "..", "views", "success.pug"), {
+		title: "Success - Visbanking",
+		path: "/subscribe/success"
+	}));
 });
 
-router.get("/failure", async (req, res) => {
+router.get("/failure", checkCache, async (req, res) => {
 	res.render("failure", {
 		title: "Failure - Visbanking",
 		path: "/subscribe/failure"
 	});
+	setCache(`visbanking.com${req.originalUrl}`, renderFile(path.join(__dirname, "..", "views", "failure.pug"), {
+		title: "Failure - Visbanking",
+		path: "/subscribe/failure"
+	}));
 });
 
 module.exports = router;

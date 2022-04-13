@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const hash = require("hash.js");
 const { v4: uuidv4 } = require("uuid");
 const cookieParser = require("cookie-parser");
@@ -13,6 +13,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(cookieParser());
 
 let logInError, emailAfterRedirect, signUpError, emailError;
+const verifier = new EmailVerifier(10000);
 
 router.get("/login", (req, res) => {
     if (req.cookies.session_id && req.cookies.user) {
@@ -22,7 +23,7 @@ router.get("/login", (req, res) => {
             title: "Log In - Visbanking",
             path: "/login",
             action: "Log In",
-            incorrectPassword: logInError,
+            logInError,
             emailAfterRedirect
         });
     }
@@ -34,7 +35,7 @@ router.post("/login", (req, res) => {
     const email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex");
     connection.query(`SELECT Password FROM Users WHERE Email='${email}';`, (err, results, fields) => {
         if (err) {
-            logInError = true;
+            logInError = 'Please try again';
             res.redirect("/login");
         } else if (results.length < 1) {
             res.redirect("/signup");
@@ -42,7 +43,7 @@ router.post("/login", (req, res) => {
             const session_id = hash.sha512().update(uuidv4()).digest("hex");
             connection.query(`UPDATE Users SET Session_ID = '${session_id}' WHERE Email = '${email}';`, (err, results, fields) => {
                 if (err) {
-                    console.error(err);
+                    logInError = 'Please try again';
                     res.redirect("/login");
                 } else {
                     res.cookie('user', email, {
@@ -59,7 +60,7 @@ router.post("/login", (req, res) => {
                 }
             });
         } else {
-            logInError = true;
+            logInError = 'Incorrect password';
             res.redirect("/login");
         }
     });
@@ -177,7 +178,8 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", (req, res) => {
     const fname = req.body.fname, lname = req.body.lname, email = req.body.email, pass = hash.sha512().update(req.body.pass).digest("hex"), tier = req.body.tier;
-    check(email, (err, response) => {
+    verifier.verify(email)
+    .then(response => {
         if (response) {
             connection.query(`INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${tier[0].toUpperCase()+tier.slice(1)}');`, (err, results, fields) => {
                 if (err && err.code==='ER_DUP_ENTRY') {
@@ -216,11 +218,13 @@ router.post("/signup", (req, res) => {
                 }
             });
         } else {
-            console.log("here");
             emailError = 'Entered email doesn\'t exist';
-            console.log(emailError);
             res.redirect("/signup");
         }
+    })
+    .catch(() => {
+        signUpError = 'Please try again';
+        res.redirect("/signup");
     });
 });
 

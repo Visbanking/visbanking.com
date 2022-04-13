@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const bodyParser = require("body-parser");
-const { check } = require("email-existence");
+const { EmailVerifier } = require("simple-email-verifier");
 const client = require("@mailchimp/mailchimp_marketing");
+const connection = require("./data/dbconnection");
 const router = Router();
 require("dotenv").config();
 
@@ -12,6 +13,8 @@ client.setConfig({
 	server: 'us20'
 });
 
+const verifier = new EmailVerifier(10000);
+
 router.get("/newsdigest", (req, res) => {
     res.render("funnel/newsDigest", {
         title: 'Subscribe to our News Digest - Visbanking',
@@ -21,7 +24,8 @@ router.get("/newsdigest", (req, res) => {
 
 router.post("/newsdigest", (req, res) => {
     const { fname, lname, email, company } = req.body;
-    check(email, (err, response) => {
+    verifier.verify(email)
+	.then(response => {
         if (response) {
 			let new_client = {
 				members: [
@@ -39,7 +43,9 @@ router.post("/newsdigest", (req, res) => {
 			const run = async () => {
 				const response = await client.lists.batchListMembers("6a0268299e", new_client);
 				if (response.error_count === 0) {
-					res.redirect("/funnel/newsdigest/success");
+					connection.query(`INSERT INTO NewsDigest (FirstName, LastName, Email, Company) VALUES ('${fname}', '${lname}', '${email}', '${company}');`, (err, results, fields) => {
+						res.redirect("/funnel/newsdigest/success");
+					});
 				} else {
 					if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
 						new_client.update_existing = true;
@@ -54,7 +60,10 @@ router.post("/newsdigest", (req, res) => {
         } else {
             res.redirect("/funnel/newsdigest");
         }
-    });
+    })
+	.catch(() => {
+		res.redirect("/funnel/newsdigest");
+	});
 });
 
 router.get("/newsdigest/success", (req, res) => {
