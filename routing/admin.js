@@ -337,6 +337,13 @@ router.post("/dashboard/members", member.single('photo'), (req, res) => {
                 res.redirect("/admin/dashboard");
             }
         });
+    } else if (action === "Edit member") {
+        connection.query(`UPDATE Members SET Photo = '/images/members/${req.file.filename}' WHERE Name = '${req.body.name}';`, (err, results, fields) => {
+            if (!results.affectedRows) error = 'Member doesn\'t exist';
+            else if (err) error = 'Member couldn\'t be updated';
+            else message = 'Member updated successfully';
+            res.redirect("/admin/dashboard");
+        });
     } else if (action === "Delete member") {
         fs.rm(path.join(__dirname, "..", "static", "images", "members", `${lodash.camelCase(req.body.name)}.jpg`), (err) => {
             if (err && err.code !== 'ENOENT') {
