@@ -39,8 +39,10 @@ document.querySelectorAll("#panel div:last-of-type aside button:not(aside.articl
     });
 });
 
-document.querySelector("aside.articles button:first-of-type").addEventListener("click", () => {
-    document.querySelector("aside.articles button:first-of-type a").click();
+document.querySelectorAll("aside.articles button:not(:last-of-type)").forEach(button => {
+    button.addEventListener("click", () => {
+        button.children[0].click();
+    });
 });
 
 setTimeout(() => {

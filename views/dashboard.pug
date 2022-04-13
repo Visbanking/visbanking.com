@@ -48,6 +48,8 @@ html(lang="en")
                     aside.articles(:class="{ active:insights }")
                         button 
                             a(href="/admin/dashboard/insights") Add new insight
+                        button
+                            a(href="/admin/dashboard/insights/edit") Edit insight
                         button Remove insight 
                         form(action="/admin/dashboard/insights", method="POST")
                             label(for="title") Title *
