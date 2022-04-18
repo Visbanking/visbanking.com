@@ -3,7 +3,8 @@ require("dotenv").config();
 
 const client = redis.createClient(process.env.REDIS_PORT);
 
-client.connect();
+client.connect()
+.catch(console.error);
 
 const checkCache = async (req, res, next) => {
     const data = await client.get(`visbanking.com${req.originalUrl}`);
