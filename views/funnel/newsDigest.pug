@@ -41,15 +41,17 @@ html(lang="en")
                     video(src="/videos/news-digest.mp4", controls, disablePictureInPicture, controlsList="nodownload") 
                     img(src="/images/funnel/newsDigest/slogan.png", alt="Visbanking")
                 .text 
-                    p In today’s disruptive environment, the banking industry is evolving at breakneck speed. To keep pace with these changes, you need news you can rely on to stay informed.
-                    p Get the industry news you need with our daily News Digest and make sure that you never miss out on today’s top stories.
+                    p In today's disruptive environment, the banking industry is evolving at breakneck speed. To keep pace with these changes, you need news you can rely on to stay informed.
+                    p Get the industry news you need with our daily News Digest and make sure that you never miss out on today's top stories.
                     p Sign up today to get our News Digest and start receiving the banking information you need to stay informed and empower your decision-making!
-                form(method="POST")
+                form(action="/funnel/newsDigest", method="POST")
                     h2 Get our banking news digest
                     input#fname(type="text", name="fname", placeholder="John *", required)
-                    input#lname(type="text", name="lname", placeholder="Doe *", required)
+                    if test_id === "a"
+                        input#lname(type="text", name="lname", placeholder="Doe *", required)
                     input#email(type="email", name="email", placeholder="youremail@example.com *", required)
-                    input#company(type="text", name="company", placeholder="Company name*", required)
+                    if test_id === "a"
+                        input#company(type="text", name="company", placeholder="Company name*", required)
                     input(type="submit", value="SUBSCRIBE")
                     p
                         a(href="/privacy") Privacy Policy 
