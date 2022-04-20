@@ -21,45 +21,74 @@ router.get("/newsDigest", (req, res) => {
 
 router.post("/newsdigest", (req, res) => {
     const { fname, email } = req.body;
-    verifier.verify(email)
-	.then(response => {
-        if (response) {
-			const data = { FNAME: fname };
-			if (req.body.lname) data.LNAME = req.body.lname;
-			if (req.body.company) data.COMPANY = req.body.company;
-			let new_client = {
-				members: [
-					{
-						email_address: email,
-						status: "subscribed",
-						merge_fields: data
-					},
-				],
-			};
-			const run = async () => {
-				const response = await client.lists.batchListMembers("6a0268299e", new_client);
-				if (response.error_count === 0) {
-					connection.query(`INSERT INTO NewsDigest (FirstName, LastName, Email, Company) VALUES ('${fname}', '${req.body.lname || ''}', '${email}', '${req.body.company || ''}');`, (err, results, fields) => {
-						res.redirect("/funnel/newsdigest/success");
-					});
-				} else {
-					if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
-						new_client.update_existing = true;
-						run();
-					} else {
-						console.error(response.errors[0].error);
-						res.redirect("/funnel/newsdigest/failure");
-					}
-				}
-			};
-			run();
-        } else {
-            res.redirect("/funnel/newsdigest");
-        }
-    })
-	.catch(() => {
-		res.redirect("/funnel/newsdigest");
-	});
+	const data = { FNAME: fname };
+	if (req.body.lname) data.LNAME = req.body.lname;
+	if (req.body.company) data.COMPANY = req.body.company;
+	let new_client = {
+		members: [
+			{
+				email_address: email,
+				status: "subscribed",
+				merge_fields: data
+			},
+		],
+	};
+	const run = async () => {
+		const response = await client.lists.batchListMembers("6a0268299e", new_client);
+		if (response.error_count === 0) {
+			connection.query(`INSERT INTO NewsDigest (FirstName, LastName, Email, Company) VALUES ('${fname}', '${req.body.lname || ''}', '${email}', '${req.body.company || ''}');`, (err, results, fields) => {
+				res.redirect("/funnel/newsdigest/success");
+			});
+		} else {
+			if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
+				new_client.update_existing = true;
+				run();
+			} else {
+				console.error(response.errors[0].error);
+				res.redirect("/funnel/newsdigest/failure");
+			}
+		}
+	};
+	run();
+    // verifier.verify(email)
+	// .then(response => {
+    //     if (response) {
+	// 		const data = { FNAME: fname };
+	// 		if (req.body.lname) data.LNAME = req.body.lname;
+	// 		if (req.body.company) data.COMPANY = req.body.company;
+	// 		let new_client = {
+	// 			members: [
+	// 				{
+	// 					email_address: email,
+	// 					status: "subscribed",
+	// 					merge_fields: data
+	// 				},
+	// 			],
+	// 		};
+	// 		const run = async () => {
+	// 			const response = await client.lists.batchListMembers("6a0268299e", new_client);
+	// 			if (response.error_count === 0) {
+	// 				connection.query(`INSERT INTO NewsDigest (FirstName, LastName, Email, Company) VALUES ('${fname}', '${req.body.lname || ''}', '${email}', '${req.body.company || ''}');`, (err, results, fields) => {
+	// 					res.redirect("/funnel/newsdigest/success");
+	// 				});
+	// 			} else {
+	// 				if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
+	// 					new_client.update_existing = true;
+	// 					run();
+	// 				} else {
+	// 					console.error(response.errors[0].error);
+	// 					res.redirect("/funnel/newsdigest/failure");
+	// 				}
+	// 			}
+	// 		};
+	// 		run();
+    //     } else {
+    //         res.redirect("/funnel/newsdigest");
+    //     }
+    // })
+	// .catch(() => {
+	// 	res.redirect("/funnel/newsdigest");
+	// });
 });
 
 router.get("/newsdigest/success", (req, res) => {
