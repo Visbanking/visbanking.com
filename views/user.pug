@@ -46,6 +46,14 @@ block main
                         a(href="/me/password") Change Password
                         br
                         a(href="/recovery") Recover Password
+                    //- p.label.verify Account Verification
+                    //- p.data.verify.show(class=userInfo.Signup_Code==='0' ? "verified" : "unverified")
+                    //-     if userInfo.Signup_Code === '0'
+                    //-         i.bi-patch-check-fill
+                    //-         |  Verified 
+                    //-     else
+                    //-         i.bi-patch-exclamation-fill
+                    //-         span(title="Check your inbox for our Confirmation Email")  Please verify your account
                     input(type="submit", value="Save")
                     input(type="reset", value="Cancel", @click="reset")
                 div.accounts
@@ -80,7 +88,8 @@ block main
                 .card-header 
                     h3 #{tier}
                     p 
-                        span.price $0
+                        if (tier !== "Enterprise")
+                            span.price #{`$${tiers[tier.toLowerCase()].price}/month`}
                 .card-body 
                     if tier === "Free"
                         ul 
@@ -96,7 +105,7 @@ block main
                             each feature in tiers.professional.features 
                                 li 
                                     i.bi-check2-square  
-                                    | #{feature}
+                                    |  #{feature}
                     else if tier === "Premium"
                         p All Professional Features 
                             br
@@ -105,7 +114,7 @@ block main
                             each feature in tiers.premium.features 
                                 li 
                                     i.bi-check2-square 
-                                    | #{feature}
+                                    |  #{feature}
                     else if tier === "Enterprise"
                         p All Premium Features 
                             br
@@ -120,7 +129,7 @@ block main
                     a.danger#cancel(@click="cancel") Cancel Subscription
             section#upgrade
                 h3 Change Subscription
-                p You'll be able to change your subscription once our product is live
+                p See all other subscription plans and switch whenever you want
                 if tier !== 'Free'
                     .card 
                         .card-header 
@@ -133,7 +142,7 @@ block main
                                 each feature in tiers.free.features 
                                     li 
                                         i.bi-check2-square 
-                                        | #{feature}
+                                        |  #{feature}
                         .card-footer
                             a(href=`/me/subscription?tier=free`) Get Free Access
                 if tier !== 'Professional'
