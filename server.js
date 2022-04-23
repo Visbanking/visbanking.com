@@ -9,6 +9,7 @@ const contact = require("./routing/contact");
 const funnel = require("./routing/funnel");
 const login = require("./routing/login");
 const user = require("./routing/user");
+const banks = require("./routing/banks");
 const subscribe = require("./routing/subscribe");
 const buy = require("./routing/buy");
 const recovery = require("./routing/recovery");
@@ -46,6 +47,8 @@ app.use(login);
 app.use("/funnel", funnel);
 
 app.use("/me", user);
+
+app.use("/banks", banks);
 
 app.use("/subscribe", subscribe);
 

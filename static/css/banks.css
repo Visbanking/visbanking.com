@@ -1,0 +1,112 @@
+header
+{
+    min-height: auto;
+}
+h1
+{
+    margin: 1% 0;
+}
+#intro
+{
+    font-size: 1.5rem;
+    width: 60%;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 auto 1%;
+}
+.bank
+{
+    position: relative;
+    box-sizing: border-box;
+    min-height: auto;
+    padding: 2%;
+    width: 80%;
+    margin: 0 auto;
+    display: none;
+}
+.bank.show
+{
+    display: block;
+}
+.bank:not(:last-of-type)
+{
+    border-bottom: 1px solid #000000;
+}
+.bank > :first-child
+{
+    margin-top: 0;
+}
+.bank > :last-child
+{
+    margin-bottom: 0;
+}
+.name
+{
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.location
+{
+    margin: 0.2rem 0 1rem;
+}
+.bank i.status
+{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    font-size: 3rem;
+}
+.bank[data-status="Active"] i.status
+{
+    color: #44BF00;
+    filter: drop-shadow(0 0 0.3rem #007B00);
+}
+.bank[data-status="Inactive"] i.status
+{
+    color: #FF1100;
+    filter: drop-shadow(0 0 0.3rem #FF1100);
+}
+@media screen and (max-width: 767px)
+{
+    #intro
+    {
+        width: 75%;
+        font-size: 1.2rem;
+        margin-bottom: 3%;
+    }
+    .bank
+    {
+        width: 90%;
+        padding: 3%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    #intro
+    {
+        width: 90%;
+        margin-bottom: 5%;
+    }
+    .bank
+    {
+        width: 95%;
+        text-align: center;
+    }
+    .name
+    {
+        font-size: 1.2rem;
+        width: 85%;
+        margin: 0 auto;
+    }
+    .bank i.status
+    {
+        top: 0;
+        right: 0;
+        font-size: 2.5rem;
+    }
+}
+@media screen and (max-width: 450px)
+{
+
+}

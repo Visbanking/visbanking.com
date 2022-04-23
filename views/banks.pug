@@ -1,0 +1,18 @@
+extends layout.pug 
+
+block styles 
+    link(rel="stylesheet", href="/css/banks.css")
+
+block main 
+    h1 Banks
+    p#intro View reports on more than 10,000 banks throughout the United States, with data on loans, leases, income, and much more.
+    //- aside#search
+    //-     input#name(type="text", name="name", placeholder="Bank Name")
+    each bank in banks 
+        section.bank.show(data-city=bank.City, data-state=bank.State, data-id=bank.IDRSSD, data-name=bank.BankName, data-status=bank.Status)
+            p.name #{bank.BankName}
+            p.location #{bank.City}, #{bank.State}
+            a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`) Individual Bank Report
+            i.status.bi-dot(title=bank.Status)
+
+block scripts
