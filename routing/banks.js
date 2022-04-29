@@ -5,7 +5,7 @@ const { get } = require("axios");
 const router = Router();
 
 router.get("/", (req, res) => {
-    connection.query("SELECT * FROM Visbanking.IndividualBankHTMLReports;", (err, results, fields) => {
+    connection.query("SELECT * FROM Visbanking.IndividualBankHTMLReports ORDER BY BankName ASC;", (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
