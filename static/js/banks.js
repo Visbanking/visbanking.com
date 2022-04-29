@@ -168,9 +168,14 @@ const filterBanksByNameStateCityAndStatus = (bankName, stateAbbr, cityName, stat
             matchingBanks.push(bank);
         }
     });
-    console.log(matchingBanks);
     banksArray.forEach(bank => bank.classList.remove("show"));
     matchingBanks.forEach(bank => bank.classList.add("show"));
+}
+
+const showBankFilterResultMessage = () => {
+    if (!document.querySelector(".bank:not(.show)")) return document.querySelector("p.filterMessage").innerHTML = '';
+    const filteredBanksExist = new Boolean(document.querySelector(".bank.show"));
+    filteredBanksExist.valueOf() ? document.querySelector("p.filterMessage").innerHTML = '<span class="filtered">CLEAR SOME FILTERS TO SEE MORE RESULTS</span>' : document.querySelector("p.filterMessage").innerHTML = '<span class="noResults">NO RESULTS FOUND FOR YOUR FILTERS</span>';
 }
 
 const clearBankFilters = () => {
@@ -222,6 +227,7 @@ const filterBanks = (filteringOptions) => {
     } else {
         showAllBanks();
     }
+    showBankFilterResultMessage();
 }
 
 const getElementYCoords = (elementQuerySelector) => {

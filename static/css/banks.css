@@ -150,6 +150,21 @@ section#banks
     color: #FF1100;
     filter: drop-shadow(0 0 0.3rem #FF1100);
 }
+p.filterMessage
+{
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+p.filterMessage .filtered
+{
+    color: #005487;
+}
+p.filterMessage .noResults
+{
+    color: #FF1100;
+}
 @media screen and (max-width: 800px)
 {
     .search > *
@@ -221,5 +236,8 @@ section#banks
 }
 @media screen and (max-width: 450px)
 {
-
+    p.filterMessage
+    {
+        font-size: 1.2rem;
+    }
 }

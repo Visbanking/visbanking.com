@@ -107,6 +107,7 @@ block main
                 p.location #{bank.City}, #{bank.State}
                 a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`) Individual Bank Report
                 i.status.bi-dot(title=bank.Status)
+        p.filterMessage 
 
 block scripts
     script(src="/js/banks.js") 
