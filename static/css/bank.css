@@ -1,3 +1,7 @@
+body *
+{
+    font-family: 'Source Sans Pro';
+}
 header
 {
     min-height: auto;
@@ -22,7 +26,7 @@ main > a[href="/banks"]
     margin-left: 5%;
     color: inherit;
     margin-bottom: 1%;
-    font-size: 1.2rem;
+    font-size: 2rem;
 }
 main > a[href="/banks"]:hover
 {
@@ -30,7 +34,7 @@ main > a[href="/banks"]:hover
 }
 main > a[href="/banks"] i
 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     vertical-align: middle;
     position: relative;
     transition: all 0.2s linear;
@@ -103,7 +107,7 @@ h2
     text-transform: uppercase;
     margin: 3% auto 0;
 }
-.alternatives > p a
+.alternatives > p a, #upgrade .plan + p a
 {
     color: inherit;
 }
@@ -115,16 +119,15 @@ p.loader
     transform: translate(-50%, -50%);
     display: none;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 3.5rem;
+    font-weight: 700;
     animation: loader 0.5s infinite alternate;
 }
-iframe
+#report
 {
-    width: 100%;
-    height: 100vh;
     display: none;
 }
-.loader.active, iframe.active
+.loader.active, #report.active
 {
     display: block;
 }
@@ -222,6 +225,10 @@ a.button
     background-color: #EEF5FF;
     color: #015193;
     margin: 0 auto;
+}
+.copyright
+{
+    font-size: 1.5rem;
 }
 @keyframes loader
 {

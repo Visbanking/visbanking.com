@@ -105,7 +105,7 @@ block main
             .bank.show(data-city=bank.City, data-state=bank.State, data-id=bank.IDRSSD, data-name=bank.BankName, data-status=bank.Status, data-name-initial=bank.BankName[0])
                 p.name #{bank.BankName}
                 p.location #{bank.City}, #{bank.State}
-                a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`) Individual Bank Report
+                a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/bank`) Individual Bank Report
                 i.status.bi-dot(title=bank.Status)
         p.filterMessage 
 

@@ -1,7 +1,9 @@
 const { Router } = require("express");
 const connection = require("./data/dbconnection");
-const { toUpper, toLower, capitalize } = require("lodash");
-const { get } = require("axios");
+const { toUpper, toLower } = require("lodash");
+const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { JSDOM } = require("jsdom");
+require("dotenv").config();
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -41,9 +43,13 @@ router.all("*", (req, res, next) => {
     }
 });
 
-router.get("/bank/:state_abbreviation/:city_name/:bank_id", (req, res) => {
-    const { state_abbreviation: state, city_name: city, bank_id: bank } = req.params;
-    connection.query(`SELECT BankName, URL, Tier FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = '${toUpper(bank)}';`, (err, results, fields) => {
+router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
+    res.redirect(`/banks/${req.params.state_abbreviation}/${req.params.city_name}/${req.params.bank_id}/bank`);
+});
+
+router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, res) => {
+    const { state_abbreviation: state, city_name: city, bank_id: bank, report_page_name: page } = req.params;
+    connection.query(`SELECT BankName, URL, Tier FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = '${toUpper(bank)}';`, async (err, results, fields) => {
         if (err) {
             res.redirect("/error");
         } else {
@@ -51,13 +57,47 @@ router.get("/bank/:state_abbreviation/:city_name/:bank_id", (req, res) => {
             const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
             const title = `${bankName} - Visbanking`;
             if (tiers.indexOf(req.cookies.tier) >= tiers.indexOf(tier)) {
-                get(source)
-                .then(() => {
+                const s3Client = new S3Client({
+                    region: 'us-east-2',
+                    credentials: {
+                        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+                    }
+                });
+                const streamToString = (stream) => new Promise((resolve, reject) => {
+                    const chunks = [];
+                    stream.on('data', (chunk) => chunks.push(chunk));
+                    stream.on('error', reject);
+                    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+                });
+                const readFile = async (bucket, key) => {
+                    const params = {
+                        Bucket: bucket,
+                        Key: key,
+                    };
+                    const command = new GetObjectCommand(params);
+                    const response = await s3Client.send(command);
+                    const { Body } = response; 
+                    return streamToString(Body);
+                };
+                const fileToRequest = (page_name) => {
+                    if (page_name === "bank") return "bank-information.html";
+                    else if (page_name === "enforcement") return "enforcement-actions.html";
+                    else if (page_name === "balance") return "balance-sheet.html";
+                    else if (page_name === "income") return "income-statement.html";
+                    else if (page_name === "loans") return "loans.html";
+                    else return res.redirect(`/banks/${state}/${city}/${bank}/bank`);
+                }
+                readFile('individual.bank.html.reports', `${bank}/${fileToRequest(page)}`)
+                .then(report => {
+                    const reportHTML = new JSDOM(report);
+                    const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
                     res.render("bank", {
                         path: req.originalUrl,
                         access: true,
                         title,
                         iframeSource: source,
+                        reportBody,
                         bankName
                     });
                 })
@@ -72,7 +112,7 @@ router.get("/bank/:state_abbreviation/:city_name/:bank_id", (req, res) => {
                             alternativeBanks: results
                         });
                     });
-                })
+                });
             } else {
                 res.render("bank", {
                     path: req.originalUrl,
