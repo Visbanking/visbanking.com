@@ -133,6 +133,10 @@ section#banks
 {
     margin: 0.2rem 0 1rem;
 }
+.bank a:focus
+{
+    outline: none;
+}
 .bank i.status
 {
     position: absolute;
@@ -164,6 +168,18 @@ p.filterMessage .filtered
 p.filterMessage .noResults
 {
     color: #FF1100;
+}
+.backtrackLinks
+{
+    text-align: center;
+    padding: 1rem;
+}
+.backtrackLinks a
+{
+    margin: 0 2%;
+    color: inherit;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 @media screen and (max-width: 800px)
 {

@@ -242,10 +242,10 @@ const scrollToLetter = (letter) => {
 }
 
 const handleBankFilterChange = () => {
-    const cityName = document.querySelector("select#city").value;
-    const stateAbbr = document.querySelector("select#state").value;
-    const status = document.querySelector("select#status").value;
-    const bankName = document.querySelector("input#bankName").value;
+    const cityName = document.querySelector("select#city")?.value;
+    const stateAbbr = document.querySelector("select#state")?.value;
+    const status = document.querySelector("select#status")?.value;
+    const bankName = document.querySelector("input#bankName")?.value;
     filterBanks({ cityName, stateAbbr, status, bankName });
 }
 

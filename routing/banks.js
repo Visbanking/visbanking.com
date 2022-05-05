@@ -1,20 +1,61 @@
 const { Router } = require("express");
 const connection = require("./data/dbconnection");
-const { toUpper, toLower } = require("lodash");
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { toUpper, toLower, capitalize } = require("lodash");
+const { GetObjectCommand } = require("@aws-sdk/client-s3");
 const { JSDOM } = require("jsdom");
-require("dotenv").config();
+const s3Client = require("./data/s3Client");
 const router = Router();
 
 router.get("/", (req, res) => {
-    connection.query("SELECT * FROM Visbanking.IndividualBankHTMLReports ORDER BY BankName ASC;", (err, results, fields) => {
+    if (!req.query.state || !req.query.city) {
+        connection.query("SELECT * FROM Visbanking.IndividualBankHTMLReports ORDER BY BankName ASC;", (err, results, fields) => {
+            if (err) {
+                res.status(500).redirect("/error");
+            } else {
+                res.render("banks", {
+                    banks: results,
+                    title: "Banks - Visbanking",
+                    path: req.originalUrl
+                });
+            }
+        });
+    }
+});
+
+router.get("/:state_abbrevitation", (req, res) => {
+    const { state_abbrevitation: state } = req.params;
+    connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
+            if (results.length === 0) {
+                return res.redirect("/banks");
+            }
             res.render("banks", {
                 banks: results,
-                title: "Banks - Visbanking",
-                path: req.originalUrl
+                title: `Banks in ${toUpper(state)}, US - Visbanking`,
+                path: req.originalUrl,
+                state
+            });
+        }
+    });
+});
+
+router.get("/:state_abbreviation/:city_name", (req, res) => {
+    const { state_abbreviation: state, city_name: city } = req.params;
+    connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toLower(city)}' ORDER BY BankName ASC;`, (err, results, fields) => {
+        if (err) {
+            res.status(500).redirect("/error");
+        } else {
+            if (results.length === 0) {
+                return res.redirect(`/banks/${state}`);
+            }
+            res.render("banks", {
+                banks: results,
+                title: `Banks in ${capitalize(city)}, ${toUpper(state)}, US - Visbanking`,
+                path: req.originalUrl,
+                state,
+                city
             });
         }
     });
@@ -49,21 +90,14 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
 
 router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, res) => {
     const { state_abbreviation: state, city_name: city, bank_id: bank, report_page_name: page } = req.params;
-    connection.query(`SELECT BankName, URL, Tier FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = '${toUpper(bank)}';`, async (err, results, fields) => {
+    connection.query(`SELECT BankName, Tier FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = '${toUpper(bank)}';`, async (err, results, fields) => {
         if (err) {
             res.redirect("/error");
         } else {
-            const { BankName: bankName, URL: source, Tier: tier } = results[0];
+            const { BankName: bankName, Tier: tier } = results[0];
             const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
             const title = `${bankName} - Visbanking`;
             if (tiers.indexOf(req.cookies.tier) >= tiers.indexOf(tier)) {
-                const s3Client = new S3Client({
-                    region: 'us-east-2',
-                    credentials: {
-                        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-                    }
-                });
                 const streamToString = (stream) => new Promise((resolve, reject) => {
                     const chunks = [];
                     stream.on('data', (chunk) => chunks.push(chunk));
@@ -88,31 +122,32 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                     else if (page_name === "loans") return "loans.html";
                     else return res.redirect(`/banks/${state}/${city}/${bank}/bank`);
                 }
-                readFile('individual.bank.html.reports', `${bank}/${fileToRequest(page)}`)
-                .then(report => {
-                    const reportHTML = new JSDOM(report);
-                    const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
-                    res.render("bank", {
-                        path: req.originalUrl,
-                        access: true,
-                        title,
-                        iframeSource: source,
-                        reportBody,
-                        bankName
-                    });
-                })
-                .catch(() => {
-                    connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
+                const renderHTMLReport = () => {
+                    readFile('individual.bank.html.reports', `${bank}/${fileToRequest(page)}`)
+                    .then(report => {
+                        const reportHTML = new JSDOM(report);
+                        const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
                         res.render("bank", {
                             path: req.originalUrl,
                             access: true,
                             title,
-                            iframeSource: source,
-                            error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-                            alternativeBanks: results
+                            reportBody,
+                            bankName
+                        });
+                    })
+                    .catch(() => {
+                        connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
+                            res.render("bank", {
+                                path: req.originalUrl,
+                                access: true,
+                                title,
+                                error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
+                                alternativeBanks: results
+                            });
                         });
                     });
-                });
+                };
+                renderHTMLReport();
             } else {
                 res.render("bank", {
                     path: req.originalUrl,
