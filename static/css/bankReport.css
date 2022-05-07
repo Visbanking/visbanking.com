@@ -1,6 +1,40 @@
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Karla:400,400i,700,700i|Lora:400,400i,700,700i&display=swap');
 
+nav.navbar .navbar-collapse a.nav-link
+{
+  padding: 8px 24px;
+  font-size: 14px;
+}
 
+p.loader
+{
+  font-size: 32px;
+}
+
+main .links
+{
+  font-size: 18px;
+}
+
+footer
+{
+  font-size: 16px;
+}
+
+footer h3
+{
+  font-size: 24px;
+}
+
+footer p.heading
+{
+  font-size: 20px;
+}
+
+.copyright
+{
+  font-size: 14px;
+}
 
 p.caption { 
   color: #777;
@@ -195,6 +229,10 @@ a.anchor-section::before {content: ' ';}
     background: 0 0;
 }
 
+.book .book-header h1
+{
+  margin: 0 auto;
+}
 
 .book .book-header h1 a, .book .book-header h1 a:hover {
     color: inherit;
@@ -233,19 +271,71 @@ a.anchor-section::before {content: ' ';}
 }
 
 .book .book-body .page-wrapper .page-inner section.normal h1, .book .book-body .page-wrapper .page-inner section.normal h2, .book .book-body .page-wrapper .page-inner section.normal h3, .book .book-body .page-wrapper .page-inner section.normal h4, .book .book-body .page-wrapper .page-inner section.normal h5, .book .book-body .page-wrapper .page-inner section.normal h6 {
-    margin-top: 1.275em;
+    margin-top: 0;
     margin-bottom: 0.85em;
     padding-left: 16px !important;
 }
 .book .book-body .page-wrapper .page-inner section.normal h1{
     font-size: 25px;
+    margin: 0 auto;
 }
 .book .book-body .page-wrapper .page-inner section.normal h2{
     font-size: 20px;
+}
+.book .book-body .page-wrapper .page-inner section.normal pre>code
+{
+  white-space: normal;
 }
 
 .book .book-body > a i.fa
 {
   display: none;
 }
-    
+
+.section.level2.unnumbered .highchart.html-widget.responsive-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.book-summary .summary::-webkit-scrollbar, .book-body::-webkit-scrollbar, .book-body .body-inner::-webkit-scrollbar
+{
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: 5px;
+  background-color: #aaa;
+  transition: background-color 0.1s linear;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+  background-color: #777;
+}
+
+@media screen and (max-width: 1000px) 
+{
+  .book .book-header h1 {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px)
+{
+  .book .book-summary, .book .book-body
+  {
+    width: 100%;
+  }
+  .book .book-summary
+  {
+    height: 20vh;
+    border-bottom: 1px solid #aaa;
+  }
+  .book.with-summary .book-body
+  {
+    left: 0;
+    top: 20vh;
+  }
+}

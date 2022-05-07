@@ -1,13 +1,12 @@
 const { Router } = require("express");
 const connection = require("./data/dbconnection");
 const { toUpper, toLower, capitalize } = require("lodash");
-const { GetObjectCommand } = require("@aws-sdk/client-s3");
 const { JSDOM } = require("jsdom");
-const s3Client = require("./data/s3Client");
+const { readFile, getPDFUrl } = require("./data/s3Client");
 const router = Router();
 
 router.get("/", (req, res) => {
-    if (!req.query.state || !req.query.city) {
+    if ((!req.query.state && !req.query.city)) {
         connection.query("SELECT * FROM Visbanking.IndividualBankHTMLReports ORDER BY BankName ASC;", (err, results, fields) => {
             if (err) {
                 res.status(500).redirect("/error");
@@ -19,11 +18,18 @@ router.get("/", (req, res) => {
                 });
             }
         });
+    } else if (req.query.state && req.query.city) {
+        res.redirect(`/banks/${toUpper(req.query.state)}/${toUpper(req.query.city)}`);
+    } else if (req.query.state) {
+        res.redirect(`/banks/${toUpper(req.query.state)}`);
+    } else if (req.query.city) {
+        res.redirect("/banks");
     }
 });
 
 router.get("/:state_abbrevitation", (req, res) => {
     const { state_abbrevitation: state } = req.params;
+    if (state !== toUpper(state)) return res.redirect(`/banks/${toUpper(state)}`);
     connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
@@ -43,7 +49,8 @@ router.get("/:state_abbrevitation", (req, res) => {
 
 router.get("/:state_abbreviation/:city_name", (req, res) => {
     const { state_abbreviation: state, city_name: city } = req.params;
-    connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toLower(city)}' ORDER BY BankName ASC;`, (err, results, fields) => {
+    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
+    connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
@@ -52,14 +59,14 @@ router.get("/:state_abbreviation/:city_name", (req, res) => {
             }
             res.render("banks", {
                 banks: results,
-                title: `Banks in ${capitalize(city)}, ${toUpper(state)}, US - Visbanking`,
+                title: `Banks in ${city.split(" ").map(word => capitalize(word)).join(" ")}, ${toUpper(state)}, US - Visbanking`,
                 path: req.originalUrl,
                 state,
-                city
+                city: city.split(" ").map(word => capitalize(word)).join(" ")
             });
         }
     });
-})
+});
 
 router.all("*", (req, res, next) => {
     if (req.cookies.user && req.cookies.tier && req.cookies.session_id) {
@@ -85,69 +92,39 @@ router.all("*", (req, res, next) => {
 });
 
 router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
-    res.redirect(`/banks/${req.params.state_abbreviation}/${req.params.city_name}/${req.params.bank_id}/bank`);
-});
-
-router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, res) => {
-    const { state_abbreviation: state, city_name: city, bank_id: bank, report_page_name: page } = req.params;
-    connection.query(`SELECT BankName, Tier FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = '${toUpper(bank)}';`, async (err, results, fields) => {
+    const { state_abbreviation: state, city_name: city, bank_id: bank } = req.params;
+    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}`);
+    connection.query(`SELECT BankName, Tier FROM Visbanking.AllReports WHERE FileExtension = 'pdf' AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)};`, async (err, results, fields) => {
         if (err) {
-            res.redirect("/error");
+            res.redirect(`/banks/${state}/${city}`);
         } else {
             const { BankName: bankName, Tier: tier } = results[0];
             const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
-            const title = `${bankName} - Visbanking`;
+            const title = `${bankName.split(" ").map(word => capitalize(word)).join(" ")} - Visbanking`;
             if (tiers.indexOf(req.cookies.tier) >= tiers.indexOf(tier)) {
-                const streamToString = (stream) => new Promise((resolve, reject) => {
-                    const chunks = [];
-                    stream.on('data', (chunk) => chunks.push(chunk));
-                    stream.on('error', reject);
-                    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-                });
-                const readFile = async (bucket, key) => {
-                    const params = {
-                        Bucket: bucket,
-                        Key: key,
-                    };
-                    const command = new GetObjectCommand(params);
-                    const response = await s3Client.send(command);
-                    const { Body } = response; 
-                    return streamToString(Body);
-                };
-                const fileToRequest = (page_name) => {
-                    if (page_name === "bank") return "bank-information.html";
-                    else if (page_name === "enforcement") return "enforcement-actions.html";
-                    else if (page_name === "balance") return "balance-sheet.html";
-                    else if (page_name === "income") return "income-statement.html";
-                    else if (page_name === "loans") return "loans.html";
-                    else return res.redirect(`/banks/${state}/${city}/${bank}/bank`);
-                }
-                const renderHTMLReport = () => {
-                    readFile('individual.bank.html.reports', `${bank}/${fileToRequest(page)}`)
-                    .then(report => {
-                        const reportHTML = new JSDOM(report);
-                        const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
+                getPDFUrl('ds-allreports', `individual-bank/pdf/call-report/${bank}.pdf`)
+                .then(pdfSource => {
+                    res.render("bank", {
+                        path: req.originalUrl,
+                        access: true,
+                        title,
+                        pdfSource,
+                        state,
+                        city,
+                        bank
+                    });
+                })
+                .catch(() => {
+                    connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.AllReports WHERE FileExtension = 'html' AND Tier <> 'Free' AND State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
                         res.render("bank", {
                             path: req.originalUrl,
                             access: true,
                             title,
-                            reportBody,
-                            bankName
-                        });
-                    })
-                    .catch(() => {
-                        connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
-                            res.render("bank", {
-                                path: req.originalUrl,
-                                access: true,
-                                title,
-                                error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-                                alternativeBanks: results
-                            });
+                            error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
+                            alternativeBanks: results
                         });
                     });
-                };
-                renderHTMLReport();
+                });
             } else {
                 res.render("bank", {
                     path: req.originalUrl,
@@ -159,6 +136,93 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                     },
                     title
                 });
+            }
+        }
+    });
+});
+
+router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, res) => {
+    const { state_abbreviation: state, city_name: city, bank_id: bank, report_page_name: page } = req.params;
+    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}/${page}`);
+    connection.query(`SELECT BankName, Tier FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)} AND FileExtension = 'html' AND Tier <> 'Free';`, async (err, results, fields) => {
+        if (err) {
+            res.redirect(`/banks/${state}/${city}/${bank}/${page}`);
+        } else {
+            const { BankName: bankName, Tier: tier } = results[0];
+            const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
+            const title = `${bankName.split(" ").map(word => capitalize(word)).join(" ")} - Visbanking`;
+            if (tiers.indexOf(req.cookies.tier) >= tiers.indexOf(tier)) {
+                const fileToRequest = (page_name) => {
+                    if (page_name === "bank") return "index.html";
+                    else if (page_name === "enforcement") return "enforcement-actions.html";
+                    else if (page_name === "balance") return "balance-sheet.html";
+                    else if (page_name === "income") return "income-statement.html";
+                    else if (page_name === "loans") return "loans.html";
+                    else return res.redirect(`/banks/${state}/${city}/${bank}/bank`);
+                }
+                const renderHTMLReport = () => {
+                    readFile('ds-allreports', `individual-bank/html/call-report/${bank}/${fileToRequest(page)}`)
+                    .then(report => {
+                        const reportHTML = new JSDOM(report);
+                        const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
+                        res.render("bank", {
+                            path: req.originalUrl,
+                            access: true,
+                            title,
+                            reportBody,
+                            state,
+                            city,
+                            bank
+                        });
+                    })
+                    .catch(() => {
+                        connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.AllReports WHERE FileExtension = 'html' AND Tier <> 'Free' AND State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
+                            res.render("bank", {
+                                path: req.originalUrl,
+                                access: true,
+                                title,
+                                error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
+                                alternativeBanks: results
+                            });
+                        });
+                    });
+                };
+                renderHTMLReport();
+            } else {    
+                if (req.cookies.tier === "Free") {
+                    if (page !== "general") return res.redirect(`/banks/${state}/${city}/${bank}/general`);
+                    connection.query(`SELECT BankName, URL from Visbanking.AllReports WHERE FileExtension = 'html' AND Tier = 'Free' AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)};`, (err, results, fields) => {
+                        if (err) {
+                            res.redirect(`/banks/${state}/${city}/${bank}/general`);
+                        } else {
+                            readFile('ds-allreports-free', `call-report/${bank}/index.html`)
+                            .then(report => {
+                                const reportHTML = new JSDOM(report);
+                                const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
+                                res.render("bank", {
+                                    path: req.originalUrl,
+                                    access: true,
+                                    title,
+                                    reportBody,
+                                    state,
+                                    city,
+                                    bank
+                                });
+                            })
+                            .catch(() => {
+                                connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
+                                    res.render("bank", {
+                                        path: req.originalUrl,
+                                        access: true,
+                                        title,
+                                        error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
+                                        alternativeBanks: results
+                                    });
+                                });
+                            });
+                        }
+                    });
+                }
             }
         }
     });

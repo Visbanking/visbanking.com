@@ -2,28 +2,31 @@ extends layout.pug
 
 block styles
     link(rel="stylesheet", href="/css/bank.css")
-    if access && reportBody
-        <meta name="description" content="BANK OF HANCOCK COUNTY">
-        <meta property="og:title" content="BANK OF HANCOCK COUNTY">
-        <meta property="og:type" content="book">
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="BANK OF HANCOCK COUNTY">
-        <link href="/libs/gitbook-2.6.7/css/style.css" rel="stylesheet">
-        <link href="/libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet">
-        <link href="/libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet">
-        <link href="/libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet">
-        <link href="/libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet">
-        <link href="/libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet">
-        <link href="/libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet">
-        <link href="/libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet">
-        <link href="/libs/tabwid-1.0.0/tabwid.css" rel="stylesheet">
-        <link href="/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-        <link href="/libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="/libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-        <link href="/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-        <link href="/libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet">
-        <link href="/libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
-        link(rel="stylesheet", href="/css/bankReport.css")
+    if access
+        if reportBody
+            <meta name="description" content="BANK OF HANCOCK COUNTY">
+            <meta property="og:title" content="BANK OF HANCOCK COUNTY">
+            <meta property="og:type" content="book">
+            <meta name="twitter:card" content="summary">
+            <meta name="twitter:title" content="BANK OF HANCOCK COUNTY">
+            <link href="/libs/gitbook-2.6.7/css/style.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet">
+            <link href="/libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet">
+            <link href="/libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet">
+            <link href="/libs/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+            <link href="/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+            <link href="/libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+            <link href="/libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+            <link href="/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+            <link href="/libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet">
+            <link href="/libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
+            link(rel="stylesheet", href="/css/bankReport.css")
+        else if pdfSource 
+            meta(http-equiv="refresh", content="600")
 
 block main 
     if error
@@ -36,16 +39,24 @@ block main
                     .bank 
                         p.name #{bank.BankName}
                         p.location #{bank.City}, #{bank.State}
-                        a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/bank`) View this bank  
+                        a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${parseInt(path.split("/").slice(-1)[0]) ? "" : "bank"}`) View this bank  
                 p Or go back to our 
                     a(href="/banks") banks
                     |  page     
     else if access
-        a(href="/banks") 
-            i.bi-arrow-left-short
-            | Back to Banks
         p.loader.active Loading...
-        div#report #{reportBody}
+        if reportBody
+            div#report #{reportBody}
+        else if pdfSource 
+            iframe#report(src=pdfSource, frameborder="0", allowfullscreen) 
+        .links 
+            if pdfSource
+                a(href=`/banks/${state}/${city}/${bank}/bank`) View HTML Report
+            else if reportBody 
+                a(href=`/banks/${state}/${city}/${bank}`) View PDF Report
+            a(href="/banks") View All Banks
+            a(href=`/banks/${state}`) View Banks in #{state.toUpperCase()}
+            a(href=`/banks/${state}/${city}`) View Banks in #{city}, #{state.toUpperCase()}
     else 
         section#upgrade
             h1 Sorry

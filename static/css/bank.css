@@ -26,7 +26,7 @@ main > a[href="/banks"]
     margin-left: 5%;
     color: inherit;
     margin-bottom: 1%;
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 main > a[href="/banks"]:hover
 {
@@ -34,7 +34,7 @@ main > a[href="/banks"]:hover
 }
 main > a[href="/banks"] i
 {
-    font-size: 1.8rem;
+    font-size: 1rem;
     vertical-align: middle;
     position: relative;
     transition: all 0.2s linear;
@@ -119,17 +119,39 @@ p.loader
     transform: translate(-50%, -50%);
     display: none;
     text-transform: uppercase;
-    font-size: 3.5rem;
+    font-size: 2rem;
     font-weight: 700;
     animation: loader 0.5s infinite alternate;
 }
-#report
+#report, iframe
 {
     display: none;
 }
-.loader.active, #report.active
+.loader.active, #report.active, iframe.active
 {
     display: block;
+}
+iframe.active
+{
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+    height: 95vh;
+}
+main .links
+{
+    text-align: center;
+    padding: 1.5rem 0;
+    color: #000000;
+    font-size: 1.1rem;
+}
+main .links a
+{
+    margin: 0 1%;
+    color: inherit;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: underline;
 }
 #upgrade
 {
@@ -228,7 +250,7 @@ a.button
 }
 .copyright
 {
-    font-size: 1.5rem;
+    font-size: 0.9rem;
 }
 @keyframes loader
 {
@@ -293,11 +315,13 @@ a.button
     }
     main > a[href="/banks"]
     {
-        font-size: 1rem;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
     main > a[href="/banks"] i
     {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+        vertical-align: top;
     }
     #upgrade
     {
