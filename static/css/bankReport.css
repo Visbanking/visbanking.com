@@ -11,6 +11,12 @@ p.loader
   font-size: 32px;
 }
 
+#report:not([src])
+{
+  border-top: 1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
+}
+
 main .links
 {
   font-size: 18px;
@@ -305,7 +311,6 @@ a.anchor-section::before {content: ' ';}
 
 ::-webkit-scrollbar-thumb
 {
-  border-radius: 5px;
   background-color: #aaa;
   transition: background-color 0.1s linear;
 }
@@ -331,7 +336,7 @@ a.anchor-section::before {content: ' ';}
   .book .book-summary
   {
     height: 20vh;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #EEEEEE;
   }
   .book.with-summary .book-body
   {

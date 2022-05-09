@@ -48,7 +48,9 @@ block main
         if reportBody
             div#report #{reportBody}
         else if pdfSource 
-            iframe#report(src=pdfSource, frameborder="0", allowfullscreen) 
+            iframe#report(src=pdfSource, frameborder="0", allowfullscreen)
+        if !loggedIn
+            a.login(href="/login") Log In
         .links 
             if pdfSource
                 a(href=`/banks/${state}/${city}/${bank}/bank`) View HTML Report

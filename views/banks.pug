@@ -74,6 +74,7 @@ block main
                 option(value="Active") Active
                 option(value="Inactive") Inactive
             br
+            button#search Search
             button#clear Clear Filters
         aside.browse
             a(href="#") #
@@ -107,7 +108,7 @@ block main
             .bank.show(data-city=bank.City, data-state=bank.State, data-id=bank.IDRSSD, data-name=bank.BankName, data-status=bank.Status, data-name-initial=bank.BankName[0])
                 p.name #{bank.BankName}
                 p.location #{bank.City}, #{bank.State}
-                a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/bank`) Individual Bank Report (HTML)
+                a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${loggedIn ? "bank" : "general"}`) Individual Bank Report (HTML)
                 br
                 a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`) Individual Bank Report (PDF)
                 i.status.bi-dot(title=bank.Status)

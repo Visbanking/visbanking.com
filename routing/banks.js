@@ -7,30 +7,42 @@ const router = Router();
 
 router.get("/", (req, res) => {
     if ((!req.query.state && !req.query.city)) {
-        connection.query("SELECT * FROM Visbanking.IndividualBankHTMLReports ORDER BY BankName ASC;", (err, results, fields) => {
+        connection.query("SELECT * FROM Visbanking.AllReports GROUP BY IDRSSD ORDER BY BankName ASC;", (err, results, fields) => {
             if (err) {
                 res.status(500).redirect("/error");
             } else {
                 res.render("banks", {
                     banks: results,
                     title: "Banks - Visbanking",
-                    path: req.originalUrl
+                    path: req.originalUrl,
+                    loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                 });
             }
         });
-    } else if (req.query.state && req.query.city) {
-        res.redirect(`/banks/${toUpper(req.query.state)}/${toUpper(req.query.city)}`);
-    } else if (req.query.state) {
-        res.redirect(`/banks/${toUpper(req.query.state)}`);
-    } else if (req.query.city) {
-        res.redirect("/banks");
+    } else {
+        const { bankName, state, city, status } = req.query;
+        if (bankName && state && city && status) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?status=${status}&bankName=${bankName}`);
+        else if (bankName && state && city) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?bankName=${bankName}`);
+        else if (bankName && state && status) res.redirect(`/banks/${toUpper(state)}?status=${status}&bankName=${bankName}`);
+        else if (state && city && status) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?status=${status}`);
+        else if (bankName && city && status) res.redirect(`/banks?status=${status}&bankName=${bankName}`);
+        else if (bankName && state) res.redirect(`/banks/${toUpper(state)}?bankName=${bankName}`);
+        else if (bankName && city) res.redirect(`/banks?bankName=${bankName}`);
+        else if (bankName && status) res.redirect(`/banks?status=${status}&bankName=${bankName}`);
+        else if (state && city) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
+        else if (state && status) res.redirect(`/banks/${toUpper(state)}?status=${status}`);
+        else if (city && status) res.redirect(`/banks?status=${status}`);
+        else if (bankName) res.redirect(`/banks?bankName=${bankName}`);
+        else if (state) res.redirect(`/banks/${toUpper(state)}`);
+        else if (status) res.redirect(`/banks?status=${status}`);
+        else res.redirect("/banks");
     }
 });
 
 router.get("/:state_abbrevitation", (req, res) => {
     const { state_abbrevitation: state } = req.params;
     if (state !== toUpper(state)) return res.redirect(`/banks/${toUpper(state)}`);
-    connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' ORDER BY BankName ASC;`, (err, results, fields) => {
+    connection.query(`SELECT * FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
@@ -50,7 +62,7 @@ router.get("/:state_abbrevitation", (req, res) => {
 router.get("/:state_abbreviation/:city_name", (req, res) => {
     const { state_abbreviation: state, city_name: city } = req.params;
     if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
-    connection.query(`SELECT * FROM Visbanking.IndividualBankHTMLReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' ORDER BY BankName ASC;`, (err, results, fields) => {
+    connection.query(`SELECT * FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
@@ -69,7 +81,8 @@ router.get("/:state_abbreviation/:city_name", (req, res) => {
 });
 
 router.all("*", (req, res, next) => {
-    if (req.cookies.user && req.cookies.tier && req.cookies.session_id) {
+    if (req.originalUrl.split("/").slice(-1)[0] === "general") next();
+    else if (req.cookies.user && req.cookies.tier && req.cookies.session_id) {
         connection.query(`SELECT Email, Tier, Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
             if (err || (req.cookies.session_id !== results[0].Session_ID) || (req.cookies.tier !== results[0].Tier)) {
                 res.clearCookie("user");
@@ -188,8 +201,8 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                     });
                 };
                 renderHTMLReport();
-            } else {    
-                if (req.cookies.tier === "Free") {
+            } else {
+                if ((req.cookies.tier === "Free") || !req.cookies.tier) {
                     if (page !== "general") return res.redirect(`/banks/${state}/${city}/${bank}/general`);
                     connection.query(`SELECT BankName, URL from Visbanking.AllReports WHERE FileExtension = 'html' AND Tier = 'Free' AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)};`, (err, results, fields) => {
                         if (err) {
@@ -206,7 +219,8 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                                     reportBody,
                                     state,
                                     city,
-                                    bank
+                                    bank,
+                                    loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                                 });
                             })
                             .catch(() => {

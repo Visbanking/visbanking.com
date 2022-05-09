@@ -190,10 +190,23 @@ const hideClearFiltersButton = () => {
     document.querySelector(".search #clear").classList.remove("show");
 }
 
+const showSearchButton = () => {
+    document.querySelector(".search #search").classList.add("show");
+}
+
+const hideSearchButton = () => {
+    document.querySelector(".search #search").classList.remove("show");
+}
+
 const filterBanks = (filteringOptions) => {
     const { cityName, stateAbbr, status, bankName } = filteringOptions;
-    if (cityName || stateAbbr || status || bankName) showClearFiltersButton();
-    else hideClearFiltersButton();
+    if (cityName || stateAbbr || status || bankName) {
+        showClearFiltersButton();
+        showSearchButton();
+    } else {
+        hideClearFiltersButton();
+        hideSearchButton();
+    }
     if (cityName && stateAbbr && status && bankName) {
         filterBanksByNameStateCityAndStatus(bankName, stateAbbr, cityName, status);
     } else if (cityName && stateAbbr && status) {
@@ -255,10 +268,41 @@ const handleFiltersClear = () => {
     clearBankFilters();
 }
 
+const handleSearchButtonClick = () => {
+    const bankName = document.querySelector("input#bankName")?.value.toLowerCase();
+    const state = document.querySelector("select#state") ? document.querySelector("select#state").value.toLowerCase() : window.location.pathname.split("/").slice(2)[0]?.toLowerCase();
+    const city = document.querySelector("select#city") ? document.querySelector("select#city").value.toLowerCase() : window.location.pathname.split("/").slice(2)[1]?.toLowerCase();
+    const status = document.querySelector("select#status")?.value.toLowerCase();
+    window.location.href = `/banks?bankName=${bankName}&state=${state}&city=${city}&status=${status}`;
+}
+
 const handleBrowseBarLetterClick = (event) => {
     event.preventDefault();
     const letter = event.target.innerText;
     scrollToLetter(letter);
+}
+
+const parseSearchParams = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const status = searchParams.get("status");
+    const bankName = searchParams.get("bankName");
+    return {
+        status: status ? status[0].toUpperCase()+status.slice(1) : "",
+        bankName: bankName
+    }
+}
+
+const updateStatusFilterOnLoad = (status) => {
+    const index = ["", "Active", "Inactive"].indexOf(status);
+    if (index !== -1) document.querySelector("select#status").selectedIndex = index;
+    else document.querySelector("select#status").selectedIndex = 0;
+}
+
+const updateFiltersOnLoad = () => {
+    const { status, bankName } = parseSearchParams();
+    if (status) updateStatusFilterOnLoad(status);
+    if (bankName) document.querySelector("input#bankName").value = bankName;
+    filterBanks({ status, bankName });
 }
 
 document.querySelectorAll(".search > *").forEach(select => {
@@ -270,3 +314,7 @@ document.querySelector("button#clear").addEventListener("click", handleFiltersCl
 document.querySelectorAll(".browse a").forEach(letter => {
     letter.addEventListener("click", handleBrowseBarLetterClick);
 });
+
+document.querySelector("button#search").addEventListener("click", handleSearchButtonClick);
+
+window.onload = updateFiltersOnLoad;
