@@ -179,7 +179,7 @@ const showBankFilterResultMessage = () => {
 }
 
 const clearBankFilters = () => {
-    document.querySelectorAll(".search > *").forEach(input => input.value = "");
+    document.querySelectorAll(".filter").forEach(filter => filter.value = "");
 }
 
 const showClearFiltersButton = () => {
@@ -245,7 +245,7 @@ const filterBanks = (filteringOptions) => {
 
 const getElementYCoords = (elementQuerySelector) => {
     const y = document.querySelector(elementQuerySelector).offsetTop;
-    const offset = document.querySelector(".bank").offsetHeight * 2;
+    const offset = document.querySelector(".bank").offsetHeight * 1.7;
     return y + offset;
 }
 
@@ -265,6 +265,7 @@ const handleBankFilterChange = () => {
 const handleFiltersClear = () => {
     showAllBanks();
     hideClearFiltersButton();
+    hideSearchButton();
     clearBankFilters();
 }
 
@@ -305,7 +306,7 @@ const updateFiltersOnLoad = () => {
     filterBanks({ status, bankName });
 }
 
-document.querySelectorAll(".search > *").forEach(select => {
+document.querySelectorAll(".filter").forEach(select => {
     select.addEventListener("input", handleBankFilterChange);
 });
 

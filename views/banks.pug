@@ -7,12 +7,40 @@ block main
     h1 Banks
     p#intro View reports on more than 10,000 banks throughout the United States, with data on loans, leases, income, and much more.
     section#banks 
-        h2 Filter/Browse banks
+        input.filter#bankName(type="text", name="bankName", placeholder="Bank Name")
+        aside.browse
+            a(href="#") #
+            a(href="#") A 
+            a(href="#") B
+            a(href="#") C
+            a(href="#") D
+            a(href="#") E
+            a(href="#") F
+            a(href="#") G
+            a(href="#") H
+            a(href="#") I
+            a(href="#") J
+            a(href="#") K
+            a(href="#") L
+            a(href="#") M
+            a(href="#") N
+            a(href="#") O
+            a(href="#") P
+            a(href="#") Q
+            a(href="#") R
+            a(href="#") S
+            a(href="#") T
+            a(href="#") U
+            a(href="#") V
+            a(href="#") W
+            a(href="#") X
+            a(href="#") Y
+            a(href="#") Z
         aside.search
-            input#bankName(type="text", name="bankName", placeholder="Search by Bank Name")
+            p Filter by:
             if !state
-                select#state(name="state")
-                    option(value="") Select State
+                select.filter#state(name="state")
+                    option(value="") State
                     option(value="AL") Alabama
                     option(value="AK") Alaska
                     option(value="AZ") Arizona
@@ -64,46 +92,23 @@ block main
                     option(value="WI") Wisconsin
                     option(value="WY") Wyoming
             if !city
-                select#city(name="city")
-                    option(value="") Select City
+                select.filter#city(name="city")
+                    option(value="") City
                     - const cities = new Set(banks.map(bank => bank.City));
                     each city in Array.from(cities).sort()
                         option(value=city) #{city}
-            select#status(name="status") 
-                option(value="") Select Status
+            select.filter#status(name="status") 
+                option(value="") Status
                 option(value="Active") Active
                 option(value="Inactive") Inactive
             br
             button#search Search
             button#clear Clear Filters
-        aside.browse
-            a(href="#") #
-            a(href="#") A 
-            a(href="#") B
-            a(href="#") C
-            a(href="#") D
-            a(href="#") E
-            a(href="#") F
-            a(href="#") G
-            a(href="#") H
-            a(href="#") I
-            a(href="#") J
-            a(href="#") K
-            a(href="#") L
-            a(href="#") M
-            a(href="#") N
-            a(href="#") O
-            a(href="#") P
-            a(href="#") Q
-            a(href="#") R
-            a(href="#") S
-            a(href="#") T
-            a(href="#") U
-            a(href="#") V
-            a(href="#") W
-            a(href="#") X
-            a(href="#") Y
-            a(href="#") Z
+        aside.backtrackLinks
+            if state 
+                a(href="/banks") View All Banks
+                if city
+                    a(href=`/banks/${state}`) View Banks in #{state.toUpperCase()}
         each bank in banks 
             .bank.show(data-city=bank.City, data-state=bank.State, data-id=bank.IDRSSD, data-name=bank.BankName, data-status=bank.Status, data-name-initial=bank.BankName[0])
                 p.name #{bank.BankName}
@@ -113,11 +118,6 @@ block main
                 a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`) Individual Bank Report (PDF)
                 i.status.bi-dot(title=bank.Status)
         p.filterMessage 
-        aside.backtrackLinks
-            if state 
-                a(href="/banks") View All Banks
-                if city
-                    a(href=`/banks/${state}`) View Banks in #{state.toUpperCase()}
 
 block scripts
     script(src="/js/banks.js") 

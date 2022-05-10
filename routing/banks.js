@@ -6,7 +6,7 @@ const { readFile, getPDFUrl } = require("./data/s3Client");
 const router = Router();
 
 router.get("/", (req, res) => {
-    if ((!req.query.state && !req.query.city)) {
+    if (!req.query.state && !req.query.city && !req.query.status && !req.query.bankName) {
         connection.query("SELECT * FROM Visbanking.AllReports GROUP BY IDRSSD ORDER BY BankName ASC;", (err, results, fields) => {
             if (err) {
                 res.status(500).redirect("/error");
