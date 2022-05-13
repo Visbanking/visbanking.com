@@ -42,7 +42,7 @@ router.get("/", (req, res) => {
 router.get("/:state_abbrevitation", (req, res) => {
     const { state_abbrevitation: state } = req.params;
     if (state !== toUpper(state)) return res.redirect(`/banks/${toUpper(state)}`);
-    connection.query(`SELECT * FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
+    connection.query(`SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State = '${toUpper(state)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
@@ -62,7 +62,7 @@ router.get("/:state_abbrevitation", (req, res) => {
 router.get("/:state_abbreviation/:city_name", (req, res) => {
     const { state_abbreviation: state, city_name: city } = req.params;
     if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
-    connection.query(`SELECT * FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
+    connection.query(`SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
             res.status(500).redirect("/error");
         } else {
@@ -224,7 +224,7 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                                 });
                             })
                             .catch(() => {
-                                connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
+                                connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE BankName IS NOT NULL State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
                                     res.render("bank", {
                                         path: req.originalUrl,
                                         access: true,
