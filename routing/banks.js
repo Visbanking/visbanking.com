@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/", (req, res) => {
     if (!req.query.state && !req.query.city && !req.query.status && !req.query.bankName) {
-        connection.query("SELECT * FROM Visbanking.AllReports GROUP BY IDRSSD ORDER BY BankName ASC;", (err, results, fields) => {
+        connection.query("SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State <> '' GROUP BY IDRSSD ORDER BY BankName ASC;", (err, results, fields) => {
             if (err) {
                 res.status(500).redirect("/error");
             } else {
