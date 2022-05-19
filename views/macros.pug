@@ -1,0 +1,61 @@
+extends layout.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/macros.css")
+
+block main 
+    a.back(href="/banks")
+        i.bi-arrow-left-short
+        span Back to All Reports
+    h1 #{title.split("-")[0].trim()}
+    p#intro 
+        if path === "/macro"
+            | View reports on macro sections of the industry regarding types, composition and uses of assets owned by banks across the United States. 
+        else 
+            | View reports on macro sections of the industry regarding bank-owned assets in the United States, either nation-wide or state-specific.
+    section.reports#deposits 
+        if !title.split("-")[0].includes("Deposits")
+            h2 Deposits
+        aside.report 
+            h3.name General Report 
+            p.location 
+                i.bi-geo-alt-fill
+                |  All U.S. States
+            hr
+            p
+                span View Report:
+                a(href="/banks/macro/deposits/general")
+                    i.bi-file-earmark-bar-graph-fill(title="View Report")
+        aside.report 
+            h3.name Composition
+            p.location 
+                i.bi-geo-alt-fill
+                |  All U.S. States
+            hr
+            p
+                span View Report:
+                a(href="/banks/macro/deposits/composition")
+                    i.bi-file-earmark-pdf-fill(title="View Report")
+        aside.report 
+            h3.name Utilization 
+            p.location 
+                i.bi-geo-alt-fill
+                |  All U.S. States
+            hr
+            p
+                span View Report:
+                a(href="/banks/macro/deposits/utilization")
+                    i.bi-file-earmark-pdf-fill(title="View Report")
+        each report in reports
+            aside.report
+                h3.name #{report.SectionName.split("_").join(" ")}
+                p.location 
+                    i.bi-geo-alt-fill
+                    |  #{report.State}, U.S.
+                hr
+                p
+                    span View Report
+                    a(href=`/banks/macro/deposits/${report.State}`)
+                        i.bi-file-earmark-pdf-fill(title="View Report")
+        if path.includes("/banks/macro") && !path.includes("deposits")
+            a(href="/banks/macro/deposits") View All Deposits Reports

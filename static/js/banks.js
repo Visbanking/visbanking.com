@@ -1,5 +1,6 @@
 const banksArray = [ ...document.querySelectorAll(".bank") ];
 const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const page = !document.querySelector("select#city") ? "city" : !document.querySelector("select#state") ? "state" : "general";
 
 const showAllBanks = () => {
     document.querySelectorAll(".bank").forEach(bank => {
@@ -175,7 +176,7 @@ const filterBanksByNameStateCityAndStatus = (bankName, stateAbbr, cityName, stat
 const showBankFilterResultMessage = () => {
     if (!document.querySelector(".bank:not(.show)")) return document.querySelector("p.filterMessage").innerHTML = '';
     const filteredBanksExist = new Boolean(document.querySelector(".bank.show"));
-    filteredBanksExist.valueOf() ? document.querySelector("p.filterMessage").innerHTML = '<span class="filtered">CLEAR SOME FILTERS TO SEE MORE RESULTS</span>' : document.querySelector("p.filterMessage").innerHTML = '<span class="noResults">NO RESULTS FOUND FOR YOUR FILTERS</span>';
+    filteredBanksExist.valueOf() ? document.querySelector("p.filterMessage").innerHTML = '<span class="filtered">CLEAR SOME FILTERS TO SEE MORE RESULTS</span>' : document.querySelector("p.filterMessage").innerHTML = '<span class="noResults">NO RESULTS FOR YOUR FILTERS</span>';
 }
 
 const clearBankFilters = () => {
@@ -245,7 +246,7 @@ const filterBanks = (filteringOptions) => {
 
 const getElementYCoords = (elementQuerySelector) => {
     const y = document.querySelector(elementQuerySelector).offsetTop;
-    const offset = document.querySelector(".bank").offsetHeight * 1.7;
+    const offset = document.querySelector(".bank").offsetHeight*1.4;
     return y + offset;
 }
 
@@ -271,10 +272,10 @@ const handleFiltersClear = () => {
 
 const handleSearchButtonClick = () => {
     const bankName = document.querySelector("input#bankName")?.value.toLowerCase();
-    const state = document.querySelector("select#state") ? document.querySelector("select#state").value.toLowerCase() : window.location.pathname.split("/").slice(2)[0]?.toLowerCase();
-    const city = document.querySelector("select#city") ? document.querySelector("select#city").value.toLowerCase() : window.location.pathname.split("/").slice(2)[1]?.toLowerCase();
+    const state = document.querySelector("select#state") ? document.querySelector("select#state").value.toLowerCase() : window.location.pathname.split("/").slice(3)[0]?.toLowerCase();
+    const city = document.querySelector("select#city") ? document.querySelector("select#city").value.toLowerCase() : window.location.pathname.split("/").slice(3)[1]?.toLowerCase();
     const status = document.querySelector("select#status")?.value.toLowerCase();
-    window.location.href = `/banks?bankName=${bankName}&state=${state}&city=${city}&status=${status}`;
+    window.location.href = `/banks/bank?bankName=${bankName}&state=${state}&city=${city}&status=${status}`;
 }
 
 const handleBrowseBarLetterClick = (event) => {
@@ -303,7 +304,7 @@ const updateFiltersOnLoad = () => {
     const { status, bankName } = parseSearchParams();
     if (status) updateStatusFilterOnLoad(status);
     if (bankName) document.querySelector("input#bankName").value = bankName;
-    filterBanks({ status, bankName });
+    if (status || bankName) filterBanks({ status, bankName });
 }
 
 document.querySelectorAll(".filter").forEach(select => {

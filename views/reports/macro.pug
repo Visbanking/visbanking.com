@@ -1,0 +1,93 @@
+extends ./../layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/bank.css")
+    if access
+        if reportBody
+            meta(name="description", content=title.split("-"))
+            meta(property="og:title", content=title.split("-"))
+            <meta property="og:type" content="book">
+            <meta name="twitter:card" content="summary">
+            meta(name="twitter:title", content=title.split("-"))
+            <link href="/libs/gitbook-2.6.7/css/style.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet">
+            <link href="/libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet">
+            <link href="/libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet">
+            <link href="/libs/selectize-0.12.4/css/selectize.bootstrap3.css" rel="stylesheet">
+            <link href="/libs/crosstalk-1.2.0.9000/css/crosstalk.min.css" rel="stylesheet">
+            <link href="/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+            <link href="/libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+            <link href="/libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+            <link href="/libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet">
+            <link href="/libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+            link(rel="stylesheet", href="/css/reports/macroReport.css")
+        else if pdfSource 
+            meta(http-equiv="refresh", content="600")
+
+block main     
+    if access
+        p.loader.active Loading...
+        if reportBody
+            div#report #{reportBody}
+        else if pdfSource 
+            iframe#report(src=pdfSource, frameborder="0", allowfullscreen)
+        if !loggedIn
+            a.login(href="/login") Log In
+        .links 
+            a(href="/banks/macro") View All Macro Reports
+            a(href="/banks/macro/deposits") View Macro Deposits Reports
+    else 
+        section#upgrade
+            h1 Sorry
+            p Your current subscription plan (#{userTier}) is below the necessary plan to view this resource (#{tier.tier})
+            aside.plan 
+                h2 #{tier.tier}
+                p
+                    if tier.tier !== "Enterprise"
+                        span.price $#{tier.price}
+                        | /month
+                    else 
+                        span.price Contact Sales
+                hr
+                p #{tier.tier === 'Professional' ? 'All Free Features' : tier.tier === 'Premium' ? 'All Professional Features' : tier.tier === 'Enterprise' ? 'All Premium Features' : ''}
+                    br
+                    i.bi-plus
+                ul.features
+                    each feature in tier.features
+                        li 
+                            p
+                                i.bi-check2-square 
+                                | #{feature}
+                if tier.tier === "Enterprise"
+                    a.button(href="mailto:sales@visbanking.com") Contact Sales 
+                else if userTier === 'Free'
+                    a.button(href=`/buy?tier=${tier.tier}`, target="_blank") Upgrade Now 
+                else 
+                    a.button(href=`/me/subscription?tier=${tier.tier}`, target="_blank") Upgrade Now
+            p Or go back to our 
+                a(href="/banks/macro") macro reports
+                |  page
+
+block scripts 
+    if reportBody 
+        <script src="/libs/header-attrs-2.11/header-attrs.js"></script>
+        <script src="/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+        <script src="/libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+        <script src="/libs/selectize-0.12.4/js/selectize.min.js"></script>
+        <script src="/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+        <script src="/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+        <script src="/libs/datatables-binding-0.22/datatables.js"></script>
+        <script src="/libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="/libs/jszip-1.11.3/jszip.min.js"></script>
+        <script src="/libs/dt-ext-buttons-1.11.3/js/dataTables.buttons.min.js"></script>
+        <script src="/libs/dt-ext-buttons-1.11.3/js/buttons.html5.min.js"></script>
+        <script src="/libs/dt-ext-buttons-1.11.3/js/buttons.colVis.min.js"></script>
+        <script src="/libs/dt-ext-buttons-1.11.3/js/buttons.print.min.js"></script>
+        <script src="/libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+        <script src="/libs/dt-plugin-ellipsis-1.11.3/source.js"></script>
+        <script type="text/javascript" src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    script(src="/js/reports/macro.js") 

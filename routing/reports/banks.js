@@ -1,15 +1,15 @@
 const { Router } = require("express");
-const connection = require("./data/dbconnection");
+const connection = require("../data/dbconnection");
 const { toUpper, toLower, capitalize } = require("lodash");
 const { JSDOM } = require("jsdom");
-const { readFile, getPDFUrl } = require("./data/s3Client");
+const { readFile, getPDFUrl } = require("../data/s3Client");
 const router = Router();
 
 router.get("/", (req, res) => {
     if (!req.query.state && !req.query.city && !req.query.status && !req.query.bankName) {
         connection.query("SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State <> '' GROUP BY IDRSSD ORDER BY BankName ASC;", (err, results, fields) => {
             if (err) {
-                res.status(500).redirect("/error");
+                res.redirect("/banks/bank");
             } else {
                 res.render("banks", {
                     banks: results,
@@ -21,33 +21,27 @@ router.get("/", (req, res) => {
         });
     } else {
         const { bankName, state, city, status } = req.query;
-        if (bankName && state && city && status) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?status=${status}&bankName=${bankName}`);
-        else if (bankName && state && city) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?bankName=${bankName}`);
-        else if (bankName && state && status) res.redirect(`/banks/${toUpper(state)}?status=${status}&bankName=${bankName}`);
-        else if (state && city && status) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?status=${status}`);
-        else if (bankName && city && status) res.redirect(`/banks?status=${status}&bankName=${bankName}`);
-        else if (bankName && state) res.redirect(`/banks/${toUpper(state)}?bankName=${bankName}`);
-        else if (bankName && city) res.redirect(`/banks?bankName=${bankName}`);
-        else if (bankName && status) res.redirect(`/banks?status=${status}&bankName=${bankName}`);
-        else if (state && city) res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
-        else if (state && status) res.redirect(`/banks/${toUpper(state)}?status=${status}`);
-        else if (city && status) res.redirect(`/banks?status=${status}`);
-        else if (bankName) res.redirect(`/banks?bankName=${bankName}`);
-        else if (state) res.redirect(`/banks/${toUpper(state)}`);
-        else if (status) res.redirect(`/banks?status=${status}`);
-        else res.redirect("/banks");
+        if (bankName && state && city && status) res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?status=${status}&bankName=${bankName}`);
+        else if (bankName && state && city) res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?bankName=${bankName}`);
+        else if (bankName && state && status) res.redirect(`/banks/bank/${toUpper(state)}?status=${status}&bankName=${bankName}`);
+        else if (state && city && status) res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}?status=${status}`);
+        else if (bankName && state) res.redirect(`/banks/bank/${toUpper(state)}?bankName=${bankName}`);
+        else if (state && city) res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
+        else if (state && status) res.redirect(`/banks/bank/${toUpper(state)}?status=${status}`);
+        else if (state) res.redirect(`/banks/bank/${toUpper(state)}`);
+        else res.redirect("/banks/bank");
     }
 });
 
 router.get("/:state_abbrevitation", (req, res) => {
     const { state_abbrevitation: state } = req.params;
-    if (state !== toUpper(state)) return res.redirect(`/banks/${toUpper(state)}`);
+    if (state !== toUpper(state)) return res.redirect(`/banks/bank/${toUpper(state)}`);
     connection.query(`SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State = '${toUpper(state)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
-            res.status(500).redirect("/error");
+            res.redirect("/banks/bank");
         } else {
             if (results.length === 0) {
-                return res.redirect("/banks");
+                return res.redirect("/banks/bank");
             }
             res.render("banks", {
                 banks: results,
@@ -61,13 +55,13 @@ router.get("/:state_abbrevitation", (req, res) => {
 
 router.get("/:state_abbreviation/:city_name", (req, res) => {
     const { state_abbreviation: state, city_name: city } = req.params;
-    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
+    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}`);
     connection.query(`SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
         if (err) {
-            res.status(500).redirect("/error");
+            res.redirect("/banks/bank");
         } else {
             if (results.length === 0) {
-                return res.redirect(`/banks/${state}`);
+                return res.redirect(`/banks/bank/${state}`);
             }
             res.render("banks", {
                 banks: results,
@@ -106,10 +100,10 @@ router.all("*", (req, res, next) => {
 
 router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
     const { state_abbreviation: state, city_name: city, bank_id: bank } = req.params;
-    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}`);
+    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}`);
     connection.query(`SELECT BankName, Tier FROM Visbanking.AllReports WHERE FileExtension = 'pdf' AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)};`, async (err, results, fields) => {
         if (err) {
-            res.redirect(`/banks/${state}/${city}`);
+            res.redirect(`/banks/bank/${state}/${city}`);
         } else {
             const { BankName: bankName, Tier: tier } = results[0];
             const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
@@ -117,19 +111,20 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
             if (tiers.indexOf(req.cookies.tier) >= tiers.indexOf(tier)) {
                 getPDFUrl('ds-allreports', `individual-bank/pdf/call-report/${bank}.pdf`)
                 .then(pdfSource => {
-                    res.render("bank", {
+                    res.render("reports/bank", {
                         path: req.originalUrl,
                         access: true,
                         title,
                         pdfSource,
                         state,
                         city,
-                        bank
+                        bank,
+                        loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                     });
                 })
                 .catch(() => {
                     connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.AllReports WHERE FileExtension = 'html' AND Tier <> 'Free' AND State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
-                        res.render("bank", {
+                        res.render("reports/bank", {
                             path: req.originalUrl,
                             access: true,
                             title,
@@ -139,12 +134,12 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
                     });
                 });
             } else {
-                res.render("bank", {
+                res.render("reports/bank", {
                     path: req.originalUrl,
                     access: false,
                     userTier: req.cookies.tier,
                     tier: { 
-                        ...require("./data/.pricingTiers.json")[toLower(tier)],
+                        ...require("../data/.pricingTiers.json")[toLower(tier)],
                         tier: tier
                     },
                     title
@@ -156,10 +151,10 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
 
 router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, res) => {
     const { state_abbreviation: state, city_name: city, bank_id: bank, report_page_name: page } = req.params;
-    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}/${page}`);
+    if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}/${page}`);
     connection.query(`SELECT BankName, Tier FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)} AND FileExtension = 'html' AND Tier <> 'Free';`, async (err, results, fields) => {
         if (err) {
-            res.redirect(`/banks/${state}/${city}/${bank}/${page}`);
+            res.redirect(`/banks/bank/${state}/${city}/${bank}/${page}`);
         } else {
             const { BankName: bankName, Tier: tier } = results[0];
             const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
@@ -171,26 +166,27 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                     else if (page_name === "balance") return "balance-sheet.html";
                     else if (page_name === "income") return "income-statement.html";
                     else if (page_name === "loans") return "loans.html";
-                    else return res.redirect(`/banks/${state}/${city}/${bank}/bank`);
+                    else return res.redirect(`/banks/bank/${state}/${city}/${bank}/bank`);
                 }
                 const renderHTMLReport = () => {
                     readFile('ds-allreports', `individual-bank/html/call-report/${bank}/${fileToRequest(page)}`)
                     .then(report => {
                         const reportHTML = new JSDOM(report);
                         const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
-                        res.render("bank", {
+                        res.render("reports/bank", {
                             path: req.originalUrl,
                             access: true,
                             title,
                             reportBody,
                             state,
                             city,
-                            bank
+                            bank,
+                            loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                         });
                     })
                     .catch(() => {
                         connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.AllReports WHERE FileExtension = 'html' AND Tier <> 'Free' AND State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
-                            res.render("bank", {
+                            res.render("reports/bank", {
                                 path: req.originalUrl,
                                 access: true,
                                 title,
@@ -203,16 +199,16 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                 renderHTMLReport();
             } else {
                 if ((req.cookies.tier === "Free") || !req.cookies.tier) {
-                    if (page !== "general") return res.redirect(`/banks/${state}/${city}/${bank}/general`);
+                    if (page !== "general") return res.redirect(`/banks/bank/${state}/${city}/${bank}/general`);
                     connection.query(`SELECT BankName, URL from Visbanking.AllReports WHERE FileExtension = 'html' AND Tier = 'Free' AND State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)};`, (err, results, fields) => {
                         if (err) {
-                            res.redirect(`/banks/${state}/${city}/${bank}/general`);
+                            res.redirect(`/banks/bank/${state}/${city}/${bank}/general`);
                         } else {
                             readFile('ds-allreports-free', `call-report/${bank}/index.html`)
                             .then(report => {
                                 const reportHTML = new JSDOM(report);
                                 const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
-                                res.render("bank", {
+                                res.render("reports/bank", {
                                     path: req.originalUrl,
                                     access: true,
                                     title,
@@ -225,7 +221,7 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                             })
                             .catch(() => {
                                 connection.query(`SELECT BankName, City, State, IDRSSD, Status FROM Visbanking.IndividualBankHTMLReports WHERE BankName IS NOT NULL State = '${state}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`, (err, results, fields) => {
-                                    res.render("bank", {
+                                    res.render("reports/bank", {
                                         path: req.originalUrl,
                                         access: true,
                                         title,

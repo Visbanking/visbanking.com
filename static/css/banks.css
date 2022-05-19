@@ -2,29 +2,57 @@ header
 {
     min-height: auto;
 }
+a.back
+{
+    margin-left: 5%;
+    color: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+a.back i
+{
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    left: 0;
+}
+a.back:hover i
+{
+    left: -5px;
+}
 h1
 {
-    margin: 1% 0;
+    margin: 1rem auto 0;
+    text-align: left;
+    width: 90%;
 }
 #intro
 {
-    font-size: 1.5rem;
-    width: 60%;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 0 auto 1%;
+    font-size: 1.3rem;
+    width: 90%;
+    font-weight: 600;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #3E8CF6;
+    margin: 0 auto 1.5rem;
 }
 section#banks
 {
     padding: 0;
     min-height: auto;
 }
+h2
+{
+    color: #005487;
+    margin: 1rem auto;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
 input[type="text"]
 {
     box-sizing: border-box;
     padding: 0.5rem;
     display: block;
-    width: 80%;
+    width: 90%;
     margin: 0 auto 1rem;
     border: 1px solid #BDBDBD;
     box-shadow: 5px 5px 5px 0px #00000040;
@@ -136,23 +164,31 @@ input[type="text"]:focus, .search select:focus
     font-weight: 700;
     font-size: 1rem;
 }
+#banks .results
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
 .bank
 {
     position: relative;
     box-sizing: border-box;
     min-height: auto;
     padding: 2%;
-    width: 80%;
-    margin: 0 auto;
+    width: 25%;
+    margin: 2%;
+    text-align: center;
     display: none;
+    border: 1px solid #BDBDBD;
+    box-shadow: 5px 5px 10px 0px #00000040;
+    border-radius: 10px;
 }
 .bank.show
 {
     display: block;
-}
-.bank:not(:last-of-type)
-{
-    border-bottom: 1px solid #000000;
 }
 .bank > :first-child
 {
@@ -165,33 +201,47 @@ input[type="text"]:focus, .search select:focus
 .name
 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
 }
 .location
 {
     margin: 0.2rem 0 1rem;
 }
-.bank a:focus
+.bank hr
+{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #005487;
+}
+.report
+{
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+.report > :last-child
+{
+    width: 30%;
+    text-align: right;
+}
+.report a
+{
+    font-size: 1.5rem;
+    color: inherit;
+}
+.report a:first-of-type
+{
+    margin-right: 0.5rem;
+}
+.bank a:focus, .bank a:hover
 {
     outline: none;
-}
-.bank i.status
-{
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    font-size: 3rem;
-}
-.bank[data-status="Active"] i.status
-{
-    color: #44BF00;
-    filter: drop-shadow(0 0 0.3rem #007B00);
-}
-.bank[data-status="Inactive"] i.status
-{
-    color: #FF1100;
-    filter: drop-shadow(0 0 0.3rem #FF1100);
+    color: #005487;
 }
 p.filterMessage
 {
@@ -207,6 +257,13 @@ p.filterMessage .filtered
 p.filterMessage .noResults
 {
     color: #FF1100;
+}
+@media screen and (max-width: 991px)
+{
+    .bank
+    {
+        width: 35%;
+    }
 }
 @media screen and (max-width: 800px)
 {
@@ -227,9 +284,13 @@ p.filterMessage .noResults
         font-size: 1.2rem;
         margin-bottom: 3%;
     }
+    .search > select
+    {
+        width: 50%;
+    }
     .bank
     {
-        width: 90%;
+        width: 45%;
         padding: 3%;
     }
 }
@@ -242,7 +303,7 @@ p.filterMessage .noResults
     }
     .bank
     {
-        width: 95%;
+        width: 60%;
         text-align: center;
     }
     .name

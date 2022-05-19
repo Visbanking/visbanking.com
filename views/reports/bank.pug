@@ -1,14 +1,14 @@
-extends layout.pug
+extends ./../layout.pug
 
 block styles
     link(rel="stylesheet", href="/css/bank.css")
     if access
         if reportBody
-            <meta name="description" content="BANK OF HANCOCK COUNTY">
-            <meta property="og:title" content="BANK OF HANCOCK COUNTY">
+            meta(name="description", content=bank)
+            meta(property="og:title", content=bank)
             <meta property="og:type" content="book">
             <meta name="twitter:card" content="summary">
-            <meta name="twitter:title" content="BANK OF HANCOCK COUNTY">
+            meta(name="twitter:title", content=bank)
             <link href="/libs/gitbook-2.6.7/css/style.css" rel="stylesheet">
             <link href="/libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet">
             <link href="/libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet">
@@ -24,7 +24,7 @@ block styles
             <link href="/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
             <link href="/libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet">
             <link href="/libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
-            link(rel="stylesheet", href="/css/bankReport.css")
+            link(rel="stylesheet", href="/css/reports/bankReport.css")
         else if pdfSource 
             meta(http-equiv="refresh", content="600")
 
@@ -39,7 +39,7 @@ block main
                     .bank 
                         p.name #{bank.BankName}
                         p.location #{bank.City}, #{bank.State}
-                        a(href=`/banks/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${parseInt(path.split("/").slice(-1)[0]) ? "" : "bank"}`) View this bank  
+                        a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${parseInt(path.split("/").slice(-1)[0]) ? "" : "bank"}`) View this bank  
                 p Or go back to our 
                     a(href="/banks") banks
                     |  page     
@@ -53,12 +53,12 @@ block main
             a.login(href="/login") Log In
         .links 
             if pdfSource
-                a(href=`/banks/${state}/${city}/${bank}/bank`) View HTML Report
+                a(href=`/banks/bank/${state}/${city}/${bank}/bank`) View HTML Report
             else if reportBody 
-                a(href=`/banks/${state}/${city}/${bank}`) View PDF Report
-            a(href="/banks") View All Banks
-            a(href=`/banks/${state}`) View Banks in #{state.toUpperCase()}
-            a(href=`/banks/${state}/${city}`) View Banks in #{city}, #{state.toUpperCase()}
+                a(href=`/banks/bank/${state}/${city}/${bank}`) View PDF Report
+            a(href="/banks/bank") View All Banks
+            a(href=`/banks/bank/${state}`) View Banks in #{state.toUpperCase()}
+            a(href=`/banks/bank/${state}/${city}`) View Banks in #{city}, #{state.toUpperCase()}
     else 
         section#upgrade
             h1 Sorry
@@ -88,7 +88,7 @@ block main
                 else 
                     a.button(href=`/me/subscription?tier=${tier.tier}`, target="_blank") Upgrade Now
             p Or go back to our 
-                a(href="/banks") banks
+                a(href="/banks/bank") single banks reports
                 |  page
 
 block scripts 
@@ -158,4 +158,4 @@ block scripts
         <script src="/libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
         <script src="/libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
         <script src="/libs/gitbook-2.6.7/js/gitbook.min.js"></script>
-    script(src="/js/bank.js") 
+    script(src="/js/reports/bank.js") 

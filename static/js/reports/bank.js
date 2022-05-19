@@ -28,11 +28,11 @@ if (document.querySelector("#report")) {
 		const secondLevelLinks = document.querySelectorAll("#report nav ul li ul li a");
 	
 		firstLevelLinks.forEach((link, index) => {
-			if (index === 0) link.href = `${window.location.pathname.split("/").slice(0, 5).join("/")}/bank`;
-			if (index === 1) link.href = `${window.location.pathname.split("/").slice(0, 5).join("/")}/enforcement`;
-			if (index === 2) link.href = `${window.location.pathname.split("/").slice(0, 5).join("/")}/balance`;
-			if (index === 3) link.href = `${window.location.pathname.split("/").slice(0, 5).join("/")}/income`;
-			if (index === 4) link.href = `${window.location.pathname.split("/").slice(0, 5).join("/")}/loans`;
+			if (index === 0) link.href = `${window.location.pathname.split("/").slice(0, 6).join("/")}/bank`;
+			if (index === 1) link.href = `${window.location.pathname.split("/").slice(0, 6).join("/")}/enforcement`;
+			if (index === 2) link.href = `${window.location.pathname.split("/").slice(0, 6).join("/")}/balance`;
+			if (index === 3) link.href = `${window.location.pathname.split("/").slice(0, 6).join("/")}/income`;
+			if (index === 4) link.href = `${window.location.pathname.split("/").slice(0, 6).join("/")}/loans`;
 			if (index === 5) link.href = "/";
 		});
 	
