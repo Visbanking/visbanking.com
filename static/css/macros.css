@@ -38,7 +38,7 @@ h2
 {
     width: 100%;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0.5rem 0 0;
     color: #005487;
 }
@@ -114,4 +114,61 @@ main section
     font-weight: 700;
     color: inherit;
     padding: 1rem 0;
+}
+@media screen and (max-width: 991px)
+{
+    .report
+    {
+        width: 35%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    #intro
+    {
+        width: 75%;
+        font-size: 1.2rem;
+        margin-bottom: 3%;
+    }
+    .report
+    {
+        width: 45%;
+        padding: 3%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    h1, #intro, h2
+    {
+        text-align: center;
+    }
+    #intro
+    {
+        width: 90%;
+        margin-bottom: 0;
+    }
+    .report
+    {
+        width: 70%;
+        text-align: center;
+        margin: 5% 0;
+        padding: 5%;
+    }
+    .name
+    {
+        font-size: 1.2rem;
+        width: 85%;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width: 450px)
+{
+    .reports
+    {
+        width: 100%;
+    }
+    .report
+    {
+        width: 100%;
+    }
 }
