@@ -35,8 +35,7 @@ router.get("/deposits", (req, res) => {
 })
 
 router.all("*", (req, res, next) => {
-    if (req.originalUrl.split("/").slice(-1)[0] === "general") next();
-    else if (req.cookies.user && req.cookies.tier && req.cookies.session_id) {
+    if (req.cookies.user && req.cookies.tier && req.cookies.session_id) {
         connection.query(`SELECT Email, Tier, Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
             if (err || (req.cookies.session_id !== results[0].Session_ID) || (req.cookies.tier !== results[0].Tier)) {
                 res.clearCookie("user");
