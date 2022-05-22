@@ -152,11 +152,11 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
 router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, res) => {
     const { state_abbreviation: state, city_name: city, bank_id: bank, report_page_name: page } = req.params;
     if (state !== toUpper(state) || city !== city.split(" ").map(word => capitalize(word)).join(" ")) return res.redirect(`/banks/bank/${toUpper(state)}/${city.split(" ").map(word => capitalize(word)).join(" ")}/${bank}/${page}`);
-    connection.query(`SELECT BankName, Tier FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)} AND FileExtension = 'html' AND Tier <> 'Free';`, async (err, results, fields) => {
+    connection.query(`SELECT BankName, Tier, URL FROM Visbanking.AllReports WHERE State = '${toUpper(state)}' AND City = '${toUpper(city)}' AND IDRSSD = ${toUpper(bank)} AND FileExtension = 'html' AND Tier <> 'Free';`, async (err, results, fields) => {
         if (err) {
             res.redirect(`/banks/bank/${state}/${city}/${bank}/${page}`);
         } else {
-            const { BankName: bankName, Tier: tier } = results[0];
+            const { BankName: bankName, Tier: tier, URL: url } = results[0];
             const tiers = ['Free', 'Professional', 'Premium', 'Enterprise'];
             const title = `${bankName.split(" ").map(word => capitalize(word)).join(" ")} - Visbanking`;
             if (tiers.indexOf(req.cookies.tier) >= tiers.indexOf(tier)) {
@@ -169,7 +169,7 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                     else return res.redirect(`/banks/bank/${state}/${city}/${bank}/bank`);
                 }
                 const renderHTMLReport = () => {
-                    readFile('ds-allreports', `individual-bank/html/call-report/${bank}/${fileToRequest(page)}`)
+                    readFile('ds-allreports', `${url.split("/").slice(3, -1).join("/")}/${fileToRequest(page)}`)
                     .then(report => {
                         const reportHTML = new JSDOM(report);
                         const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
