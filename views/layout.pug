@@ -11,15 +11,19 @@ html(lang="en")
         title #{title}
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
-        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap")
-        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+        link(rel="preload", href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap", as="style", onload="this.onload=null;this.rel='stylesheet'")
+        noscript
+            link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap")
+        link(rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css", as="style", onload="this.onload=null;this.rel='stylesheet'")
+        noscript
+            link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
         link(rel="stylesheet" href="/css/layout.css")
         link(rel="canonical", href=`https://visbanking.com${path}`)
         block styles 
         script(src="https://unpkg.com/vue@next")
         script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-214131359-1")
         script(src="https://accounts.google.com/gsi/client", async, defer)
-        script(src="/js/analytics.js") 
+        script(src="/js/analytics.js", defer) 
     body 
         header 
             nav.navbar.navbar-expand-lg.sticky-top
