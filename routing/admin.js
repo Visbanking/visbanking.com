@@ -241,7 +241,7 @@ router.post("/dashboard/profile/edit", (req, res) => {
 });
 
 router.get("/dashboard/admins", (req, res) => {
-    connection.query(`SELECT ID, Usrname FROM Admins;`, (err, results, fields) => {
+    connection.query(`SELECT ID, Username FROM Admins;`, (err, results, fields) => {
         if (err) {
             console.log(err);
             return res.json({
