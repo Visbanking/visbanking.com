@@ -4,7 +4,7 @@ block styles
     link(rel="stylesheet", href="/css/banks.css")
 
 block main 
-    a.back(href="/banks")
+    a.back(href="/reports")
         i.bi-arrow-left-short
         span Back to All Reports
     h1 Single Bank Reports
@@ -109,9 +109,9 @@ block main
             button#clear Clear Filters
         aside.backtrackLinks
             if state 
-                a(href="/banks/bank") View All Banks
+                a(href="/reports/bank") View All Banks
                 if city
-                    a(href=`/banks/bank/${state}`) View Banks in #{state.toUpperCase()}
+                    a(href=`/reports/bank/${state}`) View Banks in #{state.toUpperCase()}
         .results
             each bank in banks 
                 .bank.show(data-city=bank.City, data-state=bank.State, data-id=bank.IDRSSD, data-name=bank.BankName, data-status=bank.Status, data-name-initial=bank.BankName[0])
@@ -123,9 +123,9 @@ block main
                     p.report
                         span Bank Report 
                         span 
-                            a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${loggedIn ? "bank" : "general"}`)
+                            a(href=`/reports/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${loggedIn ? "bank" : "general"}`)
                                 i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
-                            a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`)
+                            a(href=`/reports/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`)
                                 i.bi-file-earmark-pdf-fill(title="View PDF Report")
         p.filterMessage 
 
