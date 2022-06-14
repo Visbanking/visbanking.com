@@ -1,7 +1,6 @@
 extends layout.pug
 
 block meta
-    - console.log(post);
     meta(name="description", content=post.Description)
     meta(name="keywords", content=`${post.Keywords||post.Tags}`)
     meta(property="og:image", content=`https://visbanking.com/${post.Image}`)
