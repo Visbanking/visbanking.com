@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { urlencoded } = require("body-parser"); 
-const cookieParser = require("cookie-parser");
 const hash = require("hash.js");
 const multer = require("multer");
 const path = require("path");
@@ -12,9 +10,6 @@ const tiers = require("./data/.pricingTiers.json");
 const fs = require("fs");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
-
-router.use(urlencoded({extended: true}));
-router.use(cookieParser());
 
 let error, message;
 
@@ -34,13 +29,18 @@ router.all("/*", (req, res, next) => {
         res.clearCookie('user');
         return res.redirect("/login");
     }
-    connection.query(`SELECT Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
+    connection.query(`SELECT Session_ID, Initial_Payment FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
         if (!results[0]) {
             res.clearCookie("user");
             res.clearCookie("session_id"); 
             res.redirect("/signup");
         }
-        else if (req.cookies.session_id === results[0].Session_ID) next();
+        else if (req.cookies.session_id === results[0].Session_ID) {
+            if (results[0].Initial_Payment === 'None' && req.cookies.tier !== "Free") {
+                connection.query(`UPDATE Users SET Tier = 'Free', Initial_Payment = 'Complete' WHERE Email = '${req.cookies.user}';`);
+            }
+            next();
+        }
         else {
             res.clearCookie('session_id');
             res.redirect("/login");
@@ -68,7 +68,9 @@ router.get("/", (req, res, next) => {
                 tiers,
                 user: req.cookies.user||"",
                 message,
-                error: error||''
+                error: error||'',
+				path: req.originalUrl,
+				loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
             });
             error = message = '';
         }
@@ -242,9 +244,6 @@ router.get("/subscription", (req, res) => {
                     error = 'Your subscription couldn\'t be updated';
                     res.redirect(`/me`);
                 } else {
-                    if (tier === 'Free') {
-                        return res.redirect("/buy?tier=free");
-                    }
                     const customer = await stripe.customers.list({
                         email: req.cookies.user
                     });
@@ -309,7 +308,7 @@ router.get("/cancel", (req, res) => {
     });
 });
 
-router.get("/delete", async (req, res) => {
+router.get("/delete", (req, res) => {
     if (req.cookies.tier === 'Free') {
         connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
             if (err) {
@@ -333,42 +332,30 @@ router.get("/delete", async (req, res) => {
             }
         });
     } else {
-        const customer = await stripe.customers.list({
-            email: req.cookies.user
-        });
-        const subscription = await stripe.subscriptions.list({
-            customer: customer.data[0].id
-        });
-        stripe.subscriptions.del(subscription.data[0].id, { invoice_now: false }, (err, result) => {
+        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
             if (err) {
                 error = 'Your account couldn\'t be deleted';
                 res.redirect(`/me`);
             } else {
-                stripe.customers.del(customer.data[0].id, (err, result) => {
+                connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, async (err, results, fields) => {
                     if (err) {
                         error = 'Your account couldn\'t be deleted';
-                        res.redirect(`/me`);
-                    } else {
-                        connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
-                            if (err) {
-                                error = 'Your account couldn\'t be deleted';
-                                res.redirect(`/me`);
-                            } else {
-                                connection.query(`DELETE FROM Users WHERE ID = ${results[0].ID};`, (err, results, fields) => {
-                                    if (err) {
-                                        error = 'Your account couldn\'t be deleted';
-                                        return res.redirect(`/me`);
-                                    }
-                                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), { force:true }, (err) => {
-                                        res.clearCookie('user');
-                                        res.clearCookie('tier');
-                                        res.clearCookie('session_id');
-                                        res.render("deleted");
-                                    });
-                                });
-                            }
-                        });
+                        return res.redirect(`/me`);
                     }
+                    const customer = await stripe.customers.list({
+                        email: req.cookies.user
+                    });
+                    const subscription = await stripe.subscriptions.list({
+                        customer: customer.data[0].id
+                    });
+                    await stripe.subscriptions.del(subscription.data[0].id, { prorate:true });
+                    await stripe.customers.del(customer.data[0].id);
+                    fs.rm(path.join(__dirname, "..", "static", "images", "users", `${lodash.camelCase(req.cookies.user).split('@')[0]}.jpg`), { force:true }, (err) => {
+                        res.clearCookie('user');
+                        res.clearCookie('tier');
+                        res.clearCookie('session_id');
+                        res.render("deleted");
+                    });
                 });
             }
         });

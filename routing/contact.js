@@ -17,7 +17,8 @@ router.get("/", (req, res) => {
     res.render("contact", {
         title: "Contact Us - Visbanking",
         path: "/contact", 
-        error: error
+        error: error,
+		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
     });
 });
 
@@ -81,7 +82,8 @@ router.post("/", (req, res) => {
 router.get("/success", (req, res) => {
     res.render("success", {
         title: "Success - Visbanking",
-        path: "/contact/success"
+        path: "/contact/success",
+		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
     });
 });
 

@@ -34,7 +34,8 @@ router.get("/", (req, res) => {
                     banks,
                     financial,
                     market,
-                    politics
+                    politics,
+					loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                 });
             }
         });
@@ -51,12 +52,7 @@ router.get("/insight/:article_id", (req, res) => {
             } else if (results.length === 0) {
                 res.redirect("/insights");
             } else {
-                connection.query(`UPDATE Insights SET Views = ${results[0].Views+1} WHERE ID = '${req.params.article_id}';`, (err, results, fields) => {
-                    if (err) {
-                        console.error(err);
-                        res.redirect("/error");
-                    }
-                });
+                connection.query(`UPDATE Insights SET Views = ${results[0].Views+1} WHERE ID = '${req.params.article_id}';`);
                 const body = [];
                 results[0].Body.split("  ").forEach(par => {
                     body.push(par);
@@ -69,7 +65,8 @@ router.get("/insight/:article_id", (req, res) => {
                         path: req.originalUrl,
                         post,
                         latest,
-                        related
+                        related,
+						loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                     });
                 });
             }

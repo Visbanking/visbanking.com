@@ -47,7 +47,8 @@ router.get("/:state_abbrevitation", (req, res) => {
                 banks: results,
                 title: `Banks in ${toUpper(state)}, US - Visbanking`,
                 path: req.originalUrl,
-                state
+                state,
+				loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
             });
         }
     });
@@ -68,7 +69,8 @@ router.get("/:state_abbreviation/:city_name", (req, res) => {
                 title: `Banks in ${city.split(" ").map(word => capitalize(word)).join(" ")}, ${toUpper(state)}, US - Visbanking`,
                 path: req.originalUrl,
                 state,
-                city: city.split(" ").map(word => capitalize(word)).join(" ")
+                city: city.split(" ").map(word => capitalize(word)).join(" "),
+				loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
             });
         }
     });
@@ -129,7 +131,8 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
                             access: true,
                             title,
                             error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-                            alternativeBanks: results
+                            alternativeBanks: results,
+							loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                         });
                     });
                 });
@@ -142,7 +145,8 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
                         ...require("../data/.pricingTiers.json")[toLower(tier)],
                         tier: tier
                     },
-                    title
+                    title,
+					loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                 });
             }
         }
@@ -191,7 +195,8 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                                 access: true,
                                 title,
                                 error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-                                alternativeBanks: results
+                                alternativeBanks: results,
+								loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                             });
                         });
                     });
@@ -226,7 +231,8 @@ router.get("/:state_abbreviation/:city_name/:bank_id/:report_page_name", (req, r
                                         access: true,
                                         title,
                                         error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-                                        alternativeBanks: results
+                                        alternativeBanks: results,
+										loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf()
                                     });
                                 });
                             });

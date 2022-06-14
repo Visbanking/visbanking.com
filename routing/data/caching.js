@@ -7,18 +7,15 @@ client.connect()
 .catch(console.error);
 
 const checkCache = async (req, res, next) => {
-    const data = await client.get(`visbanking.com${req.originalUrl}`);
-    if (data !== null) {
-        console.log("Rendering from cache");
-        res.send(data);
-    } else {
-        next();
-    }
+    if (client.isOpen) {
+        const data = await client.get(`visbanking.com${req.originalUrl}`);
+        if (data !== null) res.send(data);
+        else next();
+    } else next();
 };
 
 const setCache = (key, value) => {
-    console.log("Setting cache")
-    client.set(key, value);
+    client.isOpen ? client.set(key, value) : null;
 }
 
 module.exports = {
