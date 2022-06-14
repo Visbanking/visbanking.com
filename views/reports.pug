@@ -1,39 +1,68 @@
 extends layout.pug 
 
 block styles 
-    link(rel="stylesheet", href="/css/reports.css")
+	link(rel="stylesheet" href="/css/reports.css")
 
 block main 
-    h1 Reports
-    p#intro View Macro, Performance, and Single Bank Reports on more than 10,000 banks throughout the United States, with data on deposits, loans and more.
-    section.reports#banks
-        h2 Single Bank Reports
-        each bank in singleBankReports 
-            aside.report
-                h3.name #{bank.BankName}
-                p.location 
-                    i.bi-geo-alt-fill
-                    |  #{bank.City}, #{bank.State}
-                hr
-                p
-                    span Bank Report 
-                    span 
-                        a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${loggedIn ? "bank" : "general"}`)
-                            i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
-                        a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`)
-                            i.bi-file-earmark-pdf-fill(title="View PDF Report")
-        a(href="/banks/bank") All Single Bank Reports
-    section.reports#macro 
-        h2 Macro Reports 
-        each report in macroReports.slice(0, 15)
-            aside.report 
-                h3.name #{report.SectionName.split("_").join(" ")}
-                p.location 
-                    i.bi-geo-alt-fill
-                    |  #{report.State}, U.S.
-                hr
-                p
-                    span Deposits Report
-                    a(href=`/banks/macro/deposits/${report.State}`)
-                        i.bi-file-earmark-pdf-fill(title="View Report")
-        a(href="/banks/macro") All Macro Reports
+	h1 Reports
+	p#intro View Macro, Performance, and Single Bank Reports on more than 10,000 banks throughout the United States, with data on deposits, loans and more.
+	section.reports#banks
+		h2 Single Bank Reports
+		each bank in singleBankReports 
+			aside.report
+				h3.name #{bank.BankName}
+				p.location 
+					i.bi-geo-alt-fill
+					|  #{bank.City}, #{bank.State}
+				hr
+				p
+					span Bank Report 
+					span 
+						a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${loggedIn ? "bank" : "general"}`)
+							i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
+						a(href=`/banks/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`)
+							i.bi-file-earmark-pdf-fill(title="View PDF Report")
+		p
+			a(href="/banks/bank") All Single Bank Reports
+	section.reports#macro 
+		h2 Macro Reports 
+		each report in macroReports
+			aside.report 
+				h3.name #{report.SectionName.split("_").join(" ")}
+				p.location 
+					i.bi-geo-alt-fill
+					if report.State 
+						|  #{report.State}, U.S.
+					else
+						|  All U.S. States
+				hr
+				p
+					span Deposits Report
+					a(href=`/banks/macro/deposits/${report.State ? report.State : report.SectionName.toLowerCase()}`)
+						if report.FileExtension === "pdf"
+							i.bi-file-earmark-pdf-fill(title="View PDF Report")
+						else if report.FileExtension === "html"
+							i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
+		p
+			a(href="/banks/macro") All Macro Reports
+	section.reports#performance
+		h2 Performance Reports
+		each report in performanceReports
+			aside.report 
+				h3.name #{report.SectionName.split("_").join(" ")}
+				p.location 
+					i.bi-geo-alt-fill
+					if report.State 
+						|  #{report.State}, U.S.
+					else
+						|  All U.S. States
+				hr
+				p
+					span Deposits Report
+					a(href=`/banks/performance/${report.State ? report.State : report.SectionName.toLowerCase()}`)
+						if report.FileExtension === "pdf"
+							i.bi-file-earmark-pdf-fill(title="View PDF Report")
+						else if report.FileExtension === "html"
+							i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
+		p
+			a(href="/banks/performance") All Performance Reports
