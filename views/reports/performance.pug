@@ -30,7 +30,7 @@ block main
         if !loggedIn
             a.login(href="/login") Log In
         .links 
-            a(href="/banks/performance") View All Performance Reports
+            a(href="/reports/performance") View All Performance Reports
     else 
         section#upgrade
             h1 Sorry
@@ -60,7 +60,7 @@ block main
                 else 
                     a.button(href=`/me/subscription?tier=${tier.tier}`, target="_blank") Upgrade Now
             p Or go back to our 
-                a(href="/banks/performance") performance reports
+                a(href="/reports/performance") performance reports
                 |  page
 
 block scripts 

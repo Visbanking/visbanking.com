@@ -37,8 +37,8 @@ block main
         if !loggedIn
             a.login(href="/login") Log In
         .links 
-            a(href="/banks/macro") View All Macro Reports
-            a(href="/banks/macro/deposits") View Macro Deposits Reports
+            a(href="/reports/macro") View All Macro Reports
+            a(href="/reports/macro/deposits") View Macro Deposits Reports
     else 
         section#upgrade
             h1 Sorry
@@ -68,7 +68,7 @@ block main
                 else 
                     a.button(href=`/me/subscription?tier=${tier.tier}`, target="_blank") Upgrade Now
             p Or go back to our 
-                a(href="/banks/macro") macro reports
+                a(href="/reports/macro") macro reports
                 |  page
 
 block scripts 
