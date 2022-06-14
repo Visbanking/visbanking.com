@@ -33,7 +33,7 @@ router.get("/success", (req, res) => {
 			res.redirect("/error");
 		} else {
 			const id = results[0].ID;
-			connection.query(`UPDATE Users SET Tier = '${req.query.tier}' WHERE ID = ${id};`, (err, results, fields) => {
+			connection.query(`UPDATE Users SET Initial_Payment = 'Complete', Tier = '${req.query.tier}' WHERE ID = ${id};`, (err, results, fields) => {
 				if (err) {
 					console.error(err);
 					res.redirect("/error");
