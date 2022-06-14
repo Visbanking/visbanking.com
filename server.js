@@ -1,5 +1,7 @@
-const express = require("express")
+const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const favicon = require("serve-favicon");
 const path = require("path");
 const routes = require("./routing/routes");
@@ -22,16 +24,18 @@ const port = 8080;
 
 app.use(express.static(path.join(__dirname, "static")));
 app.use(favicon(path.join(__dirname, "favicon.ico")));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors());
 app.set("view engine", "pug");
 
 app.use((req, res, next) => {
-    res.setHeader('Strict-Transport-Security', 'max-age=31536000');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    res.setHeader('X-Frame-Options', 'DENY');
-    res.removeHeader('X-Powered-By');
-    next();
+	res.setHeader("Strict-Transport-Security", "max-age=31536000");
+	res.setHeader("X-Content-Type-Options", "nosniff");
+	res.setHeader("X-XSS-Protection", "1; mode=block");
+	res.setHeader("X-Frame-Options", "DENY");
+	res.removeHeader("X-Powered-By");
+	next();
 });
 
 app.use(routes);
@@ -48,7 +52,7 @@ app.use("/funnel", funnel);
 
 app.use("/me", user);
 
-app.use("/banks", reports);
+app.use("/reports", reports);
 
 app.use("/subscribe", subscribe);
 
