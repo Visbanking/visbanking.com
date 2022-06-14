@@ -17,6 +17,8 @@ block header
             p Your password couldn't be updated
         else if path.includes("funnel/newsdigest")
             p We couldn't add you to our News Digest
+        else if path.includes("signup/verify/failure")
+            p Your account couldn't be verified
     if path.includes("subscribe")
         p You can 
             span(onclick="window.location.replace('/#newsletter')") try again
@@ -39,4 +41,7 @@ block header
         p You can 
             span(onclick="window.location.replace('/funnel/newsdigest')") try again
             |  or go back to our 
+            span(onclick="window.location.replace('/')") homepage
+    else if path.includes("signup/verify/failure")
+        p You can try again from the link in your email or go to our 
             span(onclick="window.location.replace('/')") homepage

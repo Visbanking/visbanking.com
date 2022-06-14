@@ -175,6 +175,25 @@ div.info p.data.show
 {
     color: #015193;
 }
+div.info p.data.verify.show
+{
+    border-bottom: none;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+div.info p.data.verify.show.verified
+{
+    color: #44BF00;
+}
+div.info p.data.verify.show.unverified
+{
+    color: #FF1100;
+}
+div.info p.data.verify.show i
+{
+    font-size: 1.2rem;
+    margin-right: 2%;
+}
 main section:last-of-type
 {
     border-bottom: none;
@@ -208,7 +227,6 @@ input
     box-sizing: border-box;
     box-shadow: 0 2px 5px #00000050;
     transition: all 0.1s linear;
-
 }
 .info p + input.show:focus
 {

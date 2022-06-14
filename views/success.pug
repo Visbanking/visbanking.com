@@ -10,8 +10,10 @@ block header
             h1 A link has been sent
         else if path.includes("recovery/reset")
             h1 Password updated
-        else if path.includes("signup")
+        else if path.includes("signup/success")
             h1 Your account has been created
+        else if path.includes("signup/verify/success")
+            h1 Your account has been verified
         else 
             h1 Thank you
         if path.includes("subscribe")
@@ -20,10 +22,8 @@ block header
             p You are now subscribed to our News Digest
         else if path.includes("contact")
             p Your request has been saved successfully
-        else if path.includes("signup")
-            p Contact our 
-                a(href="mailto:info@visbanking.com") team
-                |  for more information 
+        else if path.includes("signup/success")
+            p If you signed up with email, check your inbox to verify your account
         else if path.includes("buy")
             p Your payment (
                 span#tier #{tier[0].toUpperCase()+tier.slice(1)} 
@@ -32,11 +32,15 @@ block header
             p A password recovery link has been sent to your email
         else if path.includes("/recovery/reset")
             p Your password has been successfully reset
-    if path.includes("buy") || path.includes("signup")
+    if path.includes("buy")
         p You'll be redirected to your personal user page in a moment
+    else if path.includes("signup/success")
+        p Contact our 
+            a(href="mailto:info@visbanking.com") team
+            |  for more information 
     else if path.includes("recovery/recover")
         p Check your inbox for the link we just sent you
-    else if path.includes("recovery/reset")
+    else if path.includes("recovery/reset") || path.includes("signup/verify/success")
         p You'll be redirected to our login page in a moment
     else
         p You'll be redirected to our homepage in a moment

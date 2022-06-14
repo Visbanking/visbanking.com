@@ -46,14 +46,14 @@ block main
                         a(href="/me/password") Change Password
                         br
                         a(href="/recovery") Recover Password
-                    //- p.label.verify Account Verification
-                    //- p.data.verify.show(class=userInfo.Signup_Code==='0' ? "verified" : "unverified")
-                    //-     if userInfo.Signup_Code === '0'
-                    //-         i.bi-patch-check-fill
-                    //-         |  Verified 
-                    //-     else
-                    //-         i.bi-patch-exclamation-fill
-                    //-         span(title="Check your inbox for our Confirmation Email")  Please verify your account
+                    p.label.verify Account Verification
+                    p.data.verify.show(class=userInfo.Signup_Code==='0' ? "verified" : "unverified")
+                        if userInfo.Signup_Code === '0'
+                            i.bi-patch-check-fill
+                            |  Verified 
+                        else
+                            i.bi-patch-exclamation-fill
+                            span(title="Check your inbox for our Confirmation Email")  Please verify your account
                     input(type="submit", value="Save")
                     input(type="reset", value="Cancel", @click="reset")
                 div.accounts
