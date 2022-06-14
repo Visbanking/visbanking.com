@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const connection = require("./data/dbconnection");
+const connection = require("../data/dbconnection");
 const { toLower } = require("lodash");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);

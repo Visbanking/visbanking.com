@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const connection = require("./data/dbconnection");
+const connection = require("../data/dbconnection");
 const banks = require("./reports/banks");
 const macro = require("./reports/macro");
 const performance = require("./reports/performance");
@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
 			const singleBankReports = results.filter(bank => bank.Type==="Bank").slice(0, 9),
 				macroReports = results.filter(bank => bank.Type==="Macro").slice(0, 9),
 				performanceReports = results.filter(bank => bank.Type==="Performance").slice(0, 9);
-			console.log(performanceReports);
 			res.render("reports", {
 				singleBankReports,
 				macroReports,

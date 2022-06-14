@@ -2,7 +2,7 @@ const { Router } = require("express");
 const bodyParser = require("body-parser");
 const { EmailVerifier } = require("simple-email-verifier");
 const client = require("@mailchimp/mailchimp_marketing");
-const connection = require("./data/dbconnection");
+const connection = require("../data/dbconnection");
 const router = Router();
 require("dotenv").config();
 

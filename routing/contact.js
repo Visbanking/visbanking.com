@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { EmailVerifier } = require("simple-email-verifier");
 const nodemailer = require("nodemailer");
-const connection = require("./data/dbconnection");
+const connection = require("../data/dbconnection");
 const { readFileSync } = require("fs");
 const { join } = require("path");
 require("dotenv").config();

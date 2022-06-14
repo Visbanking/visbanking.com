@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const connection = require("../data/dbconnection");
+const connection = require("../../data/dbconnection");
 const { toUpper, toLower, capitalize } = require("lodash");
 const { JSDOM } = require("jsdom");
-const { readFile, getPDFUrl } = require("../data/s3Client");
+const { readFile, getPDFUrl } = require("../../data/s3Client");
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -71,7 +71,7 @@ router.get("/:report_id", (req, res) => {
                         access: false,
                         userTier: req.cookies.tier,
                         tier: { 
-                            ...require("../data/.pricingTiers.json")[toLower(resourceTier)],
+                            ...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
                             tier: resourceTier
                         },
                         title,

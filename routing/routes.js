@@ -1,8 +1,8 @@
 const express = require("express");
-const connection = require("./data/dbconnection");
-const tiers = require("./data/.pricingTiers.json");
+const connection = require("../data/dbconnection");
+const tiers = require("../data/.pricingTiers.json");
 const path = require("path");
-const { checkCache, setCache } = require("./data/caching");
+const { checkCache, setCache } = require("../data/caching");
 const { renderFile } = require("pug");
 const router = express.Router();
 

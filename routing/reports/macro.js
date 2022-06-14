@@ -1,7 +1,7 @@
 const { Router } = require("express");
-const connection = require("../data/dbconnection");
+const connection = require("../../data/dbconnection");
 const { JSDOM } = require("jsdom");
-const { readFile, getPDFUrl } = require("../data/s3Client");
+const { readFile, getPDFUrl } = require("../../data/s3Client");
 const { toUpper, toLower, capitalize } = require("lodash");
 const router = Router();
 
@@ -85,7 +85,7 @@ router.get("/deposits/:id", (req, res) => {
 						access: false,
 						userTier: req.cookies.tier,
 						tier: {
-							...require("../data/.pricingTiers.json")[toLower(resourceTier)],
+							...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
 							tier: resourceTier,
 						},
 						title,
@@ -118,7 +118,7 @@ router.get("/deposits/:id", (req, res) => {
 						access: false,
 						userTier: req.cookies.tier,
 						tier: {
-							...require("../data/.pricingTiers.json")[toLower(resourceTier)],
+							...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
 							tier: resourceTier,
 						},
 						title: "Deposit Composition Table - Visbanking",
@@ -151,7 +151,7 @@ router.get("/deposits/:id", (req, res) => {
 						access: false,
 						userTier: req.cookies.tier,
 						tier: {
-							...require("../data/.pricingTiers.json")[toLower(resourceTier)],
+							...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
 							tier: resourceTier,
 						},
 						title: "Deposit Utilization Table - Visbanking",
@@ -186,7 +186,7 @@ router.get("/deposits/:id", (req, res) => {
 							access: false,
 							userTier: req.cookies.tier,
 							tier: {
-								...require("../data/.pricingTiers.json")[toLower(resourceTier)],
+								...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
 								tier: resourceTier,
 							},
 							title: `Deposits Report for ${id} - Visbanking`,

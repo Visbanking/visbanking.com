@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { readFileSync } = require("fs");
-const { checkCache, setCache } = require("./data/caching");
+const { checkCache, setCache } = require("../data/caching");
 const { renderFile } = require("pug");
 const router = express.Router();
 

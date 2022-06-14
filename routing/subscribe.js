@@ -4,8 +4,8 @@ const path = require("path");
 const { EmailVerifier } = require("simple-email-verifier");
 const client = require("@mailchimp/mailchimp_marketing");
 const { renderFile } = require("pug");
-const connection = require("./data/dbconnection");
-const { checkCache, setCache } = require("./data/caching");
+const connection = require("../data/dbconnection");
+const { checkCache, setCache } = require("../data/caching");
 require("dotenv").config();
 const router = express.Router();
 

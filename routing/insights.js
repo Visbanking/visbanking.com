@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("./data/dbconnection");
+const connection = require("../data/dbconnection");
 
 router.get("/", (req, res) => {
     connection.query("SELECT * FROM Insights ORDER BY Date DESC", (err, results, fields) => {
