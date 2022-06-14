@@ -119,7 +119,12 @@ h2
     outline: none;
     color: #005487;
 }
-.reports > a
+.reports > p
+{
+    width: 100%;
+    text-align: center;
+}
+.reports > p a
 {
     font-size: 1.2rem;
     text-transform: uppercase;
