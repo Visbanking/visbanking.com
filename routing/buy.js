@@ -6,10 +6,10 @@ require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE);
 
 router.get("/", async (req, res) => {
-    if (!req.query.tier) return res.redirect("/pricing");
+	if (!req.query.tier) return res.redirect("/pricing");
 	const prices = await stripe.prices.list({
 		lookup_keys: [toLower(req.query.tier)],
-		expand: ["data.product"]
+		expand: ["data.product"],
 	});
 	const session = await stripe.checkout.sessions.create({
 		billing_address_collection: "auto",
@@ -41,7 +41,7 @@ router.get("/success", (req, res) => {
 					res.render("success", {
 						title: "Payment Successful - Visbanking",
 						path: "/buy/success",
-						tier: req.query.tier
+						tier: req.query.tier,
 					});
 				}
 			});
@@ -53,8 +53,8 @@ router.get("/failure", (req, res) => {
 	connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
 		if (err) {
 			console.error(err);
-			res.clearCookie('user');
-			res.cookie('DEL_USER', req.cookies.user);
+			res.clearCookie("user");
+			res.cookie("DEL_USER", req.cookies.user);
 			res.redirect("/error");
 		} else if (results.length === 0) {
 			res.redirect("/");
@@ -62,14 +62,14 @@ router.get("/failure", (req, res) => {
 			connection.query(`UPDATE Users SET Tier = 'Free' WHERE ID = ${results[0].ID};`, (err, results, fields) => {
 				if (err) {
 					console.error(err);
-					res.clearCookie('user');
-					res.cookie('DEL_USER', req.cookies.user);
+					res.clearCookie("user");
+					res.cookie("DEL_USER", req.cookies.user);
 					res.redirect("/error");
 				} else {
 					res.render("failure", {
 						title: "Payment Failed - Visbanking",
 						path: "/buy/failure",
-						tier: req.query.tier
+						tier: req.query.tier,
 					});
 				}
 			});
