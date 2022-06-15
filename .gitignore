@@ -12,4 +12,3 @@ static/images/users/*.jpg
 static/images/users/*.png
 .pricingTiers.json
 *.test.*
-.eslintrc.json
