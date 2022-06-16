@@ -210,12 +210,12 @@ main section:last-of-type
 {
     display: inline-block;
 }
-input
+.profile input
 {
     display: none;
     margin-bottom: 1%;
 }
-.info p + input:not([type="submit"]).show
+.info p + .profile input:not([type="submit"]).show
 {
     display: block;
     /* display: inline-block; */
@@ -228,12 +228,12 @@ input
     box-shadow: 0 2px 5px #00000050;
     transition: all 0.1s linear;
 }
-.info p + input.show:focus
+.info p + .profile input.show:focus
 {
     outline: none;
     box-shadow: 0 2px 5px #000000F0;
 }
-input[type="submit"].show, input[type="reset"].show
+.profile input[type="submit"].show, .profile input[type="reset"].show
 {
     display: inline-block;
     padding: 0.5rem 1.5rem;
@@ -248,20 +248,20 @@ input[type="submit"].show, input[type="reset"].show
     text-transform: uppercase;
     cursor: pointer;
 }
-input[type="submit"].show
+.profile input[type="submit"].show
 {
     color: #289F34;
 }
-input[type="submit"]:hover
+.profile input[type="submit"]:hover
 {
     color: #EEF5FF;
     background-color: #289F34;
 }
-input[type="reset"].show
+.profile input[type="reset"].show
 {
     color: #FF160C;
 }
-input[type="reset"]:hover
+.profile input[type="reset"]:hover
 {
     color: #EEF5FF;
     background-color: #FF160C;

@@ -71,7 +71,7 @@ main h3
     text-transform: uppercase;
     font-weight: 600;
 }
-#newsletter, #pricing
+#pricing
 {
     background-color: #128AF9;
     color: #FFFFFF;
@@ -83,60 +83,13 @@ main h3
     align-items: center;
     text-align: center;
 }
-#newsletter *, #pricing *
+#pricing *
 {
     color: inherit;
 }
-#newsletter i, #pricing i
+#pricing i
 {
     font-size: 4rem;
-}
-#newsletter > div
-{
-    width: 80%;
-}
-#newsletter h3, #newsletter p
-{
-    margin: 0;
-}
-#newsletter form
-{
-    padding: 2% 0 0;
-}
-#newsletter input:not([type="submit"])
-{
-    font-family: inherit;
-    font-size: 1rem;
-    border: none;
-    box-shadow: 10px 10px 10px 0px #00000040;
-    border-radius: 10px;
-    padding: 1%;
-    color: #000000;
-    transition: all 0.2s linear;
-    width: 25%;
-    margin-bottom: 2%;
-}
-#newsletter input:first-of-type
-{
-    margin-right: 3%;
-}
-#newsletter input:not([type="submit"]):focus
-{
-    outline: none;
-    box-shadow: 10px 10px 10px 0px #000000F5;
-}
-#newsletter input[type="submit"]
-{
-    padding: 1% 2%;
-    border-radius: 10px;
-    border: none;
-    background-color: #015193;
-    color: #FFFFFF;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 1rem;
 }
 #intro, #tools, #solution, #partner
 {
@@ -388,14 +341,6 @@ h2:nth-of-type(4)
     {
         width: calc(100%/2.5);
     }
-    #newsletter
-    {
-        padding: 3% 2%;
-    }
-    #newsletter input:not([type="submit"])
-    {
-        width: 35%;
-    }
     img.dashboard
     {
         max-width: 60%;
@@ -433,26 +378,6 @@ h2:nth-of-type(4)
     #latest .post
     {
         width: calc(100%/2);
-    }
-    #newsletter
-    {
-        flex-direction: column;
-        margin: 5% 0;
-    }
-    #newsletter h3
-    {
-        margin-top: 2%;
-    }
-    #newsletter input:not([type="submit"])
-    {
-        width: 50%;
-        margin-right: 0;
-        margin-bottom: 3%;
-        padding: 2%;
-    }
-    #newsletter input[type="submit"]
-    {
-        padding: 2% 3%;
     }
     #intro, #tools, #solution, #partner
     {
@@ -530,24 +455,6 @@ h2:nth-of-type(4)
     {
         margin: 3% 5%;
     }
-    #newsletter i, #pricing i
-    {
-        font-size: 3rem;
-    }
-    #newsletter form
-    {
-        padding-top: 5%;
-    }
-    #newsletter input:not([type="submit"])
-    {
-        width: 70%;
-        padding: 3%;
-        margin-bottom: 5%;
-    }
-    #newsletter input[type="submit"]
-    {
-        padding: 3% 5%;
-    }
     #intro, #tools, #solution, #partner, #reasons > p, #reasons ul, #pricing p, #about p
     {
         width: 90%;
@@ -619,16 +526,6 @@ h2:nth-of-type(4)
     main h3
     {
         margin: 5%;
-    }
-    #newsletter input:not([type="submit"])
-    {
-        width: 90%;
-        padding: 3%;
-        margin-bottom: 5%;
-    }
-    #newsletter input[type="submit"]
-    {
-        padding: 3% 5%;
     }
     img.dashboard
     {

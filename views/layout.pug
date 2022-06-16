@@ -45,6 +45,16 @@ html(lang="en")
 			block header
 		main
 			block main 
+			aside#newsletter 
+				div
+					i.bi-envelope-open
+					h3 Data delivered to your inbox
+					p Keep up with the latest data and most popular content.
+					form(action="/subscribe" method="POST")
+						input#name(type="text" name="name" placeholder="John Doe", required)
+						input#email(type="email" name="email" placeholder="johndoe@example.com", required)
+						br
+						input(type="submit" value="Subscribe")
 		footer
 			a(href=path==="/"?"#":"/") 
 				img.logo(src="/images/logo.png.webp" alt="Visbanking logo")
