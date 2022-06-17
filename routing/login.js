@@ -189,7 +189,7 @@ router.post("/signup", (req, res) => {
 		pass = hash.sha512().update(req.body.pass).digest("hex"),
 		tier = req.body.tier;
 	connection.query(
-		`INSERT INTO Users (FirstName, LastName, Email, Password, Tier, Initial_Payment) VALUES ('${fname}','${lname}','${email}','${pass}', '${tier[0].toUpperCase() + tier.slice(1)}'${tier !== "free" ? ", 'None'" : ", 'Complete'"});`,
+		`INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`,
 		(err, results, fields) => {
 			if (err && err.code === "ER_DUP_ENTRY") {
 				emailAfterRedirect = email;
@@ -216,9 +216,9 @@ router.post("/signup", (req, res) => {
 										pass: process.env.NO_REPLY_PASS,
 									},
 								});
-								const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "emailVerification.html"), "utf8").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${code}", signup_code);
+								const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "emailVerification.html"), "utf8").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${code}", signup_code).replaceAll("${tier}", tier);
 								const message = {
-									from: `Visbanking.com '${process.env.NO_REPLY_EMAIL}'`,
+									from: `Visbanking.com`,
 									to: email,
 									subject: "Verify your Visbanking account",
 									html: emailHTML,
@@ -425,7 +425,7 @@ router.get("/signup/success", (req, res) => {
 
 router.get("/signup/verify", (req, res) => {
 	if (!req.query.e || !req.query.c) return res.redirect("/signup");
-	const { e: email, c: code } = req.query;
+	const { e: email, c: code, t: tier } = req.query;
 	connection.query(`UPDATE Users SET Signup_Code = '0' WHERE Email = '${email}';`, (err, results, fields) => {
 		if (err) {
 			res.redirect("/signup/verify/failure");
@@ -439,17 +439,8 @@ router.get("/signup/verify", (req, res) => {
 		} else if (!results.changedRows) {
 			res.redirect("/login");
 		} else {
-			connection.query(`SELECT Tier FROM Users WHERE Email = '${email}';`, (err, results, fields) => {
-				if (err) {
-					connection.query(`UPDATE Users SET Signup_Code = '${code}' WHERE Email = '${email}';`);
-					res.redirect("/signup/verify/failure");
-				} else if (!results.length) {
-					res.redirect("/signup");
-				} else {
-					if (results[0].Tier === "Free") res.redirect("/signup/verify/success");
-					else res.redirect(`/buy?tier=${results[0].Tier.toLowerCase()}`);
-				}
-			});
+			if (tier !== "free") res.redirect(`/buy?tier=${tier}`);
+			else res.redirect("/signup/verify/success");
 		}
 	});
 });
