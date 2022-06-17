@@ -33,5 +33,5 @@ block main
 							i.bi-file-earmark-pdf-fill(title="View PDF Report")
 						else if report.FileExtension === "html"
 							i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
-		if path.includes("/banks/macro") && !path.includes("deposits")
-			a(href="/banks/macro/deposits") View All Deposits Reports
+		if path.includes("/reports/macro") && !path.includes("deposits")
+			a(href="/reports/macro/deposits") View All Deposits Reports

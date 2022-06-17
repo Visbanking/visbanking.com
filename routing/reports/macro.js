@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/deposits", (req, res) => {
-	connection.query("SELECT State, SectionName FROM Visbanking.AllReports WHERE ReportID = 5 AND State <> '' ORDER BY State ASC;", (err, results, fields) => {
+	connection.query("SELECT * FROM Visbanking.AllReports WHERE Type = 'Macro' AND ReportName LIKE '%Deposits%' ORDER BY State ASC;", (err, results, fields) => {
 		if (err) {
 			res.redirect("/banks/macro");
 		} else {
@@ -88,7 +88,7 @@ router.get("/deposits/:id", (req, res) => {
 							...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
 							tier: resourceTier,
 						},
-						title,
+						title: "Deposits Overview - Visbanking",
 						loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 					});
 				}

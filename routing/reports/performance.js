@@ -74,7 +74,7 @@ router.get("/:report_id", (req, res) => {
 							...require("../../data/.pricingTiers.json")[toLower(resourceTier)],
 							tier: resourceTier,
 						},
-						title,
+						title: "Performance Overview - Visbanking",
 						loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 					});
 				}
