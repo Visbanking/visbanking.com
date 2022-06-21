@@ -32,16 +32,29 @@ html(lang="en")
 				button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation")
 					i.bi-list
 				.collapse.navbar-collapse#navbar 
-					a.nav-link(href=path==="/about"?"#":"/about", class=path==="/about"?"active":"") Company
-					a.nav-link(href=path==="/reports"?"#":"/reports", class=path==="/reports"?"active":"") Reports
-					a.nav-link(href=path==="/services"?"#":"/services", class=path==="/services"?"active":"") Services
-					a.nav-link(href=path==="/pricing"?"#":"/pricing", class=path==="/pricing"?"active":"") Pricing
-					a.nav-link(href=path==="/insights"?"#":"/insights", class=path==="/insights"?"active":"") Insights
-					a.nav-link(href=path==="/contact"?"#":"/contact", class=path==="/contact"?"active":"") Contact
-					if loggedIn 
-						a.nav-link(href=path==="/me"?"#":"/me") Account
-					else	
-						a.nav-link(href=path==="/login"?"#":"/login") Log in
+					div 
+						a.nav-link(href=path==="/about"?"#":"/about", class=path==="/about"?"active":"") Company
+					div
+						a.nav-link(href=path==="/reports"?"#":"/reports", class=path==="/reports"?"active":"") Reports
+						.dropdown 
+							a.nav-link(href="/reports/bank") Single Bank 
+							a.nav-link(href="/reports/macro") Macro 
+							a.nav-link(href="/reports/performance") Performance
+					div
+						a.nav-link(href=path==="/services"?"#":"/services", class=path==="/services"?"active":"") Services
+					div
+						a.nav-link(href=path==="/pricing"?"#":"/pricing", class=path==="/pricing"?"active":"") Pricing
+					div 
+						a.nav-link(href=path==="/insights"?"#":"/insights", class=path==="/insights"?"active":"") Insights
+					div
+						a.nav-link(href=path==="/contact"?"#":"/contact", class=path==="/contact"?"active":"") Contact
+					div
+						if loggedIn 
+							a.nav-link(href=path==="/me"?"#":"/me", class=path==="/me"?"active":"") Account
+							.dropdown 
+								a.nav-link(href="/me/logout") Log Out
+						else	
+							a.nav-link(href=path==="/login"?"#":"/login") Log in
 			block header
 		main
 			block main 
