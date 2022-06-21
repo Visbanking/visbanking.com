@@ -175,7 +175,7 @@ header #login p.signup
 {
     color: #024060;
 }
-.copyright
+.copyright, #newsletter
 {
     display: none;
 }
