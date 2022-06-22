@@ -80,7 +80,7 @@ nav.navbar .navbar-collapse a.nav-link:hover
 nav.navbar .navbar-collapse > div .dropdown
 {
 	position: absolute;
-	padding: 0.5rem 1rem;
+	/* padding: 1rem; */
 	width: 10vw;
 	left: 0;
 	top: 100%;
@@ -88,7 +88,7 @@ nav.navbar .navbar-collapse > div .dropdown
 	display: none;
 	background-color: #FFFFFF;
     box-shadow: 0 5px 10px #00000040;
-	border-radius: 10px;
+	z-index: 5;
 }
 nav.navbar .navbar-collapse > div:hover .dropdown, nav.navbar .navbar-collapse > div:focus .dropdown
 {
@@ -96,8 +96,13 @@ nav.navbar .navbar-collapse > div:hover .dropdown, nav.navbar .navbar-collapse >
 }
 nav.navbar .dropdown a.nav-link
 {
-	padding: 0.2rem 0;
+	padding: 0.5rem;
 	display: block;
+}
+nav.navbar .dropdown a.nav-link:hover, nav.navbar .dropdown a.nav-link:focus
+{
+	background-color: #005487;
+	color: #FFFFFF;
 }
 nav.navbar .navbar-collapse > div:last-of-type > a.nav-link
 {
