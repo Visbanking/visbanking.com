@@ -159,7 +159,7 @@ router.post("/password", (req, res) => {
 				const pass = hash.sha512().update(req.body.pass).digest("hex");
 				connection.query(`UPDATE Users SET Password = '${pass}' WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
 					if (err) {
-						error = "Password couldn\'t be updated";
+						error = "Password couldn't be updated";
 						res.redirect("/me");
 					} else {
 						message = "Password updated successfully";

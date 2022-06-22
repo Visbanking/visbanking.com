@@ -216,14 +216,14 @@ router.post("/signup", (req, res) => {
 										pass: process.env.NO_REPLY_PASS,
 									},
 								});
-								const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "emailVerification.html"), "utf8").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${code}", signup_code).replaceAll("${tier}", tier);
-								const message = {
-									from: `Visbanking.com`,
+								const userEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "emailVerification.html"), "utf8").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${code}", signup_code).replaceAll("${tier}", tier);
+								const userMessage = {
+									from: "Visbanking.com",
 									to: email,
 									subject: "Verify your Visbanking account",
-									html: emailHTML,
+									html: userEmailHTML,
 								};
-								transporter.sendMail(message, (err, info) => {
+								transporter.sendMail(userMessage, (err, info) => {
 									if (err) {
 										console.error(err);
 										res.redirect(`/signup?tier=${tier}`);
@@ -236,6 +236,14 @@ router.post("/signup", (req, res) => {
 										res.redirect("/signup/success");
 									}
 								});
+								const infoEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "userConfirmation.html"), "utf8").replaceAll("${signupMethod}", "EMAIL AND PASSWORD").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${tier}", tier);
+								const infoMessage = {
+									from: "Visbanking.com",
+									to: "info@visbanking.com",
+									subject: "New User Confirmation",
+									html: infoEmailHTML
+								};
+								transporter.sendMail(infoMessage)
 							}
 						});
 					}
@@ -324,6 +332,25 @@ router.get("/signup/google", (req, res) => {
 								secure: true,
 								expires: new Date(Date.now() + 241920000),
 							});
+							const transporter = createTransport({
+								name: "www.visbanking.com",
+								host: "mail.visbanking.com",
+								port: 465,
+								secure: true,
+								auth: {
+									user: process.env.NO_REPLY_EMAIL,
+									pass: process.env.NO_REPLY_PASS,
+								},
+							});
+							const infoEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "userConfirmation.html"), "utf8").replaceAll("${signupMethod}", "SOCIAL LOGIN (GOOGLE)").replaceAll("${name}", `${req.query.fname} ${req.query.lname}`).replaceAll("${email}", req.query.email).replaceAll("${tier}", req.query.tier);
+							const infoMessage = {
+								from: "Visbanking.com",
+								to: "info@visbanking.com",
+								subject: "New User Confirmation",
+								html: infoEmailHTML
+							};
+							console.log(infoEmailHTML);
+							transporter.sendMail(infoMessage);
 							if (req.query.tier === "free") {
 								return res.redirect("/signup/success");
 							}
@@ -397,6 +424,24 @@ router.get("/signup/linkedin", async (req, res) => {
 															secure: true,
 															expires: new Date(Date.now() + 241920000),
 														});
+														const transporter = createTransport({
+															name: "www.visbanking.com",
+															host: "mail.visbanking.com",
+															port: 465,
+															secure: true,
+															auth: {
+																user: process.env.NO_REPLY_EMAIL,
+																pass: process.env.NO_REPLY_PASS,
+															},
+														});
+														const infoEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "userConfirmation.html"), "utf8").replaceAll("${signupMethod}", "SOCIAL LOGIN (LINKEDIN)").replaceAll("${name}", `${profile.localizedFirstName} ${profile.localizedLastName}`).replaceAll("${email}", profile.email).replaceAll("${tier}", tier);
+														const infoMessage = {
+															from: "Visbanking.com",
+															to: "info@visbanking.com",
+															subject: "New User Confirmation",
+															html: infoEmailHTML
+														};
+														transporter.sendMail(infoMessage)
 														if (tier === "free") {
 															return res.redirect("/signup/success");
 														}
