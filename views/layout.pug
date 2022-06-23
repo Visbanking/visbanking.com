@@ -53,8 +53,10 @@ html(lang="en")
 							a.nav-link(href=path==="/me"?"#":"/me", class=path==="/me"?"active":"") Account
 							.dropdown 
 								a.nav-link(href="/me/logout") Log Out
+						else if path === "/signup"
+							a.nav-link(href="#", class="active") Sign Up
 						else	
-							a.nav-link(href=path==="/login"?"#":"/login") Log in
+							a.nav-link(href=path==="/login"?"#":"/login", class=path==="/login"?"active":"") Log in
 			block header
 		main
 			block main 

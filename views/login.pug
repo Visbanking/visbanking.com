@@ -1,49 +1,51 @@
 extends layout.pug
 
 block styles 
-    link(rel="stylesheet", href="/css/login.css")
+	link(rel="stylesheet" href="/css/login.css")
 
-block header 
-    aside#login
-        h1 #{action}
-        form(method="POST")
-            if action==="Sign Up"
-                label.form-label(for="fname") First Name: 
-                input#fname(type="text", name="fname", required)
-                label.form-label(for="lname") Last Name: 
-                input#lname(type="text", name="lname", required)
-            label.form-label(for="email") Email: 
-            input#username(type="email", name="email", aria-describedBy="emailMessage", required, value=emailAfterRedirect||username)
-            if emailError 
-                p.form-text.error#emailMessage #{emailError}
-            else
-                p.form-text#emailMessage #{action==="Sign Up"?"We'll never share your email":""}
-            label.form-label(for="password") Password: 
-            input#password(type="password", name="pass", minlength="8", maxlength="30", required, aria-describedBy="error")
-            if action === "Log In"
-                p.form-text#recovery
-                    a(href="/recovery") Forgot your password?
-            if action==="Sign Up"
-                input#tier(type="hidden", name="tier", value=`${tier}`)
-            if logInError
-                p.form-text.error #{logInError}
-            else if signUpError 
-                p.form-text.error #{signUpError}
-            input(type="submit", value=action)
-            aside.social 
-                p Or #{action} with
-                #gsiButton
-                #liButton
-                    div
-                        i.bi-linkedin
-        if action==="Log In"
-            p.signup Don't have an account? 
-                a(href="/signup") Sign Up 
-        else if action==="Sign Up"
-            p.signup Already have an account? 
-                a(href="/login") Log In
+block main
+	#background
+	aside 
+		h1 Welcome to Visbanking
+	aside#login
+		form(method="POST")
+			if action==="Sign Up"
+				label.form-label(for="fname") First Name
+				input#fname(type="text" name="fname", required)
+				label.form-label(for="lname") Last Name 
+				input#lname(type="text" name="lname", required)
+			label.form-label(for="email") Email
+			input#username(type="email" name="email" aria-describedBy="emailMessage", required, value=emailAfterRedirect||username)
+			if emailError 
+				p.form-text.error#emailMessage #{emailError}
+			else
+				p.form-text#emailMessage #{action==="Sign Up"?"We'll never share your email":""}
+			label.form-label(for="password") Password
+			input#password(type="password" name="pass" minlength="8" maxlength="30", required, aria-describedBy="error")
+			if action === "Log In"
+				p.form-text#recovery
+					a(href="/recovery") Forgot your password?
+			if action==="Sign Up"
+				input#tier(type="hidden" name="tier", value=`${tier}`)
+			if logInError
+				p.form-text.error #{logInError}
+			else if signUpError 
+				p.form-text.error #{signUpError}
+			input(type="submit", value=action)
+			aside.social 
+				p Or #{action} with
+				#gsiButton
+				#liButton
+					div
+						i.bi-linkedin
+		if action==="Log In"
+			p.signup Don't have an account? 
+				a(href="/signup") Sign Up 
+		else if action==="Sign Up"
+			p.signup Already have an account? 
+				a(href="/login") Log In
 
 block scripts 
-    script(src="/js/login.js") 
-    script(src="/js/googleSignInButton.js")
-    script(src="/js/signInWithLinkedIn.js") 
+	script(src="/js/login.js") 
+	script(src="/js/googleSignInButton.js")
+	script(src="/js/signInWithLinkedIn.js") 

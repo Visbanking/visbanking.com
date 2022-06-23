@@ -80,7 +80,6 @@ nav.navbar .navbar-collapse a.nav-link:hover
 nav.navbar .navbar-collapse > div .dropdown
 {
 	position: absolute;
-	/* padding: 1rem; */
 	width: 10vw;
 	left: 0;
 	top: 100%;
