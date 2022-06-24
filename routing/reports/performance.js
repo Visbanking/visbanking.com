@@ -44,7 +44,7 @@ router.all("*", (req, res, next) => {
 
 router.get("/:report_id", (req, res) => {
 	const report_id = req.params.report_id;
-	const tiers = ["Free", "Professional", "Premium", "Enterprise"];
+	const tiers = ["Free", "Professional", "Academic", "Premium", "Enterprise"];
 	if (report_id === "general") {
 		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE ReportID = 6;", (err, results, fields) => {
 			if (err) {

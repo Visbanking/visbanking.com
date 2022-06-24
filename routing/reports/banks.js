@@ -164,7 +164,7 @@ router.get("/:state_abbreviation/:city_name/:bank_id", (req, res) => {
 			res.redirect(`/reports/bank/${state}/${city}`);
 		} else {
 			const { BankName: bankName, Tier: tier } = results[0];
-			const tiers = ["Free", "Professional", "Premium", "Enterprise"];
+			const tiers = ["Free", "Professional", "Academic", "Premium", "Enterprise"];
 			const title = `${bankName
 				.split(" ")
 				.map((word) => capitalize(word))

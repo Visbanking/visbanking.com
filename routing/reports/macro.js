@@ -2,7 +2,7 @@ const { Router } = require("express");
 const connection = require("../../data/dbconnection");
 const { JSDOM } = require("jsdom");
 const { readFile, getPDFUrl } = require("../../data/s3Client");
-const { toUpper, toLower, capitalize } = require("lodash");
+const { toUpper, toLower } = require("lodash");
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -60,7 +60,7 @@ router.all("*", (req, res, next) => {
 
 router.get("/deposits/:id", (req, res) => {
 	const id = req.params.id;
-	const tiers = ["Free", "Professional", "Premium", "Enterprise"];
+	const tiers = ["Free", "Professional", "Academic", "Premium", "Enterprise"];
 	if (id === "general") {
 		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND SectionName = 'General';", (err, results, fields) => {
 			if (err || !results[0]) {

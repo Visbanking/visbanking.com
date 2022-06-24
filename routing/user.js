@@ -239,6 +239,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/subscription", (req, res) => {
+	if (!["Free", "Professional", "Premium", "Enterprise"].includes(req.cookies.tier)) return res.redirect("/me");
 	connection.query(`SELECT ID, Tier FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
 		if (err) {
 			error = "Your subscription couldn't be updated";
@@ -281,6 +282,7 @@ router.get("/subscription", (req, res) => {
 });
 
 router.get("/cancel", (req, res) => {
+	if (!["Free", "Professional", "Premium", "Enterprise"].includes(req.cookies.tier)) return res.redirect("/me");
 	connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
 		if (err) {
 			error = "Your subscription coudln't be canceled";
@@ -320,7 +322,7 @@ router.get("/cancel", (req, res) => {
 });
 
 router.get("/delete", (req, res) => {
-	if (req.cookies.tier === "Free") {
+	if (["Free", "Academic"].includes(req.cookies.tier)) {
 		connection.query(`SELECT ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
 			if (err) {
 				error = "Your account couldn't be deleted";

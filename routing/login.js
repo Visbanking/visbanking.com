@@ -2,6 +2,7 @@ const express = require("express");
 const { createTransport } = require("nodemailer");
 const hash = require("hash.js");
 const { v4: uuidv4 } = require("uuid");
+const { toLower } = require("lodash");
 const connection = require("../data/dbconnection");
 const { get, post } = require("axios");
 const { readFileSync } = require("fs");
@@ -165,10 +166,21 @@ router.get("/login/linkedin", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-	if (req.cookies.session_id && req.cookies.user) {
-		res.redirect("/me");
-	} else if (!req.query.tier) {
-		res.redirect("/signup?tier=free");
+	if (req.query.tier !== toLower(req.query.tier)) res.redirect(`/signup?tier=${toLower(req.query.tier)}`);
+	else if (req.cookies.session_id && req.cookies.user) res.redirect("/me");
+	else if (!req.query.tier || !["free", "professional", "premium", "enterprise", "academic"].includes(req.query.tier) || (req.query.tier === "academic" && !req.query.email)) res.redirect("/signup?tier=free");
+	else if (req.query.tier === "academic" && req.query.email) {
+		connection.query(`SELECT Email, FirstName, LastName FROM Academics WHERE Email = '${req.query.email}';`, (err, results, fields) => {
+			if (results[0]) {
+				res.render("login", {
+					title: "Sign Up | Academic - Visbanking",
+					path: "/signup",
+					action: "Sign Up",
+					tier: "academic",
+					autocompleteData: results[0]
+				});
+			} else res.redirect("/signup");
+		});
 	} else {
 		res.render("login", {
 			title: "Sign Up - Visbanking",
@@ -188,9 +200,8 @@ router.post("/signup", (req, res) => {
 		email = req.body.email,
 		pass = hash.sha512().update(req.body.pass).digest("hex"),
 		tier = req.body.tier;
-	connection.query(
-		`INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`,
-		(err, results, fields) => {
+	const sql = req.body.tier==="academic" ? `INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${req.query.tier}');` : `INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`
+	connection.query(sql, (err, results, fields) => {
 			if (err && err.code === "ER_DUP_ENTRY") {
 				emailAfterRedirect = email;
 				res.redirect("/login");
@@ -484,7 +495,7 @@ router.get("/signup/verify", (req, res) => {
 		} else if (!results.changedRows) {
 			res.redirect("/login");
 		} else {
-			if (tier !== "free") res.redirect(`/buy?tier=${tier}`);
+			if (!["free", "academic"].includes(tier)) res.redirect(`/buy?tier=${tier}`);
 			else res.redirect("/signup/verify/success");
 		}
 	});

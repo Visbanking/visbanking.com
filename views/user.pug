@@ -1,210 +1,233 @@
 extends layout.pug
 
 block meta
-    meta(name="keywords", content="")
-    meta(name="description", content="")
+	meta(name="keywords" content="")
+	meta(name="description" content="")
 
 block styles 
-    link(rel="stylesheet", href="/css/user.css")
+	link(rel="stylesheet" href="/css/user.css")
 
 block main 
-    h1 Welcome #{userInfo.FirstName}
-    p#message #{message}
-    p#error #{error}
-    p#logout
-        a(href="/me/logout") Log out
-    section(id=userInfo.username)
-        aside.identifiers
-            p.profile(:class="{ active:profile }", @click="showSection('profile')") Profile
-            p.products(:class="{ active:products }", @click="showSection('products')") Products
-        aside.profile(v-if="profile")    
-            form(method="POST", enctype="multipart/form-data") 
-                if userInfo.Image
-                    img#profile.show(src=userInfo.Image, alt=`${userInfo.FirstName} ${userInfo.LastName}`, title="Update Profile Picture", @click="edit('picture')")
-                else 
-                    i.bi-person-fill.show#profile(title="Update Profile Picture", @click="edit('picture')")
-                img#preview(src="", alt="")
-                input#image(type="file", name="image", accept="image/jpeg, image/png", @input="validate('picture')")
-                div.info
-                    h2 Personal Information
-                    p.label.name Name 
-                        i.bi-pencil-square.name(@click="edit('name')")
-                    //- p.label.phone Phone
-                    //-     super.bi-pencil-square.phone
-                    p.data.name.show #{userInfo.FirstName} #{userInfo.LastName}
-                    input#name(type="text", name="name", placeholder="Name Surname", @keydown="validate('name')")
-                    //- p.data.phone.show #{userInfo.Phone || "N/A"}
-                    //- input#phone(type="tel", name="phone", placeholder="1234567890")
-                    p.label.email Email 
-                    //- p.label.company Company
-                    //-     super.bi-pencil-square.company
-                    p.data.show #{userInfo.Email}
-                    //- p.data.company.show #{userInfo.Company || "N/A"}
-                    //- input#company(type="text", name="company", placeholder="Visbanking")
-                    p.label.pass Password 
-                    p.data.pass.show
-                        a(href="/me/password") Change Password
-                        br
-                        a(href="/recovery") Recover Password
-                    p.label.verify Account Verification
-                    p.data.verify.show(class=userInfo.Signup_Code==='0' ? "verified" : "unverified")
-                        if userInfo.Signup_Code === '0'
-                            i.bi-patch-check-fill
-                            |  Verified 
-                        else
-                            i.bi-patch-exclamation-fill
-                            span(title="Check your inbox for our Confirmation Email")  Please verify your account
-                    input(type="submit", value="Save")
-                    input(type="reset", value="Cancel", @click="reset")
-                div.accounts
-                    h2 Social Accounts
-                    if !userInfo.Google && !userInfo.Facebook && !userInfo.LinkedIn
-                        p No accounts linked
-                    if userInfo.Google
-                        .account.connected#google(title=userInfo.Google)
-                            i.bi-google
-                            | Connected
-                    if userInfo.LinkedIn
-                        .account.connected#linkedin(title=userInfo.LinkedIn)
-                            i.bi-linkedin
-                            | Connected
-                    if !userInfo.Google || !userInfo.LinkedIn /*|| !user.info.Facebook*/
-                        h3 Link
-                        if !userInfo.Google
-                            .account
-                                #gsiButton
-                        if !userInfo.LinkedIn
-                            .account 
-                                #liButton
-                                    a(href="/me/connect/linkedin") 
-                                        i.bi-linkedin
-            aside.actions 
-                a.danger#delete(@click="deleteAccount") Delete Account 
-        aside.products(v-if="products")
-            h2 Products
-            p See your current and all other subscription plans
-            .card 
-                div Current
-                .card-header 
-                    h3 #{tier}
-                    p 
-                        if (tier !== "Enterprise")
-                            span.price #{`$${tiers[tier.toLowerCase()].price}/month`}
-                .card-body 
-                    if tier === "Free"
-                        ul 
-                            each feature in tiers.free.features 
-                                li 
-                                    i.bi-check2-square 
-                                    |  #{feature}
-                    else if tier === "Professional"
-                        p All Free Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.professional.features 
-                                li 
-                                    i.bi-check2-square  
-                                    |  #{feature}
-                    else if tier === "Premium"
-                        p All Professional Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.premium.features 
-                                li 
-                                    i.bi-check2-square 
-                                    |  #{feature}
-                    else if tier === "Enterprise"
-                        p All Premium Features 
-                            br
-                            i.bi-plus
-                        ul 
-                            each feature in tiers.enterprise.features 
-                                li 
-                                    i.bi-check2-square 
-                                    |  #{feature}
-            aside.actions
-                if tier !== 'Free'
-                    a.danger#cancel(@click="cancel") Cancel Subscription
-            section#upgrade
-                h3 Change Subscription
-                p See all other subscription plans and switch whenever you want
-                if tier !== 'Free'
-                    .card 
-                        .card-header 
-                            h3 Free 
-                            p
-                                span.price $0
-                                | /Always 
-                        .card-body 
-                            ul 
-                                each feature in tiers.free.features 
-                                    li 
-                                        i.bi-check2-square 
-                                        |  #{feature}
-                        .card-footer
-                            a(href=`/me/subscription?tier=free`) Get Free Access
-                if tier !== 'Professional'
-                    .card 
-                        .card-header 
-                            h3 Professional 
-                            p
-                                span.price $#{tiers.professional.price}
-                                | /month 
-                        .card-body 
-                            p All Free Features 
-                                br
-                                i.bi-plus
-                            ul
-                                each feature in tiers.professional.features
-                                    li 
-                                        i.bi-check2-square 
-                                        |  #{feature}
-                        .card-footer
-                            if tier === 'Free'
-                                a(href=`/buy?tier=professional`) Get Professional Access
-                            else
-                                a(href=`/me/subscription?tier=professional`) Get Professional Access
-                if tier !== 'Premium'
-                    .card 
-                        .card-header
-                            h3 Premium 
-                            p 
-                                span.price $#{tiers.premium.price}
-                                | /month
-                        .card-body 
-                            p All Professional Features 
-                                br
-                                i.bi-plus
-                            ul
-                                each feature in tiers.premium.features
-                                    li 
-                                        i.bi-check2-square 
-                                        |  #{feature}
-                        .card-footer 
-                            if tier === 'Free'
-                                a(href=`/buy?tier=premium`) Get Premium Access
-                            else
-                                a(href=`/me/subscription?tier=premium`) Get Premium Access
-                if tier !== 'Enterprise'
-                    .card 
-                        .card-header 
-                            h3 Enterprise
-                            p 
-                                span.price Contact sales
-                        .card-body 
-                            p All Premium Features 
-                                br
-                                i.bi-plus
-                            ul 
-                                each feature in tiers.enterprise.features 
-                                    li 
-                                        i.bi-check2-square 
-                                        |  #{feature}
-                        .card-footer 
-                            a(href='mailto:sales@visbanking.com') Get Enterprise Access
+	h1 Welcome #{userInfo.FirstName}
+	p#message #{message}
+	p#error #{error}
+	p#logout
+		a(href="/me/logout") Log out
+	section(id=userInfo.username)
+		aside.identifiers
+			p.profile(:class="{ active:profile }", @click="showSection('profile')") Profile
+			p.products(:class="{ active:products }", @click="showSection('products')") Products
+		aside.profile(v-if="profile")    
+			form(method="POST" enctype="multipart/form-data") 
+				if userInfo.Image
+					img#profile.show(src=userInfo.Image, alt=`${userInfo.FirstName} ${userInfo.LastName}`, title="Update Profile Picture", @click="edit('picture')")
+				else 
+					i.bi-person-fill.show#profile(title="Update Profile Picture", @click="edit('picture')")
+				img#preview(src="" alt="")
+				input#image(type="file" name="image" accept="image/jpeg, image/png", @input="validate('picture')")
+				div.info
+					h2 Personal Information
+					p.label.name Name 
+						i.bi-pencil-square.name(@click="edit('name')")
+					//- p.label.phone Phone
+					//-     super.bi-pencil-square.phone
+					p.data.name.show #{userInfo.FirstName} #{userInfo.LastName}
+					input#name(type="text" name="name" placeholder="Name Surname", @keydown="validate('name')")
+					//- p.data.phone.show #{userInfo.Phone || "N/A"}
+					//- input#phone(type="tel" name="phone" placeholder="1234567890")
+					p.label.email Email 
+					//- p.label.company Company
+					//-     super.bi-pencil-square.company
+					p.data.show #{userInfo.Email}
+					//- p.data.company.show #{userInfo.Company || "N/A"}
+					//- input#company(type="text" name="company" placeholder="Visbanking")
+					p.label.pass Password 
+					p.data.pass.show
+						a(href="/me/password") Change Password
+						br
+						a(href="/recovery") Recover Password
+					p.label.verify Account Verification
+					p.data.verify.show(class=userInfo.Signup_Code==='0' ? "verified" : "unverified")
+						if userInfo.Signup_Code === '0'
+							i.bi-patch-check-fill
+							|  Verified 
+						else
+							i.bi-patch-exclamation-fill
+							span(title="Check your inbox for our Confirmation Email")  Please verify your account
+					//- h3 Email Subscriptions 
+					//- p.label.verify Daily Bank Industry News Digest
+					//- p.data.verify.show(class=userInfo.NewsDigest ? "verified" : "")
+					//- 	if userInfo.NewsDigest 
+					//- 		i.bi-envelope-check-fill 
+					//- 		|  Subscribed 
+					//- 	else 
+					//- 		i.bi-envelope-plus-fill
+					//- 		a(href="/funnel/newsDigest") Subscribe
+					//- p.label.verify Newsletter 
+					//- p.data.verify.show(class=userInfo.Newsletter ? "verified" : "")
+					//- 	if userInfo.Newsletter 
+					//- 		i.bi-envelope-check-fill 
+					//- 		|  Subscribed 
+					//- 	else 
+					//- 		i.bi-envelope-plus-fill
+					//- 		a(href="#newsletter") Subscribe
+					input(type="submit" value="Save")
+					input(type="reset" value="Cancel", @click="reset")
+				div.accounts
+					h2 Social Accounts
+					if !userInfo.Google && !userInfo.Facebook && !userInfo.LinkedIn
+						p No accounts linked
+					if userInfo.Google
+						.account.connected#google(title=userInfo.Google)
+							i.bi-google
+							| Connected
+					if userInfo.LinkedIn
+						.account.connected#linkedin(title=userInfo.LinkedIn)
+							i.bi-linkedin
+							| Connected
+					if !userInfo.Google || !userInfo.LinkedIn /*|| !user.info.Facebook*/
+						h3 Link
+						if !userInfo.Google
+							.account
+								#gsiButton
+						if !userInfo.LinkedIn
+							.account 
+								#liButton
+									a(href="/me/connect/linkedin") 
+										i.bi-linkedin
+			aside.actions 
+				a.danger#delete(@click="deleteAccount") Delete Account 
+		aside.products(v-if="products")
+			h2 Products
+			p See your current and all other subscription plans
+			.card 
+				div Current
+				.card-header 
+					h3 #{tier}
+					p 
+						if (tier !== "Enterprise")
+							span.price #{`$${tiers[tier.toLowerCase()].price}/month`}
+				.card-body 
+					if tier === "Free"
+						ul 
+							each feature in tiers.free.features 
+								li 
+									i.bi-check2-square 
+									|  #{feature}
+					else if tier === "Professional"
+						p All Free Features 
+							br
+							i.bi-plus
+						ul 
+							each feature in tiers.professional.features 
+								li 
+									i.bi-check2-square  
+									|  #{feature}
+					else if tier === "Premium"
+						p All Professional Features 
+							br
+							i.bi-plus
+						ul 
+							each feature in tiers.premium.features 
+								li 
+									i.bi-check2-square 
+									|  #{feature}
+					else if tier === "Enterprise"
+						p All Premium Features 
+							br
+							i.bi-plus
+						ul 
+							each feature in tiers.enterprise.features 
+								li 
+									i.bi-check2-square 
+									|  #{feature}
+					else if tier === "Academic"
+						ul
+							each feature in [ ...tiers.free.features ].concat(...tiers.professional.features)
+								li 
+									i.bi-check2-square 
+									|  #{feature}
+			aside.actions
+				if !["Free", "Academic"].includes(tier)
+					a.danger#cancel(@click="cancel") Cancel Subscription
+			section#upgrade
+				h3 Change Subscription
+				p See all other subscription plans and switch whenever you want
+				if tier !== 'Free' && tier !== 'Academic'
+					.card 
+						.card-header 
+							h3 Free 
+							p
+								span.price $0
+								| /Always 
+						.card-body 
+							ul 
+								each feature in tiers.free.features 
+									li 
+										i.bi-check2-square 
+										|  #{feature}
+						.card-footer
+							a(href=`/me/subscription?tier=free`) Get Free Access
+				if tier !== 'Professional'
+					.card 
+						.card-header 
+							h3 Professional 
+							p
+								span.price $#{tiers.professional.price}
+								| /month 
+						.card-body 
+							p All Free Features 
+								br
+								i.bi-plus
+							ul
+								each feature in tiers.professional.features
+									li 
+										i.bi-check2-square 
+										|  #{feature}
+						.card-footer
+							if ["Free", "Academic"].includes(tier)
+								a(href=`/buy?tier=professional`) Get Professional Access
+							else
+								a(href=`/me/subscription?tier=professional`) Get Professional Access
+				if tier !== 'Premium'
+					.card 
+						.card-header
+							h3 Premium 
+							p 
+								span.price $#{tiers.premium.price}
+								| /month
+						.card-body 
+							p All Professional Features 
+								br
+								i.bi-plus
+							ul
+								each feature in tiers.premium.features
+									li 
+										i.bi-check2-square 
+										|  #{feature}
+						.card-footer 
+							if ["Free", "Academic"].includes(tier)
+								a(href=`/buy?tier=premium`) Get Premium Access
+							else
+								a(href=`/me/subscription?tier=premium`) Get Premium Access
+				if tier !== 'Enterprise'
+					.card 
+						.card-header 
+							h3 Enterprise
+							p 
+								span.price Contact sales
+						.card-body 
+							p All Premium Features 
+								br
+								i.bi-plus
+							ul 
+								each feature in tiers.enterprise.features 
+									li 
+										i.bi-check2-square 
+										|  #{feature}
+						.card-footer 
+							a(href='mailto:sales@visbanking.com') Get Enterprise Access
 
 block scripts 
-    script(src="/js/googleSignInButton.js")
-    script(src="/js/user.js") 
+	script(src="/js/googleSignInButton.js")
+	script(src="/js/user.js") 
