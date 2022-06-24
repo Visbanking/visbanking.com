@@ -54,6 +54,10 @@ form input[type="submit"]
     cursor: pointer;
     border-radius: 10px;
 }
+#newsletter
+{
+	display: none;
+}
 @media screen and (max-width: 900px)
 {
     form input
