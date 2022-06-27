@@ -6,7 +6,7 @@ const { toUpper, toLower } = require("lodash");
 const router = Router();
 
 router.get("/", (req, res) => {
-	connection.query("SELECT * FROM Visbanking.AllReports WHERE Type = 'Macro' ORDER BY RAND() LIMIT 0, 9;", (err, results, fields) => {
+	connection.query("SELECT * FROM Visbanking.AllReports WHERE Type = 'Macro';", (err, results, fields) => {
 		if (err) {
 			res.redirect("/banks");
 		} else {
@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/deposits", (req, res) => {
-	connection.query("SELECT * FROM Visbanking.AllReports WHERE Type = 'Macro' AND ReportName LIKE '%Deposits%' ORDER BY State ASC;", (err, results, fields) => {
+	connection.query("SELECT * FROM Visbanking.AllReports WHERE Type = 'Macro' AND Subtype = 'Deposits';", (err, results, fields) => {
 		if (err) {
 			res.redirect("/banks/macro");
 		} else {
@@ -62,7 +62,7 @@ router.get("/deposits/:id", (req, res) => {
 	const id = req.params.id;
 	const tiers = ["Free", "Professional", "Academic", "Premium", "Enterprise"];
 	if (id === "general") {
-		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND SectionName = 'General';", (err, results, fields) => {
+		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND Subtype = 'Deposits' AND SectionName = 'General';", (err, results, fields) => {
 			if (err || !results[0]) {
 				res.redirect("/banks/macro");
 			} else {
@@ -95,7 +95,7 @@ router.get("/deposits/:id", (req, res) => {
 			}
 		});
 	} else if (id === "composition") {
-		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND SectionName = 'Composition';", (err, results, fields) => {
+		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND Subtype = 'Deposits' AND SectionName = 'Composition';", (err, results, fields) => {
 			if (err || !results[0]) {
 				res.redirect("/banks/macro");
 			} else {
@@ -128,7 +128,7 @@ router.get("/deposits/:id", (req, res) => {
 			}
 		});
 	} else if (id === "utilization") {
-		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND SectionName = 'Utilization';", (err, results, fields) => {
+		connection.query("SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND Subtype = 'Deposits' AND SectionName = 'Utilization';", (err, results, fields) => {
 			if (err || !results[0]) {
 				res.redirect("/banks/macro");
 			} else {
@@ -163,7 +163,7 @@ router.get("/deposits/:id", (req, res) => {
 	} else {
 		if (id !== toUpper(id)) res.redirect(`/banks/macro/deposits/${toUpper(id)}`);
 		else {
-			connection.query(`SELECT Tier, URL FROM Visbanking.AllReports WHERE ReportID = 5 AND State = '${id}';`, (err, results, fields) => {
+			connection.query(`SELECT Tier, URL FROM Visbanking.AllReports WHERE Type = 'Macro' AND Subtype = 'Deposits' AND State = '${id}';`, (err, results, fields) => {
 				if (err || !results[0]) {
 					res.redirect("/banks/macro");
 				} else {

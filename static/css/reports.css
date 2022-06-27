@@ -35,7 +35,6 @@ main section
 }
 h2
 {
-    color: #005487;
     font-weight: 700;
     text-transform: uppercase;
     margin: 0.5rem 0 0;
@@ -63,22 +62,27 @@ h2
     border-radius: 10px;
     transition: all 0.1s linear;
 }
-.bank[data-status="Active"]
+.reports[data-path="/reports"] .report hr
 {
-    border-color: #44BF00;
+	border-color: #000000;
 }
-.bank[data-status="Inactive"]
+.report > i
 {
-    border-color: #FF1100;
+	font-size: 3rem;
 }
-/* .bank > :first-child
+.report > a
 {
-    margin-top: 0;
+	display: inline-block;
+	margin-top: 2rem;
+	padding: 0.5rem 1.5rem;
+	background-color: #005487;
+	color: #FFFFFF;
+	width: 50%;
+	border-radius: 20px;
+	font-weight: 600;
+	text-decoration: none;
+	text-transform: uppercase;
 }
-.bank > :last-child
-{
-    margin-bottom: 0;
-} */
 .name
 {
     margin: 0;
