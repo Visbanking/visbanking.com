@@ -8,7 +8,7 @@ const routes = require("./routing/routes");
 const about = require("./routing/about");
 const insights = require("./routing/insights");
 const contact = require("./routing/contact");
-const funnel = require("./routing/funnel");
+const landing = require("./routing/landing");
 const login = require("./routing/login");
 const user = require("./routing/user");
 const reports = require("./routing/reports");
@@ -48,7 +48,7 @@ app.use("/contact", contact);
 
 app.use(login);
 
-app.use("/funnel", funnel);
+app.use("/landing", landing);
 
 app.use("/me", user);
 

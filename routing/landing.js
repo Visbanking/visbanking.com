@@ -12,8 +12,12 @@ client.setConfig({
 
 // const verifier = new EmailVerifier(10000);
 
+router.get("/", (req, res) => {
+	res.redirect("/landing/newsDigest");
+});
+
 router.get("/newsDigest", (req, res) => {
-	res.redirect(`/funnel/newsDigest/${["a", "b"][Math.floor(Math.random() * 2)]}`);
+	res.redirect(`/landing/newsDigest/${["a", "b"][Math.floor(Math.random() * 2)]}`);
 });
 
 router.post("/newsdigest", (req, res) => {
@@ -34,7 +38,7 @@ router.post("/newsdigest", (req, res) => {
 		const response = await client.lists.batchListMembers("6a0268299e", new_client);
 		if (response.error_count === 0) {
 			connection.query(`INSERT INTO NewsDigest (FirstName, LastName, Email, Company) VALUES ('${fname}', '${req.body.lname || ""}', '${email}', '${req.body.company || ""}');`, (err, results, fields) => {
-				res.redirect("/funnel/newsdigest/success");
+				res.redirect("/landing/newsdigest/success");
 			});
 		} else {
 			if (response.errors[0].error_code === "ERROR_CONTACT_EXISTS") {
@@ -42,7 +46,7 @@ router.post("/newsdigest", (req, res) => {
 				run();
 			} else {
 				console.error(response.errors[0].error);
-				res.redirect("/funnel/newsdigest/failure");
+				res.redirect("/landing/newsdigest/failure");
 			}
 		}
 	};
@@ -104,11 +108,18 @@ router.get("/newsdigest/failure", (req, res) => {
 
 router.get("/newsdigest/:test_id", (req, res) => {
 	const test_id = req.params.test_id;
-	if (["a", "b"].indexOf(test_id) === -1) return res.redirect("/funnel/newsdigest/a");
-	res.render("funnel/newsDigest", {
+	if (["a", "b"].indexOf(test_id) === -1) return res.redirect("/landing/newsdigest/a");
+	res.render("landing/newsDigest", {
 		title: "Subscribe to our News Digest - Visbanking",
 		path: req.originalUrl,
 		test_id,
+	});
+});
+
+router.get("/academic", (req, res) => {
+	res.render("landing/academic", {
+		title: "Visbanking Academic - Visbanking",
+		path: req.originalUrl
 	});
 });
 

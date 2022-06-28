@@ -15,7 +15,7 @@ html(lang="en")
         link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap")
         link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
         link(rel="stylesheet" href="/css/layout.css")
-        link(rel="stylesheet", href="/css/funnel/newsDigest.css")
+        link(rel="stylesheet", href="/css/landing/newsDigest.css")
         link(rel="canonical", href=`https://visbanking.com${path}`)
         script(async, src="https://www.googletagmanager.com/gtag/js?id=UA-214131359-1")
         script(src="https://accounts.google.com/gsi/client", async, defer)
@@ -23,7 +23,7 @@ html(lang="en")
     body 
         header 
             nav.navbar
-                img.logo(src="/images/funnel/newsDigest/header.png" alt="Visbanking") 
+                img.logo(src="/images/landing/newsDigest/header.png" alt="Visbanking") 
         main 
             .socials 
                 h1 Subscribe to the Banking News Digest
@@ -38,13 +38,13 @@ html(lang="en")
                         i.bi-instagram 
             section
                 .video
-                    video(src="/videos/news-digest.mp4", controls, disablePictureInPicture, controlsList="nodownload") 
-                    img(src="/images/funnel/newsDigest/slogan.png", alt="Visbanking")
+                    video(src="/videos/landing/news-digest.mp4", controls, disablePictureInPicture, controlsList="nodownload") 
+                    img(src="/images/landing/newsDigest/slogan.png", alt="Visbanking")
                 .text 
                     p In today's disruptive environment, the banking industry is evolving at breakneck speed. To keep pace with these changes, you need news you can rely on to stay informed.
                     p Get the industry news you need with our daily News Digest and make sure that you never miss out on today's top stories.
                     p Sign up today to get our News Digest and start receiving the banking information you need to stay informed and empower your decision-making!
-                form(action="/funnel/newsDigest", method="POST")
+                form(action="/landing/newsDigest", method="POST")
                     h2 Get our banking news digest for free
                     input#fname(type="text", name="fname", placeholder="John *", required)
                     if test_id === "a"
