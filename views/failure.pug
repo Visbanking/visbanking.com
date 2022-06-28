@@ -15,7 +15,7 @@ block header
             p There was an issue sending the email
         else if path.includes("recovery/reset")
             p Your password couldn't be updated
-        else if path.includes("funnel/newsdigest")
+        else if path.includes("landing/newsdigest")
             p We couldn't add you to our News Digest
         else if path.includes("signup/verify/failure")
             p Your account couldn't be verified
@@ -37,9 +37,9 @@ block header
     else if path.includes("recovery/reset")
         p Please refer back to the link in your email or go to our
             span(onclick="window.location.replace('/')") homepage
-    else if path.includes("funnel/newsdigest")
+    else if path.includes("landing/newsdigest")
         p You can 
-            span(onclick="window.location.replace('/funnel/newsdigest')") try again
+            span(onclick="window.location.replace('/landing/newsdigest')") try again
             |  or go back to our 
             span(onclick="window.location.replace('/')") homepage
     else if path.includes("signup/verify/failure")
