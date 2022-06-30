@@ -6,6 +6,7 @@ const app = Vue.createApp({
             insights: false,
             members: false,
             questions: false,
+			academics: false,
             create: false,
             edit: false,
             remove: false,
@@ -31,6 +32,9 @@ const app = Vue.createApp({
                 case 'questions':
                     sectionData = await fetch('/admin/dashboard/questions');
                     break;
+				case 'academics':
+					sectionData = await fetch('/admin/dashboard/academics');
+					break;
             }
             const data = await sectionData.json();
             if (data.error) throw data.error;
@@ -54,6 +58,9 @@ const app = Vue.createApp({
                     case 'questions':
                         this.renderQuestionsPanelSection(data);
                         break;
+					case 'academics':
+						this.renderAcademicsPanelSection(data);
+						break;
                 }
             }
         },
@@ -157,11 +164,25 @@ const app = Vue.createApp({
             });
             questionsSection.innerHTML = questionsSectionHTMLContent.join('');
         },
+		renderAcademicsPanelSection(data) {
+			const academicsSection = document.querySelector("#panel .academics > div");
+			const academicsSectionHTMLContent = [];
+			data.data.forEach(dataRecord => {
+				academicsSectionHTMLContent.push(`
+					<p class="data">
+						<span>${dataRecord.FirstName}</span>
+						<span>${dataRecord.LastName}</span>
+						<span>${dataRecord.Email}</span>
+					</p>
+				`);
+			});
+			academicsSection.innerHTML = academicsSectionHTMLContent.join('');
+		},
         showSection(section) {
             this.hideForms();
             this.showLoader();
             this.hideErrorMessage();
-            this.profile = this.admins = this.insights = this.members = this.questions = false;
+            this.profile = this.admins = this.insights = this.members = this.questions = this.academics = false;
             this[section] = true;
             this.getSectionData(section)
             .then(sectionData => {

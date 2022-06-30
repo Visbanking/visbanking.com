@@ -1,0 +1,150 @@
+header, main > section
+{
+	min-height: auto;
+}
+nav.navbar
+{
+	justify-content: flex-start;
+}
+img.logo
+{
+    max-width: 25%;
+}
+main
+{
+    padding: 0 2%;
+}
+.socials
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+h1
+{
+    margin: 0 5% 0 0;
+    font-weight: 700;
+    font-size: 2.5rem;
+    padding: 1% 1% 0;
+    display: inline-block;
+}
+.socials a
+{
+    font-size: 1.2rem;
+    color: #000000;
+    text-decoration: none;
+    margin: 0 0.2rem;
+}
+main section
+{
+    margin-top: 1%;
+    border-top: 1px solid #3E8CF6;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+section > *
+{
+	box-sizing: border-box;
+	width: 50%;
+	padding: 2%;
+}
+.text
+{
+    font-size: 1.2rem;
+    font-weight: 400;
+	text-align: center;
+}
+.text p
+{
+    margin: 3% 0;
+}
+.text p:first-of-type
+{
+    margin-top: 0;
+}
+.text p span
+{
+	font-weight: 700;
+}
+ul
+{
+	padding: 0;
+	list-style-type: none;
+	width: 70%;
+	margin: 0 auto;
+}
+li
+{
+	font-weight: 600;
+	font-size: 1.1rem;
+	padding: 0.5rem 0;
+}
+li:not(:last-of-type)
+{
+	border-bottom: 1px solid #015193;
+}
+form
+{
+    background-color: #3E8CF6;
+    color: #FFFFFF;
+}
+h2
+{
+    margin: 0 0 1%;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+input
+{
+    display: block;
+    margin: 5% auto;
+    padding: 0.5rem 0.7rem;
+    border-radius: 5px;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    box-shadow: 10px 10px 10px 0px #00000040;
+    transition: all 0.1s linear;
+}
+input:hover, input:focus
+{
+    box-shadow: 10px 10px 10px 0px #000000C0;
+    outline: none;
+}
+input:not([type=submit])
+{
+    width: 55%;
+}
+input[type=submit]
+{
+    background-color: #015193;
+    color: #FFFFFF;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    width: 40%;
+    cursor: pointer;
+}
+form p
+{
+    text-align: center;
+}
+form p a
+{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+form p a:first-of-type
+{
+    margin-right: 10%;
+}
+form p a:hover, form p a:focus
+{
+    text-decoration: underline;
+}

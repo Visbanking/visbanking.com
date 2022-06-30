@@ -14,6 +14,8 @@ block header
             h1 Your account has been created
         else if path.includes("signup/verify/success")
             h1 Your account has been verified
+		else if path.includes("landing/academic")
+			h1 Your request has been received
         else 
             h1 Thank you
         if path.includes("subscribe")
@@ -32,6 +34,8 @@ block header
             p A password recovery link has been sent to your email
         else if path.includes("/recovery/reset")
             p Your password has been successfully reset
+		else if path.includes("landing/academic")
+			p We'll review your request and get back to you as soon as possible
     if path.includes("buy")
         p You'll be redirected to your personal user page in a moment
     else if path.includes("signup/success")
