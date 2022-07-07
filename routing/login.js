@@ -103,14 +103,14 @@ router.get("/login/google", (req, res) => {
 router.get("/login/linkedin", (req, res) => {
 	if (!req.query.state)
 		res.redirect(
-			`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=http://localhost:8080/login/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`
+			`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.LINKEDIN_CLIENT_ID}&redirect_uri=https://visbanking.com/login/linkedin&state=${process.env.LINKEDIN_STATE_STRING}&scope=r_liteprofile%20r_emailaddress`
 		);
 	else if (req.query.state !== process.env.LINKEDIN_STATE_STRING) res.redirect("/login");
 	else if (req.query.state === process.env.LINKEDIN_STATE_STRING) {
 		if (req.query.error) res.redirect("/login");
 		else {
 			post(
-				`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=http://localhost:8080//login/linkedin`,
+				`https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${req.query.code}&client_id=${process.env.LINKEDIN_CLIENT_ID}&client_secret=${process.env.LINKEDIN_CLIENT_SECRET}&redirect_uri=https://visbanking.com/login/linkedin`,
 				{},
 				{
 					headers: {
