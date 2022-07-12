@@ -1,0 +1,16 @@
+extends ./../layout.pug
+
+block meta
+	meta(http-equiv="refresh" content="600")
+
+block styles
+	link(rel="stylesheet" href="/css/bank.css")
+
+block main 
+	p.loader.active Loading...
+	iframe#report(src=pdfSource, frameborder="0", allowfullscreen)
+	if !loggedIn
+		a.login(href="/login") Log In
+
+block scripts 
+	script(src="/js/reports/report.js") 

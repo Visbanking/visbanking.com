@@ -1,0 +1,36 @@
+extends ./../layout.pug
+
+block styles
+	link(rel="stylesheet" href="/css/bank.css")
+
+block main 
+	section#upgrade
+		h1 Sorry
+		p Your current subscription plan (#{userTier}) is below the necessary plan to view this resource (#{tier.tier})
+		aside.plan 
+			h2 #{tier.tier}
+			p
+				if tier.tier !== "Enterprise"
+					span.price $#{tier.price}
+					| /month
+				else 
+					span.price Contact Sales
+			hr
+			p #{tier.tier === 'Professional' ? 'All Free Features' : tier.tier === 'Premium' ? 'All Professional Features' : tier.tier === 'Enterprise' ? 'All Premium Features' : ''}
+				br
+				i.bi-plus
+			ul.features
+				each feature in tier.features
+					li 
+						p
+							i.bi-check2-square 
+							| #{feature}
+			if tier.tier === "Enterprise"
+				a.button(href="mailto:sales@visbanking.com") Contact Sales 
+			else if userTier === 'Free'
+				a.button(href=`/buy?tier=${tier.tier}`, target="_blank") Upgrade Now 
+			else 
+				a.button(href=`/me/subscription?tier=${tier.tier}`, target="_blank") Upgrade Now
+		p Or go back to our 
+			a(href="/reports") reports
+			|  page
