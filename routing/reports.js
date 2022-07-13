@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const connection = require("../data/dbconnection");
+const { capitalize } = require("lodash");
 const banks = require("./reports/banks");
 const macro = require("./reports/macro");
 const performance = require("./reports/performance");
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
 			title: "Reports - Visbanking",
 			path: req.originalUrl,
 			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-			reportTypes: results
+			reportTypes: ["Bank", "Macro", "Performance"]
 		});
 	});
 });
