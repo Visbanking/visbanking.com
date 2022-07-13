@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 			title: "Reports - Visbanking",
 			path: req.originalUrl,
 			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-			reportTypes: ["Bank", "Macro", "Performance"]
+			reportTypes: [{ Type:"Bank" }, { Type:"Macro" }, { Type:"Performance" }]
 		});
 	});
 });
