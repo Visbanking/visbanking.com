@@ -10,14 +10,17 @@ block styles
 	<link href="/libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet">
 	<link href="/libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet">
 	<link href="/libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet">
+	<link href="/libs/selectize-0.12.4/css/selectize.bootstrap3.css" rel="stylesheet">
 	<link href="/libs/tabwid-1.0.0/tabwid.css" rel="stylesheet">
 	<link href="/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 	<link href="/libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 	<link href="/libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
 	<link href="/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 	<link href="/libs/dt-ext-buttons-1.11.3/css/buttons.dataTables.min.css" rel="stylesheet">
+	<link href="/libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
 	<link href="/libs/highcharts-9.3.1/css/motion.css" rel="stylesheet">
-	link(rel="stylesheet" href="/css/reports/bankReport.css")
+	link(rel="stylesheet" href="/css/reports/htmlReport.css")
+	link(rel="stylesheet" href="/css/reports/report.css")
 
 block main 
 	p.loader.active Loading...
@@ -26,9 +29,12 @@ block main
 		a.login(href="/login") Log In
 
 block scripts 
+	<script src="/libs/header-attrs-2.11/header-attrs.js"></script>
 	<script src="/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 	<script src="/libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 	<script src="/libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+	<script src="/libs/selectize-0.12.4/js/selectize.min.js"></script>
 	<script src="/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 	<script src="/libs/datatables-binding-0.22/datatables.js"></script>
 	<script src="/libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
@@ -40,6 +46,9 @@ block scripts
 	<script src="/libs/dt-ext-buttons-1.11.3/js/buttons.html5.min.js"></script>
 	<script src="/libs/dt-ext-buttons-1.11.3/js/buttons.colVis.min.js"></script>
 	<script src="/libs/dt-ext-buttons-1.11.3/js/buttons.print.min.js"></script>
+	<script src="/libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+	<script src="/libs/dt-plugin-ellipsis-1.11.3/source.js"></script>
+	<script type="text/javascript" src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 	<script src="/libs/proj4js-2.3.15/proj4.js"></script>
 	<script src="/libs/highcharts-9.3.1/highcharts.js"></script>
 	<script src="/libs/highcharts-9.3.1/highcharts-3d.js"></script>
