@@ -34,11 +34,16 @@ h1
     border-bottom: 1px solid #3E8CF6;
     margin: 0 auto 1.5rem;
 }
-section#banks
+main section
 {
     box-sizing: border-box;
-    padding: 1rem;
+    padding: 0;
     min-height: auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
 }
 h2
 {
@@ -48,7 +53,7 @@ h2
     font-weight: 700;
     text-transform: uppercase;
 }
-input[type="text"]
+:not(#newsletter) input[type="text"]
 {
     box-sizing: border-box;
     padding: 0.5rem;
@@ -62,7 +67,7 @@ input[type="text"]
     font-size: 1rem;
     transition: box-shadow 0.1s linear;
 }
-input[type="text"]:focus, .search select:focus
+:not(#newsletter) input[type="text"]:focus, .search select:focus
 {
     outline: none;
     box-shadow: 5px 5px 5px 0px #000000A0;
@@ -77,7 +82,7 @@ input[type="text"]:focus, .search select:focus
     position: sticky;
     top: 0;
     z-index: 5;
-    width: 90%;
+    width: 100%;
     margin: 0.5rem auto 1rem;
     background-color: #FFFFFF;
     color: #000000;
@@ -101,7 +106,7 @@ input[type="text"]:focus, .search select:focus
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    margin: 1rem auto 0;
+    margin: 0 auto 1rem;
 }
 .search p
 {
@@ -155,47 +160,81 @@ input[type="text"]:focus, .search select:focus
 .backtrackLinks
 {
     text-align: center;
-    padding: 2rem 0 0;
+    padding: 0;
+	width: 100%;
 }
 .backtrackLinks a
 {
-    margin: 0 2%;
+	display: inline-block;
+    margin: 1rem 2% 0;
     color: inherit;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 1rem;
 }
-#banks .results
+.reportTypes
+{
+	width: 20%;
+	box-sizing: border-box;
+	padding: 1rem;
+	margin-top: 1.5rem;
+	border-top: 1px solid;
+	position: sticky;
+	top: 2vh;
+}
+.reportTypes a
+{
+	display: block;
+	color: inherit;
+	padding: 0.5rem;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+.reportTypes a.active
+{
+	background-color: #005487;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-weight: 600;
+}
+.reports
 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+	box-sizing: border-box;
     justify-content: space-evenly;
     align-items: center;
+	width: 80%;
+	min-height: 30vh;
+	padding-top: 1rem;
+	margin-top: 1.5rem;
+	border-top: 1px solid;
+	border-left: 1px solid;
 }
-.bank
+.report
 {
     position: relative;
     box-sizing: border-box;
     min-height: auto;
-    padding: 2%;
-    width: 25%;
-    margin: 2%;
+    padding: 1.5rem 1rem;
+    width: 30%;
+    margin: 0 0.5rem 2rem;
     text-align: center;
     display: none;
     border: 1px solid #BDBDBD;
     box-shadow: 5px 5px 10px 0px #00000040;
-    border-radius: 10px;
+    border-radius: 5px;
 }
-.bank.show
+.report.show
 {
     display: block;
 }
-.bank > :first-child
+.report > :first-child
 {
     margin-top: 0;
 }
-.bank > :last-child
+.report > :last-child
 {
     margin-bottom: 0;
 }
@@ -209,40 +248,33 @@ input[type="text"]:focus, .search select:focus
 {
     margin: 0.2rem 0 1rem;
 }
-.bank hr
+.report hr
 {
     width: 100%;
     border: none;
     border-bottom: 1px solid #005487;
 }
-.report
+.report p:not(.location)
 {
     font-weight: 600;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0;
+	text-align: center;
 }
-.report > :last-child
+.report p:not(.location) a
 {
-    width: 30%;
-    text-align: right;
+	display: inline-block;
+	width: 80%;
+	padding: 0.5rem 0;
+	background-color: #005487;
+	color: #FFFFFF;
+	text-decoration: none;
+	text-transform: uppercase;
+	box-shadow: 4px 4px 5px 0px #00000040;
+	transition: all 0.1s linear;
+	border-radius: 5px;
 }
-.report a
+.report p:not(.location) a:focus, .report p:not(.location) a:hover
 {
-    font-size: 1.5rem;
-    color: inherit;
-}
-.report a:first-of-type
-{
-    margin-right: 0.5rem;
-}
-.bank a:focus, .bank a:hover
-{
-    outline: none;
-    color: #005487;
+	box-shadow: 4px 4px 5px 0px #000000A0;
 }
 p.filterMessage
 {
@@ -250,6 +282,13 @@ p.filterMessage
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
+	width: 100%;
+	margin: 0;
+}
+p.filterMessage span
+{
+	display: inline-block;
+	margin: 1rem 0;
 }
 p.filterMessage .filtered
 {
@@ -261,7 +300,7 @@ p.filterMessage .noResults
 }
 @media screen and (max-width: 991px)
 {
-    .bank
+    .report
     {
         width: 35%;
     }
@@ -281,7 +320,6 @@ p.filterMessage .noResults
 {
     #intro
     {
-        width: 75%;
         font-size: 1.2rem;
         margin-bottom: 3%;
     }
@@ -289,7 +327,25 @@ p.filterMessage .noResults
     {
         width: calc(100%/5);
     }
-    .bank
+	.reportTypes, .reports
+	{
+		width: 100%;
+	}
+	.reportTypes
+	{
+		position: static;
+	}
+	.reportTypes a
+	{
+		text-align: center;
+		width: 50%;
+		margin: 0 auto;
+	}
+	.reports
+	{
+		margin-top: 0;
+	}
+    .report
     {
         width: 45%;
         padding: 3%;
@@ -306,7 +362,7 @@ p.filterMessage .noResults
     {
         width: calc(100%/4);
     }
-    .bank
+    .report
     {
         width: 70%;
         text-align: center;
@@ -319,7 +375,7 @@ p.filterMessage .noResults
         width: 85%;
         margin: 0 auto;
     }
-    .bank i.status
+    .report i.status
     {
         top: 0;
         right: 0;
@@ -344,10 +400,6 @@ p.filterMessage .noResults
     {
         margin-top: 0.5rem;
     }
-    .browse
-    {
-        display: none;
-    }
 }
 @media screen and (max-width: 450px)
 {
@@ -363,7 +415,7 @@ p.filterMessage .noResults
     {
         width: 100%;
     }
-    .bank
+    .report
     {
         width: 100%;
     }
