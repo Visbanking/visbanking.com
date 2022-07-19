@@ -1,81 +1,163 @@
 extends layout.pug 
 
 block styles 
-	link(rel="stylesheet" href="/css/reports.css")
+	if path === "/reports"
+		link(rel="stylesheet" href="/css/reports.css")
+	else
+		link(rel="stylesheet" href="/css/banks.css")
 
 block main 
-	h1 Reports
-	p#intro View Macro, Performance, and Single Bank Reports on more than 10,000 banks throughout the United States, with data on deposits, loans and more.
-	section.reports(data-path=path)
-		each reportType in reportTypes 
-			aside.report 
-				h2.name #{reportType.Type} Reports
-				hr
-				if reportType.Type === "Bank"
-					i.bi-bank
-				else if reportType.Type === "Macro"
-					i.bi-globe
-				else if reportType.Type === "Performance"
-					i.bi-graph-up
-				br
-				a(href=`/reports/${reportType.Type.toLowerCase()}`) View Reports
-	//- section.reports#banks
-	//- 	h2 Single Bank Reports
-	//- 	each bank in singleBankReports 
-	//- 		aside.report
-	//- 			h3.name #{bank.BankName}
-	//- 			p.location 
-	//- 				i.bi-geo-alt-fill
-	//- 				|  #{bank.City}, #{bank.State}
-	//- 			hr
-	//- 			p
-	//- 				span Bank Report 
-	//- 				span 
-	//- 					a(href=`/reports/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}/${loggedIn ? "bank" : "general"}`)
-	//- 						i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
-	//- 					a(href=`/reports/bank/${bank.State.toLowerCase()}/${bank.City.toLowerCase()}/${bank.IDRSSD}`)
-	//- 						i.bi-file-earmark-pdf-fill(title="View PDF Report")
-	//- 	p
-	//- 		a(href="/reports/bank") All Single Bank Reports
-	//- section.reports#macro 
-	//- 	h2 Macro Reports 
-	//- 	each report in macroReports
-	//- 		aside.report 
-	//- 			h3.name #{report.SectionName.split("_").join(" ")}
-	//- 			p.location 
-	//- 				i.bi-geo-alt-fill
-	//- 				if report.State 
-	//- 					|  #{report.State}, U.S.
-	//- 				else
-	//- 					|  All U.S. States
-	//- 			hr
-	//- 			p
-	//- 				span Deposits Report
-	//- 				a(href=`/reports/macro/deposits/${report.State ? report.State : report.SectionName.toLowerCase()}`)
-	//- 					if report.FileExtension === "pdf"
-	//- 						i.bi-file-earmark-pdf-fill(title="View PDF Report")
-	//- 					else if report.FileExtension === "html"
-	//- 						i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
-	//- 	p
-	//- 		a(href="/reports/macro") All Macro Reports
-	//- section.reports#performance
-	//- 	h2 Performance Reports
-	//- 	each report in performanceReports
-	//- 		aside.report 
-	//- 			h3.name #{report.SectionName.split("_").join(" ")}
-	//- 			p.location 
-	//- 				i.bi-geo-alt-fill
-	//- 				if report.State 
-	//- 					|  #{report.State}, U.S.
-	//- 				else
-	//- 					|  All U.S. States
-	//- 			hr
-	//- 			p
-	//- 				span Performance Report
-	//- 				a(href=`/reports/performance/${report.State ? report.State : report.SectionName.toLowerCase()}`)
-	//- 					if report.FileExtension === "pdf"
-	//- 						i.bi-file-earmark-pdf-fill(title="View PDF Report")
-	//- 					else if report.FileExtension === "html"
-	//- 						i.bi-file-earmark-bar-graph-fill(title="View HTML Report")
-	//- 	p
-	//- 		a(href="/reports/performance") All Performance Reports
+	if reports
+		a.back(href="/reports")
+			i.bi-arrow-left-short
+			span Back to All Reports
+		h1 #{reportsType} Reports
+		p#intro View reports on more than 10,000 banks throughout the United States, with data on loans, leases, income, and much more.
+		section 
+			if reports.some(report => report.BankName)
+				input.filter#bankName(type="text" name="bankName" placeholder="Bank Name")
+			aside.browse
+				a(href="#") #
+				a(href="#") A 
+				a(href="#") B
+				a(href="#") C
+				a(href="#") D
+				a(href="#") E
+				a(href="#") F
+				a(href="#") G
+				a(href="#") H
+				a(href="#") I
+				a(href="#") J
+				a(href="#") K
+				a(href="#") L
+				a(href="#") M
+				a(href="#") N
+				a(href="#") O
+				a(href="#") P
+				a(href="#") Q
+				a(href="#") R
+				a(href="#") S
+				a(href="#") T
+				a(href="#") U
+				a(href="#") V
+				a(href="#") W
+				a(href="#") X
+				a(href="#") Y
+				a(href="#") Z
+			if reports.some(report => (report.City || report.State || report.Status))
+				aside.search
+					p Filter by:
+					if !state && reports.some(report => report.City)
+						select.filter#state(name="state")
+							option(value="") State
+							option(value="AL") Alabama
+							option(value="AK") Alaska
+							option(value="AZ") Arizona
+							option(value="AR") Arkansas
+							option(value="CA") California
+							option(value="CO") Colorado
+							option(value="CT") Connecticut
+							option(value="DE") Delaware
+							option(value="FL") Florida
+							option(value="GA") Georgia
+							option(value="HI") Hawaii
+							option(value="ID") Idaho
+							option(value="IL") Illinois
+							option(value="IN") Indiana
+							option(value="IA") Iowa
+							option(value="KS") Kansas
+							option(value="KY") Kentucky
+							option(value="LA") Louisiana
+							option(value="ME") Maine
+							option(value="MD") Maryland
+							option(value="MA") Massachusetts
+							option(value="MI") Michigan
+							option(value="MN") Minnesota
+							option(value="MS") Mississippi
+							option(value="MO") Missouri
+							option(value="MT") Montana
+							option(value="NE") Nebraska
+							option(value="NV") Nevada
+							option(value="NH") New Hampshire
+							option(value="NJ") New Jersey
+							option(value="NM") New Mexico
+							option(value="NY") New York
+							option(value="NC") North Carolina
+							option(value="ND") North Dakota
+							option(value="OH") Ohio
+							option(value="OK") Oklahoma
+							option(value="OR") Oregon
+							option(value="PA") Pennsylvania
+							option(value="RI") Rhode Island
+							option(value="SC") South Carolina
+							option(value="SD") South Dakota
+							option(value="TN") Tennessee
+							option(value="TX") Texas
+							option(value="UT") Utah
+							option(value="VT") Vermont
+							option(value="VA") Virginia
+							option(value="WA") Washington
+							option(value="WV") West Virginia
+							option(value="WI") Wisconsin
+							option(value="WY") Wyoming
+					if !city && reports.some(report => report.City)
+						select.filter#city(name="city")
+							option(value="") City
+							- const cities = new Set(reports.map(report => report.City));
+							each city in Array.from(cities).sort()
+								option(value=city) #{city}
+					if reports.some(report => report.Status)
+						select.filter#status(name="status") 
+							option(value="") Status
+							option(value="Active") Active
+							option(value="Inactive") Inactive
+					br
+					button#clear Clear Filters
+			aside.backtrackLinks
+				if state 
+					a(href=`/reports/${reports[0].Type.toLowerCase()}`) View All #{reportsType} Reports
+					if city
+						a(href=`/reports/${reports[0].Type.toLowerCase()}/${state}`) View #{reportsType} Reports in #{state.toUpperCase()}
+			aside.reportTypes
+				if reportTypes 
+					each reportType in reportTypes 
+						a(href=`/reports/${reportType.toLowerCase()}`, data-report-type=reportType.toLowerCase()) #{reportType} Reports
+				else 
+					a(href="/reports/bank", data-report-type="bank") Bank Reports 
+					a(href="/reports/macro", data-report-type="macro") Macro Reports 
+					a(href="/reports/performance", data-report-type="performance") Performance Reports 
+			.reports
+				each report in reports 
+					.report.show(data-city=report.City, data-state=report.State, data-id=report.IDRSSD, data-name=(report.BankName || report.SectionName.split("_").join(" ")), data-status=report.Status, data-name-initial=(report.BankName ? report.BankName[0] : report.SectionName[0]))
+						h3.name #{report.BankName || report.SectionName.split("_").join(" ")}
+						p.location 
+							- const location = report.State ? report.City ? `${report.City}, ${report.State}` : `${report.State}, U.S.` : "All U.S. States";
+							i.bi-geo-alt-fill
+							|  #{location}
+						hr
+						p 
+							- const url = `/reports/${report.Type.toLowerCase()}/${report.State || report.SectionName.toLowerCase()}/${report.City ? report.City.toLowerCase() : ""}${report.IDRSSD ? `/${report.IDRSSD}` : ""}`;
+							a(href=url) View Reports
+				p.filterMessage 
+	else if reportTypes
+		h1 Reports
+		p#intro View Macro, Performance, and Single Bank Reports on more than 10,000 banks throughout the United States, with data on deposits, loans and more.
+		section.reports(data-path=path)
+			each reportType in reportTypes 
+				aside.report 
+					h2.name #{reportType.Type} Reports
+					hr
+					if reportType.Type === "Bank"
+						i.bi-bank
+					else if reportType.Type === "Macro"
+						i.bi-globe
+					else if reportType.Type === "Performance"
+						i.bi-graph-up
+					else 
+						i.bi-bank2
+					br
+					a(href=`/reports/${reportType.Type.toLowerCase()}`) View Reports
+
+block scripts 
+	script(src="/js/reports.js")
+	script(src="/js/reports/filter.js") 
