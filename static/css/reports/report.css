@@ -1,0 +1,42 @@
+p.loader
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    text-transform: uppercase;
+    font-size: 2rem;
+    font-weight: 700;
+    animation: loader 0.5s infinite alternate;
+}
+#report, iframe
+{
+    display: none;
+}
+.loader.active, #report.active, iframe.active
+{
+    display: block;
+}
+iframe.active
+{
+    display: block;
+    margin: 0 auto 2rem;
+    width: 95%;
+    height: 100vh;
+}
+a.login
+{
+    padding: 1rem;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: inherit;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #015193;
+    color: #FFFFFF;
+    margin: 2rem auto 0;
+    width: 10%;
+}
