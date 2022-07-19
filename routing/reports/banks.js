@@ -60,7 +60,7 @@ router.get("/", (req, res) => {
 router.get("/:state_abbrevitation", (req, res) => {
 	const { state_abbrevitation: state } = req.params;
 	if (state !== toUpper(state)) return res.redirect(`/reports/bank/${toUpper(state)}`);
-	connection.query(`SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State = '${toUpper(state)}' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
+	connection.query(`SELECT * FROM Visbanking.AllReports WHERE BankName IS NOT NULL AND State = '${toUpper(state)}' AND Type = 'Bank' GROUP BY IDRSSD ORDER BY BankName ASC;`, (err, results, fields) => {
 		if (err) {
 			res.redirect("/reports/bank");
 		} else {
