@@ -44,29 +44,6 @@ main > a[href="/banks"]:hover i
 {
     right: 5px;
 }
-h1
-{
-    margin: 0 auto;
-    width: 90%;
-}
-p.error
-{
-    font-size: 1.5rem;
-    width: 75%;
-    margin: 0 auto 2%;
-    text-align: center;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-.alternatives
-{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
 h2
 {
     width: 100%;
