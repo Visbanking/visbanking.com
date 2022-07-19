@@ -106,7 +106,6 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 						res.clearCookie("session_id");
 						res.redirect("/signup");
 					} else {
-						console.log(reports);
 						if (!reports.length) return res.redirect(`/reports/${type}/${stateOrSection}`);
 						const tiers = ["Free", "Professional", "Academic", "Premium", "Enterprise"];
 						const bestReportOptions = new Map();
@@ -130,7 +129,6 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 						}
 						const reportToRender = suitableReports[0][0];
 						if (req.query.type === "html") {
-							console.log(req.query.page);
 							const renderHTMLReport = () => {
 								readFile(reportToRender.URL.hostname.split(".")[0], `${reportToRender.URL.pathname.split("/").slice(1, -1).join("/")}/${req.query.page}.html`)
 									.then((report) => {
@@ -233,7 +231,6 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id", (req, re
 
 router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype", (req, res) => {
 	const { report_type: type, state_or_section: stateOrSection, city_or_subtype: cityOrSubtype, bank_id: bank, subtype } = req.params;
-	console.log("Test", req.query.type==="html" && !req.query.page);
 	if (!req.query.type) return res.redirect(`/reports/${type}/${stateOrSection}/${cityOrSubtype}/${bank}`);
 	else if (type !== toLower(type)) return res.redirect(`/reports/${toLower(type)}/${stateOrSection}/${cityOrSubtype}/${bank}/${subtype}?type=${req.query.type}${req.query.page ? `&page=${req.query.page}` : ""}`);
 	else if (stateOrSection.length === 2 && (stateOrSection !== toUpper(stateOrSection))) return res.redirect(`/reports/${type}/${toUpper(stateOrSection)}/${cityOrSubtype}/${bank}/${subtype}?type=${req.query.type}${req.query.page ? `&page=${req.query.page}` : ""}`);
@@ -247,7 +244,6 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 		} else if (req.cookies.user && req.cookies.tier && req.cookies.session_id) {
 			results.forEach(report => report.URL=new URL(report.URL));
 			const reports = results;
-			console.log(reports);
 			connection.query(`SELECT Email, Tier, Session_ID FROM Users WHERE Email = '${req.cookies.user}';`, (err, results, fields) => {
 				if (err || req.cookies.session_id !== results[0].Session_ID || req.cookies.tier !== results[0].Tier) {
 					res.clearCookie("user");
@@ -282,7 +278,6 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 					}
 					const reportToRender = suitableReports[0][0];
 					if (req.query.type === "html") {
-						console.log(req.query.page);
 						const renderHTMLReport = () => {
 							readFile(reportToRender.URL.hostname.split(".")[0], `${reportToRender.URL.pathname.split("/").slice(1, -1).join("/")}/${req.query.page}.html`)
 								.then((report) => {
