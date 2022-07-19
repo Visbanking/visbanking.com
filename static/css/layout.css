@@ -428,8 +428,8 @@ footer .links a:hover
     #newsletter input:not([type="submit"])
     {
         width: 50%;
-        margin-right: 0;
-        margin-bottom: 3%;
+		box-sizing: border-box;
+        margin: 0 auto 3%;
         padding: 2%;
     }
     #newsletter input[type="submit"]
