@@ -1,22 +1,25 @@
 extends ./../layout.pug
 
 block styles
-	link(rel="stylesheet" href="/css/bank.css")
+	link(rel="stylesheet" href="/css/reports/error.css")
 
 block main 
 	if error
-		section.center#error
+		section#error
 			h1 We're sorry! 
 			p.error #{error}
 			aside.alternatives 
 				h2 Check out these alternatives:
 				each report in alternativeReports
 					.report 
-						p.name #{report.SectionName.split("_").join(" ")}
+						p.name #{report.BankName || report.SectionName.split("_").join(" ")}
 						- const location = report.State ? (report.City ? `${report.City}, ${report.State}` : `${report.State}, U.S.`) : "All U.S. States";
-						p.location #{location}
-						- const url = (report.IDRSSD && report.Type==="Bank") ? `bank/${report.State}/${report.City}/${report.IDRSSD}/bank` : (report.Type==="Macro") ? `macro/${report.State || report.SectionName}/${report.Subtype}` : (report.Type==="Performance") ? `performance/${report.State || report.SectionName}` : "";
-						a(href=`/reports/${url}`) View this report  
+						p.location 
+							i.bi-geo-alt-fill
+							|  #{location}
+						hr
+						- const url = `/reports/${report.Type.toLowerCase()}/${report.State || report.SectionName.toLowerCase()}/${report.City ? report.City.toLowerCase() : ""}${report.IDRSSD ? `/${report.IDRSSD}` : ""}`;
+						a(href=url) View Reports  
 				p Or go back to our 
 					a(href="/reports") reports
 					|  page     
