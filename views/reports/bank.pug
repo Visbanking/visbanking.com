@@ -13,30 +13,29 @@ block main
 		i.bi-geo-alt-fill 
 		|  #{reports[0].State ? reports[0].City ? `${reports[0].City}, ${reports[0].State}` : `${reports[0].State}, U.S.` : "All U.S. States"}
 	section 
-		if reportTypes
-			aside.reportTypes
-				each reportType, index in reportTypes 
-					a(data-report-type=reportType.toLowerCase(), class=index===0?"active":"") #{reportType} Reports
+		aside.reportTypes
+			each reportType, index in reportTypes 
+				a(data-report-type=reportType.toLowerCase(), class=index===0?"active":"") #{reportType} Reports
 		.reports
 			if reportTypes 
 				each reportType, index in reportTypes
 					aside.reportType(class=index===0?"active":"", id=reportType.toLowerCase())
-						each report in reports.filter(report => report.Subtype===reportType)
-							each sectionName in [ ... new Set(reports.filter(report => report.Subtype===reportType).map(report => report.SectionName)) ]
-								.report.show(data-city=report.City, data-state=report.State, data-id=report.IDRSSD, data-name=(report.BankName || report.SectionName.split("_").join(" ")), data-status=report.Status, data-name-initial=(report.BankName ? report.BankName[0] : report.SectionName[0]))
-									h3.name #{sectionName}
-									hr
-									p 
-										- let url = `/reports/${report.Type}/${report.State || report.SectionName}/${report.City || report.report.Subtype}${report.IDRSSD?`/${report.IDRSSD}/${report.Subtype}`:""}?type=${report.FileExtension}`;
-										- if (report.FileExtension === "html") url += `&page=${report.URL.split("/").slice(-1)[0].split(".")[0]}`;
-										a(href=url) View Report
-			else 
-				each report in reports
-					.report.show(data-city=report.City, data-state=report.State, data-id=report.IDRSSD, data-name=(report.BankName || report.SectionName.split("_").join(" ")), data-status=report.Status, data-name-initial=(report.BankName ? report.BankName[0] : report.SectionName[0]))
-						h3.name #{report.Type} #{report.Subtype} Report
-						hr
-						p 
-							a(href=`/reports/${report.Type}/${report.State || report.SectionName}/${report.City || report.Subtype}?type=${report.FileExtension}`) View Report
+						each sectionName in [ ... new Set(reports.filter(report => report.Subtype===reportType).map(report => report.SectionName)) ]
+							.report.show(data-name=sectionName.split("_").join(" "))
+								h3.name #{sectionName}
+								hr
+								p 
+									- const reportsOfType = reports.filter(report => (report.Subtype===reportType && report.SectionName===sectionName));
+									each reportExtension in [ ... new Set(reportsOfType.map(report => report.FileExtension)) ]
+										- console.log(reportExtension);
+										- let url = `/reports/${reportsOfType[0].Type}/${reportsOfType[0].State || reportsOfType[0].SectionName}/${reportsOfType[0].City || reportsOfType[0].Subtype}${reportsOfType[0].IDRSSD?`/${reportsOfType[0].IDRSSD}/${reportsOfType[0].Subtype}`:""}`;
+										- if (reportExtension === "html") url += `?type=${reportExtension}&page=${reportsOfType.filter(report => report.FileExtension===reportExtension)[0].URL.split("/").slice(-1)[0].split(".")[0]}`;
+										- else if (reportExtension === "pdf") url += `?type=${reportExtension}`;
+										a(href=url) 
+											if reportExtension === "html"
+												i.bi-file-earmark-bar-graph-fill
+											else if reportExtension === "pdf"
+												i.bi-file-earmark-pdf-fill
 			p.filterMessage 
 
 block scripts 
