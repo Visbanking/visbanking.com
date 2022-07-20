@@ -22,7 +22,7 @@ block main
 					aside.reportType(class=index===0?"active":"", id=reportType.toLowerCase())
 						each sectionName in [ ... new Set(reports.filter(report => report.Subtype===reportType).map(report => report.SectionName)) ]
 							.report.show(data-name=sectionName.split("_").join(" "))
-								h3.name #{sectionName}
+								h3.name #{sectionName.split("_").join(" ")}
 								hr
 								p 
 									- const reportsOfType = reports.filter(report => (report.Subtype===reportType && report.SectionName===sectionName));
