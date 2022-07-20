@@ -61,6 +61,7 @@ router.get("/:report_type/:state_or_section", (req, res) => {
 					title: `${capitalize(type)} Reports for ${stateOrSection}, US - Visbanking`,
 					path: req.originalUrl,
 					reportsType: type,
+					reportTypes: [ ... new Set(results.map(report => report.Subtype)) ],
 					loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 				});
 			} else {
