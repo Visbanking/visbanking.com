@@ -13,7 +13,7 @@ const verifier = new EmailVerifier(10000);
 
 router.get("/", (req, res) => {
 	res.render("contact", {
-		title: "Contact Us - Visbanking",
+		title: "Contact Us | Visbanking",
 		path: "/contact",
 		error: error,
 		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
@@ -56,7 +56,7 @@ router.post("/", (req, res) => {
 								const emailMessage = {
 									from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
 									to: topic === "General" ? "info@visbanking.com" : topic === "Sales" ? "sales@visbanking.com" : topic === "Support" ? "support@visbanking.com" : "",
-									subject: "New Contact Submission - Visbanking",
+									subject: "New Contact Submission | Visbanking",
 									html: emailHTML,
 								};
 								transporter.sendMail(emailMessage, (err, info) => {
@@ -89,7 +89,7 @@ router.post("/", (req, res) => {
 
 router.get("/success", (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: "/contact/success",
 		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 	});

@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 				res.redirect("/error");
 			} else {
 				res.render("index", {
-					title: "Visbanking - US Banking Data Visualized",
+					title: "US Banking Data Visualization | Bank Industry Analysis | Visbanking",
 					path: "/",
 					latest,
 					featured: results,
@@ -28,14 +28,14 @@ router.get("/", (req, res) => {
 
 router.get("/services", checkCache, (req, res) => {
 	res.render("services", {
-		title: "Our Services - Visbanking",
+		title: "Credit Quality Trends in Banking | US Bank Market Share | Visbanking",
 		path: "/services",
 		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 	});
 	setCache(
 		`visbanking.com${req.originalUrl}`,
 		renderFile(path.join(__dirname, "..", "views", "services.pug"), {
-			title: "Our Services - Visbanking",
+			title: "Credit Quality Trends in Banking | US Bank Market Share | Visbanking",
 			path: "/services",
 		})
 	);
@@ -43,7 +43,7 @@ router.get("/services", checkCache, (req, res) => {
 
 router.get("/pricing", checkCache, (req, res) => {
 	res.render("pricing", {
-		title: "Pricing Plans - Visbanking",
+		title: "Pricing Plans | Visbanking",
 		path: "/pricing",
 		tiers,
 		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
@@ -51,7 +51,7 @@ router.get("/pricing", checkCache, (req, res) => {
 	setCache(
 		`visbanking.com${req.originalUrl}`,
 		renderFile(path.join(__dirname, "..", "views", "pricing.pug"), {
-			title: "Pricing Plans - Visbanking",
+			title: "Pricing Plans | Visbanking",
 			path: "/pricing",
 			tiers,
 		})
@@ -65,7 +65,7 @@ router.get("/faq", (req, res) => {
 			res.redirect("/error");
 		} else {
 			res.render("faq", {
-				title: "Frequently Asked Questions - Visbanking",
+				title: "Frequently Asked Questions | Visbanking",
 				path: "/faq",
 				questions: results,
 				loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),

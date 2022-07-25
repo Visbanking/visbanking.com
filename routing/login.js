@@ -17,7 +17,7 @@ router.get("/login", (req, res) => {
 		res.redirect("/me");
 	} else {
 		res.render("login", {
-			title: "Log In - Visbanking",
+			title: "Log In | Visbanking",
 			path: "/login",
 			action: "Log In",
 			logInError,
@@ -173,7 +173,7 @@ router.get("/signup", (req, res) => {
 		connection.query(`SELECT Email, FirstName, LastName FROM Academics WHERE Email = '${req.query.email}';`, (err, results, fields) => {
 			if (results[0]) {
 				res.render("login", {
-					title: "Sign Up | Academic - Visbanking",
+					title: "Sign Up | Academic | Visbanking",
 					path: "/signup",
 					action: "Sign Up",
 					tier: "academic",
@@ -183,7 +183,7 @@ router.get("/signup", (req, res) => {
 		});
 	} else {
 		res.render("login", {
-			title: "Sign Up - Visbanking",
+			title: "Sign Up | Visbanking",
 			path: "/signup",
 			action: "Sign Up",
 			tier: req.query.tier,
@@ -474,7 +474,7 @@ router.get("/signup/linkedin", async (req, res) => {
 
 router.get("/signup/success", (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: "/signup/success",
 	});
 });
@@ -503,14 +503,14 @@ router.get("/signup/verify", (req, res) => {
 
 router.get("/signup/verify/success", (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: req.originalUrl,
 	});
 });
 
 router.get("/signup/verify/failure", (req, res) => {
 	res.render("failure", {
-		title: "Failure - Visbanking",
+		title: "Failure | Visbanking",
 		path: req.originalUrl,
 	});
 });

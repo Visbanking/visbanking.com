@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 			if (results.length) setCache("Visbanking Reports Types", results.map(reportType => reportType.Type));
 		});
 		res.render("reports", {
-			title: "Reports - Visbanking",
+			title: "US Banking Industry Report & Outlook | Visbanking",
 			path: req.originalUrl,
 			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 			reportTypes: data.split(",").map(reportType => { return { Type:reportType } })
@@ -34,7 +34,7 @@ router.get("/:report_type", (req, res) => {
 			const reportTypes = await getCache("Visbanking Reports Types");
 			res.render("reports", {
 				reports: results,
-				title: `${capitalize(type)} Reports - Visbanking`,
+				title: `${capitalize(type)} Reports in USA | Visbanking`,
 				path: req.originalUrl,
 				reportsType: type,
 				reportTypes: reportTypes.split(","),
@@ -58,7 +58,7 @@ router.get("/:report_type/:state_or_section", (req, res) => {
 			} else if (!results[0].City) {
 				res.render("reports/bank", {
 					reports: results,
-					title: `${capitalize(type)} Reports for ${stateOrSection}, US - Visbanking`,
+					title: `${capitalize(type)} Reports for ${stateOrSection}, US | Visbanking`,
 					path: req.originalUrl,
 					reportsType: type,
 					reportTypes: [ ... new Set(results.map(report => report.Subtype)) ],
@@ -68,7 +68,7 @@ router.get("/:report_type/:state_or_section", (req, res) => {
 				const reportTypes = await getCache("Visbanking Reports Types");
 				return res.render("reports", {
 					reports: results,
-					title: `${capitalize(type)} Reports for ${stateOrSection}, US - Visbanking`,
+					title: `${capitalize(type)} Reports for ${stateOrSection}, US | Visbanking`,
 					path: req.originalUrl,
 					state: stateOrSection,
 					reportsType: type,
@@ -113,7 +113,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 						reports.forEach(report => {
 							bestReportOptions.set(report, tiers.indexOf(req.cookies.tier)-tiers.indexOf(report.Tier));
 						});
-						const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] - b[1]);
+						const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] | b[1]);
 						const suitableReports = bestReportOptionsSorted.filter(report => report[1] >= 0);
 						if (!suitableReports.length) {
 							return res.render("reports/upgrade", {
@@ -124,7 +124,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 									...require("../data/.pricingTiers.json")[toLower(bestReportOptionsSorted[0][0].Tier)],
 									tier: bestReportOptionsSorted[0][0].Tier,
 								},
-								title: `${bestReportOptionsSorted[0][0].Type} ${bestReportOptionsSorted[0][0].Subtype} for ${bestReportOptionsSorted[0][0].BankName} - Visbanking`,
+								title: `${bestReportOptionsSorted[0][0].Type} ${bestReportOptionsSorted[0][0].Subtype} for ${bestReportOptionsSorted[0][0].BankName} | Visbanking`,
 								loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 							});
 						}
@@ -137,7 +137,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 										const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
 										res.render("reports/htmlReport", {
 											path: req.originalUrl,
-											title: `${reportToRender.Type} ${reportToRender.Subtype} for ${reportToRender.BankName} - Visbanking`,
+											title: `${reportToRender.Type} ${reportToRender.Subtype} for ${reportToRender.BankName} | Visbanking`,
 											reportBody,
 											loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 										});
@@ -150,7 +150,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 												res.render("reports/error", {
 													path: req.originalUrl,
 													access: true,
-													title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+													title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 													error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
 													alternativeReports: results,
 													loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
@@ -166,7 +166,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 								res.render("reports/pdfReport", {
 									path: req.originalUrl,
 									access: true,
-									title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+									title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 									pdfSource,
 									loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 								});
@@ -179,7 +179,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 										res.render("reports/error", {
 											path: req.originalUrl,
 											access: true,
-											title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+											title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 											error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
 											alternativeReports: results,
 											loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
@@ -196,7 +196,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 			const reportTypes = await getCache("Visbanking Reports Types");
 			return res.render("reports", {
 				reports: results,
-				title: `${capitalize(type)} Reports for ${stateOrSection}, US - Visbanking`,
+				title: `${capitalize(type)} Reports for ${stateOrSection}, US | Visbanking`,
 				path: req.originalUrl,
 				state: stateOrSection,
 				city: cityOrSubtype,
@@ -220,7 +220,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id", (req, re
 		} else {
 			res.render("reports/bank", {
 				reports: results,
-				title: `${results[0].BankName} - Visbanking`,
+				title: `${results[0].BankName} | Visbanking`,
 				path: req.originalUrl,
 				reportsType: type,
 				reportTypes: [ ... new Set(results.map(report => report.Subtype)) ],
@@ -262,7 +262,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 					reports.forEach(report => {
 						bestReportOptions.set(report, tiers.indexOf(req.cookies.tier)-tiers.indexOf(report.Tier));
 					});
-					const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] - b[1]);
+					const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] | b[1]);
 					const suitableReports = bestReportOptionsSorted.filter(report => report[1] >= 0);
 					if (!suitableReports.length) {
 						return res.render("reports/upgrade", {
@@ -273,7 +273,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 								...require("../data/.pricingTiers.json")[toLower(bestReportOptionsSorted[0][0].Tier)],
 								tier: bestReportOptionsSorted[0][0].Tier,
 							},
-							title: `${bestReportOptionsSorted[0][0].Type} ${bestReportOptionsSorted[0][0].Subtype} for ${bestReportOptionsSorted[0][0].BankName} - Visbanking`,
+							title: `${bestReportOptionsSorted[0][0].Type} ${bestReportOptionsSorted[0][0].Subtype} for ${bestReportOptionsSorted[0][0].BankName} | Visbanking`,
 							loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 						});
 					}
@@ -286,7 +286,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 									const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
 									res.render("reports/htmlReport", {
 										path: req.originalUrl,
-										title: `${reportToRender.Type} ${reportToRender.Subtype} for ${reportToRender.BankName} - Visbanking`,
+										title: `${reportToRender.Type} ${reportToRender.Subtype} for ${reportToRender.BankName} | Visbanking`,
 										reportBody,
 										loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 									});
@@ -299,7 +299,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 											res.render("reports/error", {
 												path: req.originalUrl,
 												access: true,
-												title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+												title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 												error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
 												alternativeReports: results,
 												loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
@@ -315,7 +315,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 							res.render("reports/pdfReport", {
 								path: req.originalUrl,
 								access: true,
-								title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+								title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 								pdfSource,
 								loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 							});
@@ -328,7 +328,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 									res.render("reports/error", {
 										path: req.originalUrl,
 										access: true,
-										title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+										title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 										error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
 										alternativeReports: results,
 										loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
@@ -350,7 +350,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 						...require("../data/.pricingTiers.json")[toLower(results[0].Tier)],
 						tier: results[0].Tier,
 					},
-					title: `${results[0].Type} ${results[0].Subtype} for ${results[0].BankName} - Visbanking`,
+					title: `${results[0].Type} ${results[0].Subtype} for ${results[0].BankName} | Visbanking`,
 					loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 				});
 			}
@@ -361,7 +361,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 						const reportBody = reportHTML.window.document.querySelector("body").innerHTML;
 						res.render("reports/htmlReport", {
 							path: req.originalUrl,
-							title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+							title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 							reportBody,
 							loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 						});
@@ -374,7 +374,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 								res.render("reports/error", {
 									path: req.originalUrl,
 									access: true,
-									title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} - Visbanking`,
+									title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
 									error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
 									alternativeReports: results,
 									loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),

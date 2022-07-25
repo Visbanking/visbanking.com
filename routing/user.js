@@ -60,7 +60,7 @@ router.get("/", (req, res, next) => {
 				expires: new Date(Date.now() + 241920000),
 			});
 			res.render("user", {
-				title: `${results[0].FirstName} ${results[0].LastName} - Visbanking`,
+				title: `${results[0].FirstName} ${results[0].LastName} | Visbanking`,
 				userInfo: results[0],
 				tier: results[0].Tier,
 				tiers,

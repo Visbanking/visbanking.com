@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 					return result.Topic === "Politics";
 				});
 				res.render("insights", {
-					title: "Insights - Visbanking",
+					title: "Insights | Visbanking",
 					path: "/insights",
 					top: results,
 					newest,
@@ -61,7 +61,7 @@ router.get("/insight/:article_id", (req, res) => {
 				connection.query(`SELECT * FROM Insights WHERE ID != '${req.params.article_id}' AND Topic = '${results[0].Topic}' ORDER BY Date DESC LIMIT 0, 3;`, (err, results, fields) => {
 					const related = results;
 					res.render("insight", {
-						title: post.Title,
+						title: `${post.Title} | Insights | Visbanking`,
 						path: req.originalUrl,
 						post,
 						latest,

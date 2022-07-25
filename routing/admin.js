@@ -73,7 +73,7 @@ router.get("/login", (req, res) => {
 		});
 	} else {
 		res.render("admin", {
-			title: "Admin Login - Visbanking",
+			title: "Admin Login | Visbanking",
 			error: error,
 		});
 		error = "";
@@ -115,7 +115,7 @@ router.get("/dashboard", (req, res) => {
 				res.redirect("/admin/login");
 			} else {
 				res.render("dashboard", {
-					title: "Admin Dashboard - Visbanking",
+					title: "Admin Dashboard | Visbanking",
 					admin: results[0],
 					message: message,
 				});

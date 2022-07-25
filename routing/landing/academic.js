@@ -7,7 +7,7 @@ require("dotenv").config();
 
 router.get("/", (req, res) => {
 	res.render("landing/academic", {
-		title: "Visbanking Academic - Visbanking",
+		title: "Visbanking Academic | Visbanking",
 		path: req.originalUrl,
 		tier: require("./../../data/.pricingTiers.json").professional
 	});
@@ -40,14 +40,14 @@ router.post("/", (req, res) => {
 
 router.get("/success", (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: req.originalUrl
 	});
 });
 
 router.get("/failure", (req, res) => {
 	res.render("failure", {
-		title: "Failure - Visbanking",
+		title: "Failure | Visbanking",
 		path: req.originalUrl
 	});
 });

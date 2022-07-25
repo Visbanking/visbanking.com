@@ -88,14 +88,14 @@ router.post("/", (req, res) => {
 
 router.get("/success", (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: req.originalUrl,
 	});
 });
 
 router.get("/failure", (req, res) => {
 	res.render("failure", {
-		title: "Failure - Visbanking",
+		title: "Failure | Visbanking",
 		path: req.originalUrl,
 	});
 });
@@ -104,7 +104,7 @@ router.get("/:test_id", (req, res) => {
 	const test_id = req.params.test_id;
 	if (["a", "b"].indexOf(test_id) === -1) return res.redirect("/landing/newsdigest/a");
 	res.render("landing/newsDigest", {
-		title: "Subscribe to our News Digest - Visbanking",
+		title: "Subscribe to our News Digest | Visbanking",
 		path: req.originalUrl,
 		test_id,
 	});

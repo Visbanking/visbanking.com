@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 
 router.get("/recover", (req, res) => {
 	res.render("recover", {
-		title: "Password Recovery - Visbanking",
+		title: "Password Recovery | Visbanking",
 	});
 });
 
@@ -44,7 +44,7 @@ router.post("/recover", (req, res) => {
 				const message = {
 					from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
 					to: email,
-					subject: "Password Recovery - Visbanking",
+					subject: "Password Recovery | Visbanking",
 					html: emailHTML,
 				};
 				transporter.sendMail(message, (err, info) => {
@@ -63,7 +63,7 @@ router.post("/recover", (req, res) => {
 
 router.get("/recover/failure", (req, res) => {
 	res.render("failure", {
-		title: "Failure - Visbanking",
+		title: "Failure | Visbanking",
 		path: "/recovery/recover/failure",
 	});
 });
@@ -72,7 +72,7 @@ router.get("/recover/success", (req, res) => {
 	res.clearCookie("user");
 	res.clearCookie("tier");
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: "/recovery/recover/success",
 	});
 });
@@ -80,7 +80,7 @@ router.get("/recover/success", (req, res) => {
 router.get("/reset", (req, res) => {
 	if (!req.query.user || !req.query.recovery_id) {
 		res.render("reset", {
-			title: "Password Reset - Visbanking",
+			title: "Password Reset | Visbanking",
 			access: false,
 			user: req.query.user,
 		});
@@ -92,13 +92,13 @@ router.get("/reset", (req, res) => {
 				res.redirect("/error");
 			} else if (results.length === 0 || results[0].Recovery === "No" || results[0].Recovery !== req.query.recovery_id) {
 				res.render("reset", {
-					title: "Password Reset - Visbanking",
+					title: "Password Reset | Visbanking",
 					access: false,
 					user: req.query.user,
 				});
 			} else if (results[0].Recovery === req.query.recovery_id) {
 				res.render("reset", {
-					title: "Password Reset - Visbanking",
+					title: "Password Reset | Visbanking",
 					access: true,
 				});
 			}
@@ -123,14 +123,14 @@ router.post("/reset", (req, res) => {
 
 router.get("/reset/failure", (req, res) => {
 	res.render("failure", {
-		title: "Failure - Visbanking",
+		title: "Failure | Visbanking",
 		path: "/recovery/recover/failure",
 	});
 });
 
 router.get("/reset/success", (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: "/recovery/reset/success",
 	});
 });

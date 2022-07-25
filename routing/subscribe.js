@@ -65,13 +65,13 @@ router.post("/", (req, res) => {
 
 router.get("/success", checkCache, async (req, res) => {
 	res.render("success", {
-		title: "Success - Visbanking",
+		title: "Success | Visbanking",
 		path: "/subscribe/success",
 	});
 	setCache(
 		`visbanking.com${req.originalUrl}`,
 		renderFile(path.join(__dirname, "..", "views", "success.pug"), {
-			title: "Success - Visbanking",
+			title: "Success | Visbanking",
 			path: "/subscribe/success",
 		})
 	);
@@ -79,13 +79,13 @@ router.get("/success", checkCache, async (req, res) => {
 
 router.get("/failure", checkCache, async (req, res) => {
 	res.render("failure", {
-		title: "Failure - Visbanking",
+		title: "Failure | Visbanking",
 		path: "/subscribe/failure",
 	});
 	setCache(
 		`visbanking.com${req.originalUrl}`,
 		renderFile(path.join(__dirname, "..", "views", "failure.pug"), {
-			title: "Failure - Visbanking",
+			title: "Failure | Visbanking",
 			path: "/subscribe/failure",
 		})
 	);

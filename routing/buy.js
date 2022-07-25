@@ -39,7 +39,7 @@ router.get("/success", (req, res) => {
 					res.redirect("/error");
 				} else {
 					res.render("success", {
-						title: "Payment Successful - Visbanking",
+						title: "Payment Successful | Visbanking",
 						path: "/buy/success",
 						tier: req.query.tier,
 					});
@@ -67,7 +67,7 @@ router.get("/failure", (req, res) => {
 					res.redirect("/error");
 				} else {
 					res.render("failure", {
-						title: "Payment Failed - Visbanking",
+						title: "Payment Failed | Visbanking",
 						path: "/buy/failure",
 						tier: req.query.tier,
 					});
