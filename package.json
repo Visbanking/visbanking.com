@@ -4,7 +4,9 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"test": "nodemon server.js",
+		"lint": "npx eslint .",
+		"lintFix": "npx eslint . --fix",
+		"dev": "nodemon server.js",
 		"start": "node server.js"
 	},
 	"author": "Jorge Gallego",
