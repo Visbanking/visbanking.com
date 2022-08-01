@@ -11,6 +11,7 @@ const contact = require("./routing/contact");
 const landing = require("./routing/landing");
 const funnelRedirect = require("./routing/funnel");
 const login = require("./routing/login");
+const signup = require("./routing/signup");
 const user = require("./routing/user");
 const reports = require("./routing/reports");
 const subscribe = require("./routing/subscribe");
@@ -47,7 +48,9 @@ app.use("/insights", insights);
 
 app.use("/contact", contact);
 
-app.use(login);
+app.use("/login", login);
+
+app.use("/signup", signup);
 
 app.use("/landing", landing);
 
