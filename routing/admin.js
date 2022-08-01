@@ -50,7 +50,7 @@ const member = multer({ storage: memberStorage });
 router.use((req, res, next) => {
 	const userAgent = req.headers["user-agent"];
 	if (userAgent.includes("Android") || userAgent.includes("iPhone") || userAgent.includes("iPad")) {
-		return res.render("redirect", {
+		return res.render("admin/redirect", {
 			title: "Page Unavailable",
 		});
 	}
@@ -72,7 +72,7 @@ router.get("/login", (req, res) => {
 			}
 		});
 	} else {
-		res.render("admin", {
+		res.render("admin/login", {
 			title: "Admin Login | Visbanking",
 			error: error,
 		});
@@ -114,7 +114,7 @@ router.get("/dashboard", (req, res) => {
 			} else if (results.length === 0) {
 				res.redirect("/admin/login");
 			} else {
-				res.render("dashboard", {
+				res.render("admin/dashboard", {
 					title: "Admin Dashboard | Visbanking",
 					admin: results[0],
 					message: message,
@@ -330,7 +330,7 @@ router.get("/dashboard/insights/create", (req, res) => {
 				console.error(err);
 				res.redirect("/error");
 			} else if (results[0]["COUNT(*)"] !== 0) {
-				res.render("create");
+				res.render("admin/insights/create");
 			}
 		});
 	} else {
@@ -364,7 +364,7 @@ router.get("/dashboard/insights/edit", (req, res) => {
 			res.redirect("/admin/dashboard");
 		} else {
 			const insightsTitles = results.map((insightTitle) => insightTitle.Title);
-			res.render("edit", {
+			res.render("admin/insights/edit", {
 				insightsTitles,
 			});
 		}
