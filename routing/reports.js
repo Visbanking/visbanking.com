@@ -1,9 +1,6 @@
 const { Router } = require("express");
 const connection = require("../data/dbconnection");
 const { capitalize, toLower, toUpper } = require("lodash");
-const banks = require("./reports/banks");
-const macro = require("./reports/macro");
-const performance = require("./reports/performance");
 const { getCache, setCache } = require("./../data/caching");
 const { readFile, getPDFUrl } = require("../data/s3Client");
 const { JSDOM } = require("jsdom");
@@ -387,11 +384,5 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 		}
 	});
 });
-
-// router.use("/bank", banks);
-
-// router.use("/macro", macro);
-
-// router.use("/performance", performance);
 
 module.exports = router;
