@@ -12,9 +12,9 @@ const s3Client = new S3Client({
 
 const streamToString = (stream) => new Promise((resolve, reject) => {
 	const chunks = [];
-	stream.on('data', (chunk) => chunks.push(chunk));
-	stream.on('error', reject);
-	stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+	stream.on("data", (chunk) => chunks.push(chunk));
+	stream.on("error", reject);
+	stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
 });
 
 const readFile = async (bucket, key) => {
@@ -43,10 +43,10 @@ const getPDFUrl = async (bucket, key) => {
 		expiresIn: 600
 	});
 	return url;
-}
+};
 
 module.exports = {
 	s3Client,
 	readFile,
 	getPDFUrl
-}
+};

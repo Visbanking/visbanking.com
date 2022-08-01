@@ -1,5 +1,5 @@
 const Insight = require("./../models/insight");
-const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError")
+const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 const InsightController = {
 	async createInsight(insightData) {

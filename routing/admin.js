@@ -822,7 +822,7 @@ router.post("/dashboard/academics/remove", (req, res) => {
 			}
 		});
 	}
-})
+});
 
 router.get("/logout", (req, res) => {
 	res.clearCookie("admin");

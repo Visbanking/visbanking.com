@@ -200,67 +200,67 @@ router.post("/signup", (req, res) => {
 		email = req.body.email,
 		pass = hash.sha512().update(req.body.pass).digest("hex"),
 		tier = req.body.tier;
-	const sql = req.body.tier==="academic" ? `INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${req.query.tier}');` : `INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`
+	const sql = req.body.tier==="academic" ? `INSERT INTO Users (FirstName, LastName, Email, Password, Tier) VALUES ('${fname}','${lname}','${email}','${pass}', '${req.query.tier}');` : `INSERT INTO Users (FirstName, LastName, Email, Password) VALUES ('${fname}','${lname}','${email}','${pass}');`;
 	connection.query(sql, (err, results, fields) => {
-			if (err && err.code === "ER_DUP_ENTRY") {
-				emailAfterRedirect = email;
-				res.redirect("/login");
-			} else {
-				connection.query(`SELECT ID FROM Users WHERE Email='${email}';`, (err, results, fields) => {
-					if (err) {
-						signUpError = "Please try again";
-						res.redirect("/signup");
-					} else {
-						const signup_code = hash.sha512().update(uuidv4()).digest("hex");
-						connection.query(`UPDATE Users SET Signup_Code = '${signup_code}' WHERE Email = '${email}';`, (err, results, fields) => {
-							if (err) {
-								console.error(err);
-								res.redirect(`/signup?tier=${tier}}`);
-							} else {
-								const transporter = createTransport({
-									name: "www.visbanking.com",
-									host: "mail.visbanking.com",
-									port: 465,
-									secure: true,
-									auth: {
-										user: process.env.NO_REPLY_EMAIL,
-										pass: process.env.NO_REPLY_PASS,
-									},
-								});
-								const userEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "emailVerification.html"), "utf8").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${code}", signup_code).replaceAll("${tier}", tier);
-								const userMessage = {
-									from: "Visbanking.com",
-									to: email,
-									subject: "Verify your Visbanking account",
-									html: userEmailHTML,
-								};
-								transporter.sendMail(userMessage, (err, info) => {
-									if (err) {
-										console.error(err);
-										res.redirect(`/signup?tier=${tier}`);
-									} else {
-										res.cookie("user", email, {
-											httpOnly: true,
-											secure: true,
-											expires: new Date(Date.now() + 241920000),
-										});
-										res.redirect("/signup/success");
-									}
-								});
-								const infoEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "userConfirmation.html"), "utf8").replaceAll("${signupMethod}", "EMAIL AND PASSWORD").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${tier}", tier);
-								const infoMessage = {
-									from: "Visbanking.com",
-									to: "info@visbanking.com",
-									subject: "New User Confirmation",
-									html: infoEmailHTML
-								};
-								transporter.sendMail(infoMessage)
-							}
-						});
-					}
-				});
-			}
+		if (err && err.code === "ER_DUP_ENTRY") {
+			emailAfterRedirect = email;
+			res.redirect("/login");
+		} else {
+			connection.query(`SELECT ID FROM Users WHERE Email='${email}';`, (err, results, fields) => {
+				if (err) {
+					signUpError = "Please try again";
+					res.redirect("/signup");
+				} else {
+					const signup_code = hash.sha512().update(uuidv4()).digest("hex");
+					connection.query(`UPDATE Users SET Signup_Code = '${signup_code}' WHERE Email = '${email}';`, (err, results, fields) => {
+						if (err) {
+							console.error(err);
+							res.redirect(`/signup?tier=${tier}}`);
+						} else {
+							const transporter = createTransport({
+								name: "www.visbanking.com",
+								host: "mail.visbanking.com",
+								port: 465,
+								secure: true,
+								auth: {
+									user: process.env.NO_REPLY_EMAIL,
+									pass: process.env.NO_REPLY_PASS,
+								},
+							});
+							const userEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "emailVerification.html"), "utf8").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${code}", signup_code).replaceAll("${tier}", tier);
+							const userMessage = {
+								from: "Visbanking.com",
+								to: email,
+								subject: "Verify your Visbanking account",
+								html: userEmailHTML,
+							};
+							transporter.sendMail(userMessage, (err, info) => {
+								if (err) {
+									console.error(err);
+									res.redirect(`/signup?tier=${tier}`);
+								} else {
+									res.cookie("user", email, {
+										httpOnly: true,
+										secure: true,
+										expires: new Date(Date.now() + 241920000),
+									});
+									res.redirect("/signup/success");
+								}
+							});
+							const infoEmailHTML = readFileSync(join(__dirname, "..", "views", "emails", "userConfirmation.html"), "utf8").replaceAll("${signupMethod}", "EMAIL AND PASSWORD").replaceAll("${name}", `${fname} ${lname}`).replaceAll("${email}", email).replaceAll("${tier}", tier);
+							const infoMessage = {
+								from: "Visbanking.com",
+								to: "info@visbanking.com",
+								subject: "New User Confirmation",
+								html: infoEmailHTML
+							};
+							transporter.sendMail(infoMessage);
+						}
+					});
+				}
+			});
 		}
+	}
 	);
 	// verifier.verify(email)
 	// .then(response => {
@@ -452,7 +452,7 @@ router.get("/signup/linkedin", async (req, res) => {
 															subject: "New User Confirmation",
 															html: infoEmailHTML
 														};
-														transporter.sendMail(infoMessage)
+														transporter.sendMail(infoMessage);
 														if (tier === "free") {
 															return res.redirect("/signup/success");
 														}

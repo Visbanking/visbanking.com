@@ -21,8 +21,8 @@ if (document.querySelector("#report")) {
 			firstLevelLinks.forEach((link, index) => {
 				if (index === 0) {
 					link.target = "_blank";
-					link.href = `/buy?tier=professional`;
-				} else if (index === 1) link.href = `/`;
+					link.href = "/buy?tier=professional";
+				} else if (index === 1) link.href = "/";
 			});
 		} else {
 			const firstLevelLinks = document.querySelectorAll("#report nav > ul > li > a");
@@ -32,7 +32,7 @@ if (document.querySelector("#report")) {
 				if (secondLevelLinks.length) {
 					if (index === 0) link.href = `${window.location.pathname}?type=html&page=index`;
 					else if (index === firstLevelLinks.length-1) link.href = "/";
-					else link.href = `${window.location.pathname}?type=html&page=${link.innerText.toLowerCase().replaceAll(" ", "-")}`
+					else link.href = `${window.location.pathname}?type=html&page=${link.innerText.toLowerCase().replaceAll(" ", "-")}`;
 				}
 			});
 		

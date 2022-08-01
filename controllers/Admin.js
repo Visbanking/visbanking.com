@@ -43,7 +43,7 @@ const AdminController = {
 				return {
 					message: "Failed to update admin",
 					error: err
-				}
+				};
 			}
 			return {
 				message: "Failed to update admin",
@@ -74,12 +74,12 @@ const AdminController = {
 				return {
 					message: "Failed to delete admin",
 					error: err
-				}
+				};
 			}
 			return {
 				message: "Faield to delete admin",
 				error: err.original
-			}
+			};
 		}
 	}
 };

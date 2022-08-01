@@ -14,7 +14,7 @@ function handleCredentialResponse(response) {
 	else if (window.location.pathname.includes("login"))
 		window.location.href = `/login/google?iss=${authToken.iss}&aud=${authToken.aud}&fname=${authToken.given_name}&lname=${authToken.family_name}&email=${authToken.email}&photo=${authToken.picture}&p=${authToken.sub}`;
 	else if (window.location.pathname === "/me")
-		window.location.href = `/me/connect/google?iss=${authToken.iss}&aud=${authToken.aud}&email=${authToken.email}`
+		window.location.href = `/me/connect/google?iss=${authToken.iss}&aud=${authToken.aud}&email=${authToken.email}`;
 }
 
 function renderGoogleSignInClient() {
@@ -27,6 +27,6 @@ function renderGoogleSignInClient() {
 		{ size: "large", type: "icon", text: "Continue with", theme: "outline", shape: "circle" } // customization attributes
 	);
 	if (window.location.pathname === "/login") google.accounts.id.prompt(); // also display the One Tap dialog
-};
+}
 
 window.onload = renderGoogleSignInClient;

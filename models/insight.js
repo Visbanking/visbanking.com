@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const connection = require("../data/database/usersDatabase");
 
-class Insight extends Model {};
+class Insight extends Model {}
 
 Insight.init({
 	ID: {

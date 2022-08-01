@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const connection = require("../data/database/usersDatabase");
 
-class NewsletterSubscriber extends Model {};
+class NewsletterSubscriber extends Model {}
 
 NewsletterSubscriber.init({
 	ID: {

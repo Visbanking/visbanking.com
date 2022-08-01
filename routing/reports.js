@@ -11,17 +11,17 @@ const router = Router();
 
 router.get("/", (req, res) => {
 	getCache("Visbanking Reports Types")
-	.then(data => {
-		connection.query("SELECT DISTINCT(Type) FROM Visbanking.AllReports;", (err, results, fields) => {
-			if (results.length) setCache("Visbanking Reports Types", results.map(reportType => reportType.Type));
+		.then(data => {
+			connection.query("SELECT DISTINCT(Type) FROM Visbanking.AllReports;", (err, results, fields) => {
+				if (results.length) setCache("Visbanking Reports Types", results.map(reportType => reportType.Type));
+			});
+			res.render("reports", {
+				title: "US Banking Industry Report & Outlook | Visbanking",
+				path: req.originalUrl,
+				loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+				reportTypes: data.split(",").map(reportType => { return { Type:reportType }; })
+			});
 		});
-		res.render("reports", {
-			title: "US Banking Industry Report & Outlook | Visbanking",
-			path: req.originalUrl,
-			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-			reportTypes: data.split(",").map(reportType => { return { Type:reportType } })
-		});
-	});
 });
 
 router.get("/:report_type", (req, res) => {
@@ -145,8 +145,8 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 									.catch((err) => {
 										if (err.name === "NoSuchKey") return res.redirect(`/reports/${type}/${stateOrSection}/${cityOrSubtype}/${bank}`);
 										connection.query(
-									`SELECT * FROM Visbanking.AllReports WHERE FileExtension = '${reportToRender.FileExtension}' AND Tier = '${reportToRender.Tier}' AND State = '${reportToRender.State}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
-									(err, results, fields) => {
+											`SELECT * FROM Visbanking.AllReports WHERE FileExtension = '${reportToRender.FileExtension}' AND Tier = '${reportToRender.Tier}' AND State = '${reportToRender.State}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
+											(err, results, fields) => {
 												res.render("reports/error", {
 													path: req.originalUrl,
 													access: true,
@@ -162,31 +162,31 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 							renderHTMLReport();
 						} else if (req.query.type === "pdf") {
 							getPDFUrl(reportToRender.URL.hostname.split(".")[0], reportToRender.URL.pathname.slice(1))
-							.then(pdfSource => {
-								res.render("reports/pdfReport", {
-									path: req.originalUrl,
-									access: true,
-									title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
-									pdfSource,
-									loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+								.then(pdfSource => {
+									res.render("reports/pdfReport", {
+										path: req.originalUrl,
+										access: true,
+										title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
+										pdfSource,
+										loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+									});
+								})
+								.catch(err => {
+									if (err.name === "NoSuchKey") return res.redirect(`/reports/${type}/${stateOrSection}/${cityOrSubtype}/${bank}`);
+									connection.query(
+										`SELECT * FROM Visbanking.AllReports WHERE Type = '${type}' AND Tier <> 'Free' AND State = '${stateOrSection}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
+										(err, results, fields) => {
+											res.render("reports/error", {
+												path: req.originalUrl,
+												access: true,
+												title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
+												error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
+												alternativeReports: results,
+												loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+											});
+										}
+									);
 								});
-							})
-							.catch(err => {
-								if (err.name === "NoSuchKey") return res.redirect(`/reports/${type}/${stateOrSection}/${cityOrSubtype}/${bank}`);
-								connection.query(
-									`SELECT * FROM Visbanking.AllReports WHERE Type = '${type}' AND Tier <> 'Free' AND State = '${stateOrSection}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
-									(err, results, fields) => {
-										res.render("reports/error", {
-											path: req.originalUrl,
-											access: true,
-											title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
-											error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-											alternativeReports: results,
-											loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-										});
-									}
-								);
-							});
 						}
 					}
 				});
@@ -294,8 +294,8 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 								.catch((err) => {
 									if (err.name === "NoSuchKey") return res.redirect(`/reports/${type}/${stateOrSection}/${cityOrSubtype}/${bank}`);
 									connection.query(
-								`SELECT * FROM Visbanking.AllReports WHERE FileExtension = '${reportToRender.FileExtension}' AND Tier = '${reportToRender.Tier}' AND State = '${reportToRender.State}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
-								(err, results, fields) => {
+										`SELECT * FROM Visbanking.AllReports WHERE FileExtension = '${reportToRender.FileExtension}' AND Tier = '${reportToRender.Tier}' AND State = '${reportToRender.State}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
+										(err, results, fields) => {
 											res.render("reports/error", {
 												path: req.originalUrl,
 												access: true,
@@ -311,31 +311,31 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 						renderHTMLReport();
 					} else if (req.query.type === "pdf") {
 						getPDFUrl(reportToRender.URL.hostname.split(".")[0], reportToRender.URL.pathname.slice(1))
-						.then(pdfSource => {
-							res.render("reports/pdfReport", {
-								path: req.originalUrl,
-								access: true,
-								title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
-								pdfSource,
-								loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-							});
-						})
-						.catch(err => {
+							.then(pdfSource => {
+								res.render("reports/pdfReport", {
+									path: req.originalUrl,
+									access: true,
+									title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
+									pdfSource,
+									loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+								});
+							})
+							.catch(err => {
 								if (err.name === "NoSuchKey") return res.redirect(`/reports/${type}/${stateOrSection}/${cityOrSubtype}/${bank}`);
 								connection.query(
-								`SELECT * FROM Visbanking.AllReports WHERE Type = '${type}' AND Tier <> 'Free' AND State = '${stateOrSection}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
-								(err, results, fields) => {
-									res.render("reports/error", {
-										path: req.originalUrl,
-										access: true,
-										title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
-										error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
-										alternativeReports: results,
-										loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-									});
-								}
-							);
-						});
+									`SELECT * FROM Visbanking.AllReports WHERE Type = '${type}' AND Tier <> 'Free' AND State = '${stateOrSection}' AND Status = 'Active' ORDER BY RAND() LIMIT 0, 3;`,
+									(err, results, fields) => {
+										res.render("reports/error", {
+											path: req.originalUrl,
+											access: true,
+											title: `${reportToRender.Type} ${reportToRender.Subtype} Report for ${reportToRender.BankName} | Visbanking`,
+											error: "We are in the midst of updating the reports with the latest information. The selected bank is not yet available. Check back soon to review the latest bank reports.",
+											alternativeReports: results,
+											loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+										});
+									}
+								);
+							});
 					}
 				}
 			});

@@ -3,7 +3,7 @@ const hash = require("hash.js");
 const connection = require("../data/database/usersDatabase");
 require("dotenv").config();
 
-class Admin extends Model {};
+class Admin extends Model {}
 
 Admin.init({
 	ID: {

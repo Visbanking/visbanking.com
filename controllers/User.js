@@ -1,4 +1,4 @@
-const User = require("../models/user")
+const User = require("../models/user");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 const UserController = {

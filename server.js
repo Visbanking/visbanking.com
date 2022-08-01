@@ -51,7 +51,7 @@ app.use(login);
 
 app.use("/landing", landing);
 
-app.use("/funnel", funnelRedirect)
+app.use("/funnel", funnelRedirect);
 
 app.use("/me", user);
 

@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const connection = require("../data/database/usersDatabase");
 
-class Contact extends Model {};
+class Contact extends Model {}
 
 Contact.init({
 	ID: {
@@ -72,7 +72,7 @@ Contact.init({
 			notEmpty: true
 		},
 		set(newPhoneNumber) {
-			this.setDataValue("Phone", newPhoneNumber)
+			this.setDataValue("Phone", newPhoneNumber);
 		}
 	}
 }, {

@@ -1,17 +1,17 @@
 (function (factory) {
 	var L, proj4;
-	if (typeof define === 'function' && define.amd) {
+	if (typeof define === "function" && define.amd) {
 		// AMD
-		define(['leaflet', 'proj4'], factory);
-	} else if (typeof module === 'object' && typeof module.exports === "object") {
+		define(["leaflet", "proj4"], factory);
+	} else if (typeof module === "object" && typeof module.exports === "object") {
 		// Node/CommonJS
-		L = require('leaflet');
-		proj4 = require('proj4');
+		L = require("leaflet");
+		proj4 = require("proj4");
 		module.exports = factory(L, proj4);
 	} else {
 		// Browser globals
-		if (typeof window.L === 'undefined' || typeof window.proj4 === 'undefined')
-			throw 'Leaflet and proj4 must be loaded first';
+		if (typeof window.L === "undefined" || typeof window.proj4 === "undefined")
+			throw "Leaflet and proj4 must be loaded first";
 		factory(window.L, window.proj4);
 	}
 }(function (L, proj4) {
@@ -25,8 +25,8 @@
 	L.Proj = {};
 
 	L.Proj._isProj4Obj = function(a) {
-		return (typeof a.inverse !== 'undefined' &&
-			typeof a.forward !== 'undefined');
+		return (typeof a.inverse !== "undefined" &&
+			typeof a.forward !== "undefined");
 	};
 
 	L.Proj.Projection = L.Class.extend({
@@ -50,12 +50,12 @@
 			if (def) {
 				proj4.defs(code, def);
 			} else if (proj4.defs[code] === undefined) {
-				var urn = code.split(':');
+				var urn = code.split(":");
 				if (urn.length > 3) {
-					code = urn[urn.length - 3] + ':' + urn[urn.length - 1];
+					code = urn[urn.length - 3] + ":" + urn[urn.length - 1];
 				}
 				if (proj4.defs[code] === undefined) {
-					throw 'No projection definition for code ' + code;
+					throw "No projection definition for code " + code;
 				}
 			}
 
@@ -182,10 +182,10 @@
 			var crs;
 
 			if (geojson) {
-				if (geojson.crs && geojson.crs.type === 'name') {
+				if (geojson.crs && geojson.crs.type === "name") {
 					crs = new L.Proj.CRS(geojson.crs.properties.name);
 				} else if (geojson.crs && geojson.crs.type) {
-					crs = new L.Proj.CRS(geojson.crs.type + ':' + geojson.crs.properties.code);
+					crs = new L.Proj.CRS(geojson.crs.type + ":" + geojson.crs.properties.code);
 				}
 
 				if (crs !== undefined) {
@@ -243,8 +243,8 @@
 			var size = bounds.getSize();
 
 			L.DomUtil.setPosition(this._image, bounds.min);
-			this._image.style.width = size.x + 'px';
-			this._image.style.height = size.y + 'px';
+			this._image.style.width = size.x + "px";
+			this._image.style.height = size.y + "px";
 		},
 
 		_projectedToNewLayerPoint: function (point, zoom, center) {

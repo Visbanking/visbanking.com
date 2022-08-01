@@ -2,7 +2,7 @@ const { DataTypes, Model } = require("sequelize");
 const hash = require("hash.js");
 const connection = require("../data/database/usersDatabase");
 
-class User extends Model {};
+class User extends Model {}
 
 User.init({
 	ID: {
