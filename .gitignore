@@ -11,4 +11,5 @@ static/images/members/*.png
 static/images/users/*.jpg
 static/images/users/*.png
 .pricingTiers.json
+node_modules/
 *.test.*
