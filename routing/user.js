@@ -59,7 +59,7 @@ router.get("/", (req, res, next) => {
 				secure: true,
 				expires: new Date(Date.now() + 241920000),
 			});
-			res.render("user", {
+			res.render("user/user", {
 				title: `${results[0].FirstName} ${results[0].LastName} | Visbanking`,
 				userInfo: results[0],
 				tier: results[0].Tier,
@@ -135,7 +135,7 @@ router.post("/", user.single("image"), (req, res) => {
 });
 
 router.get("/password", (req, res) => {
-	res.render("update", {
+	res.render("user/passwordUpdate", {
 		title: "Update Password",
 		error: error || "",
 	});
@@ -338,7 +338,7 @@ router.get("/delete", (req, res) => {
 							res.clearCookie("user");
 							res.clearCookie("tier");
 							res.clearCookie("session_id");
-							res.render("deleted");
+							res.render("user/deleted");
 						});
 					}
 				});
@@ -367,7 +367,7 @@ router.get("/delete", (req, res) => {
 						res.clearCookie("user");
 						res.clearCookie("tier");
 						res.clearCookie("session_id");
-						res.render("deleted");
+						res.render("user/deleted");
 					});
 				});
 			}
