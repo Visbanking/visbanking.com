@@ -136,6 +136,7 @@ block main
 					a(href="/reports/macro", data-report-type="macro") Macro Reports 
 					a(href="/reports/performance", data-report-type="performance") Performance Reports 
 			.reports
+				h2 View #{reportsType} Reports in USA
 				each report in reports 
 					.report.show(data-city=report.City, data-state=report.State, data-id=report.IDRSSD, data-name=(report.BankName || report.SectionName.split("_").join(" ")), data-status=report.Status, data-name-initial=(report.BankName ? report.BankName[0] : report.SectionName[0]))
 						h3.name #{report.BankName || report.SectionName.split("_").join(" ")}
