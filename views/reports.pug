@@ -4,6 +4,8 @@ block meta
 	meta(name="keywords", content="Bank Reports, Holding Company Reports, Macro Reports, Performance Reports, U.S. Banking Industry, Banking Industry Reports")
 	if path === "/reports"
 		meta(name="description", content="Find and view US banking industry reports and market segmentation data. You can get complete set of banking research reports, insights, overviews & more.")
+	else if path === "/reports/performance"
+		meta(name="description", content="View US-based bank performance reports to compare banking data. Performance reports help to know banking trends, growth and bank rankings.")
 	else if path.includes("/reports")
 		meta(name="description", content=`Browse to view ${reportsType[0].toUpperCase()+reportsType.slice(1)} Report in USA. Get information about loans, net income, leases, total assets, liabilities in HTML & PDF format.`)
 
