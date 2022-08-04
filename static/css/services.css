@@ -66,6 +66,7 @@ h2
     width: calc(100%/3.2);
     padding: 2% 1%;
     margin: 2%;
+	cursor: pointer;
 }
 .service p.title
 {
