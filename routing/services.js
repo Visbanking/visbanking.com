@@ -17,52 +17,100 @@ router.get("/", checkCache, (req, res) => {
 	);
 });
 
-router.get("/analysis", (req, res) => {
+router.get("/analysis", checkCache, (req, res) => {
 	res.render("services/service", {
 		title: "Competitive Analysis | Services | Visbanking",
 		path: req.originalUrl,
 		service: "analysis"
 	});	
+	setCache(
+		`visbanking.com${req.originalUrl}`,
+		renderFile(path.join(__dirname, "..", "views", "services", "/service.pug"), {
+			title: "Competitive Analysis | Services | Visbanking",
+			path: req.originalUrl,
+			service: "analysis"
+		})
+	);
 });
 
-router.get("/market", (req, res) => {
+router.get("/market", checkCache, (req, res) => {
 	res.render("services/service", {
 		title: "Market Share | Services | Visbanking",
 		path: req.originalUrl,
 		service: "market"
 	});	
+	setCache(
+		`visbanking.com${req.originalUrl}`,
+		renderFile(path.join(__dirname, "..", "views", "services", "/service.pug"), {
+			title: "Market Share | Services | Visbanking",
+			path: req.originalUrl,
+			service: "market"
+		})
+	);
 });
 
-router.get("/m&a", (req, res) => {
+router.get("/m&a", checkCache, (req, res) => {
 	res.render("services/service", {
 		title: "M&A Due Dilligence | Services | Visbanking",
 		path: req.originalUrl,
 		service: "m&a"
 	});	
+	setCache(
+		`visbanking.com${req.originalUrl}`,
+		renderFile(path.join(__dirname, "..", "views", "services", "/service.pug"), {
+			title: "M&A Due Dilligence | Services | Visbanking",
+			path: req.originalUrl,
+			service: "m&a"
+		})
+	);
 });
 
-router.get("/credit", (req, res) => {
+router.get("/credit", checkCache, (req, res) => {
 	res.render("services/service", {
 		title: "Credit Quality | Services | Visbanking",
 		path: req.originalUrl,
 		service: "credit"
 	});	
+	setCache(
+		`visbanking.com${req.originalUrl}`,
+		renderFile(path.join(__dirname, "..", "views", "services", "/service.pug"), {
+			title: "Credit Quality | Services | Visbanking",
+			path: req.originalUrl,
+			service: "credit"
+		})
+	);
 });
 
-router.get("/geographic", (req, res) => {
+router.get("/geographic", checkCache, (req, res) => {
 	res.render("services/service", {
 		title: "Geographic Coverage | Services | Visbanking",
 		path: req.originalUrl,
 		service: "geographic"
 	});	
+	setCache(
+		`visbanking.com${req.originalUrl}`,
+		renderFile(path.join(__dirname, "..", "views", "services", "/service.pug"), {
+			title: "Geographic Coverage | Services | Visbanking",
+			path: req.originalUrl,
+			service: "geographic"
+		})
+	);
 });
 
-router.get("/insight", (req, res) => {
+router.get("/insight", checkCache, (req, res) => {
 	res.render("services/service", {
 		title: "Insight into Deposit and Loan Growth or Decline | Services | Visbanking",
 		path: req.originalUrl,
 		service: "insight"
 	});	
+	setCache(
+		`visbanking.com${req.originalUrl}`,
+		renderFile(path.join(__dirname, "..", "views", "services", "/service.pug"), {
+			title: "Insight into Deposit and Loan Growth or Decline | Services | Visbanking",
+			path: req.originalUrl,
+			service: "insight"
+		})
+	);
 });
 
 module.exports = router;
