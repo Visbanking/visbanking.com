@@ -26,21 +26,6 @@ router.get("/", (req, res) => {
 	});
 });
 
-router.get("/services", checkCache, (req, res) => {
-	res.render("services", {
-		title: "Credit Quality Trends in Banking | US Bank Market Share | Visbanking",
-		path: "/services",
-		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-	});
-	setCache(
-		`visbanking.com${req.originalUrl}`,
-		renderFile(path.join(__dirname, "..", "views", "services.pug"), {
-			title: "Credit Quality Trends in Banking | US Bank Market Share | Visbanking",
-			path: "/services",
-		})
-	);
-});
-
 router.get("/pricing", checkCache, (req, res) => {
 	res.render("pricing", {
 		title: "Pricing Plans | Visbanking",
