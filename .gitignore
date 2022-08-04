@@ -3,6 +3,7 @@ deploy.sh
 jsconfig.json
 *.ppk
 *.pem
+sitemap.xml
 static/images/insights/*
 static/images/insights/*
 static/images/insights/*
