@@ -7,6 +7,7 @@ const path = require("path");
 const routes = require("./routing/routes");
 const about = require("./routing/about");
 const insights = require("./routing/insights");
+const services = require("./routing/services");
 const contact = require("./routing/contact");
 const landing = require("./routing/landing");
 const funnelRedirect = require("./routing/funnel");
@@ -45,6 +46,8 @@ app.use(routes);
 app.use("/about", about);
 
 app.use("/insights", insights);
+
+app.use("/services", services);
 
 app.use("/contact", contact);
 
