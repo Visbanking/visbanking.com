@@ -10,14 +10,9 @@ module.exports = () => new Promise((resolve, reject) => {
 	connection.query("SELECT ID FROM Insights LIMIT 0, 500;", (err, insights, fields) => {
 		if (err) reject(err);
 		for (let insight of insights) sitemap += `\t<url><loc>https://visbanking.com/insights/insight/${insight.ID}</loc></url>\n`;
-		connection.query("SELECT * FROM Visbanking.AllReports ORDER BY RAND();", (err, reports, fields) => {
+		connection.query("SELECT * FROM Visbanking.AllReports WHERE Tier = 'Free';", (err, reports, fields) => {
 			if (err) reject(err);
-			const singleBankReports = reports.filter(bank => bank.Type==="Bank").slice(0, 500),
-				macroReports = reports.filter(bank => bank.Type==="Macro").slice(0, 500),
-				performanceReports = reports.filter(bank => bank.Type==="Performance").slice(0, 500);
-			singleBankReports.forEach(report => sitemap += `\t<url><loc>https://visbanking.com/reports/bank/${report.State}/${report.City}/${report.IDRSSD}</loc></url>\n`);
-			macroReports.forEach(report => sitemap += `\t<url><loc>https://visbanking.com/reports/macro/deposits/${report.State ? report.State : report.SectionName.toLowerCase()}</loc></url>\n`);
-			performanceReports.forEach(report => sitemap += `\t<url><loc>https://visbanking.com/reports/performance/${report.State ? report.State : report.SectionName.toLowerCase()}</loc></url>\n`);
+			reports.forEach(report => sitemap += `\t<url><loc>https://visbanking.com/reports/${report.Type.toLowerCase()}/${report.State.toLowerCase() || report.SectionName.toLowerCase()}/${report.City.toLowerCase() || report.Subtype.toLowerCase()}/${report.IDRSSD || report}</loc></url>\n`);
 			sitemap += "</urlset>";
 			writeFile(path.join(__dirname, "..", "sitemap.xml"), sitemap, (err) => {
 				if (err) reject(err);
