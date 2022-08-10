@@ -4,6 +4,7 @@ jsconfig.json
 *.ppk
 *.pem
 sitemap.xml
+.pricingTiers.json
 static/images/insights/*
 static/images/insights/*
 static/images/insights/*
@@ -11,6 +12,5 @@ static/images/members/*.jpg
 static/images/members/*.png
 static/images/users/*.jpg
 static/images/users/*.png
-.pricingTiers.json
 node_modules/
 *.test.*
