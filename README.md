@@ -4,10 +4,14 @@ This is the official repository for the Visbanking website at [visbanking.com](h
 
 The project is divided into directories (folders) that each group pieces of code with similar intents within the bigger application.
 
-The project structure is explained superficially in this text, but you can read more in the respective documentation files in the [docs](docs/) folder.
+The project structure is explained superficially in this text, but you can read more in the respective documentation files in the [docs](./docs/) folder.
 
 ## **Contents**
 
+- [Web Design](#web-design)
+- [Languages and Tools](#languages-and-tools)
+	- [Programming Languages](#programming-languages)
+	- [Coding Tools](#coding-tools)
 - [Project Structure](#project-structure)
 	- [Views](#views)
 	- [Static](#static)
@@ -17,9 +21,32 @@ The project structure is explained superficially in this text, but you can read 
 	- [Controllers](#controllers)
 	- [Docs](#docs)
 
+## **Web Design**
+
+The website's Front End is designed on [Figma](https://figma.com). Review the current design [here](https://www.figma.com/file/gkSXWWTUkrpCHyDp8b6nHS/Visbanking)
+
+## **Languages and Tools**
+
+### **Programming Languages**
+
+The following is a list of ALL the programming languages used in any part of this project:
+
+1. JavaScript
+2. HTML5
+3. CSS3
+4. Markdown
+
+### **Coding Tools**
+
+*Coding Tools* refers to any form of software/hardware that allows for better all-around code (greater readability, cleanliness, maintainability, etc...).
+
+1. [ESLint](https://eslint.org) for JS code linting
+2. [Pug](https://pugjs.org) as templating engine
+3. [Sequelize](https://sequelize.org) as ORM for the RDS MySQL database
+
 ## **Project Structure**
 
-The root folder of the project contains the main (entry) Node.js file, the npm configuration files ([package.json](package.json) and [package-lock.json](package-lock.json)), and the [.gitignore](.gitignore) file. 
+The root folder of the project contains the main (entry) Node.js file, the npm configuration files ([package.json](./package.json) and [package-lock.json](./package-lock.json)), and the [.gitignore](./.gitignore) file. 
 
 *Note: You can read more about each file, its contents and purpose in their respective documentation file in the docs/ folder.*
 
@@ -39,16 +66,16 @@ The static folder hosts all of the static files of the site. The term 'static fi
 
 This folder contains the following six subfolders:
 
-1) [css](static/css/) (for all style-related files)
-2) [js](static/js/) (for all front-end JavaScript files)
-3) [files](static/files/) (for all text files e.g. PDF, Word)
-4) [images](static/images/) (for all JPEG/PNG files)
-5) [videos](static/videos/) (for all MP4 files)
-6) [libs](static/libs/) (for all external scripts related used in individual reports)
+1) [css](./static/css/) (for all style-related files)
+2) [js](./static/js/) (for all front-end JavaScript files)
+3) [files](./static/files/) (for all text files e.g. PDF, Word)
+4) [images](./static/images/) (for all JPEG/PNG files)
+5) [videos](./static/videos/) (for all MP4 files)
+6) [libs](./static/libs/) (for all external scripts related used in individual reports)
 
 ### **Routing**
 
-The routing folder contains all files related to Back End routing. All routes are defined inside the files in this folder, and then imported into the main server file ([server.js](server.js)) in the root folder to be used by the application.
+The routing folder contains all files related to Back End routing. All routes are defined inside the files in this folder, and then imported into the main server file ([server.js](./server.js)) in the root folder to be used by the application.
 
 ### **Models**
 
