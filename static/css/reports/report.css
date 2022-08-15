@@ -1,3 +1,11 @@
+body *
+{
+    font-family: 'Source Sans Pro';
+}
+header
+{
+    min-height: auto;
+}
 p.loader
 {
     position: absolute;
