@@ -6,6 +6,11 @@ header
 {
     min-height: auto;
 }
+main
+{
+    min-height: 100vh;
+    position: relative;
+}
 p.loader
 {
     position: absolute;
