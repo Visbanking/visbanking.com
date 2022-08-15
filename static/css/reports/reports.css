@@ -11,11 +11,6 @@ h1 + p.location
 }
 section .reports
 {
-	width: 100%;
-	border-left: none;
-}
-section .reportTypes + .reports
-{
 	width: 80%;
 	border-left: 1px solid;
 }
@@ -54,4 +49,12 @@ section .reportTypes + .reports
 {
 	color: #005487;
 	box-shadow: none;
+}
+@media screen and (max-width: 767px)
+{
+	section .reports
+	{
+		width: 100%;
+		border-left: none;
+	}
 }
