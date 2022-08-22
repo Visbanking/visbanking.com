@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const connection = require("../data/dbconnection");
 const hash = require("hash.js");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
 const lodash = require("lodash");
 const multer = require("multer");
 const path = require("path");
@@ -10,9 +8,6 @@ const marked = require("marked");
 const fs = require("fs");
 require("dotenv").config();
 const router = Router();
-
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(cookieParser());
 
 let error = "",
 	message = "";
