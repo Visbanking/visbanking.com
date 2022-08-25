@@ -25,6 +25,20 @@ main section
     padding: 1rem;
     min-height: auto;
 }
+h2
+{
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0.5rem 0 0;
+    width: 100%;
+	text-align: center;
+}
+section > h2
+{
+	margin: 1rem auto;
+	color: #005487;
+	font-size: 2rem;
+}
 .reports
 {
     display: flex;
@@ -32,13 +46,6 @@ main section
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-}
-h2
-{
-    font-weight: 700;
-    text-transform: uppercase;
-    margin: 0.5rem 0 0;
-    width: 100%;
 }
 #banks
 {
@@ -168,6 +175,11 @@ h2
         width: 90%;
         margin-bottom: 0;
     }
+	section > h2
+	{
+		margin: 0.5rem auto;
+		font-size: 1.5rem;
+	}
     .reports
     {
         width: 90%;

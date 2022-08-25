@@ -5,7 +5,9 @@ block meta
 	if path === "/reports"
 		meta(name="description", content="Find and view US banking industry reports and market segmentation data. You can get complete set of banking research reports, insights, overviews & more.")
 	else if path === "/reports/performance"
-		meta(name="description", content="View US-based bank performance reports to compare banking data. Performance reports help to know banking trends, growth and bank rankings.")
+		meta(name="description", content="View US-based bank performance reports with Visbanking to compare banking data. Performance reports help to know banking trends, growth, & rankings. Visit us to know more.")
+	else if path === "/reports/bank"
+		meta(name="description", content="Browse Visbanking to view Bank Reports or financial reports in the USA. Get information about loans, net income, leases, total assets, liabilities, & much more. Visit now!")
 	else if path.includes("/reports")
 		meta(name="description", content=`Browse to view ${reportsType[0].toUpperCase()+reportsType.slice(1)} Report in USA. Get information about loans, net income, leases, total assets, liabilities in HTML & PDF format.`)
 
@@ -136,7 +138,12 @@ block main
 					a(href="/reports/macro", data-report-type="macro") Macro Reports 
 					a(href="/reports/performance", data-report-type="performance") Performance Reports 
 			.reports
-				h2 View #{reportsType} Reports in USA
+				if path === "/reports/performance"
+					h2 Bank Performance Reports in USA
+				else if path === "/reports/bank"
+					h2 Single Bank Reports in USA
+				else 
+					h2 View #{reportsType} Reports in USA
 				each report in reports 
 					.report.show(data-city=report.City, data-state=report.State, data-id=report.IDRSSD, data-name=(report.BankName || report.SectionName.split("_").join(" ")), data-status=report.Status, data-name-initial=(report.BankName ? report.BankName[0] : report.SectionName[0]))
 						h3.name #{report.BankName || report.SectionName.split("_").join(" ")}
@@ -153,6 +160,7 @@ block main
 		h1 Banking Industry Reports
 		p#intro View Macro, Performance, and Single Bank Reports on more than 10,000 banks throughout the United States, with data on deposits, loans and more.
 		section.reports(data-path=path)
+			h2 US Banking Industry Reports
 			each reportType in reportTypes 
 				aside.report 
 					h2.name #{reportType.Type} Reports

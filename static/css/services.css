@@ -36,6 +36,10 @@ main section
 {
     margin: 3% 0;
 }
+p a
+{
+	color: inherit;
+}
 #text h2
 {
     text-align: left;
