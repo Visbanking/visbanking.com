@@ -5,6 +5,7 @@ jsconfig.json
 *.pem
 sitemap.xml
 .pricingTiers.json
+.apiTokens.json
 static/images/insights/*
 static/images/insights/*
 static/images/insights/*
