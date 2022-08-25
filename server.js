@@ -20,6 +20,7 @@ const buy = require("./routing/buy");
 const recovery = require("./routing/recovery");
 const privacy = require("./routing/privacy");
 const admin = require("./routing/admin");
+const api = require("./routing/api");
 const files = require("./routing/files");
 const error = require("./routing/error");
 const app = express();
@@ -72,6 +73,8 @@ app.use("/recovery", recovery);
 app.use(privacy);
 
 app.use("/admin", admin);
+
+app.use("/api", api);
 
 app.use(files);
 
