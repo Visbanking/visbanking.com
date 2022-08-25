@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { checkCache, setCache } = require("./../data/caching");
 const { renderFile } = require("pug");
+const path = require("path");
 const router = Router();
 
 router.get("/", checkCache, (req, res) => {
