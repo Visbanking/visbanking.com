@@ -1,8 +1,8 @@
 const Insight = require("./../models/insight");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
-const InsightController = {
-	async createInsight(insightData) {
+class InsightController {
+	static async #createInsight(insightData) {
 		const insight = new Insight(insightData);
 		try {
 			const result = await insight.save();
@@ -13,11 +13,11 @@ const InsightController = {
 		} catch (err) {
 			return {
 				message: "Failed to create insight",
-				error: err.original
+				error: err.original || err
 			};
 		}
-	},
-	async updateInsight(insightTitle, updateOptions) {
+	}
+	static async #updateInsight(insightTitle, updateOptions) {
 		const insight = await Insight.findOne({
 			where: {
 				Title: insightTitle
@@ -48,8 +48,8 @@ const InsightController = {
 				error: err.original
 			};
 		}
-	},
-	async deleteInsight(insightTitle) {
+	}
+	static async #deleteInsight(insightTitle=null) {
 		const insight = await Insight.findOne({
 			where: {
 				Title: insightTitle
@@ -79,6 +79,39 @@ const InsightController = {
 				error: err.original
 			};
 		}
+	}
+	static async createNewInsight(createOptions) {
+		const result = await InsightController.#createInsight(createOptions);
+		if (result.error) throw result.error;
+		else return result;
+	}
+	static async getAllInsights(projection=null) {
+		return await Insight.findAll(projection ? {
+			attributes: projection.split(" ")
+		} : {});
+	}
+	static async getInsight(searchParameters, projection=null) {
+		const findOptions = {};
+		if (projection) findOptions.attributes=projection.split(" ");
+		findOptions.where = searchParameters;
+		return await Insight.findOne(findOptions);
+	}
+	static async getInsightById(insightId, projection=null) {
+		return await InsightController.getInsight({
+			ID: insightId
+		}, projection);
+	}
+	static async updateInsightById(insightId, updateOptions) {
+		const insight = await InsightController.getInsightById(insightId, "Title");
+		const result = await InsightController.#updateInsight(insight?.Title || null, updateOptions);
+		if (result.error) throw result.error;
+		else return result;
+	}
+	static async deleteInsightById(insightId) {
+		const insight = await InsightController.getInsightById(insightId, "Title");
+		const result = await InsightController.#deleteInsight(insight?.Title);
+		if (result.error) throw result.error;
+		else return result;
 	}
 };
 
