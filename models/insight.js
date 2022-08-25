@@ -13,7 +13,7 @@ Insight.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("ID") !== null) throw new Error("Cannot set Insight ID after initialization");
+			if (this.getDataValue("ID") && this.getDataValue("ID") !== null) throw new Error("Cannot set Insight ID after initialization");
 			else this.setDataValue("ID", value);
 		}
 	},
@@ -25,7 +25,7 @@ Insight.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("Title") !== null) throw new Error("Cannot set Insight Title after initialization");
+			if (this.getDataValue("Title") && this.getDataValue("Title") !== null) throw new Error("Cannot set Insight Title after initialization");
 			else this.setDataValue("Title", value);
 		}
 	},
@@ -36,7 +36,7 @@ Insight.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("Body") !== null) throw new Error("Cannot set Insight Body after initialization");
+			if (this.getDataValue("Body") && this.getDataValue("Body") !== null) throw new Error("Cannot set Insight Body after initialization");
 			else this.setDataValue("Body", value);
 		}
 	},
@@ -47,9 +47,8 @@ Insight.init({
 		validate: {
 			notEmpty: true
 		},
-		set(value) {
-			if (this.getDataValue("Image") !== null) throw new Error("Cannot set Insight Image after initialization");
-			else this.setDataValue("Image", value);
+		set(newImageUrl) {
+			this.setDataValue("Image", newImageUrl);
 		}
 	},
 	Topic: {
@@ -95,9 +94,7 @@ Insight.init({
 			notEmpty: true
 		},
 		set(newTags) {
-			if (typeof newTags === "string") newTags = newTags.split(",").map(tag => tag.trim());
-			const tags = this.getDataValue("Tags").split(",").map(tag => tag.trim());
-			this.setDataValue("Tags", tags.push(...newTags).join(", "));
+			this.setDataValue("Tags", newTags);
 		}
 	},
 	Author: {
@@ -108,7 +105,7 @@ Insight.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("Author") !== null) throw new Error("Cannot set Insight Author after initialization");
+			if (this.getDataValue("Author") && this.getDataValue("Author") !== null) throw new Error("Cannot set Insight Author after initialization");
 			else this.setDataValue("Author", value);
 		}
 	},
@@ -116,11 +113,11 @@ Insight.init({
 		type: DataTypes.TEXT("tiny"),
 		allowNull: false,
 		validate: {
-			notEmpty: true
+			notEmpty: true,
+			len: [20, 50]
 		},
 		set(value) {
-			if (this.getDataValue("Description") !== null) throw new Error("Cannot set Insight Description after initialization");
-			else this.setDataValue("Description", value);
+			this.setDataValue("Description", value);
 		}
 	},
 	Keywords: {
@@ -128,10 +125,10 @@ Insight.init({
 		allowNull: false,
 		validate: {
 			notEmpty: true,
+			len: [10, 50]
 		},
 		set(value) {
-			if (this.getDataValue("Keywords") !== null) throw new Error("Cannot set Insight Keywords after initialization");
-			else this.setDataValue("Keywords", value);
+			this.setDataValue("Keywords", value);
 		}
 	}
 }, {
