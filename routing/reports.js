@@ -110,7 +110,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype", (req, res) => {
 						reports.forEach(report => {
 							bestReportOptions.set(report, tiers.indexOf(req.cookies.tier)-tiers.indexOf(report.Tier));
 						});
-						const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] | b[1]);
+						const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] - b[1]);
 						const suitableReports = bestReportOptionsSorted.filter(report => report[1] >= 0);
 						if (!suitableReports.length) {
 							return res.render("reports/upgrade", {
@@ -259,7 +259,7 @@ router.get("/:report_type/:state_or_section/:city_or_subtype/:bank_id/:subtype",
 					reports.forEach(report => {
 						bestReportOptions.set(report, tiers.indexOf(req.cookies.tier)-tiers.indexOf(report.Tier));
 					});
-					const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] | b[1]);
+					const bestReportOptionsSorted = [...bestReportOptions.entries()].sort((a, b) => a[1] - b[1]);
 					const suitableReports = bestReportOptionsSorted.filter(report => report[1] >= 0);
 					if (!suitableReports.length) {
 						return res.render("reports/upgrade", {
