@@ -7,7 +7,6 @@ const { renderFile } = require("pug");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-	console.log(req.query);
 	if (req.query.formSubmitted === "1") {
 		res.cookie("popUpSubmitted", req.query.formSubmitted);
 		return res.redirect("/");
@@ -19,7 +18,6 @@ router.get("/", (req, res) => {
 				console.error(err);
 				res.redirect("/error");
 			} else {
-				console.log(new Boolean(req.cookies.popUpSubmitted).valueOf());
 				res.render("index", {
 					title: "US Banking Data Visualization | Bank Industry Analysis | Visbanking",
 					path: "/",
