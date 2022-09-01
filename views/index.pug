@@ -6,8 +6,41 @@ block meta
 
 block styles 
 	link(rel="stylesheet" href="/css/index.css")
+	if loadPopUp
+		link(rel="stylesheet" href="/css/popup.css")
 
 block main 
+	if loadPopUp 
+		.bgn-wf-bg.active
+		i.bgn-wf-exit.bi-x-lg.active(onclick="closePopUp()")
+		.bgn-wf-wrapper.active#BiginWebToEntityFormDiv5070757000001172001(style="max-width:600px;margin:2em auto;padding: 15px;border:1px solid #e1e1e1;background-color:#3E8CF6;color:black;")
+			form#BiginWebToContactForm5070757000001172001(name="BiginWebToContactForm5070757000001172001", method="POST", enctype="multipart/form-data", style="margin: 0;")
+				input(type="text", name="xnQsjsdp", style="display:none;", value="9ab5bf7332883354fbe855dad6ba60ca4ba7a14cda8269ade2f365633738130f")
+				input(type="hidden", name="zc_gad", id="zc_gad", value="")
+				input(type="text", name="xmIwtLD", style="display:none;", value="ab505a1b63eaa87bf5ca2370112da1da1037c025d695079affa2717f4a644f9d")
+				input(type="text", name="actionType", style="display:none;", value="Q29udGFjdHM")
+				input(type="text", name="returnURL", style="display:none;", value="http://localhost:8080?formSubmitted=1")
+				div(style="font-size: 30px; font-weight: 700; margin-bottom: 10px;word-break: break-word;padding-left: 15px; color: #ffffff; text-align: center;") Free Report
+				#elementDiv5070757000001172001(style="border:0;width: 100%;background-color: #3E8CF6;color:black;font-family:Arial;text-align:left; font-size: 15;")
+				.bgn-wf-row 
+					.bgn-wf-field 
+						input(type="text", name="First Name", maxlength="40", placeholder="First Name *", required, style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
+				.bgn-wf-row 
+					.bgn-wf-field 
+						input(type="text", name="Last Name", maxlength="80", placeholder="Last Name *", required, style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
+				.bgn-wf-row 
+					.bgn-wf-field 
+						input(type="email", name="Email", maxlength="100", placeholder="Email *", required, style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
+				.bgn-wf-row 
+					.bgn-wf-field 
+						input(type="text", name="Phone", maxlength="50", placeholder="Phone", style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
+				.bgn-wf-row 
+					.bgn-wf-field
+						input(type="text", name="Account Name", maxlength="120", placeholder="Company Name", style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
+				.bgn-wf-row(style="margin-top: 5px;")
+					.bgn-wf-field 
+						input#formsubmit5070757000001172001(type="submit", value="Submit", style='margin-right: 10px; opacity:; font-size:16px;color: #fff;border-radius: 10px;vertical-align: middle;background-color: #1980d8;border-color: #1980d8;padding: 8px 15px;display: inline-block;width: auto; font-family: sans-serif;')
+						input(type="reset", value="Reset", onclick='disableSubmitwhileReset5070757000001172001()', style='font-size:16px;border-radius: 10px;vertical-align: middle;background-color: #fff;border-color: #222;padding: 8px 15px;color: #3c3c3c;border: solid 1px #d4d3d2;display: inline-block;width: auto; font-family: sans-serif;')
 	h1 We are banks visualized
 	h2 Visualize banking data like never before
 	aside#latest
@@ -119,3 +152,6 @@ block main
 
 block scripts 
 	script(src="/js/index.js") 
+	if loadPopUp 
+		script(src="/js/popup.js") 
+		script#wf_script(src="https://bigin.zoho.com/crm/WebformScriptServlet?rid=ab505a1b63eaa87bf5ca2370112da1da1037c025d695079affa2717f4a644f9dgid9ab5bf7332883354fbe855dad6ba60ca4ba7a14cda8269ade2f365633738130f") 

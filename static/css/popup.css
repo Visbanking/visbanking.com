@@ -1,0 +1,98 @@
+.bgn-wf-bg
+{
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	z-index: 3;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+.bgn-wf-exit
+{
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	z-index: 4;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+.bgn-wf-wrapper * 
+{
+	box-sizing: border-box;
+}
+.bgn-wf-wrapper 
+{
+	width: 100%;
+	max-width: 900px;
+	margin: auto;
+	border: none;
+	padding: 15px;
+	background-color: #fff;
+	color: #333;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 5;
+}
+.bgn-wf-row 
+{
+	padding: 5px 0 15px 0;
+	display: flex;
+}
+.bgn-wf-label 
+{
+	padding: 7px 20px 5px 35px;
+	width: 26%;
+	border: 0;
+	align-self: center;
+	word-break: break-word;
+	position: relative;
+}
+.bgn-wf-field 
+{
+	vertical-align: top;
+	text-align: center;
+	word-break: break-word;
+	border: 0;
+	flex: 1;
+}
+input:focus
+{
+	border: 1px solid #1980d8;
+}
+.bgn-star 
+{
+	color: #bb0707;
+	width: 10px;
+	height: 10px;
+	z-index: 1;
+	font-size: 14px;
+	text-transform: inherit;
+	position: absolute;
+}
+@media screen and (max-width: 590px) 
+{
+	.bgn-wf-wrapper 
+	{
+		max-width: 80% !Important;
+		border: 0;
+	}
+	.bgn-wf-row, .bgn-wf-label, .bgn-wf-field 
+	{
+		display: block;
+		width: 100%;
+	}
+	.bgn-wf-field input[type=text], .bgn-wf-field select, .bgn-wf-field textarea 
+	{
+		width: 100% !important;
+	}
+	.bgn-wf-field div>select 
+	{
+		width: auto !important;
+	}
+	.bgn-wf-label:empty 
+	{
+		display: none;
+	}
+}
