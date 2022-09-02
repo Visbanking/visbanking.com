@@ -70,4 +70,5 @@ function closePopUp() {
 	document.querySelector(".bgn-wf-bg").style.display = "none";
 	document.querySelector(".bgn-wf-exit").style.display = "none";
 	document.querySelector(".bgn-wf-wrapper").style.display = "none";
+	document.cookie = "popUpSubmitted=1;";
 }

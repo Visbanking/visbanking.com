@@ -7,15 +7,6 @@
 	z-index: 3;
 	background-color: rgba(0, 0, 0, 0.8);
 }
-.bgn-wf-exit
-{
-	position: fixed;
-	top: 1rem;
-	right: 1rem;
-	z-index: 4;
-	color: #FFFFFF;
-	cursor: pointer;
-}
 .bgn-wf-wrapper * 
 {
 	box-sizing: border-box;
@@ -34,6 +25,19 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 5;
+}
+.bgn-wf-wrapper form
+{
+	position: relative;
+}
+.bgn-wf-exit
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 4;
+	color: #FFFFFF;
+	cursor: pointer;
 }
 .bgn-wf-row 
 {
