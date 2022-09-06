@@ -17,7 +17,7 @@ block main
     article 
         h1 #{post.Title}
         img(src=post.Image, alt=post.Title)
-        p.date #{post.Date.toDateString()}
+        p.date #{new Date(post.Date).toDateString()}
         p.author By #{post.Author||'Ken Chase'}
         div#share
             a.button#linkedin(target="_blank", title="Share to LinkedIn")
@@ -32,20 +32,20 @@ block main
                     div #{par}
             aside#latest
                 h3 Latest news
-                each post in latest 
+                each post in newestInsights 
                     article.post 
                         img(src=post.Image, alt=post.Title)
-                        a(href=`/insights/insight/${post.ID}`) 
+                        a(href=`/insights/${post.ID}`) 
                             p.title #{post.Title}
     #related
         h3 Related news
-        each post in related
+        each post in relatedInsights
             article.post
                 div 
                     img(src=post.Image, alt=post.Title)
                 p.title #{post.Title}
                 p.intro #{post.Body}
-                a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
+                a(href=`/insights/${post.ID}`) Read more &gt;&gt;
 
 block scripts
     script(src="/js/insight.js") 

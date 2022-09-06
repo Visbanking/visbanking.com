@@ -1,106 +1,106 @@
 extends layout.pug
 
 block meta
-    meta(name="description", content="")
-    meta(name="keywords", content="")
+	meta(name="description" content="")
+	meta(name="keywords" content="")
 
 block styles 
-    link(rel="stylesheet", href="/css/insights.css")
+	link(rel="stylesheet" href="/css/insights.css")
 
 block main
-    h1 Insights
-    article#latest
-        - const latest = newest[0];
-        img(src=latest.Image, alt=latest.Title)
-        div
-            p.title #{latest.Title}
-            p.intro #{latest.Body}
-            p.date #{latest.Date.toLocaleDateString()}
-            a(href=`/insights/insight/${latest.ID}`) Read more &gt;&gt;
-    section#featured
-        h2 Featured news
-        each post in top.slice(1, 4)
-            article.post 
-                img(src=post.Image, alt=post.Title)
-                a(href=`/insights/insight/${post.ID}`) 
-                    p.title #{post.Title}
-    section#last
-        h2 Last news
-        each post in newest.slice(1, 5)
-            article.post
-                img(src=post.Image, alt=post.Title)
-                a(href=`/insights/insight/${post.ID}`) 
-                    p.title #{post.Title}
-    section#business
-        h2 Business
-        each post in business.slice(0, 2)
-            article.post
-                img(src=post.Image, alt=post.Title)
-                a(href=`/insights/insight/${post.ID}`) 
-                    p.title #{post.Title}
-    section#banks
-        h2 Banks
-        each post in banks.slice(0, 2)
-            article.post
-                img(src=post.Image, alt=post.Title)
-                a(href=`/insights/insight/${post.ID}`) 
-                    p.title #{post.Title}
-    section#categories
-        h2
-            button(:class="{ active:general }", @click="showGeneral") All
-            button(:class="{ active:business }", @click="showBusiness") Business
-            button(:class="{ active:banks }", @click="showBanks") Banks
-            button(:class="{ active:financial }", @click="showFinancial") Financial
-            button(:class="{ active:market }", @click="showMarket") Market
-            button(:class="{ active:politics }", @click="showPolitics") Politics
-        aside.articles(v-if="general")
-            each post in newest 
-                article.post(id=post.ID)
-                    div 
-                        img(src=post.Image, alt=post.Title)
-                    p.title #{post.Title}
-                    p.intro #{post.Body}
-                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
-        aside.articles(v-if="business")
-            each post in business
-                article.post(id=post.ID)
-                    div 
-                        img(src=post.Image, alt=post.Title)
-                    p.title #{post.Title}
-                    p.intro #{post.Body}
-                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
-        aside.articles(v-if="banks")
-            each post in banks
-                article.post(id=post.ID)
-                    div 
-                        img(src=post.Image, alt=post.Title)
-                    p.title #{post.Title}
-                    p.intro #{post.Body}
-                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
-        aside.articles(v-if="financial")
-            each post in financial
-                article.post(id=post.ID)
-                    div 
-                        img(src=post.Image, alt=post.Title)
-                    p.title #{post.Title}
-                    p.intro #{post.Body}
-                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
-        aside.articles(v-if="market")
-            each post in market
-                article.post(id=post.ID)
-                    div 
-                        img(src=post.Image, alt=post.Title)
-                    p.title #{post.Title}
-                    p.intro #{post.Body}
-                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
-        aside.articles(v-if="politics")
-            each post in politics
-                article.post(id=post.ID)
-                    div 
-                        img(src=post.Image, alt=post.Title)
-                    p.title #{post.Title}
-                    p.intro #{post.Body}
-                    a(href=`/insights/insight/${post.ID}`) Read more &gt;&gt;
+	h1 Insights
+	article#latest
+		- const latest = newestInsights[0];
+		img(src=latest.Image, alt=latest.Title)
+		div
+			p.title #{latest.Title}
+			p.intro #{latest.Body}
+			p.date #{new Date(latest.Date).toLocaleDateString()}
+			a(href=`/insights/${latest.ID}`) Read more &gt;&gt;
+	section#featured
+		h2 Featured news
+		each post in topInsights.slice(1, 4)
+			article.post 
+				img(src=post.Image, alt=post.Title)
+				a(href=`/insights/${post.ID}`) 
+					p.title #{post.Title}
+	section#last
+		h2 Latest news
+		each post in newestInsights.slice(1, 5)
+			article.post
+				img(src=post.Image, alt=post.Title)
+				a(href=`/insights/${post.ID}`) 
+					p.title #{post.Title}
+	section#business
+		h2 Business
+		each post in topInsights.filter(insight => insight.Topic==="Business").slice(0, 2)
+			article.post
+				img(src=post.Image, alt=post.Title)
+				a(href=`/insights/${post.ID}`) 
+					p.title #{post.Title}
+	section#banks
+		h2 Banks
+		each post in topInsights.filter(insight => insight.Topic==="Banks").slice(0, 2)
+			article.post
+				img(src=post.Image, alt=post.Title)
+				a(href=`/insights/${post.ID}`) 
+					p.title #{post.Title}
+	section#categories
+		h2
+			button(:class="{ active:general }", @click="showGeneral") All
+			button(:class="{ active:business }", @click="showBusiness") Business
+			button(:class="{ active:banks }", @click="showBanks") Banks
+			button(:class="{ active:financial }", @click="showFinancial") Financial
+			button(:class="{ active:market }", @click="showMarket") Market
+			button(:class="{ active:politics }", @click="showPolitics") Politics
+		aside.articles(v-if="general")
+			each post in newestInsights 
+				article.post(id=post.ID)
+					div 
+						img(src=post.Image, alt=post.Title)
+					p.title #{post.Title}
+					p.intro #{post.Body}
+					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+		aside.articles(v-if="business")
+			each post in topInsights.filter(insight => insight.Topic==="Business")
+				article.post(id=post.ID)
+					div 
+						img(src=post.Image, alt=post.Title)
+					p.title #{post.Title}
+					p.intro #{post.Body}
+					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+		aside.articles(v-if="banks")
+			each post in topInsights.filter(insight => insight.Topic==="Banks")
+				article.post(id=post.ID)
+					div 
+						img(src=post.Image, alt=post.Title)
+					p.title #{post.Title}
+					p.intro #{post.Body}
+					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+		aside.articles(v-if="financial")
+			each post in topInsights.filter(insight => insight.Topic==="Financial")
+				article.post(id=post.ID)
+					div 
+						img(src=post.Image, alt=post.Title)
+					p.title #{post.Title}
+					p.intro #{post.Body}
+					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+		aside.articles(v-if="market")
+			each post in topInsights.filter(insight => insight.Topic==="Market")
+				article.post(id=post.ID)
+					div 
+						img(src=post.Image, alt=post.Title)
+					p.title #{post.Title}
+					p.intro #{post.Body}
+					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+		aside.articles(v-if="politics")
+			each post in topInsights.filter(insight => insight.Topic==="Politics")
+				article.post(id=post.ID)
+					div 
+						img(src=post.Image, alt=post.Title)
+					p.title #{post.Title}
+					p.intro #{post.Body}
+					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
 
 block scripts 
-    script(src="/js/insights.js") 
+	script(src="/js/insights.js") 
