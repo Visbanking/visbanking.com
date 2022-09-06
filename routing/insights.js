@@ -45,4 +45,8 @@ router.get("/:article_id", (req, res) => {
 	});
 });
 
+router.get("/insight/:article_id", (req, res) => {
+	res.redirect(`/insights/${req.params.article_id}`);
+});
+
 module.exports = router;
