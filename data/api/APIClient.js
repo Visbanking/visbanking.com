@@ -17,4 +17,12 @@ module.exports = class APIClient {
 		});
 		return result;
 	}
+	static async del(urlEndpoint, headers={}) {
+		headers.Authorization = `Bearer ${APIClient.token}`;
+		const { data:result } = await axios.delete(urlEndpoint, {
+			headers: headers,
+			baseURL: "http://localhost:8080"
+		});
+		return result;
+	}
 };

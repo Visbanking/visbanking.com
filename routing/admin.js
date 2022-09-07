@@ -5,6 +5,7 @@ const lodash = require("lodash");
 const multer = require("multer");
 const path = require("path");
 const marked = require("marked");
+const { get, del } = require("./../data/api/APIClient");
 const fs = require("fs");
 require("dotenv").config();
 const router = Router();
@@ -301,20 +302,21 @@ router.post("/dashboard/admins/delete", (req, res) => {
 });
 
 router.get("/dashboard/insights", (req, res) => {
-	connection.query("SELECT * FROM Insights ORDER BY Date DESC;", (err, results, fields) => {
-		if (err) {
-			return res.json({
-				error: {
-					summary: "An error occurred while retrieving insights",
-					detail: err,
-				},
-			});
-		} else {
-			return res.json({
-				success: true,
-				data: results,
-			});
-		}
+	get("/api/insights")
+	.then(({ result:insights }) => {
+		const newestInsights = insights.sort((a, b) => new Date(b.Date) - new Date(a.Date));
+		return res.json({
+			success: true,
+			data: newestInsights
+		});
+	})
+	.catch(err => {
+		return res.json({
+			error: {
+				summary: "An error ocurred while retrieving insights",
+				detail: err
+			}
+		});
 	});
 });
 
@@ -353,16 +355,18 @@ router.post("/dashboard/insights/create", insight.fields([{ name: "headerImage" 
 });
 
 router.get("/dashboard/insights/edit", (req, res) => {
-	connection.query("SELECT Title FROM Insights ORDER BY Date DESC;", (err, results, fields) => {
-		if (err || !results.length) {
-			error = "There was a problem accessing the database";
-			res.redirect("/admin/dashboard");
-		} else {
-			const insightsTitles = results.map((insightTitle) => insightTitle.Title);
-			res.render("admin/insights/edit", {
-				insightsTitles,
-			});
-		}
+	get("/api/insights?fields=Title")
+	.then(({ result:insights }) => {
+		if (!insights[0]) throw new Error();
+		const insightsTitles = insights.map((insightTitle) => insightTitle.Title);
+		res.render("admin/insights/edit", {
+			insightsTitles,
+		});
+	})
+	.catch(err => {
+		console.log(err)
+		error = "There was a problem accessing the database";
+		res.redirect("/admin/dashboard");
 	});
 });
 
@@ -382,24 +386,15 @@ router.post("/dashboard/insights/delete", (req, res) => {
 			recursive: true,
 			force: true,
 		});
-		connection.query(`SELECT ID FROM Insights WHERE Title = '${req.body.title}';`, (err, results, fields) => {
-			if (err) {
-				console.error(err);
-				message = "Insight couldn't be deleted. Please try again";
-				res.redirect("/admin/dashboard");
-			} else {
-				const id = results[0].ID;
-				connection.query(`DELETE FROM Insights WHERE ID = '${id}';`, (err, results, fields) => {
-					if (err) {
-						console.error(err);
-						message = "Insight couldn't be deleted. Please try again";
-						res.redirect("/admin/dashboard");
-					} else {
-						message = "Insight deleted successfully.";
-						res.redirect("/admin/dashboard");
-					}
-				});
-			}
+		del(`/api/insights/insight/${lodash.kebabCase(req.body.title)}`)
+		.then(() => {
+			message = "Insight deleted successfully";
+		})
+		.catch(() => {
+			message = "Insight couldn't be deleted. Please try again";
+		})
+		.finally(() => {
+			res.redirect("/admin/dashboard");
 		});
 	}
 });
