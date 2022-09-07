@@ -1,4 +1,4 @@
-const FAQ = require("../models/faq");
+const FAQ = require("../models/faq.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 const FAQController = {

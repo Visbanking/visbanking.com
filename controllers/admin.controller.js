@@ -1,4 +1,4 @@
-const Admin = require("./../models/admin");
+const Admin = require("../models/admin.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 const AdminController = {

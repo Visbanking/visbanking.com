@@ -1,4 +1,4 @@
-const Contact = require("./../models/contact");
+const Contact = require("../models/contact.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 const ContactController = {

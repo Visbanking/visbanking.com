@@ -1,4 +1,4 @@
-const NewsletterSubscriber = require("../models/newsletterSubscriber");
+const NewsletterSubscriber = require("../models/newsletterSubscriber.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 const NewsletterSubscriberController = {

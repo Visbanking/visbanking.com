@@ -1,4 +1,4 @@
-const Insight = require("./../models/insight");
+const Insight = require("../models/insight.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
 class InsightController {
