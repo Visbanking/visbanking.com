@@ -44,6 +44,7 @@ The following is a list of ALL the programming languages used in any part of thi
 1. [ESLint](https://eslint.org) for JS code linting
 2. [Pug](https://pugjs.org) as templating engine
 3. [Sequelize](https://sequelize.org) as ORM for the RDS MySQL database
+4. [Jest](https://jestjs.io) for Automated Testing
 
 ## **Project Structure**
 
