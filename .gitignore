@@ -14,4 +14,3 @@ static/images/members/*.png
 static/images/users/*.jpg
 static/images/users/*.png
 node_modules/
-*.test.*
