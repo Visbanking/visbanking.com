@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { verify } = require("jsonwebtoken");
 const { capitalize } = require("lodash");
-const InsightController = require("../../controllers/Insight");
+const InsightController = require("../../controllers/insight.controller");
 const ResourceNotFoundError = require("../../data/errors/ResourceNotFoundError");
 const router = Router();
 
