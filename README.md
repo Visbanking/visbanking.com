@@ -280,7 +280,7 @@ Follow the links below to quickly access any code (and code-related) file or fol
 - [data](./data/)
 	- [api](./data/api/)
 		- [APIClient.js](./data/api/APIClient.js)
-		. [generateAuthorizationToken.js](./data/api/generateAuthorizationToken.js)
+		- [generateAuthorizationToken.js](./data/api/generateAuthorizationToken.js)
 	- [database](./data/database/)
 		- [usersDatabase.js](./data/database/usersDatabase.js)
 		- [visbankingDatabase.js](./data/database/visbankingDatabase.js)
