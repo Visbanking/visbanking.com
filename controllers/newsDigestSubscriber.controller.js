@@ -1,4 +1,4 @@
-const NewsDigestSubscriber = require("../models/");
+const NewsDigestSubscriber = require("../models/newsDigestSubscriber.model");
 const ResourceNotFoundError = require("./../data/errors/ResourceNotFoundError");
 
 const NewsDigestSubscriberController = {
