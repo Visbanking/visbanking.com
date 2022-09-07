@@ -15,7 +15,7 @@ Contact.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("ID") !== null) throw new Error("Cannot set Contact ID after initialization");
+			if (this.getDataValue("ID") && this.getDataValue("ID") !== null) throw new Error("Cannot set Contact ID after initialization");
 			else this.setDataValue("ID", value);
 		}
 	},

@@ -15,7 +15,7 @@ User.init({
 			notEmpty: true,
 		},
 		set(value) {
-			if (this.getDataValue("ID") !== null) throw new Error("Cannot set User ID after initialization");
+			if (this.getDataValue("ID") && this.getDataValue("ID") !== null) throw new Error("Cannot set User ID after initialization");
 			else this.setDataValue("ID", value);
 		}
 	},
@@ -48,7 +48,7 @@ User.init({
 			isEmail: true
 		},
 		set(value) {
-			if (this.getDataValue("Email") !== null) throw new Error("Cannot set User Email after initialization");
+			if (this.getDataValue("Email") && this.getDataValue("Email") !== null) throw new Error("Cannot set User Email after initialization");
 			else this.setDataValue("Email", value);
 		}
 	},
@@ -178,7 +178,7 @@ User.init({
 			isDate: true
 		},
 		set(value) {
-			if (this.getDataValue("Date") !== null) throw new Error("Cannot set User Date after initialization");
+			if (this.getDataValue("Date") && this.getDataValue("Date") !== null) throw new Error("Cannot set User Date after initialization");
 			else this.setDataValue("Date", value);
 		}
 	},

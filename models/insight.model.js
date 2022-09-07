@@ -71,7 +71,7 @@ Insight.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("Date") !== null) throw new Error("Cannot set Insight Date after initialization");
+			if (this.getDataValue("Date") && this.getDataValue("Date") !== null) throw new Error("Cannot set Insight Date after initialization");
 			else this.setDataValue("Date", value);
 		}
 	},

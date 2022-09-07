@@ -15,7 +15,7 @@ Member.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("ID") !== null) throw new Error("Cannot set Member ID after initialization");
+			if (this.getDataValue("ID") && this.getDataValue("ID") !== null) throw new Error("Cannot set Member ID after initialization");
 			else this.setDataValue("ID", value);
 		}
 	},
@@ -38,7 +38,7 @@ Member.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("Photo") !== null) throw new Error("Cannot set Member Photo after initialization");
+			if (this.getDataValue("Photo") && this.getDataValue("Photo") !== null) throw new Error("Cannot set Member Photo after initialization");
 			else this.setDataValue("Photo", value);
 		}
 	},

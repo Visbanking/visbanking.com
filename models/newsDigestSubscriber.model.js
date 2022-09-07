@@ -15,7 +15,7 @@ NewsDigestSubscriber.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("ID") !== null) throw new Error("Cannot set Subscriber ID after initialization");
+			if (this.getDataValue("ID") && this.getDataValue("ID") !== null) throw new Error("Cannot set Subscriber ID after initialization");
 			else this.setDataValue("ID", value);
 		}
 	},
@@ -48,7 +48,7 @@ NewsDigestSubscriber.init({
 			notEmpty: true
 		},
 		set(value) {
-			if (this.getDataValue("Email") !== null) throw new Error("Cannot set Subscriber Email after initialization");
+			if (this.getDataValue("Email") && this.getDataValue("Email") !== null) throw new Error("Cannot set Subscriber Email after initialization");
 			else this.setDataValue("Email", value);
 		}
 	},
