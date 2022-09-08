@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 					latest,
 					featured: results,
 					loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-					loadPopUp: !new Boolean(req.cookies.popUpSubmitted).valueOf()
+					loadPopUp: false
 				});
 			}
 		});
