@@ -18,7 +18,7 @@ block main
 				input(type="text", name="xnQsjsdp", style="display:none;", value="9ab5bf7332883354fbe855dad6ba60ca4ba7a14cda8269ade2f365633738130f")
 				input(type="hidden", name="zc_gad", id="zc_gad", value="")
 				input(type="text", name="xmIwtLD", style="display:none;", value="ab505a1b63eaa87bf5ca2370112da1da1037c025d695079affa2717f4a644f9d")
-				input(type="text", name="actionType", style="display:none;", value="Q29udGFjdHM")
+				input(type="text", name="actionType", style="display:none;", value="Q29udGFjdHM=")
 				input(type="text", name="returnURL", style="display:none;", value="http://visbanking.com?formSubmitted=1")
 				div(style="font-size: 30px; font-weight: 700; margin-bottom: 10px;word-break: break-word;padding-left: 15px; color: #ffffff; text-align: center;") Free Report
 				#elementDiv5070757000001172001(style="border:0;width: 100%;background-color: #3E8CF6;color:black;font-family:Arial;text-align:left; font-size: 15;")
@@ -49,7 +49,7 @@ block main
 				div
 					img(src=post.Image, alt=post.Title)
 				p.title #{post.Title}
-				a(href=`/insights/insight/${post.ID}`) Learn More
+				a(href=`/insights/${post.ID}`) Learn More
 	hr
 	h2 Ways That Visbanking Will Change Your Perspective
 	//- h2 Banking Intelligence And Visualizations That Will Change Your Perspective
@@ -141,7 +141,7 @@ block main
 					article.post 
 						img(src=post.Image, alt=post.Title)
 						p.title #{post.Title}
-						a(href=`/insights/insight/${post.ID}`) Read more &gt;
+						a(href=`/insights/${post.ID}`) Read more &gt;
 		//- hr
 		//- h2 Your trusted partner for banking intelligence
 		//- aside#partner 
