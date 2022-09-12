@@ -25,3 +25,13 @@ test("New Admin object password is encrypted with SHA512 algorithm", () => {
 	});
 	expect(admin.Password).toBe(require("hash.js").sha512().update("test").digest("hex"));
 });
+
+test("Admin.findAll() returns an array of Admin instances", () => {
+	Admin.findAll()
+	.then(results => {
+		expect(results).toEqual([ ...results ]);
+		results.forEach(result => {
+			expect(result instanceof Admin).toBe(true);
+		});
+	});
+});
