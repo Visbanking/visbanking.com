@@ -4,9 +4,11 @@ const hash = require("hash.js");
 const lodash = require("lodash");
 const multer = require("multer");
 const path = require("path");
-const marked = require("marked");
-const { get, del } = require("./../data/api/APIClient");
+const { marked } = require("marked");
+const { get, del, post } = require("./../data/api/APIClient");
 const fs = require("fs");
+const { URLSearchParams } = require("url");
+const { capitalize, kebabCase } = require("lodash");
 require("dotenv").config();
 const router = Router();
 
@@ -338,19 +340,22 @@ router.get("/dashboard/insights/create", (req, res) => {
 router.post("/dashboard/insights/create", insight.fields([{ name: "headerImage" }, { name: "bodyImages" }]), (req, res) => {
 	const action = req.body.action;
 	if (action === "Add insight") {
-		connection.query(
-			`INSERT INTO Insights VALUES ('${lodash.kebabCase(req.body.title)}', '${req.body.title}', '${marked.marked(req.body.body.trim()).trim()}', '/images/insights/${lodash.kebabCase(req.body.title)}/${req.files["headerImage"][0].filename}', '${req.body.topic}', '${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}', 0, '${req.body.tags}', '${req.body.author}', '${req.body.description}', '${req.body.keywords}');`,
-			(err, results, fields) => {
-				if (err) {
-					console.error(err);
-					message = "Insight couldn't be created. Please try again.";
-					res.redirect("/admin/dashboard");
-				} else {
-					message = "Insight created successfully.";
-					res.redirect("/admin/dashboard");
-				}
-			}
-		);
+		const postData = {
+			ID: kebabCase(req.body.title),
+			Image: `/images/insights/${lodash.kebabCase(req.body.title)}/headerImage.jpg`
+		};
+		for (const key in req.body) postData[capitalize(key)] = req.body[key];
+		postData.Body = marked(postData.Body);
+		post("/api/insights/insight", new URLSearchParams(postData).toString())
+		.then(() => {
+			message = "Insight created successfully.";
+		})
+		.catch(() => {
+			message = "Insight couldn't be created. Please try again.";
+		})
+		.finally(() => {
+			res.redirect("/admin/dashboard");
+		});
 	}
 });
 
@@ -382,10 +387,6 @@ router.post("/dashboard/insights/edit", insight.fields([{ name: "headerImage" },
 router.post("/dashboard/insights/delete", (req, res) => {
 	const action = req.body.action;
 	if (action === "Remove Insight") {
-		fs.rmSync(path.join(__dirname, "..", "static", "images", "insights", `${lodash.kebabCase(req.body.title)}`), {
-			recursive: true,
-			force: true,
-		});
 		del(`/api/insights/insight/${lodash.kebabCase(req.body.title)}`)
 		.then(() => {
 			message = "Insight deleted successfully";
