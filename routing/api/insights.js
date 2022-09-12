@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const { verify } = require("jsonwebtoken");
-const { capitalize } = require("lodash");
+const lodash = require("lodash");
 const InsightController = require("../../controllers/insight.controller");
 const ResourceNotFoundError = require("../../data/errors/ResourceNotFoundError");
+const fs = require("fs");
+const path = require("path");
 const router = Router();
 
 router.use((req, res, next) => {
@@ -52,7 +54,6 @@ router.head("/", (req, res) => {
 router.post("/insight", (req, res) => {
 	const insightData = {};
 	for (const key in req.body) insightData[key] = req.body[key];
-	console.log(insightData);
 	InsightController.createNewInsight(insightData)
 	.then(result => {
 		res 
@@ -132,6 +133,10 @@ router.patch("/insight/:insight_id", (req, res) => {
 });
 
 router.delete("/insight/:insight_id", (req, res) => {
+	fs.rmSync(path.join(__dirname, "..", "..", "static", "images", "insights", `${lodash.kebabCase(req.body.title)}`), {
+		recursive: true,
+		force: true,
+	});
 	InsightController.deleteInsightById(req.params.insight_id)
 	.then(result => {
 		res
