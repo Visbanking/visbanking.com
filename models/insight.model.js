@@ -83,7 +83,7 @@ Insight.init({
 			isInt: true
 		},
 		set(value) {
-			if (this.getDataValue("Views") !== null) throw new Error("Cannot set Insight Views after initialization");
+			if (value !== this.getDataValue("Views")+1) throw new Error("Cannot set Insight Views after initialization");
 			else this.setDataValue("Views", value);
 		}
 	},
