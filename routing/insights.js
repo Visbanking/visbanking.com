@@ -1,7 +1,7 @@
 const express = require("express");
 const { get } = require("../data/api/APIClient");
 const router = express.Router();
-const connection = require("../data/dbconnection");
+const Insight = require("../models/insight.model");
 
 router.get("/", async (req, res) => {
 	get("/api/insights")
@@ -22,6 +22,11 @@ router.get("/", async (req, res) => {
 router.get("/:article_id", (req, res) => {
 	get(`/api/insights/insight/${req.params.article_id}`)
 	.then(async ({ result:insight }) => {
+		Insight.increment("Views", {
+			where: {
+				ID: req.params.article_id
+			}
+		});
 		const { ID: insightId, Topic: insightTopic } = insight;
 		const { result:insights } = await get("/api/insights");
 		const newestInsights = insights.sort((a, b) => new Date(b.Date) - new Date(a.Date)).filter(insight => insight.ID!==insightId).slice(0, 3);
@@ -40,7 +45,8 @@ router.get("/:article_id", (req, res) => {
 			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
 		});
 	})
-	.catch(() => {
+	.catch(err => {
+		console.log(err);
 		res.redirect("/insights");
 	});
 });
