@@ -39,7 +39,8 @@
 		"serve-favicon": "^2.5.0",
 		"simple-email-verifier": "^1.2.0",
 		"stripe": "^8.184.0",
-		"uuid": "^8.3.2"
+		"uuid": "^8.3.2",
+		"winston": "^3.8.2"
 	},
 	"devDependencies": {
 		"eslint": "^8.17.0",
