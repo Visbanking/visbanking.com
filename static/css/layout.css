@@ -80,7 +80,8 @@ nav.navbar .navbar-collapse a.nav-link:hover
 nav.navbar .navbar-collapse > div .dropdown
 {
 	position: absolute;
-	width: 10vw;
+	min-width: 10vw;
+	width: auto;
 	left: 0;
 	top: 100%;
 	text-align: left;
@@ -403,7 +404,11 @@ footer .links a:hover
         margin-left: auto;
         text-align: right;
     }
-    nav.navbar .navbar-collapse a.nav-link:last-of-type
+	nav.navbar .navbar-collapse > div:hover .dropdown, nav.navbar .navbar-collapse > div:focus .dropdown
+	{
+		display: none;
+	}
+    nav.navbar .navbar-collapse a.nav-link:last-of-type, nav.navbar .navbar-collapse > div:last-of-type > a.nav-link
     {
         color: #000000;
         background-color: #FFFFFF;
