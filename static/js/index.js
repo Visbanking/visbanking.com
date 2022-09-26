@@ -5,3 +5,9 @@ setInterval(() => {
 	images[currentImageIndex].classList.remove("active");
 	images[nextImageIndex].classList.add("active");
 }, 5000);
+
+document.querySelectorAll("main button").forEach(button => {
+	button.addEventListener("click", () => {
+		button.children[0].click();
+	});
+});
