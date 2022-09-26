@@ -73,6 +73,9 @@ button a
 {
 	padding: 0.5rem 0.8rem;
 	box-shadow: 0 0 5px #FFFFFF;
+	color: #015193;
+	background-color: #FFFFFF;
+	font-weight: 600;
 }
 button:focus
 {
@@ -279,17 +282,19 @@ aside#report:nth-of-type(2n) div:last-of-type
 }
 .insight .info
 {
-	margin: 0 auto 2rem;
+	margin: 0 auto 3rem;
 	padding: 0.5rem 1rem;
 	color: #777777;
 	font-weight: 600;
+	font-size: 0.9rem;
 }
 .insight .info span:first-of-type
 {
 	padding-right: 0.5rem;
 	margin-right: 0.5rem;
-	border-right: 2px solid;
+	border-right: 0.15rem solid #777777;
 	display: inline-block;
+	color: #015193;
 }
 .insight .title
 {
@@ -297,6 +302,18 @@ aside#report:nth-of-type(2n) div:last-of-type
 	font-weight: 700;
 	padding: 0 1rem;
 	color: #000000;
+}
+.insight button
+{
+	display: block;
+	margin: 1rem auto;
+	padding: 0.5rem 1.5rem;
+	text-transform: uppercase;
+	font-size: 0.9rem;
+}
+.insight button:hover, .insight button:focus
+{
+	box-shadow: 0 0 10px 1px #015193;
 }
 @media screen and (max-width: 1100px)
 {

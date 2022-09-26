@@ -48,9 +48,7 @@ block main
 			button 
 				a(href="https://calendly.com/visbanking/visbanking-demo-meeting") Request a Demo
 		aside
-			img.active(src="/images/dashboard1.png" alt="Individual Bank Reports")
-			img(src="/images/dashboard2.png" alt="National Bank Rankings")
-			img(src="/images/dashboard3.png" alt="Banks with Demographic Data")
+			img.active(src="/images/index/introDashboard.png", alt="Visbanking Platform", title="Our Platform")
 	section#numbers
 		h2 Enhance your decision- making with Visbanking solutions:
 		aside
@@ -109,6 +107,7 @@ block main
 					span #{insight.Topic}
 					span #{new Date(insight.Date).toLocaleDateString()}
 				p.title #{insight.Title}
+				button Read More
 
 
 block scripts
