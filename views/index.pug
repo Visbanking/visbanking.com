@@ -4,13 +4,13 @@ block meta
 	meta(name="description" content="Visbanking is a US-based financial company focused on making banking data more accessible to end users. American banking industry analysis & facts.")
 	meta(name="keywords" content="US Banking Data Analysis, US Banking Data Visualization, America bank industr, Competitive Analysis, Market Share, M&A Due Dilligence, Credit Quality Trends, Geographic Coverage, Deposits, Loan Growth, Loan Decline")
 
-block styles 
+block styles
 	link(rel="stylesheet" href="/css/index.css")
 	if loadPopUp
 		link(rel="stylesheet" href="/css/popup.css")
 
-block main 
-	if loadPopUp 
+block main
+	if loadPopUp
 		.bgn-wf-bg.active
 		.bgn-wf-wrapper.active#BiginWebToEntityFormDiv5070757000001172001(style="max-width:600px;margin:2em auto;padding: 15px;border:1px solid #e1e1e1;background-color:#3E8CF6;color:black;")
 			form#BiginWebToContactForm5070757000001172001(name="BiginWebToContactForm5070757000001172001", method="POST", enctype="multipart/form-data", style="margin: 0;")
@@ -22,71 +22,97 @@ block main
 				input(type="text", name="returnURL", style="display:none;", value="http://visbanking.com?formSubmitted=1")
 				div(style="font-size: 30px; font-weight: 700; margin-bottom: 10px;word-break: break-word;padding-left: 15px; color: #ffffff; text-align: center;") Free Report
 				#elementDiv5070757000001172001(style="border:0;width: 100%;background-color: #3E8CF6;color:black;font-family:Arial;text-align:left; font-size: 15;")
-				.bgn-wf-row 
-					.bgn-wf-field 
+				.bgn-wf-row
+					.bgn-wf-field
 						input(type="text", name="First Name", maxlength="40", placeholder="First Name *", required, style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
-				.bgn-wf-row 
-					.bgn-wf-field 
+				.bgn-wf-row
+					.bgn-wf-field
 						input(type="text", name="Last Name", maxlength="80", placeholder="Last Name *", required, style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
-				.bgn-wf-row 
-					.bgn-wf-field 
+				.bgn-wf-row
+					.bgn-wf-field
 						input(type="email", name="Email", maxlength="100", placeholder="Email *", required, style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
-				.bgn-wf-row 
-					.bgn-wf-field 
+				.bgn-wf-row
+					.bgn-wf-field
 						input(type="text", name="Phone", maxlength="50", placeholder="Phone", style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
-				.bgn-wf-row 
+				.bgn-wf-row
 					.bgn-wf-field
 						input(type="text", name="Account Name", maxlength="120", placeholder="Company Name", style="border: 1px solid #e2e0df;padding: 10px 15px;max-width: 480px;border-radius:10px;width: 60%;")
 				.bgn-wf-row(style="margin-top: 5px;")
-					.bgn-wf-field 
+					.bgn-wf-field
 						input#formsubmit5070757000001172001(type="submit", value="Submit", style='margin-right: 10px; opacity:; font-size:16px;color: #fff;border-radius: 10px;vertical-align: middle;background-color: #1980d8;border-color: #1980d8;padding: 8px 15px;display: inline-block;width: auto; font-family: sans-serif;')
 						input(type="reset", value="Reset", onclick='disableSubmitwhileReset5070757000001172001()', style='font-size:16px;border-radius: 10px;vertical-align: middle;background-color: #fff;border-color: #222;padding: 8px 15px;color: #3c3c3c;border: solid 1px #d4d3d2;display: inline-block;width: auto; font-family: sans-serif;')
-	h1 We are banks visualized
-	h2 Visualize banking data like never before
-	aside#latest
-		each post in latest
-			article.post 
-				div
-					img(src=post.Image, alt=post.Title)
-				p.title #{post.Title}
-				a(href=`/insights/${post.ID}`) Learn More
-	hr
-	h2 Check out the dashboards and visualizations
-	aside#dashboards
-		img.active(src="/images/dashboard1.png" alt="Individual Bank Reports")
-		img(src="/images/dashboard2.png" alt="National Bank Rankings")
-		img(src="/images/dashboard3.png" alt="Banks with Demographic Data")
-		.indicator 
-			i.bi-dot.active
-			i.bi-dot
-			i.bi-dot
-		a(href="/services") Our Services
-	hr
-	h2 About Visbanking
-	aside#about
-		p At Visbanking, our mission is to bring transparency and understanding to the banking industry. We aim to allow easier access to all the important, required information regarding all areas of the 
-			a(href="/service") banking industry
-			|  in a simple, more comprehensible manner.
-		<svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" data-name="Capa 1" viewBox="0 0 100 100">
-			<defs>
-				<style>.cls-1{fill:#2569a9;}</style>
-			</defs>
-			<title>Logo-Visbanking</title>
-			<path class="cls-1" d="M59.05,42.34c-5-4.11-12-3.86-15.86-1.19a6.53,6.53,0,0,1,1.73,8.17c-1.67,3-4.87,4.08-8.68,2.79A12.48,12.48,0,0,0,37.5,58.9L48,50.3l4.59,4,1.69-1.4L57.8,50l-1.7-1.94,6.45-.66-2,6-1.27-1.77-4.16,3.64-2.71,2.59-4.52-3.92L39,61.31A14,14,0,0,0,62.5,59.38,13.76,13.76,0,0,0,59.05,42.34Z"/>
-			<path class="cls-1" d="M97.34,48.22a8.85,8.85,0,0,0-1-1.74,69.34,69.34,0,0,0-4.68-7.12C79.36,24.75,67.85,21.63,65.73,21a57.65,57.65,0,0,0-35.92,1.63,51.77,51.77,0,0,0-11,6.26,46.68,46.68,0,0,0-9.78,9.51C6.73,41.5,4.76,44.9,2.69,48.21a1.62,1.62,0,0,0-.06,1.39c1.26,2.2,2.55,4.38,4,6.49a56.37,56.37,0,0,0,9.47,10.29,5.93,5.93,0,0,0,1,.52,2.65,2.65,0,0,0-.19-.72A22.79,22.79,0,0,1,14,59.27a35.8,35.8,0,0,1-1.45-11.59,3.74,3.74,0,0,1,.5-1.74,34.56,34.56,0,0,1,2.41-3.25,39.55,39.55,0,0,1,8.34-7.85,30,30,0,0,0-6.1,18.34C17.79,70.29,32.18,84.05,50,84c18,0,32.27-13.87,32.25-31.25a29.63,29.63,0,0,0-7-19,54.64,54.64,0,0,1,5.36,4.69,55.59,55.59,0,0,1,6.24,7.29C91,54,85.23,61.3,84.32,64a19.59,19.59,0,0,1-1.26,2.56l.21.22,1.94-1.68A52.9,52.9,0,0,0,97.38,49.63,1.92,1.92,0,0,0,97.34,48.22ZM49.76,76.64C36.37,76.6,25.41,66,25.43,53s11-23.56,24.65-23.54S74.57,40.13,74.55,53.1,63.44,76.68,49.76,76.64Z"/>
-		</svg>
-	hr
-	h2 Featured News
-	aside#featured 
-		#news
-			each post in featured 
-				article.post 
-					img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					a(href=`/insights/${post.ID}`) Read more &gt;
+	section#intro
+		aside
+			h1 Trust in your next decisions. Get the banking data you'll need to make it.
+			p Maximizes your return on information by solutions, data, news, and insight. Get the banking data you need to make confident business decisions.
+			button 
+				a(href="/pricing") Request a Demo
+		aside
+			img.active(src="/images/dashboard1.png" alt="Individual Bank Reports")
+			img(src="/images/dashboard2.png" alt="National Bank Rankings")
+			img(src="/images/dashboard3.png" alt="Banks with Demographic Data")
+	section#numbers
+		h2 Enhance your decision- making with Visbanking solutions:
+		aside
+			p 5000+
+				br
+				| Banks
+		aside
+			p 2000+
+				br
+				| Reports
+		aside
+			p 30+
+				br
+				| States
+	section#offer
+		aside
+			h2 What do we offer you?
+			p Our software-as-a-service offerings include the vital multi-dimensional banking intelligence, valuations, pricing, data analysis, and visualization tools today's bank stakeholders, vendors, equity analysts, and distressed debt funds need to gather and analyze complex data, develop key strategies, and make informed decisions.
+			p In addition, we provide consulting services to select clients with bespoke needs for specialized data visualization, strategic planning, application development, and systems design and maintenance.
+			button 
+				a(href="/pricing") Get Started
+		aside.video
+			video(src="/videos/index/platform.mp4", poster="/images/index/platform.png", controls, controlsList="nodownload") 
+	section#reports
+		h2 View Macro, Performance, and Single Bank Reports on more than 10,000 banks throughout the United States
+		aside#report
+			div
+				h3 Asset Quality Report
+				p Track the non-performing loans for your bank and all competitors
+				button 
+					a(href="/reports") Learn More
+			div
+				img(src="/images/index/assetQuality.png" alt="Banks with Demographic Data")
+		aside#report
+			div
+				h3 Deposit Report
+				p Clear view of deposit composition and utilization for all peer banks with trend analysis
+				button 
+					a(href="/reports") Learn More
+			div
+				img(src="/images/index/deposits.png" alt="Banks with Demographic Data")
+		aside#report
+			div
+				h3 Banking Bench Report
+				p Stack rankings for all banks across dozens of metrics.  See how your institution stacks up
+				button 
+					a(href="/reports") Learn More
+			div
+				img(src="/images/index/bankingBench.png" alt="Banks with Demographic Data")
+	section#insights 
+		h2 Latest News &amp; Insights
+		each insight in insights 
+			a.insight(href=`/insights/${insight.ID}`)  
+				img(src=`https://visbanking.com${insight.Image}`, alt=insight.Title)
+				p.info 
+					span #{insight.Topic}
+					span #{new Date(insight.Date).toLocaleDateString()}
+				p.title #{insight.Title}
 
-block scripts 
-	script(src="/js/index.js") 
-	if loadPopUp 
-		script(src="/js/popup.js") 
-		script#wf_script(src="https://bigin.zoho.com/crm/WebformScriptServlet?rid=ab505a1b63eaa87bf5ca2370112da1da1037c025d695079affa2717f4a644f9dgid9ab5bf7332883354fbe855dad6ba60ca4ba7a14cda8269ade2f365633738130f") 
+
+block scripts
+	script(src="/js/index.js")
+	if loadPopUp
+		script(src="/js/popup.js")
+		script#wf_script(src="https://bigin.zoho.com/crm/WebformScriptServlet?rid=ab505a1b63eaa87bf5ca2370112da1da1037c025d695079affa2717f4a644f9dgid9ab5bf7332883354fbe855dad6ba60ca4ba7a14cda8269ade2f365633738130f")
