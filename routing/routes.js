@@ -4,6 +4,7 @@ const tiers = require("../data/.pricingTiers.json");
 const path = require("path");
 const { checkCache, setCache } = require("../data/caching");
 const { renderFile } = require("pug");
+const { get } = require("./../data/api/APIClient");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -11,23 +12,19 @@ router.get("/", (req, res) => {
 		res.cookie("popUpSubmitted", req.query.formSubmitted);
 		return res.redirect("/");
 	}
-	connection.query("SELECT * FROM Insights ORDER BY Date DESC LIMIT 0, 3;", (err, results, fields) => {
-		const latest = results;
-		connection.query("SELECT * FROM Insights ORDER BY Views DESC LIMIT 0, 3;", (err, results, fields) => {
-			if (err) {
-				console.error(err);
-				res.redirect("/error");
-			} else {
-				res.render("index", {
-					title: "US Banking Data Visualization | Bank Industry Analysis | Visbanking",
-					path: "/",
-					latest,
-					featured: results,
-					loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-					loadPopUp: false
-				});
-			}
+	get("/api/insights")
+	.then(({ result:insights }) => {
+		res.render("index", {
+			title: "US Banking Data Visualization | Bank Industry Analysis | Visbanking",
+			path: "/",
+			insights: insights.sort((a, b) => new Date(b.Date) - new Date(a.Date)).slice(0, 4),
+			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+			loadPopUp: false
 		});
+	})
+	.catch(err => {
+		console.error(err);
+		res.redirect("/error");
 	});
 });
 
