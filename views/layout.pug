@@ -34,14 +34,15 @@ html(lang="en")
 				.collapse.navbar-collapse#navbar 
 					div 
 						a.nav-link(href=path==="/about"?"#":"/about", class=path==="/about"?"active":"") Company
+						.dropdown 
+							a.nav-link(href=path=="/about/team"?"#":"/about/team") Our Team 
+							a.nav-link(href=path==="/services"?"#":"/services") Services
 					div
 						a.nav-link(href=path==="/reports"?"#":"/reports", class=path==="/reports"?"active":"") Reports
 						.dropdown 
 							a.nav-link(href="/reports/bank") Single Bank 
 							a.nav-link(href="/reports/macro") Macro 
 							a.nav-link(href="/reports/performance") Performance
-					div
-						a.nav-link(href=path==="/services"?"#":"/services", class=path==="/services"?"active":"") Services
 					div
 						a.nav-link(href=path==="/pricing"?"#":"/pricing", class=path==="/pricing"?"active":"") Pricing
 					div 
@@ -57,6 +58,9 @@ html(lang="en")
 							a.nav-link(href="#", class="active") Sign Up
 						else	
 							a.nav-link(href=path==="/login"?"#":"/login", class=path==="/login"?"active":"") Log in
+					if path === "/"
+						div 
+							a.nav-link(href="https://calendly.com/visbanking/visbanking-demo-meeting", target="_blank") Get Demo 
 			block header
 		main
 			block main 
