@@ -128,8 +128,12 @@ h2
 	width: calc(100%/3);
 	box-sizing: border-box;
 	text-align: center;
-	padding: 2rem 3rem;
-	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.8rem;
+	min-height: 30vh;
+	height: auto;
 	font-weight: 600;
 	text-transform: uppercase;
 }
@@ -315,6 +319,10 @@ aside#report:nth-of-type(2n) div:last-of-type
 {
 	box-shadow: 0 0 10px 1px #015193;
 }
+#newsletter
+{
+	display: none;
+}
 @media screen and (max-width: 1100px)
 {
 	#offer aside:first-of-type, #offer aside.video
@@ -414,9 +422,11 @@ aside#report:nth-of-type(2n) div:last-of-type
 {
 	#numbers aside
 	{
-		font-size: 1.7rem;
+		font-size: 1.5rem;
 		text-align: center;
-		padding: 1.5rem;
+		width: 100%;
+		padding: 0 1rem;
+		min-height: 20vh;
 	}
 	#report p
 	{
@@ -449,6 +459,10 @@ aside#report:nth-of-type(2n) div:last-of-type
 	#intro img
 	{
 		max-width: 90%;
+	}
+	#numbers h2
+	{
+		padding: 2rem 0.5rem 0.5rem;
 	}
 	#numbers aside
 	{
@@ -499,7 +513,8 @@ aside#report:nth-of-type(2n) div:last-of-type
 	#intro aside:first-of-type
 	{
 		padding: 2rem 1rem 1rem;
-		height: 55vh;
+		min-height: 55vh;
+		height: auto;
 	}
 	#intro aside:first-of-type p
 	{
