@@ -1,8 +1,8 @@
 const Admin = require("../models/admin.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
-const AdminController = {
-	async createAdmin(username) {
+class AdminController {
+	static async #createAdmin(username) {
 		const admin = new Admin({
 			Username: username,
 		});
@@ -18,8 +18,8 @@ const AdminController = {
 				error: err.original,
 			};
 		}
-	},
-	async updateAdmin(adminUsername, updateOptions) {
+	}
+	static async #updateAdmin(adminUsername, updateOptions) {
 		const admin = await Admin.findOne({
 			where: {
 				Username: adminUsername,
@@ -50,8 +50,8 @@ const AdminController = {
 				error: err.original
 			};
 		}
-	},
-	async deleteAdmin(adminUsername) {
+	}
+	static async #deleteAdmin(adminUsername) {
 		const admin = await Admin.findOne({
 			where: {
 				Username: adminUsername
@@ -81,6 +81,39 @@ const AdminController = {
 				error: err.original
 			};
 		}
+	}
+	static async createNewAdmin(createOptions) {
+		const result = await AdminController.#createAdmin(createOptions);
+		if (result.error) throw result.error;
+		else return result;
+	}
+	static async getAllAdmins(projection=null) {
+		return await Admin.findAll(projection ? {
+			attributes: projection.split(" ")
+		} : {});
+	}
+	static async getAdmin(searchParameters, projection=null) {
+		const findOptions = {};
+		if (projection) findOptions.attributes=projection.split(" ");
+		findOptions.where = searchParameters;
+		return await Admin.findOne(findOptions);
+	}
+	static async getAdminById(adminId, projection=null) {
+		return await AdminController.getInsight({
+			ID: adminId
+		}, projection);
+	}
+	static async updateAdminById(adminId, updateOptions) {
+		const admin = await AdminController.getAdminById(adminId, "Username");
+		const result = await AdminController.#updateAdmin(admin?.username, updateOptions);
+		if (result.error) throw result.error;
+		else return result;
+	}
+	static async deleteAdminById(adminId) {
+		const admin = await AdminController.getAdminById(adminId, "Username");
+		const result = await AdminController.#deleteAdmin(admin?.Username);
+		if (result.error) throw result.error;
+		else return result;
 	}
 };
 
