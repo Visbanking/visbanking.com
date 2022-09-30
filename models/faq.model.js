@@ -49,6 +49,7 @@ FAQ.init({
 			notEmpty: true
 		},
 		set(newCategory) {
+			if (!["Product", "Services", "Payment", "Account", "Support"].includes(newCategory)) throw new Error("Invaid value for FAQ Category property");
 			this.setDataValue("Category", newCategory);
 		}
 	}
