@@ -101,6 +101,12 @@ class InsightController {
 			ID: insightId
 		}, projection);
 	}
+	static async getInsightsByPage(page=0, limit=15) {
+		return await Insight.findAll({
+			limit,
+			offset: page*limit
+		});
+	}
 	static async updateInsightById(insightId, updateOptions) {
 		const insight = await InsightController.getInsightById(insightId, "Title");
 		const result = await InsightController.#updateInsight(insight?.Title || null, updateOptions);
