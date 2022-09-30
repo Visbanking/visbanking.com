@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { verify, JsonWebTokenError } = require("jsonwebtoken");
 const insights = require("./api/insights");
+const admins = require("./api/admins");
 const router = Router();
 
 router.use((req, res, next) => {
@@ -45,6 +46,8 @@ router.use((req, res, next) => {
 });
 
 router.use("/insights", insights);
+
+router.use("/admins", admins);
 
 router.use((req, res) => {
 	res.status(404).json({
