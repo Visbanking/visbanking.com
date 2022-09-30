@@ -10,6 +10,22 @@ test("Creates new Admin object into 'admin' constant", () => {
 	expect(admin).toHaveProperty("Password");
 });
 
+test("New Admin object doesn't define Username property unless passed in", () => {
+	const admin = new Admin({
+		Password: "test"
+	});
+	expect(admin.Username).toBeUndefined();
+	admin.Username = "test";
+	expect(admin).toHaveProperty("Username", "test");
+});
+
+test("New Admin object defines default Password value", () => {
+	const admin = new Admin({
+		Username: "test"
+	});
+	expect(admin).toHaveProperty("Password");
+});
+
 test("New Admin object doesn't save plain text password", () => {
 	const admin = new Admin({
 		Username: "test",
@@ -33,5 +49,12 @@ test("Admin.findAll() returns an array of Admin instances", () => {
 		results.forEach(result => {
 			expect(result instanceof Admin).toBe(true);
 		});
+	});
+});
+
+test("Admin.findOne() returns an instance of Admin", () => {
+	Admin.findOne()
+	.then(result => {
+		expect(result instanceof Admin).toBe(true);
 	});
 });

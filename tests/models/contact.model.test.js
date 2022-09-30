@@ -45,3 +45,20 @@ test("Contact object fails to save when Email property value is not email string
 		expect(err).toHaveProperty("message", "Validation error: Validation isEmail on Email failed");
 	});
 });
+
+test("Contact.findAll() returns an array of Contact instances", () => {
+	Contact.findAll()
+	.then(contacts => {
+		expect(contacts).toEqual([ ...contacts ]);
+		contacts.forEach(contact => {
+			expect(contact instanceof Contact).toBe(true);
+		});
+	});
+});
+
+test("Contact.findOne() returns an instance of Contact", () => {
+	Contact.findOne()
+	.then(contact => {
+		expect(contact instanceof Contact).toBe(true);
+	});
+});
