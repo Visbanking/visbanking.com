@@ -50,7 +50,7 @@ html(lang="en")
             label(for="tags") Tags *
             input#tags(type="text", name="tags", maxlength="300", required)
             label(for="description") Meta Description *
-            textarea#description(name="description", minlength="20", maxlength="50", rows="10", required)
+            textarea#description(name="description", minlength="20", maxlength="300", rows="10", required)
             label(for="keywords") Keywords *
             input#keywords(type="text", name="keywords", minlength="10", maxlength="50", required) 
             input(type="submit", name="action", value="Add insight")
@@ -79,9 +79,9 @@ html(lang="en")
                 label(for="tags") Tags *
                 input#tags(type="text", name="tags", maxlength="300", required)
                 label(for="description") Meta Description *
-                textarea#description(name="description", rows="10", required)
+            textarea#description(name="description", minlength="20", maxlength="300", rows="10", required)
                 label(for="keywords") Keywords *
-                input#keywords(type="text", name="keywords", maxlength="300", required) 
+            input#keywords(type="text", name="keywords", minlength="10", maxlength="50", required) 
                 input(type="submit", name="action", value="Add insight")
             p#error
         script(src="/js/admin/insights/editor.js") 
