@@ -133,7 +133,7 @@ router.patch("/insight/:insight_id", (req, res) => {
 });
 
 router.delete("/insight/:insight_id", (req, res) => {
-	fs.rmSync(path.join(__dirname, "..", "..", "static", "images", "insights", `${lodash.kebabCase(req.body.title)}`), {
+	fs.rmSync(path.join(__dirname, "..", "..", "static", "images", "insights", `${lodash.kebabCase(req.params.insight_id)}`), {
 		recursive: true,
 		force: true,
 	});
