@@ -8,6 +8,6 @@ setInterval(() => {
 
 document.querySelectorAll("main button").forEach(button => {
 	button.addEventListener("click", () => {
-		button.children[0].click();
+		window.open(button.dataset.href, button.dataset.target || "_self");
 	});
 });
