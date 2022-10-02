@@ -22,7 +22,7 @@ main section
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 100vh;
+	min-height: 70vh;
 	height: auto;
 }
 #intro aside
@@ -30,7 +30,7 @@ main section
 	background-color: #003071D1;
 	color: #FFFFFF;
 	padding: 2rem;
-	height: 100vh;
+	height: 70vh;
 	width: 50%;
 	box-sizing: border-box;
 	display: flex;
@@ -122,6 +122,7 @@ h2
 {
 	text-align: center;
 	padding: 2.5rem 1rem 0.5rem;
+	font-weight: 600;
 }
 #numbers aside
 {
@@ -131,12 +132,16 @@ h2
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 1.8rem;
+	font-size: 1.3rem;
 	padding: 0 1rem;
 	min-height: 30vh;
 	height: auto;
-	font-weight: 600;
+	font-weight: 500;
 	text-transform: capitalize;
+}
+#numbers i
+{
+	font-size: 2.5rem;
 }
 #offer aside:first-of-type
 {
@@ -192,7 +197,7 @@ video:focus
 	margin: 2rem;
 	padding: 0.5rem 1.5rem;
 	color: #015193;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-weight: 600;
 	text-align: center;
 }
