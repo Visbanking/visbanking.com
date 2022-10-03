@@ -2,6 +2,14 @@ header
 {
     min-height: auto;
 }
+main
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+}
 progress
 {
     width: 100%;
@@ -21,86 +29,60 @@ progress::-webkit-progress-value
 }
 article
 {
-    padding: 2% 0;
+    padding: 0 1rem;
+	width: 60%;
+	box-sizing: border-box;
+	margin-right: 1rem;
 }
 h1
 {
     font-weight: 600;
     font-size: 2.5rem;
-    margin: 1% auto 2%;
-    width: 90%;
+    margin: 0 0	0.5rem;
+    width: 100%;
+	text-align: left;
 }
 main img
 {
     display: block;
-    max-width: 80%;
-    height: auto;
-    margin: 2% auto 1%;
+    width: 95%;
+    height: 50vh;
+	object-fit: cover;
+	background-position: center;
+    margin: 0.5rem 0;
 }
 .date, .author
 {
-    margin: 0.2rem auto 0;
+    margin: 0.2rem 0.5rem 0;
     font-size: 1rem;
     opacity: 0.9;
     text-transform: uppercase;
     width: 70%;
-}
-#share
-{
-    width: 100%;
-    text-align: center;
-    margin: 3% auto;
-}
-#share a
-{
-    text-decoration: none;
-    color: #FFFFFF;
-    padding: 0.5rem 8%;
-    margin: 0 2%;
-    font-size: 1.2rem;
-}
-#share a#linkedin
-{
-    background-color: #2867B2;
-}
-#share a#facebook
-{
-    background-color: #1877F2;
-}
-#share a#twitter
-{
-    background-color: #1DA1F2;
 }
 article .body
 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
-    width: 85%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
 }
 article main
 {
-    padding: 0 2% 0 1%;
-    width: 55%;
+    padding: 1rem 1rem 0 0.5rem;
+    width: 90%;
     font-size: 1.3rem;
 }
-article #latest
+article main p
 {
-    width: 35%;
-    padding: 0 1%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
+	margin: 0.5rem 0;
 }
 h2
 {
     width: 100%;
-    margin: 5% 0 2%;
+    margin: 2.5rem 0 1rem;
 }
 main h3
 {
@@ -110,15 +92,32 @@ main h3
     text-transform: uppercase;
     border-bottom: 1px solid;
     font-size: 1.5rem;
-    padding: 1rem 0.2rem;
+    padding: 0.5rem;
 }
 .post
 {
     cursor: pointer;
 }
+#latest
+{
+    width: 30%;
+	box-sizing: border-box;
+    padding: 0 0.5rem;
+	margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
 #latest .post
 {
     width: 100%;
+	transition: filter 0.1s linear;
+}
+#latest .post:hover
+{
+	filter: drop-shadow(2px 5px 5px #999999);
 }
 #latest .post img
 {
@@ -141,6 +140,32 @@ p.title
 #latest p.title
 {
     text-decoration: underline solid;
+}
+#share
+{
+    width: 100%;
+	text-align: center;
+    margin: 1rem 0 0.5rem;
+}
+#share a
+{
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 0.5rem 4rem;
+    margin: 0 1rem 0 0;
+    font-size: 1.2rem;
+}
+#share a#linkedin
+{
+    background-color: #2867B2;
+}
+#share a#facebook
+{
+    background-color: #1877F2;
+}
+#share a#twitter
+{
+    background-color: #1DA1F2;
 }
 #related
 {
@@ -187,13 +212,18 @@ p.title
     margin: 1% auto;
     width: 50%;
 }
+#newsletter
+{
+	box-sizing: border-box;
+	width: 100%;
+}
 @media screen and (max-width: 991px)
 {
-    article h1 + img
-    {
-        max-width: 75%;
-    }
-    article main
+	article
+	{
+		padding: 0;
+	}
+    article > main
     {
         margin: 0;
         padding: 0 2%;
@@ -206,15 +236,21 @@ p.title
         flex-direction: row;
         justify-content: space-evenly;
         align-items: flex-start;
+		padding: 0;
     }
-    #latest .post
-    {
-        width: calc(100%/3.5);
-    }
+	.body main
+	{
+		font-size: 1.2rem;
+	}
+	#latest .post
+	{
+		padding: 1rem 0;
+		width: 90%;
+	}
     #latest .post img
     {
-        width: 80%;
-        margin: 0 10% 5%;
+        width: 100%;
+        margin: 0 0 0.5rem;
         float: top;
     }
     #related .post
@@ -224,37 +260,63 @@ p.title
 }
 @media screen and (max-width: 767px)
 {
+	body > main
+	{
+		flex-direction: column;
+	}
+	article
+	{
+		width: 90%;
+		margin: 0 auto;
+	}
     h1
     {
         font-size: 2rem;
+		text-align: center;
     }
     article h1 + img
     {
-        max-width: 85%;
+        max-width: 90%;
+		height: auto;
+		margin: 0.5rem auto;
     }
+	.date, .author
+	{
+		padding: 0 1rem;
+		margin: 0;
+	}
     #share a
     {
         padding: 0.5rem 10%;
     }
     article .body
     {
-        width: 90%;
+        width: 100%;
     }
     article main
     {
-        font-size: 1.2rem;
-        width: 85%;
+        font-size: 1.1rem;
+        width: 100%;
+		text-align: justify;
+		padding: 0.5rem 1rem 0;
     }
     main h3
     {
         text-align: center;
+		padding: 0.5rem 0;
     }
+	#latest
+	{
+		width: 100%;
+		padding: 0 2rem;
+		margin: 0;
+	}
     #latest .post
     {
-        width: calc(100%/1.5);
         padding: 1%;
         text-align: center;
         margin-top: 3%;
+		width: 60%;
     }
     #related .post
     {
@@ -274,35 +336,25 @@ p.title
     }
     article h1 + img
     {
-        max-width: 95%;
+        max-width: 100%;
     }
     .date, .author
     {
         font-size: 0.9rem;
     }
-    #share a#linkedin, #share a#facebook, #share a#twitter
-    {
-        background-color: #FFFFFF;
-    }
-    #share a#linkedin
-    {
-        color: #2867B2;
-    }
-    #share a#facebook
-    {
-        color: #1877F2;
-    }
-    #share a#twitter
-    {
-        color: #1DA1F2;
-    }
-    article main
+    .body main
     {
         font-size: 1.1rem;
-        width: 95%;
     }
     #latest .post, #related .post
     {
         width: 80%;
     }
+}
+@media screen and (max-width: 400px)
+{
+	#latest .post, #related .post
+	{
+		width: 95%;
+	}
 }

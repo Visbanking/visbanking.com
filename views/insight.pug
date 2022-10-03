@@ -1,51 +1,51 @@
 extends layout.pug
 
 block meta
-    meta(name="description", content=post.Description)
-    meta(name="keywords", content=`${post.Keywords||post.Tags}`)
-    meta(property="og:image", content=`https://visbanking.com/${post.Image}`)
-    meta(property="og:title", content=post.Title)
-    meta(property="og:type", content="article")
-    meta(property="og:url", content=`https://visbanking.com${path}`)
-    meta(property="og:description", content=post.Description)
+	meta(name="description", content=post.Description)
+	meta(name="keywords", content=`${post.Keywords||post.Tags}`)
+	meta(property="og:image", content=`https://visbanking.com/${post.Image}`)
+	meta(property="og:title", content=post.Title)
+	meta(property="og:type" content="article")
+	meta(property="og:url", content=`https://visbanking.com${path}`)
+	meta(property="og:description", content=post.Description)
 
 block styles
-    link(rel="stylesheet", href="/css/insight.css")
+	link(rel="stylesheet" href="/css/insight.css")
 
 block main
-    progress#progress(min="0", max="1", value="0") 0
-    article 
-        h1 #{post.Title}
-        img(src=post.Image, alt=post.Title)
-        p.date #{new Date(post.Date).toDateString()}
-        p.author By #{post.Author||'Ken Chase'}
-        div#share
-            a.button#linkedin(target="_blank", title="Share to LinkedIn")
-                i.bi-linkedin 
-            a.button#facebook(target="_blank", title="Share to Facebook")
-                i.bi-facebook
-            a.button#twitter(target="_blank", title="Share to Twitter")
-                i.bi-twitter
-        .body
-            main 
-                each par in post.Body
-                    div #{par}
-            aside#latest
-                h3 Latest news
-                each post in newestInsights 
-                    article.post 
-                        img(src=post.Image, alt=post.Title)
-                        a(href=`/insights/${post.ID}`) 
-                            p.title #{post.Title}
-    #related
-        h3 Related news
-        each post in relatedInsights
-            article.post
-                div 
-                    img(src=post.Image, alt=post.Title)
-                p.title #{post.Title}
-                p.intro #{post.Body}
-                a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+	progress#progress(min="0" max="1" value="0") 0
+	article 
+		h1 #{post.Title}
+		img(src=`https://visbanking.com${post.Image}`, alt=post.Title)
+		p.date #{post.Date}
+		p.author By #{post.Author||'Ken Chase'}
+		.body
+			main 
+				each par in post.Body
+					div #{par}
+	aside#latest
+		h3 Latest news
+		each post in newestInsights 
+			article.post 
+				img(src=`https://visbanking.com${post.Image}`, alt=post.Title)
+				a(href=`/insights/${post.ID}`) 
+					p.title #{post.Title}
+	div#share
+		a.button#linkedin(target="_blank" title="Share to LinkedIn")
+			i.bi-linkedin 
+		a.button#facebook(target="_blank" title="Share to Facebook")
+			i.bi-facebook
+		a.button#twitter(target="_blank" title="Share to Twitter")
+			i.bi-twitter
+	#related
+		h3 Related news
+		each post in relatedInsights
+			article.post
+				div 
+					img(src=post.Image, alt=post.Title)
+				p.title #{post.Title}
+				p.intro #{post.Body}
+				a(href=`/insights/${post.ID}`) Read more &gt;&gt;
 
 block scripts
-    script(src="/js/insight.js") 
+	script(src="/js/insight.js") 
