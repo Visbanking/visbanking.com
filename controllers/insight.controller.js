@@ -86,9 +86,12 @@ class InsightController {
 		else return result;
 	}
 	static async getAllInsights(projection=null) {
-		return await Insight.findAll(projection ? {
-			attributes: projection.split(" ")
-		} : {});
+		return await Insight.findAll({
+			attributes: projection ? projection.split(" ") : null,
+			order: [
+				["Date", "DESC"]
+			]
+		});
 	}
 	static async getInsight(searchParameters, projection=null) {
 		const findOptions = {};
@@ -104,7 +107,23 @@ class InsightController {
 	static async getInsightsByPage(page=0, limit=15) {
 		return await Insight.findAll({
 			limit,
-			offset: page*limit
+			offset: page*limit,
+			order: [
+				["Date", "DESC"]
+			]
+		});
+	}
+	static async getInsightsByTopicAndPage(topic="", page=0, limit=15) {
+		if (!topic) throw new Error("Missing required parameter 'topic'");
+		return await Insight.findAll({
+			where:{
+				Topic: topic || ""
+			},
+			limit,
+			offset: page*limit,
+			order: [
+				["Date", "DESC"]
+			]
 		});
 	}
 	static async updateInsightById(insightId, updateOptions) {

@@ -70,6 +70,9 @@ Insight.init({
 		validate: {
 			notEmpty: true
 		},
+		get() {
+			return new Date(this.getDataValue("Date")).toLocaleDateString();
+		},
 		set(value) {
 			if (this.getDataValue("Date") && this.getDataValue("Date") !== null) throw new Error("Cannot set Insight Date after initialization");
 			else this.setDataValue("Date", value);
@@ -93,6 +96,9 @@ Insight.init({
 		validate: {
 			notEmpty: true
 		},
+		get() {
+			return this.getDataValue("Tags").length ? this.getDataValue("Tags") : "N/A";
+		},
 		set(newTags) {
 			this.setDataValue("Tags", newTags);
 		}
@@ -110,11 +116,11 @@ Insight.init({
 		}
 	},
 	Description: {
-		type: DataTypes.TEXT("tiny"),
+		type: DataTypes.STRING(300),
 		allowNull: false,
 		validate: {
 			notEmpty: true,
-			len: [20, 50]
+			len: [20, 300]
 		},
 		set(value) {
 			this.setDataValue("Description", value);
@@ -126,6 +132,9 @@ Insight.init({
 		validate: {
 			notEmpty: true,
 			len: [10, 50]
+		},
+		get() {
+			return this.getDataValue("Tags").length ? this.getDataValue("Tags") : "N/A";
 		},
 		set(value) {
 			this.setDataValue("Keywords", value);
