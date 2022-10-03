@@ -191,7 +191,7 @@ section#categories h2 button:last-of-type
     padding: 1% 1% 3%;
     border: 1px solid #B9B8B8;
     transition: all 0.2s linear;
-    /* min-height: 85vh; */
+    min-height: 525px;
     margin: 2%;
     cursor: pointer;
     position: relative;
@@ -209,6 +209,34 @@ section#categories h2 button:last-of-type
     bottom: 1%;
     left: 50%;
     transform: translateX(-50%);
+}
+#categories p.pagination
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	margin: 0.5rem 0 0;
+}
+p.pagination a
+{
+	display: inline-block;
+	cursor: pointer;
+	visibility: hidden;
+	color: #015193;
+	font-weight: 600;
+}
+p.pagination a.visible
+{
+	visibility: visible;
+}
+p.pagination a.page
+{
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #005487;
 }
 @media screen and (max-width: 900px)
 {

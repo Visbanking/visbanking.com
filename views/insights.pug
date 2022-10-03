@@ -9,9 +9,10 @@ block styles
 
 block main
 	h1 Insights
+	- const topInsights = insights.sort((a, b) => a.Views - b.Views);
 	article#latest
-		- const latest = newestInsights[0];
-		img(src=latest.Image, alt=latest.Title)
+		- const latest = insights[0];
+		img(src="https://visbanking.com"+latest.Image, alt=latest.Title)
 		div
 			p.title #{latest.Title}
 			p.intro #{latest.Body}
@@ -21,86 +22,52 @@ block main
 		h2 Featured news
 		each post in topInsights.slice(1, 4)
 			article.post 
-				img(src=post.Image, alt=post.Title)
+				img(src="https://visbanking.com"+post.Image, alt=post.Title)
 				a(href=`/insights/${post.ID}`) 
 					p.title #{post.Title}
 	section#last
 		h2 Latest news
-		each post in newestInsights.slice(1, 5)
+		each post in insights.slice(1, 5)
 			article.post
-				img(src=post.Image, alt=post.Title)
+				img(src="https://visbanking.com"+post.Image, alt=post.Title)
 				a(href=`/insights/${post.ID}`) 
 					p.title #{post.Title}
 	section#business
 		h2 Business
 		each post in topInsights.filter(insight => insight.Topic==="Business").slice(0, 2)
 			article.post
-				img(src=post.Image, alt=post.Title)
+				img(src="https://visbanking.com"+post.Image, alt=post.Title)
 				a(href=`/insights/${post.ID}`) 
 					p.title #{post.Title}
 	section#banks
 		h2 Banks
 		each post in topInsights.filter(insight => insight.Topic==="Banks").slice(0, 2)
 			article.post
-				img(src=post.Image, alt=post.Title)
+				img(src="https://visbanking.com"+post.Image, alt=post.Title)
 				a(href=`/insights/${post.ID}`) 
 					p.title #{post.Title}
 	section#categories
 		h2
-			button(:class="{ active:general }", @click="showGeneral") All
-			button(:class="{ active:business }", @click="showBusiness") Business
-			button(:class="{ active:banks }", @click="showBanks") Banks
-			button(:class="{ active:financial }", @click="showFinancial") Financial
-			button(:class="{ active:market }", @click="showMarket") Market
-			button(:class="{ active:politics }", @click="showPolitics") Politics
-		aside.articles(v-if="general")
-			each post in newestInsights 
-				article.post(id=post.ID)
-					div 
-						img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					p.intro #{post.Body}
-					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
-		aside.articles(v-if="business")
-			each post in topInsights.filter(insight => insight.Topic==="Business")
-				article.post(id=post.ID)
-					div 
-						img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					p.intro #{post.Body}
-					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
-		aside.articles(v-if="banks")
-			each post in topInsights.filter(insight => insight.Topic==="Banks")
-				article.post(id=post.ID)
-					div 
-						img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					p.intro #{post.Body}
-					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
-		aside.articles(v-if="financial")
-			each post in topInsights.filter(insight => insight.Topic==="Financial")
-				article.post(id=post.ID)
-					div 
-						img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					p.intro #{post.Body}
-					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
-		aside.articles(v-if="market")
-			each post in topInsights.filter(insight => insight.Topic==="Market")
-				article.post(id=post.ID)
-					div 
-						img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					p.intro #{post.Body}
-					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
-		aside.articles(v-if="politics")
-			each post in topInsights.filter(insight => insight.Topic==="Politics")
-				article.post(id=post.ID)
-					div 
-						img(src=post.Image, alt=post.Title)
-					p.title #{post.Title}
-					p.intro #{post.Body}
-					a(href=`/insights/${post.ID}`) Read more &gt;&gt;
+			button(:class="{ active:(activeSection==='general') }", @click="showSection('general')") All
+			button(:class="{ active:(activeSection==='business') }", @click="showSection('business')") Business
+			button(:class="{ active:(activeSection==='banks') }", @click="showSection('banks')") Banks
+			button(:class="{ active:(activeSection==='financial') }", @click="showSection('financial')") Financial
+			button(:class="{ active:(activeSection==='market') }", @click="showSection('market')") Market
+		p.pagination
+			a(@click="loadPreviousPage", :class="{ visible:page > 1 }") 
+				i.bi-arrow-left-short 
+				| Previous Page
+			a.visible.page {{ page }}
+			a(@click="loadNextPage", :class="{ visible:showNext }") Next Page
+				i.bi-arrow-right-short
+		aside.articles
+		p.pagination
+			a(@click="loadPreviousPage", :class="{ visible:page > 1 }") 
+				i.bi-arrow-left-short 
+				| Previous Page
+			a.visible.page {{ page }}
+			a(@click="loadNextPage", :class="{ visible:showNext }") Next Page
+				i.bi-arrow-right-short
 
 block scripts 
 	script(src="/js/insights.js") 

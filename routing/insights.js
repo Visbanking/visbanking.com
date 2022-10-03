@@ -4,19 +4,48 @@ const router = express.Router();
 const Insight = require("../models/insight.model");
 
 router.get("/", async (req, res) => {
-	get("/api/insights")
-	.then(({ result:insights }) => {
-		const newestInsights = insights.sort((a, b) => new Date(b.Date) - new Date(a.Date));
-		const topInsights = insights.sort((a, b) => a.Views - b.Views);
-		res.render("insights", {
-			title: "Insights | Visbanking",
-			path: "/insights",
-			topInsights,
-			newestInsights,
-			loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
-		});
-	})
-	.catch(console.error);
+	if (req.query.page) {
+		if (req.query.topic) {
+			get(`/api/insights?page=${req.query.page}&topic=${req.query.topic}`)
+			.then(({ result:insights }) => {
+				res.json({
+					message: `Insights were retrieved successfully`,
+					insights
+				});
+			})
+			.catch(err => {
+				res.json({
+					message: "An error ocurred while retrieving insights",
+					error: err
+				});
+			});
+		} else if (!req.query.topic) {
+			get(`/api/insights?page=${req.query.page}`)
+			.then(({ result:insights }) => {
+				res.json({
+					message: `Insights were retrieved successfully`,
+					insights
+				});
+			})
+			.catch(err => {
+				res.json({
+					message: "An error ocurred while retrieving insights",
+					error: err
+				});
+			});}
+	} else if (!req.query.page) {
+		get("/api/insights")
+		.then(({ result:insights }) => {
+			console.log(insights[0]);
+			res.render("insights", {
+				title: "Insights | Visbanking",
+				path: "/insights",
+				insights,
+				loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+			});
+		})
+		.catch(console.error);
+	}
 });
 
 router.get("/:article_id", (req, res) => {

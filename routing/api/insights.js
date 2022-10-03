@@ -21,21 +21,57 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-	InsightController.getAllInsights(req.query.fields?.split(",").join(" "))
-	.then(insights => {
-		res.status(200)
-		.setHeader("Content-Type", "application/json")
-		.setHeader("Cache-Control", "no-cache")
-		.json({
-			result: insights || []
+	if (req.query.page) {
+		if (req.query.topic) {
+			InsightController.getInsightsByTopicAndPage(req.query.topic, req.query.page > 0 ? req.query.page-1 : 0)
+			.then(insights => {
+				res.status(200)
+				.setHeader("Content-Type", "application/json")
+				.setHeader("Cache-Control", "no-cache")
+				.json({
+					result: insights || []
+				});
+			})
+			.catch(err => {
+				res.status(500).json({
+					error: "Internal Server Error",
+					description: err
+				});
+			});
+		} else if (!req.query.topic) {
+			InsightController.getInsightsByPage(req.query.page > 0 ? req.query.page-1 : 0)
+			.then(insights => {
+				res.status(200)
+				.setHeader("Content-Type", "application/json")
+				.setHeader("Cache-Control", "no-cache")
+				.json({
+					result: insights || []
+				});
+			})
+			.catch(err => {
+				res.status(500).json({
+					error: "Internal Server Error",
+					description: err
+				});
+			});
+		}
+	} else if (!req.query.page) {
+		InsightController.getAllInsights(req.query.fields?.split(",").join(" "))
+		.then(insights => {
+			res.status(200)
+			.setHeader("Content-Type", "application/json")
+			.setHeader("Cache-Control", "no-cache")
+			.json({
+				result: insights || []
+			});
+		})
+		.catch(err => {
+			res.status(500).json({
+				error: "Internal Server Error",
+				description: err
+			});
 		});
-	})
-	.catch(err => {
-		res.status(500).json({
-			error: "Internal Server Error",
-			description: err
-		});
-	});
+	}
 });
 
 router.head("/", (req, res) => {
