@@ -1,88 +1,88 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(name="author", content="Visbanking.com")
-        meta(name="title", content="Add new insight")
-        title Add new insight
-        link(rel="preconnect", href="https://fonts.googleapis.com")
-        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
-        link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap", rel="stylesheet")
-        link(rel="stylesheet", href="/css/admin/insights/create.css")
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest") 
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest") 
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest") 
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest") 
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest") 
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest") 
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest")
-        script(src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest")
-        script(src="https://cdn.jsdelivr.net/npm/marked/marked.min.js")
-    body 
-        h1 Add new Insight
-        p
-            span.md.active Markdown
-            span.txt Plain Text
-        form.active#md(method="POST", enctype="multipart/form-data")
-            label(for="title") Title *
-            input#title(type="text", name="title", required)
-            label(for="author") Author *
-            select#author(name="author", required)
-                option(value="Ken Chase") Ken Chase
-            label(for="headerImage") Image *
-            img(src='')
-            input#headerImage(type="file", name="headerImage", accept="image/jpeg, image/png, image/webp", required)
-            label(for="body") Body *
-            textarea#body(name="body", rows="10", required)
-            p or upload file
-            input#bodyFile(type="file", name="bodyFile", accept=".md")
-            label(for="bodyImages") In-Body images
-            input#bodyImages(type="file", name="bodyImages", accept="image/jpeg, image/png, image/webp", multiple)
-            label(for="topic") Topic *
-            select#topic(name="topic", required)
-                option(value="Business") Business
-                option(value="Banks") Banks
-                option(value="Financial") Financial
-                option(value="Market") Market
-                option(value="Politics") Politics
-            label(for="tags") Tags *
-            input#tags(type="text", name="tags", maxlength="300", required)
-            label(for="description") Meta Description *
-            textarea#description(name="description", minlength="20", maxlength="300", rows="10", required)
-            label(for="keywords") Keywords *
-            input#keywords(type="text", name="keywords", minlength="10", maxlength="50", required) 
-            input(type="submit", name="action", value="Add insight")
-        section#text
-            form.active(method="POST", enctype="multipart/form-data")
-                label(for="title") Title *
-                input#title(type="text", name="title", required)
-                label(for="author") Author *
-                select#author(name="author", required)
-                    option(value="Ken Chase") Ken Chase
-                label(for="headerImage") Image *
-                img(src='')
-                input#headerImage(type="file", name="headerImage", accept="image/jpeg, image/png, image/webp", required)
-                label(for="body") Body *
-                div#article
-                textarea#body(name="body", rows="10", required)
-                //- label(for="bodyImages") In-Body images
-                //- input#bodyImages(type="file", name="bodyImages", accept="image/jpeg, image/png, image/webp", multiple)
-                label(for="topic") Topic *
-                select#topic(name="topic", required)
-                    option(value="Business") Business
-                    option(value="Banks") Banks
-                    option(value="Financial") Financial
-                    option(value="Market") Market
-                    option(value="Politics") Politics
-                label(for="tags") Tags *
-                input#tags(type="text", name="tags", maxlength="300", required)
-                label(for="description") Meta Description *
-            textarea#description(name="description", minlength="20", maxlength="300", rows="10", required)
-                label(for="keywords") Keywords *
-            input#keywords(type="text", name="keywords", minlength="10", maxlength="50", required) 
-                input(type="submit", name="action", value="Add insight")
-            p#error
-        script(src="/js/admin/insights/editor.js") 
-        script(src="/js/admin/insights/create.js") 
+	head
+		meta(charset="UTF-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		meta(name="author" content="Visbanking.com")
+		meta(name="title" content="Add new insight")
+		title Add new insight
+		link(rel="preconnect" href="https://fonts.googleapis.com")
+		link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
+		link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap" rel="stylesheet")
+		link(rel="stylesheet" href="/css/admin/insights/create.css")
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest") 
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest") 
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest") 
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest") 
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest") 
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest") 
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest")
+		script(src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest")
+		script(src="https://cdn.jsdelivr.net/npm/marked/marked.min.js")
+	body 
+		h1 Add new Insight
+		p
+			span.md.active Markdown
+			span.txt Plain Text
+		form.active#md(method="POST" enctype="multipart/form-data")
+			label(for="title") Title *
+			input#title(type="text" name="title", required)
+			label(for="author") Author *
+			select#author(name="author", required)
+				option(value="Ken Chase") Ken Chase
+			label(for="headerImage") Image *
+			img(src='')
+			input#headerImage(type="file" name="headerImage" accept="image/jpeg, image/png, image/webp", required)
+			label(for="body") Body *
+			textarea#body(name="body" rows="10", required)
+			p or upload file
+			input#bodyFile(type="file" name="bodyFile" accept=".md")
+			label(for="bodyImages") In-Body images
+			input#bodyImages(type="file" name="bodyImages" accept="image/jpeg, image/png, image/webp", multiple)
+			label(for="topic") Topic *
+			select#topic(name="topic", required)
+				option(value="Business") Business
+				option(value="Banks") Banks
+				option(value="Financial") Financial
+				option(value="Market") Market
+				option(value="Politics") Politics
+			label(for="tags") Tags *
+			input#tags(type="text" name="tags" maxlength="300", required)
+			label(for="description") Meta Description *
+			textarea#description(name="description" minlength="20" maxlength="300" rows="10", required)
+			label(for="keywords") Keywords *
+			input#keywords(type="text" name="keywords" minlength="10" maxlength="50", required) 
+			input(type="submit" name="action" value="Add insight")
+		section#text
+			form.active(method="POST" enctype="multipart/form-data")
+				label(for="title") Title *
+				input#title(type="text" name="title", required)
+				label(for="author") Author *
+				select#author(name="author", required)
+					option(value="Ken Chase") Ken Chase
+				label(for="headerImage") Image *
+				img(src='')
+				input#headerImage(type="file" name="headerImage" accept="image/jpeg, image/png, image/webp", required)
+				label(for="body") Body *
+				div#article
+				textarea#body(name="body" rows="10", required)
+				//- label(for="bodyImages") In-Body images
+				//- input#bodyImages(type="file" name="bodyImages" accept="image/jpeg, image/png, image/webp", multiple)
+				label(for="topic") Topic *
+				select#topic(name="topic", required)
+					option(value="Business") Business
+					option(value="Banks") Banks
+					option(value="Financial") Financial
+					option(value="Market") Market
+					option(value="Politics") Politics
+				label(for="tags") Tags *
+				input#tags(type="text" name="tags" maxlength="300", required)
+				label(for="description") Meta Description *
+				textarea#description(name="description" minlength="20" maxlength="300" rows="10", required)
+				label(for="keywords") Keywords *
+				input#keywords(type="text" name="keywords" minlength="10" maxlength="50", required) 
+				input(type="submit" name="action" value="Add insight")
+			p#error
+		script(src="/js/admin/insights/editor.js") 
+		script(src="/js/admin/insights/create.js") 
