@@ -16,6 +16,8 @@ block header
 			h1 Your account has been verified
 		else if path.includes("landing/academic")
 			h1 Your request has been received
+		else if path.includes("/landing/report")
+			h1 Your report has been sent
 		else 
 			h1 Thank you
 		if path.includes("subscribe")
@@ -36,6 +38,8 @@ block header
 			p Your password has been successfully reset
 		else if path.includes("landing/academic")
 			p We'll review your request and get back to you as soon as possible
+		else if path.includes("landing/report")
+			p Check your inbox for a link to your free report
 	if path.includes("buy")
 		p You'll be redirected to your personal user page in a moment
 	else if path.includes("signup/success")
