@@ -1,79 +1,74 @@
-body
+:root
+{
+	--create-green: #008800;
+	--edit-blue: #005487;
+	--remove-red: #880000;
+	--reset-button-red: #BB0000;
+}
+main
 {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: center;
-    flex-wrap: wrap;
-}
-section
-{
+	height: 100vh;
     width: 100%;
-}
-h1
-{
-    font-family: 'Montserrat';
-    font-weight: 700;
-    text-align: center;
-    margin: 1% auto 0;
-    color: #005487;
-}
-h2
-{
-    font-family: 'Raleway';
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 0;
-    margin-top: 0.5rem;
-    text-align: center;
 }
 p.message
 {
     text-align: center;
     font-family: 'Raleway';
-    font-size: 1.2rem;
     font-weight: 700;
-    text-decoration: underline;
     text-transform: uppercase;
-    margin: 0 auto;
-    padding: 0;
+	padding: 0.5rem 1rem;
+	margin: 0;
+	position: fixed;
+	z-index: 1;
+	bottom: 0.5rem;
+	right: 0.5rem;
+	max-width: 25vw;
+	word-wrap: break-word;
+	border-radius: 10px;
+	display: none;
 }
-p.message[data-content-exist='true']
+.message.active
 {
-    padding: 1% 0;
+	display: block;
 }
 .success
 {
     color: #00AA00;
+	box-shadow: 0 0 5px #00AA00;
+	border: 1px solid;
 }
 .error
 {
     color: #AA0000;
-}
-#dashboard
-{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    height: 84vh;
-    width: 100%;
-    padding: 1% 0 0;
+	box-shadow: 0 0 5px #AA0000;
+	border: 1px solid;
 }
 .controls
 {
-    width: 5%;
+	width: 5vw;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     font-size: 2rem;
+	box-sizing: border-box;
+	padding: 0.5rem;
+	height: 100vh;
+	border-right: 2px solid #005487;
+}
+.subControls
+{
+	border-right: 2px solid #005487;
 }
 .controls i
 {
-    cursor: pointer;
+	cursor: pointer;
+	display: block;
 }
 .controls i:not(:last-of-type)
 {
@@ -83,21 +78,83 @@ p.message[data-content-exist='true']
 {
     color: #005487;
 }
+.controls a
+{
+	color: inherit;
+}
+.controls > a
+{
+	font-size: 85%;
+}
 #panel
 {
-    width: 95%;
-    height: 90%;
+	padding: 0 0.5rem;
+    width: 90vw;
+    height: 100vh;
     font-family: 'Montserrat';
     overflow-x: auto;
     position: relative;
+	box-sizing: border-box;
 }
-h3
+#panel::-webkit-scrollbar
+{
+	width: 10px;
+	height: 10px;
+}
+#panel::-webkit-scrollbar-thumb
+{
+	background-color: #005487;
+}
+#panel::-webkit-scrollbar-thumb:hover
+{
+	background-color: #0076A9;
+}
+#panel[data-section-chosen="0"]
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	padding: 0.5rem 1rem;
+	align-items: flex-start;
+    width: 95vw;
+}
+#panel[data-section-chosen="0"] h1
+{
+	font-weight: 700;
+	font-size: 2rem;
+	text-transform: uppercase;
+	color: #005487;
+	margin: 0.5rem 0 1rem;
+	width: 100%;
+}
+#panel[data-section-chosen="0"] p
+{
+	margin: 0.5rem 0;
+}
+h2
 {
     font-weight: 700;
     color: #005487;
-    margin-top: 0;
+    margin-top: 0.5rem;
 }
-h3, .title
+h2 i
+{
+	font-size: 1rem;
+	vertical-align: middle;
+	margin-left: 0.5rem;
+	color: #000000;
+	cursor: pointer;
+}
+h2 i:first-of-type
+{
+	margin-left: 1rem;
+}
+h2 i:hover
+{
+	color: #005487;
+}
+h2, .title
 {
     position: sticky;
     top: 0;
@@ -107,21 +164,182 @@ h3, .title
 }
 .loader
 {
-    font-size: 2.5rem;
-    text-align: center;
+	
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
     z-index: 10;
     background-color: rgba(50, 50, 50, 0.9);
-    color: #FFFFFF;
     width: 100%;
-    padding: 50vh 0;
-    font-weight: 700;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.loader img
+{
     animation: loader 0.5s infinite alternate;
 }
-#panel > div > p, #panel > div > div:not(.editor)
+.title
+{
+	font-weight: 600;
+	font-size: 1.2rem;
+}
+.title.insights, .data.insights
+{
+	width: calc(25vw * 9);
+}
+.title.members, .data.members
+{
+	width: calc(25vw * 6);
+}
+.title, .data p
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 0;
+}
+.title span, .data span
+{
+	width: 25vw;
+	padding: 0.2rem 0.5rem;
+	margin-right: 0.5rem;
+}
+.title span, .data p:not(:last-of-type) span
+{
+	border-bottom: 1px solid;
+}
+.data
+{
+	overflow-x: auto;
+	padding: 0 0.5rem 2rem;
+}
+.data span
+{
+	height: 10vh;
+	overflow: auto;
+	padding: 0.5rem;
+}
+.data span::-webkit-scrollbar
+{
+	width: 5px;
+	height: 5px;
+}
+.data span::-webkit-scrollbar-thumb
+{
+	border-radius: 5px;
+	background-color: #005487;
+}
+.data.insights span, .data.faqs span
+{
+	height: 15vh;
+}
+.forms
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 5;
+	background-color: #555555CC;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.forms form
+{
+	width: 50%;
+	padding: 2rem 0;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+h4
+{
+	margin-bottom: 1rem;
+	font-weight: 600;
+	color: #005487;
+}
+input:not([type="submit"]), textarea, select
+{
+	display: block;
+	margin: 0 auto 1rem;
+	padding: 0.2rem 0.5rem;
+	width: 40%;
+	border: none;
+	border-bottom: 1px solid;
+	transition: all 0.1s linear;
+}
+input:not([type="submit"]):hover, input:not([type="submit"]):focus, textarea:hover, textarea:focus, select:hover, select:focus
+{
+	outline: none;
+	box-shadow: 2px 2px 10px #000000;
+    border-color: transparent;
+}
+input[type="submit"]
+{
+	background-color: #FFFFFF;
+	border: 1px solid;
+	margin-right: 0.5rem;
+	font-weight: 500;
+	padding: 0.2rem 0.5rem;
+	transition: all 0.1s linear;
+}
+input[type="submit"]:hover, input[type="submit"]:focus
+{
+	outline: none;
+}
+form.create input[type="submit"]
+{
+	color: var(--create-green);
+}
+form.create input[type="submit"]:hover, form.create input[type="submit"]:focus
+{
+	color: #FFFFFF;
+	background-color: var(--create-green);
+}
+form.edit input[type="submit"]
+{
+	color: var(--edit-blue);
+}
+form.edit input[type="submit"]:hover, form.edit input[type="submit"]:focus
+{
+	color: #FFFFFF;
+	background-color: var(--edit-blue);
+}
+form.remove input[type="submit"]
+{
+	color: var(--remove-red);
+}
+form.remove input[type="submit"]:hover, form.remove input[type="submit"]:focus
+{
+	color: #FFFFFF;
+	background-color: var(--remove-red);
+}
+form i.reset
+{
+    color: var(--reset-button-red);
+    margin: 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+img[src=""]
+{
+    display: none;
+}
+img#preview
+{
+    max-width: 15%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+/*#panel > div > p, #panel > div > div:not(.editor)
 {
     width: auto;
 }
@@ -410,7 +628,7 @@ h3.active, #panel div:last-of-type form.active
     background-color: #024060;
     color: #FFFFFF;
 }
-aside.articles button a 
+aside.articles button a
 {
     text-decoration: none;
     color: inherit;
@@ -462,7 +680,7 @@ form input[type="submit"]:hover, form input[type="submit"]:focus
 {
     background-color: #00AA00;
     color: #FFFFFF;
-} */
+}
 #logout
 {
     position: fixed;
@@ -507,11 +725,11 @@ aside.error#requestError h4
 aside.error#requestError p
 {
     margin: 0;
-}
+}*/
 @keyframes loader {
     from {
-        color: rgba(255, 255, 255, 0.2);
+        opacity: 0.3;
     } to {
-        color: #FFFFFF;
+        opacity: 1;
     }
 }

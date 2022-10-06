@@ -9,165 +9,369 @@ html(lang="en")
 		title Admin Dashboard - Visbanking
 		link(rel="preconnect" href="https://fonts.googleapis.com")
 		link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
-		link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet")
 		link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous")
 		link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css")
 		link(rel="stylesheet" href="/css/admin/dashboard.css")
 		script(src="https://unpkg.com/vue@next")
 	body 
-		section
-			h1 Visbanking Admin Dashboard
-			h2 Admin Username: #{admin.Username}
-			p.message(class=`${message.includes("successfully") ? "success" : "error"}`, data-content-exist=`${message.trim()!==''}`) #{message}
-			#dashboard
-				.controls 
-					i.bi-gear-fill#profile(:class="{'active': profile}", @click="showSection('profile')" title="Admin Profile")
-					i.bi-person-badge-fill#admins(:class="{'active': admins}", @click="showSection('admins')" title="System Admins")
-					i.bi-file-earmark-text-fill#insights(:class="{'active': insights}", @click="showSection('insights')" title="Insights")
-					i.bi-person-circle#members(:class="{'active': members}", @click="showSection('members')" title="Members")
-					i.bi-patch-question-fill#questions(:class="{'active': questions}", @click="showSection('questions')" title="FAQs")
-					i.bi-person-workspace#academics(:class="{ active:academics }", @click="showSection('academics')" title="Academics")
-				aside#panel
-					h3(v-if="profile") Admin Profile
-					h3(v-if="admins") System Admins
-					h3(v-if="insights") Insights
-					h3(v-if="members") Members
-					h3(v-if="questions") FAQs
-					h3(v-if="academics") Academics
-					p.loader(v-if="loading") LOADING...
-					.profile(v-if="profile")
-						p.title
-							span ID 
-							span Username
-						div
-						.editor
-							h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit Profile
-							form(class="edit" action="/admin/dashboard/profile/edit" method="POST" v-if="edit")
-								input#newUsername(type="text" name="newUsername" placeholder="New Username")
-								input#newPassword(type="password" name="newPassword" placeholder="New Password")
-								input(type="submit" name="action" value="Update Profile")
-								i.bi-x-square-fill.reset(@click="hideForms")
-					.admins(v-if="admins")
-						p.title
-							span Admin ID 
-							span Admin Username
-						div
-						.editor 
-							h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Admin
-							h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Admin
-							form(class="create" action="/admin/dashboard/admins/create" method="POST" v-if="create")
-								input#username(type="text" name="username" placeholder="New Admin Username", required)
-								input(type="submit" name="action" value="Create Admin")
-								i.bi-x-square-fill.reset(@click="hideForms")
-							form(class="remove" action="/admin/dashboard/admins/delete" method="POST" v-if="remove")
-								input#username(type="text" name="username" placeholder="Admin Username")
-								input(type="submit" name="action" value="Remove Admin")
-								i.bi-x-square-fill.reset(@click="hideForms")
-					.insights(v-if="insights")
-						p.title
-							span Title
-							span Header Image
-							span Category
-							span Description
-							span Date
-							span Tags 
-							span Keywords 
-							span Author
+		main
+			- console.log(message);
+			p.message(class=`${message ? "active" : ""} ${message.includes("successfully") ? "success" : message.includes("try again") ? "error" : ""}`) #{message}
+			aside.controls 
+				div 
+					a(href=path==="/admin/dashboard"?"#":"/admin/dashboard", title="Home")
+						i.bi-house-door-fill(class=!adminDashboardSection ? "active" : "")
+					a(href=path==="/admin/dashboard/content"?"#":"/admin/dashboard/content", title="Content") 
+						i.bi-newspaper(class=adminDashboardSection==="content" ? "active" : "")
+					a(href=path==="/admin/dashboard/company"?"#":"/admin/dashboard/company", title="Company") 
+						i.bi-building(class=adminDashboardSection==="company" ? "active" : "")
+					a(href=path==="/admin/dashboard/system"?"#":"/admin/dashboard/system", title="System")
+						i.bi-cpu-fill(class=adminDashboardSection==="system" ? "active" : "")
+					a(href=path==="/admin/dashboard/users"?"#":"/admin/dashboard/users", title="Users")
+						i.bi-people-fill(class=adminDashboardSection==="users" ? "active" : "")
+				a(href="/admin/logout", title="Log Out")
+					i.bi-door-open-fill 
+			if adminDashboardSection 
+				aside.controls.subControls
+					if adminDashboardSection === "content"
 						div 
-						.editor 
-							h4(role="button", @click="redirectToInsightCreation") Create Insight
-							h4(role="button", @click="redirectToInsightEditing") Edit Insight
-							h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Insight
-							form(class="remove" action="/admin/dashboard/insights/delete" method="POST" v-if="remove")
-								input#title(type="text" name="title" placeholder="Insight Title")
-								input(type="submit" name="action" value="Remove Insight")
-								i.bi-x-square-fill.reset(@click="hideForms")
-					.members(v-if="members")
-						p.title
-							span Name
-							span Email
-							span Title
-							span LinkedIn
-							span Picture
+							i.bi-file-earmark-text-fill(title="Insights", :class="{ active:insights }", @click="showSection('insights')")
+							i.bi-patch-question-fill(title="FAQs", :class="{ active:faqs }", @click="showSection('faqs')")
+					else if adminDashboardSection === "company"
 						div 
-						.editor 
-							h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Member
-							h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit Member
-							h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Member
-							form(class="create" action="/admin/dashboard/members/create" method="POST" v-if="create" enctype="multipart/form-data")
-								input#name(type="text" name="name" placeholder="New Member Name", required)
-								input#email(type="text" name="email" placeholder="New Member Email", required)
-								input#title(type="text" name="title" placeholder="New Member Title", required)
-								input#linkedin(type="url" name="linkedin" placeholder="New Member LinkedIn URL", required)
-								img#preview(src="")
-								input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage", required)
-								input(type="submit" name="action" value="Create Member")
-								i.bi-x-square-fill.reset(@click="hideForms")
-							form(class="edit" action="/admin/dashboard/members/edit" method="POST" v-if="edit" enctype="multipart/form-data")
-								input#name(type="text" name="name" placeholder="Member Name *", required)
-								input#newName(type="text" name="newName" placeholder="New Member Name")
-								input#newEmail(type="email" name="newEmail" placeholder="New Member Email")
-								input#newTitle(type="text" name="newTitle" placeholder="New Member Title")
-								input#newLinkedIn(type="url" name="newLinkedIn" placeholder="New Member LinkedIn URL")
-								img#preview(src="")
-								input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage")
-								input(type="submit" name="action" value="Update Member")
-								i.bi-x-square-fill.reset(@click="hideForms")
-							form(class="remove" action="/admin/dashboard/members/delete" method="POST" v-if="remove")
-								input#name(type="text" name="name" placeholder="Member Name *", required)
-								input(type="submit" name="action" value="Remove Member")
-								i.bi-x-square-fill.reset(@click="hideForms")
-					.questions(v-if="questions")
-						p.title
-							span Question
-							span Answer
-							span Category
-						div
-						.editor 
-							h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create FAQ
-							h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit FAQ
-							h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove FAQ
-							form(class="create" action="/admin/dashboard/questions/create" method="POST" v-if="create")
-								input#question(type="text" name="question" placeholder="New FAQ Question *", required)
-								textarea#answer(rows="4" name="answer" placeholder="New FAQ Answer *", required)
-								select#category(type="text" name="category" placeholder="New FAQ Category *", required)
-									option(value="Product") Product
-									option(value="Payment") Payment
-									option(value="Account") Account
-									option(value="Support") Support 
-									option(value="Services") Services
-								input(type="submit" name="action" value="Create FAQ")
-								i.bi-x-square-fill.reset(@click="hideForms")
-							form(class="edit" action="/admin/dashboard/questions/edit" method="POST" v-if="edit")
-								input#question(type="text" name="question" placeholder="FAQ Question *", required)
-								textarea#newAnswer(rows="4" name="newAnswer" placeholder="New FAQ Answer")
-								input(type="submit" name="action" value="Update FAQ")
-								i.bi-x-square-fill.reset(@click="hideForms")
-							form(class="remove" action="/admin/dashboard/questions/delete" method="POST" v-if="remove")
-								input#question(type="text" name="question" placeholder="FAQ Question *", required)
-								input(type="submit" name="action" value="Remove FAQ")
-								i.bi-x-square-fill.reset(@click="hideForms")
-					.academics(v-if="academics")
-						p.title 
-							span First Name 
-							span Last Name 
-							span Email
+							i.bi-person-circle(title="Members", :class="{ active:members }", @click="showSection('members')")
+							//- i.bi-list-stars(title="Services", :class="{ active:services }", @click="showSection('services')")
+					else if adminDashboardSection === "system"
 						div 
-						.editor 
-							h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Academics Account
-							h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Academics Account
-							form(class="create" action="/admin/dashboard/academics/create" method="POST" v-if="create")
-								input#fName(type="text" name="fName", placeholder="First Name *", required)
-								input#lName(type="text" name="lName", placeholder="Last Name *", required)
-								input#email(type="email" name="email", placeholder="Email *", required)
-								input(type="submit" name="action" value="Create Academics Account")
-								i.bi-x-square-fill.reset(@click="hideForms")
-							form(class="remove" action="/admin/dashboard/academics/remove" method="POST" v-if="remove")
-								input#email(type="email" name="email", placeholder="Email *", required)
-								input(type="submit" name="action" value="Remove Academics Account")
-								i.bi-x-square-fill.reset(@click="hideForms")
-		a#logout(href="/admin/logout") LOGOUT
-		aside.error#requestError
-			h4 
-			p 
-		script(src="/js/admin/dashboard.js") 
+							i.bi-person-bounding-box(title="Admin Profile", :class="{ active:profile }", @click="showSection('profile')")
+							i.bi-person-badge-fill(title="System Admins", :class="{ active:admins }", @click="showSection('admins')")
+							i.bi-clipboard-data-fill(title="App Status", @click="loadAppStatusSection")
+					else if adminDashboardSection === "users"
+						div 
+							//- i.bi-person-fill(title="Users", :class="{ active:users }", @click="showSection('users')")
+							i.bi-person-workspace(title="Academic Users", :class="{ active:academics }", @click="showSection('academics')")
+			section#panel(data-section-chosen=adminDashboardSection?"1":"0")
+				if adminDashboardSection
+					div.loader(v-if="loading")
+						img(src="/images/logo.png.webp", alt="Visbanking")
+				if !adminDashboardSection
+					div
+						h1 Welcome to the Visbanking Admin Dashboard
+						p You are logged in as admin 
+							strong #{adminUsername}
+						p Select a category on the left to continue
+				else if adminDashboardSection === "content"
+					h2(v-if="insights") 
+						| Insights
+						a(href="/admin/dashboard/content/insights/edit") 
+							i.bi-pencil-fill
+						a(href="/admin/dashboard/content/insights/create")
+							i.bi-plus-circle-fill
+						i.bi-dash-circle-fill(@click="showForm('remove')")
+					h2(v-if="faqs") 
+						| FAQs
+						i.bi-pencil-fill(@click="showForm('edit')")
+						i.bi-plus-circle-fill(@click="showForm('create')")
+						i.bi-dash-circle-fill(@click="showForm('remove')")
+					p.title.insights(v-if="insights")
+						span Title
+						span Header Image
+						span Category
+						span Description
+						span Date
+						span Tags
+						span Keywords
+						span Author
+					p.title.faqs(v-if="faqs")
+						span Question
+						span Answer
+						span Category
+					aside.data
+					aside.forms(v-if="create || edit || remove")
+						form.remove(action="/admin/dashboard/content/insights/remove", method="POST", v-if="insights && remove") 
+							h4 Remove Insight
+							input#title(type="text" name="title" placeholder="Insight Title")
+							input(type="submit" name="action" value="Remove Insight")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.create(action="/admin/dashboard/content/faqs/create" method="POST" v-if="faqs && create")
+							h4 Create FAQ
+							input#question(type="text" name="question" placeholder="New FAQ Question *", required)
+							textarea#answer(rows="4" name="answer" placeholder="New FAQ Answer *", required)
+							select#category(type="text" name="category" placeholder="New FAQ Category *", required)
+								option(value="Product") Product
+								option(value="Payment") Payment
+								option(value="Account") Account
+								option(value="Support") Support 
+								option(value="Services") Services
+							input(type="submit" name="action" value="Create FAQ")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.edit(action="/admin/dashboard/content/faqs/edit" method="POST" v-if="faqs && edit")
+							h4 Edit FAQ
+							input#question(type="text" name="question" placeholder="FAQ Question *", required)
+							textarea#newAnswer(rows="4" name="newAnswer" placeholder="New FAQ Answer")
+							input(type="submit" name="action" value="Update FAQ")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.remove(action="/admin/dashboard/content/faqs/remove" method="POST" v-if="faqs && remove")
+							h4 Remove FAQ
+							input#question(type="text" name="question" placeholder="FAQ Question *", required)
+							input(type="submit" name="action" value="Remove FAQ")
+							i.bi-x-square-fill.reset(@click="hideForms")
+				else if adminDashboardSection === "company"
+					h2(v-if="members") 
+						| Members
+						i.bi-pencil-fill(@click="showForm('edit')")
+						i.bi-plus-circle-fill(@click="showForm('create')")
+						i.bi-dash-circle-fill(@click="showForm('remove')")
+					h2(v-if="services") Services
+					p.title.members(v-if="members")
+						span Name
+						span Email
+						span Title
+						span LinkedIn
+						span Profile Picture
+					aside.data
+					aside.forms(v-if="create || edit || remove")
+						form.create(action="/admin/dashboard/company/members/create" method="POST" v-if="members && create" enctype="multipart/form-data")
+							h4 Create Member
+							input#name(type="text" name="name" placeholder="New Member Name", required)
+							input#email(type="text" name="email" placeholder="New Member Email", required)
+							input#title(type="text" name="title" placeholder="New Member Title", required)
+							input#linkedin(type="url" name="linkedin" placeholder="New Member LinkedIn URL", required)
+							img#preview(src="")
+							input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage", required)
+							input(type="submit" name="action" value="Create Member")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.edit(action="/admin/dashboard/company/members/edit" method="POST" v-if="members && edit" enctype="multipart/form-data")
+							h4 Edit Member
+							input#name(type="text" name="name" placeholder="Member Name *", required)
+							input#newName(type="text" name="newName" placeholder="New Member Name")
+							input#newEmail(type="email" name="newEmail" placeholder="New Member Email")
+							input#newTitle(type="text" name="newTitle" placeholder="New Member Title")
+							input#newLinkedIn(type="url" name="newLinkedIn" placeholder="New Member LinkedIn URL")
+							img#preview(src="")
+							input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage")
+							input(type="submit" name="action" value="Update Member")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.remove(action="/admin/dashboard/company/members/remove" method="POST" v-if="members && remove")
+							h4 Remove Member
+							input#name(type="text" name="name" placeholder="Member Name *", required)
+							input(type="submit" name="action" value="Remove Member")
+							i.bi-x-square-fill.reset(@click="hideForms")
+				else if adminDashboardSection === "system"
+					h2(v-if="profile") 
+						| Admin Profile
+						i.bi-pencil-fill(@click="showForm('edit')")
+					h2(v-if="admins") 
+						| System Admins
+						i.bi-plus-circle-fill(@click="showForm('create')")
+						i.bi-dash-circle-fill(@click="showForm('remove')")
+					p.title
+						span ID
+						span Username
+					aside.data
+					aside.forms(v-if="create || edit || remove")
+						form.edit(action="/admin/dashboard/system/profile/edit" method="POST" v-if="profile && edit")
+							h4 Edit Profile
+							input#newUsername(type="text" name="newUsername" placeholder="New Username")
+							input#newPassword(type="password" name="newPassword" placeholder="New Password")
+							input(type="submit" name="action" value="Update Profile")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.create(action="/admin/dashboard/system/admins/create" method="POST" v-if="admins && create")
+							h4 Create Admin
+							input#username(type="text" name="username" placeholder="New Admin Username *", required)
+							input(type="submit" name="action" value="Create Admin")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.remove(action="/admin/dashboard/system/admins/remove" method="POST" v-if="admins && remove")
+							h4 Remove Admin
+							input#username(type="text" name="username" placeholder="Admin Username *", required)
+							input(type="submit" name="action" value="Remove Admin")
+							i.bi-x-square-fill.reset(@click="hideForms")
+				else if adminDashboardSection === "users"
+					//- h2(v-if="users") Users
+					h2(v-if="academics") 
+						| Academic Users
+						i.bi-plus-circle-fill(@click="showForm('create')")
+						i.bi-dash-circle-fill(@click="showForm('remove')")
+					p.title.academics(v-if="academics")
+						span First Name
+						span Last Name
+						span Email
+					aside.data
+					aside.forms(v-if="create || edit || remove")
+						form.create(action="/admin/dashboard/users/academics/create" method="POST" v-if="academics && create")
+							h4 Create Academic Account
+							input#fName(type="text" name="fName", placeholder="First Name *", required)
+							input#lName(type="text" name="lName", placeholder="Last Name *", required)
+							input#email(type="email" name="email", placeholder="Email *", required)
+							input(type="submit" name="action" value="Create Academics Account")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.remove(action="/admin/dashboard/users/academics/remove" method="POST" v-if="academics && remove")
+							h4 Remove Academic Account
+							input#email(type="email" name="email", placeholder="Email *", required)
+							input(type="submit" name="action" value="Remove Academics Account")
+							i.bi-x-square-fill.reset(@click="hideForms")
+		//- section
+		//- 	h1 Visbanking Admin Dashboard
+		//- 	h2 Admin Username: #{admin.Username}
+		//- 	p.message(class=`${message.includes("successfully") ? "success" : "error"}`, data-content-exist=`${message.trim()!==''}`) #{message}
+		//- 	#dashboard
+		//- 		.controls 
+		//- 			i.bi-gear-fill#profile(:class="{'active': profile}", @click="showSection('profile')" title="Admin Profile")
+		//- 			i.bi-person-badge-fill#admins(:class="{'active': admins}", @click="showSection('admins')" title="System Admins")
+		//- 			i.bi-file-earmark-text-fill#insights(:class="{'active': insights}", @click="showSection('insights')" title="Insights")
+		//- 			i.bi-person-circle#members(:class="{'active': members}", @click="showSection('members')" title="Members")
+		//- 			i.bi-patch-question-fill#questions(:class="{'active': questions}", @click="showSection('questions')" title="FAQs")
+		//- 			i.bi-person-workspace#academics(:class="{ active:academics }", @click="showSection('academics')" title="Academics")
+		//- 		aside#panel
+		//- 			h3(v-if="profile") Admin Profile
+		//- 			h3(v-if="admins") System Admins
+		//- 			h3(v-if="insights") Insights
+		//- 			h3(v-if="members") Members
+		//- 			h3(v-if="questions") FAQs
+		//- 			h3(v-if="academics") Academics
+		//- 			p.loader(v-if="loading") LOADING...
+		//- 			.profile(v-if="profile")
+		//- 				p.title
+		//- 					span ID 
+		//- 					span Username
+		//- 				div
+		//- 				.editor
+		//- 					h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit Profile
+		//- 					form(class="edit" action="/admin/dashboard/profile/edit" method="POST" v-if="edit")
+		//- 						input#newUsername(type="text" name="newUsername" placeholder="New Username")
+		//- 						input#newPassword(type="password" name="newPassword" placeholder="New Password")
+		//- 						input(type="submit" name="action" value="Update Profile")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 			.admins(v-if="admins")
+		//- 				p.title
+		//- 					span Admin ID 
+		//- 					span Admin Username
+		//- 				div
+		//- 				.editor 
+		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Admin
+		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Admin
+		//- 					form(class="create" action="/admin/dashboard/admins/create" method="POST" v-if="create")
+		//- 						input#username(type="text" name="username" placeholder="New Admin Username", required)
+		//- 						input(type="submit" name="action" value="Create Admin")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 					form(class="remove" action="/admin/dashboard/admins/delete" method="POST" v-if="remove")
+		//- 						input#username(type="text" name="username" placeholder="Admin Username")
+		//- 						input(type="submit" name="action" value="Remove Admin")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 			.insights(v-if="insights")
+		//- 				p.title
+		//- 					span Title
+		//- 					span Header Image
+		//- 					span Category
+		//- 					span Description
+		//- 					span Date
+		//- 					span Tags 
+		//- 					span Keywords 
+		//- 					span Author
+		//- 				div 
+		//- 				.editor 
+		//- 					h4(role="button", @click="redirectToInsightCreation") Create Insight
+		//- 					h4(role="button", @click="redirectToInsightEditing") Edit Insight
+		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Insight
+		//- 					form(class="remove" action="/admin/dashboard/insights/delete" method="POST" v-if="remove")
+		//- 						input#title(type="text" name="title" placeholder="Insight Title")
+		//- 						input(type="submit" name="action" value="Remove Insight")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 			.members(v-if="members")
+		//- 				p.title
+		//- 					span Name
+		//- 					span Email
+		//- 					span Title
+		//- 					span LinkedIn
+		//- 					span Picture
+		//- 				div 
+		//- 				.editor 
+		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Member
+		//- 					h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit Member
+		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Member
+		//- 					form(class="create" action="/admin/dashboard/members/create" method="POST" v-if="create" enctype="multipart/form-data")
+		//- 						input#name(type="text" name="name" placeholder="New Member Name", required)
+		//- 						input#email(type="text" name="email" placeholder="New Member Email", required)
+		//- 						input#title(type="text" name="title" placeholder="New Member Title", required)
+		//- 						input#linkedin(type="url" name="linkedin" placeholder="New Member LinkedIn URL", required)
+		//- 						img#preview(src="")
+		//- 						input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage", required)
+		//- 						input(type="submit" name="action" value="Create Member")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 					form(class="edit" action="/admin/dashboard/members/edit" method="POST" v-if="edit" enctype="multipart/form-data")
+		//- 						input#name(type="text" name="name" placeholder="Member Name *", required)
+		//- 						input#newName(type="text" name="newName" placeholder="New Member Name")
+		//- 						input#newEmail(type="email" name="newEmail" placeholder="New Member Email")
+		//- 						input#newTitle(type="text" name="newTitle" placeholder="New Member Title")
+		//- 						input#newLinkedIn(type="url" name="newLinkedIn" placeholder="New Member LinkedIn URL")
+		//- 						img#preview(src="")
+		//- 						input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage")
+		//- 						input(type="submit" name="action" value="Update Member")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 					form(class="remove" action="/admin/dashboard/members/delete" method="POST" v-if="remove")
+		//- 						input#name(type="text" name="name" placeholder="Member Name *", required)
+		//- 						input(type="submit" name="action" value="Remove Member")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 			.questions(v-if="questions")
+		//- 				p.title
+		//- 					span Question
+		//- 					span Answer
+		//- 					span Category
+		//- 				div
+		//- 				.editor 
+		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create FAQ
+		//- 					h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit FAQ
+		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove FAQ
+		//- 					form(class="create" action="/admin/dashboard/questions/create" method="POST" v-if="create")
+		//- 						input#question(type="text" name="question" placeholder="New FAQ Question *", required)
+		//- 						textarea#answer(rows="4" name="answer" placeholder="New FAQ Answer *", required)
+		//- 						select#category(type="text" name="category" placeholder="New FAQ Category *", required)
+		//- 							option(value="Product") Product
+		//- 							option(value="Payment") Payment
+		//- 							option(value="Account") Account
+		//- 							option(value="Support") Support 
+		//- 							option(value="Services") Services
+		//- 						input(type="submit" name="action" value="Create FAQ")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 					form(class="edit" action="/admin/dashboard/questions/edit" method="POST" v-if="edit")
+		//- 						input#question(type="text" name="question" placeholder="FAQ Question *", required)
+		//- 						textarea#newAnswer(rows="4" name="newAnswer" placeholder="New FAQ Answer")
+		//- 						input(type="submit" name="action" value="Update FAQ")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 					form(class="remove" action="/admin/dashboard/questions/delete" method="POST" v-if="remove")
+		//- 						input#question(type="text" name="question" placeholder="FAQ Question *", required)
+		//- 						input(type="submit" name="action" value="Remove FAQ")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 			.academics(v-if="academics")
+		//- 				p.title 
+		//- 					span First Name 
+		//- 					span Last Name 
+		//- 					span Email
+		//- 				div 
+		//- 				.editor 
+		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Academics Account
+		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Academics Account
+		//- 					form(class="create" action="/admin/dashboard/academics/create" method="POST" v-if="create")
+		//- 						input#fName(type="text" name="fName", placeholder="First Name *", required)
+		//- 						input#lName(type="text" name="lName", placeholder="Last Name *", required)
+		//- 						input#email(type="email" name="email", placeholder="Email *", required)
+		//- 						input(type="submit" name="action" value="Create Academics Account")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- 					form(class="remove" action="/admin/dashboard/academics/remove" method="POST" v-if="remove")
+		//- 						input#email(type="email" name="email", placeholder="Email *", required)
+		//- 						input(type="submit" name="action" value="Remove Academics Account")
+		//- 						i.bi-x-square-fill.reset(@click="hideForms")
+		//- a#logout(href="/admin/logout") LOGOUT
+		//- aside.error#requestError
+		//- 	h4 
+		//- 	p 
+		script(src="/js/admin/dashboard.js")
+		if adminDashboardSection === "content"
+			script(src="/js/admin/dashboard/content.js") 
+		else if adminDashboardSection === "company"
+			script(src="/js/admin/dashboard/company.js") 
+		else if adminDashboardSection === "system"
+			script(src="/js/admin/dashboard/system.js") 
+		else if adminDashboardSection === "users"
+			script(src="/js/admin/dashboard/users.js") 

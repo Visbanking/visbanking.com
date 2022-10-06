@@ -23,6 +23,7 @@ const admin = require("./routing/admin");
 const api = require("./routing/api");
 const files = require("./routing/files");
 const error = require("./routing/error");
+const appStatusMonitor = require("./data/expressStatusMonitor");
 const app = express();
 const port = 8080;
 
@@ -32,6 +33,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 app.set("view engine", "pug");
+
+app.use(appStatusMonitor);
 
 app.use((req, res, next) => {
 	res.setHeader("Strict-Transport-Security", "max-age=31536000");
