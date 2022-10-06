@@ -1,0 +1,296 @@
+header, main > section
+{
+	min-height: auto;
+}
+nav.navbar
+{
+	justify-content: flex-start;
+}
+img.logo
+{
+    max-width: 100%;
+}
+nav p
+{
+	border-left: 2px solid;
+	margin-left: 0.5rem;
+	padding-left: 1rem;
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+section#intro
+{
+	padding: 0;
+	height: 50vh;
+	background-image: url('./../../images/landing/report/intro.jpg');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	color: #FFFFFF;
+}
+#intro div
+{
+	height: 50vh;
+	width: 100%;
+	background-color: #024668A0;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+h1
+{
+	margin: 0;
+	color: inherit;
+}
+#intro p
+{
+	margin: 0.5rem auto;
+	font-size: 1.5rem;
+	font-weight: 600;
+	text-transform: capitalize;
+}
+main section:not([id])
+{
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: stretch;
+}
+aside.text
+{
+	width: 70%;
+	box-sizing: border-box;
+	padding: 1rem;
+}
+.text div
+{
+	width: 50%;
+	margin-left: 10vw;
+}
+h2
+{
+	margin-top: 0;
+	text-transform: uppercase;
+}
+.text h2
+{
+	font-size: 2rem;
+}
+.text p
+{
+	font-size: 1.2rem;
+	margin: 1rem 0;
+}
+form
+{
+	width: 30%;
+	box-sizing: border-box;
+	padding: 1.5rem 2rem;
+	background-color: #DDDDDD;
+}
+form p:not([class])
+{
+	margin-top: 0;
+	font-weight: 700;
+	font-size: 1.2rem;
+}
+label, input
+{
+	font-family: inherit;
+}
+label
+{
+	font-weight: 600;
+}
+label span
+{
+	color: #EE0000;
+}
+input
+{
+	display: block;
+	margin: 0.5rem 0;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 5px;
+	border: 2px solid #BBBBBB;
+}
+input[type="submit"]
+{
+	border-radius: 20px;
+	width: auto;
+	margin: 1rem auto;
+	cursor: pointer;
+	font-weight: 600;
+	color: #FFFFFF;
+	font-size: 1.1rem;
+	border: none;
+	padding: 0.5rem 1rem;
+	background-color: #EE8800;
+}
+p.notice
+{
+	font-size: 0.9rem;
+	text-align: justify;
+	font-weight: 600;
+}
+p.notice a
+{
+	color: inherit;
+}
+main section.insights
+{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 1rem 2rem 2rem;
+	align-items: flex-start;
+}
+.insights div
+{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.insight
+{
+	width: 30%;
+	text-decoration: none;
+	color: #000000;
+}
+img
+{
+	max-width: 100%;
+}
+.insight p.title
+{
+	font-weight: 700;
+	font-size: 1.1rem;
+	margin: 1.5rem 0 0.5rem;
+}
+.insight p:not([class])
+{
+	margin: 0;
+	color: #024668;
+}
+@media screen and (max-width: 991px)
+{
+	aside.text
+	{
+		width: 60%;
+	}
+	.text div
+	{
+		width: 80%;
+		margin: 0 auto;
+	}
+	form
+	{
+		width: 40%;
+	}
+}
+@media screen and (max-width: 767px)
+{
+	section#intro, #intro div
+	{
+		height: 40vh;
+	}
+	img.logo
+	{
+		margin: 0 auto;
+	}
+	nav p
+	{
+		width: 100%;
+		text-align: center;
+		border-left: none;
+		padding: 0;
+		margin: 0.5rem 0;
+	}
+	.text div
+	{
+		width: 100%;
+		margin: 0 auto;
+	}
+	h2
+	{
+		font-size: 1.8rem;
+	}
+	.text p
+	{
+		font-size: 1rem;
+	}
+	main section.insights
+	{
+		align-items: center;
+	}
+	.insights div
+	{
+		flex-direction: column;
+		align-items: center;
+	}
+	.insight
+	{
+		width: 50%;
+	}
+	.insight:not(:first-of-type)
+	{
+		margin-top: 1rem;
+	}
+}
+@media screen and (max-width: 600px)
+{
+	main section:not([id])
+	{
+		justify-content: center;
+	}
+	aside.text, form
+	{
+		width: 80%;
+	}
+	.insight
+	{
+		width: 70%;
+	}
+}
+@media screen and (max-width: 500px)
+{
+	h1
+	{
+		font-size: 2rem;
+	}
+	#intro p
+	{
+		font-size: 1.2rem;
+	}
+	h2
+	{
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+	.text p
+	{
+		text-align: center;
+	}
+}
+@media screen and (max-width: 400px)
+{
+	aside.text, form, .insight
+	{
+		width: 100%;
+	}
+	form, main section.insights
+	{
+		padding: 1rem;
+	}
+}
