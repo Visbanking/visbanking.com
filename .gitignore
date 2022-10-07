@@ -6,7 +6,6 @@ jsconfig.json
 sitemap.xml
 .pricingTiers.json
 .apiTokens.json
-static/files/landing/report/report.pdf
 static/images/insights/*
 static/images/insights/*
 static/images/insights/*
