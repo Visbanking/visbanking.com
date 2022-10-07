@@ -36,7 +36,6 @@ router.get("/", async (req, res) => {
 	} else if (!req.query.page) {
 		get("/api/insights")
 		.then(({ result:insights }) => {
-			console.log(insights[0]);
 			res.render("insights", {
 				title: "Insights | Visbanking",
 				path: "/insights",
