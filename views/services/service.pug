@@ -8,30 +8,13 @@ block styles
 	link(rel="stylesheet" href="/css/services/service.css")
 
 block main 
-	- const page = title.split("|")[0].trim();
-	h1 #{page}
+	h1 #{service.Name}
 	section#intro 
 		aside.text 
 			h2 LET VISBANKING CHANGE YOUR PERSPECTIVE ON BANKING DATA
 			p Gone are the days when financial professionals were forced to comb through Excel sheets of flat data to compare different banks' performance. With Visbanking, the future of banking data analysis is now. We provide the banking intelligence and do-it-for-me (DIFM) reports you need to visualize the latest data on every bank in the United States. 
-			if service === "analysis"
-				p 
-					strong Our service allows you to quickly and easily view any group of competitor banks to assess and compare their performance. That intelligence can help you perform complex analysis easier than ever before, enabling better decision-making that will improve your company's bottom line. Quickly access details like balance sheets, financial statements, current activities, and insights in the news. With a few clicks, those and other key data points can be quickly compiled to inform your analysis.
-			else if service === "market"
-				p 
-					strong When you need to make critical decisions that impact your company's market share, it is vital to understand everything that you can about your competitors. With Visbanking's services, you can quickly define market parameters and get the intelligence you need to measure the market share of all banks in that target market and adapt your strategies to improve your bank's performance.
-			else if service === "m&a"
-				p 
-					strong Before any successful merger or acquisition, it is essential to perform due diligence on important criteria like credit quality metrics. If you have a merger looming on the horizon, our tools can help you gain the insight you need to know before moving to combine portfolios. This data can help ensure that your merger or acquisition can be completed without unforeseen complications.
-			else if service === "credit"
-				p 
-					strong It can be time-consuming to assess credit quality trends in the banking industry, including key information about things like non-performing loans viewed by asset class. Visbanking's services enable you to view any custom group of competitor banks in a way that simplifies your analysis of their comparative credit quality performance. In addition, we simplify the process of comparing past due loan trends and relevant reserves, enabling you to easily compare trends in 20 and 90-day past due loans alongside the allowance for loan and lease loss trends, to quickly identify anomalies.
-			else if service === "geographic"
-				p 
-					strong One of the biggest challenges to new market entry is learning about existing competition in that area. If you are considering a move into a new market, Visbanking can provide the information you need to accurately assess your banking competitors in that geographical area, including key details about those banks' deposit sources and lending participation.
-			else if service === "insight"
-				p 
-					strong Does your business need to learn more about deposit or loan growth or decline throughout the U.S.? Is a comprehensive understanding of macro trends a vital part of your decision-making process? If so, our services can provide you with the ability to quickly access information about the entire U.S. banking landscape, including deposit and loan growth over time, net interest margins, and the cost of funds, deposits, and non-interest income.
+			p 
+				strong #{service.Description}
 			p Our commitment to completeness of vision extends to every area of our services. That commitment is why we deliver the wide range of data you need to make the most effective decisions about your business, including vital information on performance, financials, market share, geography, personnel, and regulatory actions.
 		aside.video
 			video(src="/videos/services.mp4", controls, poster="/images/servicesVideoPoster.jpg" controlsList="nodownload") 
@@ -46,15 +29,5 @@ block main
 	hr
 	section#services 
 		h2 Check out our other services
-		if service !== "analysis"
-			a(href="/services/analysis") Competitive Analysis
-		if service !== "market"
-			a(href="/services/market") Market Share
-		if service !== "m&a"
-			a(href="/services/m&a") M&amp;A Due Dilligence
-		if service !== "credit"
-			a(href="/services/credit") Credit Quality Trends
-		if service !== "geographic"
-			a(href="/services/geographic") Geographic Coverage
-		if service !== "insight"
-			a(href="/services/insight") Insight into Deposit and Loan Growth or Decline
+		each service in services 
+			a(href=`/services/${service.ID}`, target=service.Name) #{service.Name} 
