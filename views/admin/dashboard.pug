@@ -16,7 +16,6 @@ html(lang="en")
 		script(src="https://unpkg.com/vue@next")
 	body 
 		main
-			- console.log(message);
 			p.message(class=`${message ? "active" : ""} ${message.includes("successfully") ? "success" : message.includes("try again") ? "error" : ""}`) #{message}
 			aside.controls 
 				div 
@@ -41,7 +40,7 @@ html(lang="en")
 					else if adminDashboardSection === "company"
 						div 
 							i.bi-person-circle(title="Members", :class="{ active:members }", @click="showSection('members')")
-							//- i.bi-list-stars(title="Services", :class="{ active:services }", @click="showSection('services')")
+							i.bi-list-stars(title="Services", :class="{ active:services }", @click="showSection('services')")
 					else if adminDashboardSection === "system"
 						div 
 							i.bi-person-bounding-box(title="Admin Profile", :class="{ active:profile }", @click="showSection('profile')")
@@ -123,13 +122,21 @@ html(lang="en")
 						i.bi-pencil-fill(@click="showForm('edit')")
 						i.bi-plus-circle-fill(@click="showForm('create')")
 						i.bi-dash-circle-fill(@click="showForm('remove')")
-					h2(v-if="services") Services
+					h2(v-if="services") 
+						| Services
+						i.bi-pencil-fill(@click="showForm('edit')")
+						i.bi-plus-circle-fill(@click="showForm('create')")
+						i.bi-dash-circle-fill(@click="showForm('remove')")
 					p.title.members(v-if="members")
 						span Name
 						span Email
 						span Title
 						span LinkedIn
 						span Profile Picture
+					p.title.services(v-if="services")
+						span ID
+						span Name
+						span Description
 					aside.data
 					aside.forms(v-if="create || edit || remove")
 						form.create(action="/admin/dashboard/company/members/create" method="POST" v-if="members && create" enctype="multipart/form-data")
@@ -157,6 +164,23 @@ html(lang="en")
 							h4 Remove Member
 							input#name(type="text" name="name" placeholder="Member Name *", required)
 							input(type="submit" name="action" value="Remove Member")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.create(action="/admin/dashboard/company/services/create" method="POST" v-if="services && create")
+							h4 Create Service
+							input#name(type="text", name="name", placeholder="Service Name *", maxlength="150", required)
+							textarea#description(name="description", rows="4", placeholder="Service Description *", maxlength="600", required)
+							input(type="submit", name="action", value="Create Service")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.edit(action="/admin/dashboard/company/services/edit" method="POST" v-if="services && edit")
+							h4 Update Service
+							input#name(type="text", name="name", placeholder="Service Name *", maxlength="150", required)
+							textarea#newDescription(name="newDescription", rows="4", placeholder="New Service Description *", maxlength="600", required)
+							input(type="submit", name="action", value="Update Service")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.remove(action="/admin/dashboard/company/services/remove" method="POST" v-if="services && remove")
+							h4 Remove Service
+							input#name(type="text", name="name", placeholder="Service Name *", maxlength="150", required)
+							input(type="submit", name="action", value="Remove Service")
 							i.bi-x-square-fill.reset(@click="hideForms")
 				else if adminDashboardSection === "system"
 					h2(v-if="profile") 

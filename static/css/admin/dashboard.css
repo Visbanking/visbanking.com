@@ -23,13 +23,14 @@ p.message
 	padding: 0.5rem 1rem;
 	margin: 0;
 	position: fixed;
-	z-index: 1;
+	z-index: 5;
 	bottom: 0.5rem;
 	right: 0.5rem;
 	max-width: 25vw;
 	word-wrap: break-word;
 	border-radius: 10px;
 	display: none;
+	background-color: #FFFFFF;
 }
 .message.active
 {
@@ -234,7 +235,7 @@ h2, .title
 	border-radius: 5px;
 	background-color: #005487;
 }
-.data.insights span, .data.faqs span
+.data.services span, .data.insights span, .data.faqs span
 {
 	height: 15vh;
 }

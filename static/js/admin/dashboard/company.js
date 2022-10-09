@@ -134,6 +134,17 @@ const membersSectionTemplate = `
 	</p>
 `;
 
-const servicesSectionTemplate = ``;
+const servicesSectionTemplate = `
+	<p>
+		<span>
+			{{ID}}
+			<a href="/services/{{ID}}" target="_blank" title="View Service Page">
+				<sup class="bi-box-arrow-up-right"></sup>
+			</a>
+		</span>
+		<span>{{Name}}</span>
+		<span>{{Description}}</span>
+	</p>
+`;
 
 window.onload = app.showSection("members");
