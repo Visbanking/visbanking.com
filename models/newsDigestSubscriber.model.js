@@ -61,6 +61,15 @@ NewsDigestSubscriber.init({
 		set(newCompany) {
 			this.setDataValue("Company", newCompany);
 		}
+	},
+	Name: {
+		type: DataTypes.VIRTUAL,
+		get() {
+			return `${this.getDataValue("FirstName")} ${this.getDataValue("LastName")}`;
+		},
+		set(value) {
+			throw new Error("Cannot set value of VIRTUAL property");
+		}
 	}
 }, {
 	sequelize: connection,

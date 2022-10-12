@@ -1,8 +1,8 @@
 const NewsletterSubscriber = require("../models/newsletterSubscriber.model");
 const ResourceNotFoundError = require("../data/errors/ResourceNotFoundError");
 
-const NewsletterSubscriberController = {
-	async createSubscriber(subscriberData) {
+class NewsletterSubscriberController {
+	static async #createSubscriber(subscriberData) {
 		const subscriber = new NewsletterSubscriber(subscriberData);
 		try {
 			const result = await subscriber.save();
@@ -16,8 +16,8 @@ const NewsletterSubscriberController = {
 				error: err.original
 			};
 		}
-	},
-	async updateSubscriber(subscriberEmail, updateOptions) {
+	}
+	static async #updateSubscriber(subscriberEmail, updateOptions) {
 		const subscriber = await NewsletterSubscriber.findOne({
 			where: {
 				Email: subscriberEmail
@@ -48,8 +48,8 @@ const NewsletterSubscriberController = {
 				error: err.original
 			};
 		}
-	},
-	async deleteSubscriber(subscriberEmail) {
+	}
+	static async #deleteSubscriber(subscriberEmail) {
 		const subscriber = await NewsletterSubscriber.findOne({
 			where: {
 				Email: subscriberEmail
@@ -79,6 +79,9 @@ const NewsletterSubscriberController = {
 				error: err.original
 			};
 		}
+	}
+	static async getAllNewsletterSubscribers() {
+		return await NewsletterSubscriber.findAll();
 	}
 };
 

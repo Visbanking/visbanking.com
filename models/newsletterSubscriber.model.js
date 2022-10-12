@@ -98,6 +98,15 @@ NewsletterSubscriber.init({
 			notEmpty: true,
 			isEmail: true
 		}
+	},
+	Name: {
+		type: DataTypes.VIRTUAL,
+		get() {
+			return `${this.getDataValue("FirstName")} ${this.getDataValue("LastName")}`;
+		},
+		set(value) {
+			throw new Error("Cannot set value of VIRTUAL property");
+		}
 	}
 }, {
 	sequelize: connection,

@@ -29,13 +29,17 @@ html(lang="en")
 						i.bi-cpu-fill(class=adminDashboardSection==="system" ? "active" : "")
 					a(href=path==="/admin/dashboard/users"?"#":"/admin/dashboard/users", title="Users")
 						i.bi-people-fill(class=adminDashboardSection==="users" ? "active" : "")
+					a(href=path==="/admin/dashboard/marketing"?"#":"/admin/dashboard/marketing", title="Marketing")
+						i.bi-megaphone-fill(class=adminDashboardSection==="marketing" ? "active" : "") 
+					a(href=path==="/admin/dashboard/landing"?"#":"/admin/dashboard/landing", title="Landing/Funnel")
+						i.bi-funnel-fill(class=adminDashboardSection==="landing" ? "active" : "") 
 				a(href="/admin/logout", title="Log Out")
 					i.bi-door-open-fill 
 			if adminDashboardSection 
 				aside.controls.subControls
 					if adminDashboardSection === "content"
 						div 
-							i.bi-file-earmark-text-fill(title="Insights", :class="{ active:insights }", @click="showSection('insights')")
+							i.bi-file-earmark-richtext-fill(title="Insights", :class="{ active:insights }", @click="showSection('insights')")
 							i.bi-patch-question-fill(title="FAQs", :class="{ active:faqs }", @click="showSection('faqs')")
 					else if adminDashboardSection === "company"
 						div 
@@ -50,6 +54,10 @@ html(lang="en")
 						div 
 							//- i.bi-person-fill(title="Users", :class="{ active:users }", @click="showSection('users')")
 							i.bi-person-workspace(title="Academic Users", :class="{ active:academics }", @click="showSection('academics')")
+					else if adminDashboardSection === "marketing"
+						div 
+							i.bi-file-earmark-ruled-fill(title="News Digest", :class="{ active:newsDigest }", @click="showSection('newsDigest')")
+							i.bi-file-earmark-text-fill(title="Newsletter", :class="{ active:newsletter }", @click="showSection('newsletter')")
 			section#panel(data-section-chosen=adminDashboardSection?"1":"0")
 				if adminDashboardSection
 					div.loader(v-if="loading")
@@ -235,6 +243,20 @@ html(lang="en")
 							input#email(type="email" name="email", placeholder="Email *", required)
 							input(type="submit" name="action" value="Remove Academics Account")
 							i.bi-x-square-fill.reset(@click="hideForms")
+				else if adminDashboardSection === "marketing"
+					h2(v-if="newsDigest") News Digest Subscribers
+					h2(v-if="newsletter") Newsletter Subscribers
+					p.title.newsDigest(v-if="newsDigest")
+						span Name
+						span Email
+						span Company
+					p.title.newsletter(v-if="newsletter")
+						span Name
+						span Email
+						span Company
+					aside.data
+				else if adminDashboardSection === "landing"
+					h2(v-if="")
 		//- section
 		//- 	h1 Visbanking Admin Dashboard
 		//- 	h2 Admin Username: #{admin.Username}
@@ -399,3 +421,5 @@ html(lang="en")
 			script(src="/js/admin/dashboard/system.js") 
 		else if adminDashboardSection === "users"
 			script(src="/js/admin/dashboard/users.js") 
+		else if adminDashboardSection === "marketing"
+			script(src="/js/admin/dashboard/marketing.js") 

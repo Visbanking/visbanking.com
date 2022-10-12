@@ -1,8 +1,8 @@
 const NewsDigestSubscriber = require("../models/newsDigestSubscriber.model");
 const ResourceNotFoundError = require("./../data/errors/ResourceNotFoundError");
 
-const NewsDigestSubscriberController = {
-	async createSubscriber(subscriberData) {
+class NewsDigestSubscriberController {
+	static async #createSubscriber(subscriberData) {
 		const subscriber = new NewsDigestSubscriber(subscriberData);
 		try {
 			const result = await subscriber.save();
@@ -16,8 +16,8 @@ const NewsDigestSubscriberController = {
 				error: err.original
 			};
 		}
-	},
-	async updateSubscriber(subscriberEmail, updateOptions) {
+	}
+	static async #updateSubscriber(subscriberEmail, updateOptions) {
 		const subscriber = await NewsDigestSubscriber.findOne({
 			where: {
 				Email: subscriberEmail
@@ -48,8 +48,8 @@ const NewsDigestSubscriberController = {
 				error: err.original
 			};
 		}
-	},
-	async deleteSubscriber(subscriberEmail) {
+	}
+	static async #deleteSubscriber(subscriberEmail) {
 		const subscriber = await NewsDigestSubscriber.findOne({
 			where: {
 				Email: subscriberEmail
@@ -79,6 +79,9 @@ const NewsDigestSubscriberController = {
 				error: err.original
 			};
 		}
+	}
+	static async getAllNewsDigestSubscribers() {
+		return await NewsDigestSubscriber.findAll();
 	}
 };
 

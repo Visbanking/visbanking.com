@@ -4,6 +4,7 @@ const content = require("./dashboard/content");
 const company = require("./dashboard/company");
 const system = require("./dashboard/system");
 const users = require("./dashboard/users");
+const marketing = require("./dashboard/marketing");
 require("dotenv").config();
 const router = Router();
 
@@ -71,5 +72,7 @@ router.use("/company", company);
 router.use("/system", system);
 
 router.use("/users", users);
+
+router.use("/marketing", marketing);
 
 module.exports = router;
