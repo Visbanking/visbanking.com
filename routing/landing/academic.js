@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { createTransport } = require("nodemailer");
-const { readFileSync } = require("fs");
 const path = require("path");
+const { renderFile } = require("pug");
 const router = Router();
 require("dotenv").config();
 
@@ -25,9 +25,12 @@ router.post("/", (req, res) => {
 			pass: process.env.NO_REPLY_PASS,
 		},
 	});
-	const emailHTML = readFileSync(path.join(__dirname, "..", "..", "views", "emails", "academicRequest.html")).replaceAll("${name}", `${fName} ${lName}`).replaceAll("${email}", email);
+	const emailHTML = renderFile(path.join(__dirname, "..", "..", "views", "emails", "academicRequest.pug"), {
+		name: `${fName} ${lName}`,
+		email: email
+	});
 	const message = {
-		from: "Visbanking.com",
+		from: `Visbanking.com ${process.env.NO_REPLY_EMAIL}`,
 		to: ["info@visbanking.com", "brian@visbanking.com"],
 		subject: "New Academics Account Request",
 		html: emailHTML

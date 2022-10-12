@@ -1,10 +1,9 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const { EmailVerifier } = require("simple-email-verifier");
 const nodemailer = require("nodemailer");
 const connection = require("../data/dbconnection");
-const { readFileSync } = require("fs");
-const { join } = require("path");
+const path = require("path");
+const { renderFile } = require("pug");
 require("dotenv").config();
 const router = express.Router();
 
@@ -47,27 +46,34 @@ router.post("/", (req, res) => {
 										pass: process.env.NO_REPLY_PASS,
 									},
 								});
-								const emailHTML = readFileSync(join(__dirname, "..", "views", "emails", "contactFormSubmission.html"), "utf8")
-									.replace("${name}", name)
-									.replace("${email}", email)
-									.replace("${topic}", topic)
-									.replace("${message}", message)
-									.replace("${phone}", phone);
-								const emailMessage = {
-									from: `'Visbanking.com' ${process.env.NO_REPLY_EMAIL}`,
-									to: topic === "General" ? "info@visbanking.com" : topic === "Sales" ? "sales@visbanking.com" : topic === "Support" ? "support@visbanking.com" : "",
-									subject: "New Contact Submission | Visbanking",
-									html: emailHTML,
-								};
-								transporter.sendMail(emailMessage, (err, info) => {
-									if (err) {
-										console.error(err);
-										res.redirect("/contact/success");
-									} else {
-										console.log(info);
-										res.redirect("/contact/success");
-									}
+								const userEmailHTML = renderFile(path.join(__dirname, "..", "views", "emails", "contactFormSubmissionConfirmation.pug"), {
+									fName: req.body.fname,
+									lName: req.body.lname,
+									email, message, topic, phone
 								});
+								const notificationEmailHTML = renderFile(path.join(__dirname, "..", "views", "emails", "contactFormSubmissionNotification.pug"), {
+									name, email, message, topic, phone
+								});
+								const userEmailMessage = {
+									from: `Visbanking.com ${process.env.NO_REPLY_EMAIL}`,
+									to: topic === "General" ? "info@visbanking.com" : topic === "Sales" ? "sales@visbanking.com" : topic === "Support" ? "support@visbanking.com" : "",
+									subject: "Thanks for your interest | Visbanking",
+									html: userEmailHTML,
+								};
+								const notificationEmailMessage = {
+									from: `Visbanking.com ${process.env.NO_REPLY_EMAIL}`,
+									to: "info@visbanking.com",
+									subject: "New Contact Submission | Visbanking",
+									html: notificationEmailHTML,
+								};
+								try {
+									transporter.sendMail(userEmailMessage);
+									transporter.sendMail(notificationEmailMessage);
+									res.redirect("/contact/success");
+								} catch (err) {
+									console.error(err);
+									res.redirect("/contact");
+								};
 							}
 						});
 					} else if (err && err.code !== "ER_DUP_ENTRY") {
