@@ -4,6 +4,7 @@ const { renderFile } = require("pug");
 const { createNewLead } = require("../../controllers/conversionLead.controller");
 const { getInsightsByPage } = require("../../controllers/insight.controller");
 const path = require("path");
+const errorLogger = require("../../data/log/error.log");
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -23,7 +24,7 @@ router.post("/", (req, res) => {
 		Email: email,
 		Phone: req.body.phone || null
 	})
-	.then(() => {
+	.then(async () => {
 		const transporter = createTransport({
 			name: "www.visbanking.com",
 			host: "mail.visbanking.com",
@@ -34,20 +35,34 @@ router.post("/", (req, res) => {
 				pass: process.env.NO_REPLY_PASS,
 			},
 		});
-		const emailHTML = renderFile(path.join(__dirname, "..", "..", "views", "emails", "conversionLeadSubmission.pug"), {
+		const userEmailHTML = renderFile(path.join(__dirname, "..", "..", "views", "emails", "conversionLeadSubmission.pug"), {
 			name: `${fName} ${lName}`
 		});
-		const message = {
+		const notificationEmailHTML = renderFile(path.join(__dirname, "..", "..", "views", "emails", "conversionLeadNotification.pug"), {
+			name: `${fName} ${lName}`,
+			email,
+			phone: req.body.phone
+		});
+		const userMessage = {
 			from: "Visbanking Report no-reply@visbanking.com",
 			to: email,
 			subject: "Download the Bank Ranking Report here",
-			html: emailHTML
+			html: userEmailHTML
 		};
-		transporter.sendMail(message, (err, info) => {
-			console.log(info);
-			if (err) res.redirect("/landing/report");
-			else res.redirect("/landing/report/success");
-		});
+		const notificatinMessage = {
+			from: "Visbanking.com no-reply@visbanking.com",
+			to: "info@visbanking.com",
+			subject: "New Lead Generated",
+			html: notificationEmailHTML
+		};
+		try {
+			await transporter.sendMail(userMessage);
+			await transporter.sendMail(notificatinMessage);
+			res.redirect("/landing/report/success");
+		} catch (err) {
+			errorLogger.error(err);
+			res.redirect("/landing/report");
+		}
 	})
 	.catch(() => {
 		res.redirect("/landing/report");
