@@ -23,8 +23,10 @@ html(lang="en")
 		script(src="https://unpkg.com/vue@next")
 		script(async, src="https://www.googletagmanager.com/gtag/js?id=G-MJJWFHMT7Z") 
 		script(src="https://accounts.google.com/gsi/client", async, defer)
-		script(src="/js/analytics.js", defer) 
-	body 
+		script(src="/js/googleTagManager.js", defer) 
+	body
+		noscript
+			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDNTTGL" height="0" width="0" style="display:none;visibility:hidden;">
 		header 
 			nav.navbar.navbar-expand-lg.sticky-top
 				a.navbar-brand(href=path==="/"?"#":"/")
