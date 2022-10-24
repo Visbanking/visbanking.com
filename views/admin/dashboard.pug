@@ -31,8 +31,6 @@ html(lang="en")
 						i.bi-people-fill(class=adminDashboardSection==="users" ? "active" : "")
 					a(href=path==="/admin/dashboard/marketing"?"#":"/admin/dashboard/marketing", title="Marketing")
 						i.bi-megaphone-fill(class=adminDashboardSection==="marketing" ? "active" : "") 
-					a(href=path==="/admin/dashboard/landing"?"#":"/admin/dashboard/landing", title="Landing/Funnel")
-						i.bi-funnel-fill(class=adminDashboardSection==="landing" ? "active" : "") 
 				a(href="/admin/logout", title="Log Out")
 					i.bi-door-open-fill 
 			if adminDashboardSection 
@@ -255,8 +253,6 @@ html(lang="en")
 						span Email
 						span Company
 					aside.data
-				else if adminDashboardSection === "landing"
-					h2(v-if="")
 		//- section
 		//- 	h1 Visbanking Admin Dashboard
 		//- 	h2 Admin Username: #{admin.Username}
