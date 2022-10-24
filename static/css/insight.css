@@ -196,6 +196,7 @@ p.title
 #related .post img
 {
     max-width: 100%;
+	height: auto;
     margin: 0 auto;
 }
 #related .post > a
