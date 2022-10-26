@@ -56,13 +56,13 @@ router.post("/", (req, res) => {
 								});
 								const userEmailMessage = {
 									from: `Visbanking.com ${process.env.NO_REPLY_EMAIL}`,
-									to: topic === "General" ? "info@visbanking.com" : topic === "Sales" ? "sales@visbanking.com" : topic === "Support" ? "support@visbanking.com" : "",
+									to: email,
 									subject: "Thanks for your interest | Visbanking",
 									html: userEmailHTML,
 								};
 								const notificationEmailMessage = {
 									from: `Visbanking.com ${process.env.NO_REPLY_EMAIL}`,
-									to: "info@visbanking.com",
+									to: topic === "General" ? "info@visbanking.com" : topic === "Sales" ? "sales@visbanking.com" : topic === "Support" ? "support@visbanking.com" : "",
 									subject: "New Contact Submission | Visbanking",
 									html: notificationEmailHTML,
 								};
