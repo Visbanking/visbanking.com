@@ -168,7 +168,7 @@ h2
     font-weight: 700;
     font-size: 1.8rem;
 }
-#newsletter
+/* #newsletter
 {
     background-color: #128AF9;
     color: #FFFFFF;
@@ -234,7 +234,7 @@ h2
     cursor: pointer;
     font-family: inherit;
     font-size: 1rem;
-}
+} */
 footer
 {
     background-color: #024668;
@@ -363,14 +363,14 @@ footer .links a:hover
         width: 100%;
         margin: 2% auto;
     }
-    #newsletter
+    /* #newsletter
     {
         padding: 3% 2%;
     }
     #newsletter input:not([type="submit"])
     {
         width: 35%;
-    }
+    } */
     footer img
     {
         margin: 0 auto;
@@ -421,7 +421,7 @@ footer .links a:hover
     {
         font-size: 1.5rem;
     }
-    #newsletter
+    /* #newsletter
     {
         flex-direction: column;
         margin: 5% 0 0;
@@ -440,7 +440,7 @@ footer .links a:hover
     #newsletter input[type="submit"]
     {
         padding: 2% 3%;
-    }
+    } */
     .copyright
     {
         padding: 2%;
@@ -463,7 +463,7 @@ footer .links a:hover
         width: 25%;
         padding: 1% 3%;
     }
-    #newsletter i, #pricing i
+    /* #newsletter i, #pricing i
     {
         font-size: 3rem;
     }
@@ -480,7 +480,7 @@ footer .links a:hover
     #newsletter input[type="submit"]
     {
         padding: 3% 5%;
-    }
+    } */
     footer img
     {
         width: 30%;
@@ -518,7 +518,7 @@ footer .links a:hover
     {
         line-height: 1;
     }
-    #newsletter input:not([type="submit"])
+    /* #newsletter input:not([type="submit"])
     {
         width: 90%;
         padding: 3%;
@@ -527,7 +527,7 @@ footer .links a:hover
     #newsletter input[type="submit"]
     {
         padding: 3% 5%;
-    }
+    } */
     footer img
     {
         width: 50%;
