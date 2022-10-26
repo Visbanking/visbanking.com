@@ -1,74 +1,185 @@
 extends layout.pug
 
 block meta
-    meta(name="description" content="")
-    meta(name="keywords" content="")
+	meta(name="description" content="")
+	meta(name="keywords" content="")
 
 block styles 
-    link(rel="stylesheet" href="/css/pricing.css")
+	link(rel="stylesheet" href="/css/pricing.css")
 
 block main
-    h1 Subscription plans to meet your needs
-    section#pricing
-        aside.plan#free
-            h3 Free
-            p
-                span.price $#{tiers.free.price}
-            hr
-            ul.features
-                each feature in tiers.free.features
-                    li 
-                        p
-                            i.bi-check2-square 
-                            | #{feature}
-            a.button(href="/signup?tier=free", target="_blank") Subscribe 
-        aside.plan#professional
-            div Most Popular
-            h3 Professional
-            p
-                span.price $#{tiers.professional.price}
-                | /month
-            hr
-            p All Free Features 
-                br
-                i.bi-plus
-            ul.features
-                each feature in tiers.professional.features
-                    li 
-                        p
-                            i.bi-check2-square 
-                            | #{feature}
-            a.button(href="/signup?tier=professional", target="_blank") Subscribe 
-        aside.plan#premium 
-            h3 Premium
-            p
-                span.price $#{tiers.premium.price}
-                | /month
-            hr
-            p All Professional Features 
-                br
-                i.bi-plus    
-            ul.features
-                each feature in tiers.premium.features
-                    li 
-                        p
-                            i.bi-check2-square 
-                            | #{feature}
-            a.button(href="/signup?tier=premium", target="_blank") Subscribe 
-        aside.plan#enterprise 
-            h3 Enterprise
-            p.price Contact sales
-            hr
-            p All Premium Features 
-                br
-                i.bi-plus
-            ul.features
-                each feature in tiers.enterprise.features
-                    li 
-                        p
-                            i.bi-check2-square 
-                            | #{feature}
-            a.button(href="mailto:sales@visbanking.com") Contact Sales 
+	aside#intro
+		h1 Enhance your decision-making with Visbanking solutions
+		h2 Subscription plans to meet your needs
+	section#pricing
+		aside.plan#free
+			h3 Free
+			p
+				span.price $#{tiers.free.price}
+			hr
+			ul.features
+				each feature in tiers.free.features
+					li 
+						p
+							i.bi-check2-square 
+							| #{feature}
+			a.button(href="/signup?tier=free" target="_blank") Subscribe 
+		aside.plan#professional
+			div Most Popular
+			h3 Professional
+			p
+				span.price $#{tiers.professional.price}
+				| /month
+			hr
+			p All Free Features 
+				br
+				i.bi-plus
+			ul.features
+				each feature in tiers.professional.features
+					li 
+						p
+							i.bi-check2-square 
+							| #{feature}
+			a.button(href="/signup?tier=professional" target="_blank") Subscribe 
+		aside.plan#premium 
+			h3 Premium
+			p
+				span.price $#{tiers.premium.price}
+				| /month
+			hr
+			p All Professional Features 
+				br
+				i.bi-plus    
+			ul.features
+				each feature in tiers.premium.features
+					li 
+						p
+							i.bi-check2-square 
+							| #{feature}
+			a.button(href="/signup?tier=premium" target="_blank") Subscribe 
+		aside.plan#enterprise 
+			h3 Enterprise
+			p.price Contact sales
+			hr
+			p All Premium Features 
+				br
+				i.bi-plus
+			ul.features
+				each feature in tiers.enterprise.features
+					li 
+						p
+							i.bi-check2-square 
+							| #{feature}
+			a.button(href="mailto:sales@visbanking.com") Contact Sales 
 
 block scripts 
-    script(src="/js/pricing.js") 
+	script(src="/js/pricing.js") 
+
+//- extends layout.pug
+
+//- block meta
+//- 	meta(name="description" content="")
+//- 	meta(name="keywords" content="")
+
+//- block styles 
+//- 	link(rel="stylesheet" href="/css/pricing.css")
+
+//- block main
+//- 	section#pricing
+//- 		h1 Enhance your decision- making with Visbanking solutions
+//- 		aside.plan#free
+//- 			.header
+//- 				h3 Free
+//- 				p
+//- 					span.price $#{tiers.free.price}
+//- 					| /forever
+//- 			.body 
+//- 				p Free Plan includes:
+//- 				ul.features
+//- 					each feature in tiers.free.features.slice(0, 5)
+//- 						li 
+//- 							p
+//- 								i.bi-check2-square 
+//- 								| #{feature}
+//- 			a.button(href="/signup?tier=free" target="_blank") Get Started 
+//- 		aside.plan#professional
+//- 			div Most Popular
+//- 			.header 
+//- 				h3 Professional
+//- 				p
+//- 					span.price $#{tiers.professional.price}
+//- 					| /month
+//- 			.body
+//- 				p Professional Plan includes:
+//- 				ul.features
+//- 					each feature in tiers.professional.features.slice(0, 5)
+//- 						li 
+//- 							p
+//- 								i.bi-check2-square 
+//- 								| #{feature}
+//- 			a.button(href="/signup?tier=professional" target="_blank") Get Started 
+//- 		aside.plan#premium
+//- 			.header
+//- 				h3 Premium
+//- 				p
+//- 					span.price $#{tiers.premium.price}
+//- 					| /month
+//- 			.body 
+//- 				p Premium Plan includes:  
+//- 				ul.features
+//- 					each feature in tiers.premium.features.slice(0, 5)
+//- 						li 
+//- 							p
+//- 								i.bi-check2-square 
+//- 								| #{feature}
+//- 			a.button(href="/signup?tier=premium" target="_blank") Get Started 
+//- 		aside.plan#enterprise 
+//- 			.header 
+//- 				h3 Enterprise
+//- 				p.price Contact sales
+//- 			.body 
+//- 				p Enterprise Plan includes:
+//- 				ul.features
+//- 					each feature in tiers.enterprise.features.slice(0, 5)
+//- 						li 
+//- 							p
+//- 								i.bi-check2-square 
+//- 								| #{feature}
+//- 			a.button(href="mailto:sales@visbanking.com") Contact Sales
+//- 		a(href="#features") 
+//- 			i.bi-chevron-down
+//- 			|  See All Features 
+//- 			i.bi-chevron-down
+//- 	section#features 
+//- 		h2 SUbscription Plans to meet your needs
+//- 		- const tiersArray = ["Free", "Professional", "Premium", "Enterprise"];
+//- 		each tier, index in tiersArray
+//- 			aside
+//- 				div
+//- 					if index === 0
+//- 						i.bi-award
+//- 					if index === 1
+//- 						i.bi-award-fill
+//- 					if index === 2
+//- 						i.bi-trophy
+//- 					if index === 3
+//- 						i.bi-trophy-fill
+//- 					h3 #{tier}
+//- 					if index !== 3
+//- 						a.button(href=`/signup?tier=${tier.toLowerCase()}`) Get Started
+//- 					else if index === 3
+//- 						a.button(href="mailto:sales@visbanking.com") Contact Sales
+//- 				div
+//- 					ul 
+//- 						each feature in tiers[tier.toLowerCase()].features
+//- 							li 
+//- 								if index % 2 === 1
+//- 									i.bi-check2-square 
+//- 								|  #{feature} 
+//- 								if index % 2 === 0
+//- 									i.bi-check2-square 
+//- 			if index < 3
+//- 				hr
+
+//- block scripts 
+//- 	script(src="/js/pricing.js") 

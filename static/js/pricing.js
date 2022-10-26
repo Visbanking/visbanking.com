@@ -3,3 +3,5 @@ const maxCardHeight = document.querySelector(".plan#professional").offsetHeight+
 document.querySelectorAll("aside.plan").forEach(card => {
 	card.style.height = `${maxCardHeight}px`;
 });
+
+// window.location.hash ||= "#pricing";

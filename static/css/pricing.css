@@ -2,24 +2,30 @@ header
 {
     min-height: auto;
 }
+aside#intro
+{
+	background-image: url("./../images/pricing/header.png");
+	background-size: cover;
+}
 h1, h2
 {
-    color: #005487;
+    color: #FFFFFF;
+	background-color: #015193CC;
     margin: 0 auto;
-    text-align: center;
-    text-transform: uppercase;
+    text-align: left;
 }
 h1
 {
-	font-size: 2rem;
+	font-size: 2.2rem;
+	padding: 2rem 2rem 0;
+    text-transform: uppercase;
 }
-h2 + p
+#intro h2
 {
     font-size: 1.5rem;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 3% auto 1%;
-    font-weight: 700;
+    text-transform: capitalize;
+	padding: 0 2rem 2rem;
+    font-weight: 600;
 }
 #pricing
 {
@@ -189,3 +195,312 @@ a.button
         margin-bottom: 8%;
     }
 }
+/* header
+{
+    min-height: auto;
+}
+main section
+{
+	padding: 1rem;
+}
+h1, h2
+{
+	color: #015193;
+    margin: 0 auto;
+    text-align: center;
+    text-transform: uppercase;
+}
+h1
+{
+	font-size: 2.5rem;
+	margin-bottom: 2rem;
+}
+h2
+{
+	font-size: 2rem;
+	width: 100%;
+	font-weight: 700;
+}
+#pricing
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    min-height: auto;
+}
+.plan
+{
+    width: calc(100%/4.1);
+    border: 1px solid #128AF9;
+    position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10px;
+}
+.plan > div[class]
+{
+	width: 100%;
+	box-sizing: border-box;
+}
+#professional
+{
+	background-color: #128AF9;
+	color: #FFFFFF;
+}
+#professional > div:first-of-type
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3%;
+    border-radius: 15px;
+    text-transform: uppercase;
+	text-align: center;
+    width: 60%;
+    background-color: #015193;
+	color: #FFFFFF;
+	font-weight: 600;
+}
+.plan .header
+{
+    border: none;
+    border-bottom: 1px solid #128AF9;
+    margin-bottom: 5%;
+	padding: 1.5rem 2rem 1rem;
+	text-align: center;
+}
+.header > *
+{
+	margin: 0;
+}
+#professional .header
+{
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+    border-color: #FFFFFF;
+}
+.header h3
+{
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 1.75rem;
+	text-shadow: 0 0 0.2rem #666666;
+}
+#professional .header h3
+{
+	text-shadow: 0 0 0.2rem #FFFFFF;
+}
+.header p
+{
+    margin: 2% auto 0;
+}
+.price
+{
+    font-size: 1.5rem;
+	font-weight: 700;
+}
+.body
+{
+	padding: 0 1rem;
+}
+.body > p:first-of-type
+{
+    margin: 0 auto;
+     text-align: center; 
+    font-size: 1.3rem;
+    font-weight: 700;
+     text-transform: uppercase; 
+}
+ul.features
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0.5rem auto 3rem;
+     text-align: center;
+}
+.features li
+{
+    padding: 0.5rem 0;
+    text-transform: capitalize;
+}
+.features p
+{
+    margin: 0;
+}
+a.button
+{
+    padding: 4% 10%;
+    border-radius: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+	display: inline-block;
+	margin-bottom: 1rem;
+	transition: all 0.1s linear;
+}
+.plan:not(#professional) a.button
+{
+    background-color: #015193;
+    color: #FFFFFF;
+}
+.plan:not(#professional) a.button:hover, .plan:not(#professional) a.button:focus
+{
+	outline: none;
+	box-shadow: 0 0 10px 0.1rem #015193;
+}
+#professional a.button
+{
+    background-color: #FFFFFF;
+    color: #015193;
+}
+#professional a.button:hover, #professional a.button:focus
+{
+	outline: none;
+	box-shadow: 0 0 10px 0.1rem #CCCCCC;
+}
+#pricing > a
+{
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 1.2rem;
+	margin: 1rem auto 0;
+	color: #000000;
+}
+#pricing > a i
+{
+	vertical-align: middle;
+}
+#features aside
+{
+	width: 80%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem 1rem;
+	box-sizing: border-box;
+	margin:  0 auto;
+}
+#features aside:nth-of-type(2n+1)
+{
+	flex-direction: row;
+}
+#features aside:nth-of-type(2n)
+{
+	flex-direction: row-reverse;
+	text-align: right;
+}
+#features hr
+{
+	width: 70%;
+	border-color: #128AF9;
+}
+#features aside div
+{
+	width: 50%;
+}
+#features div:first-child i
+{
+	font-size: 2.5rem;
+}
+#features h3
+{
+	margin: 0;
+	font-size: 2rem;
+	text-transform: uppercase;
+}
+#features ul
+{
+	list-style-type: none;
+	padding: 0;
+	text-align: left;
+	text-transform: capitalize;
+}
+#features aside:nth-of-type(2n+1) ul
+{
+	text-align: right;
+}
+#features aside:nth-of-type(2n) ul
+{
+	text-align: left;
+}
+#features li
+{
+	padding: 0.5rem 0;
+}
+#features .button
+{
+	color: #015193;
+	border: 1px solid;
+	margin: 1rem 0 0;
+	padding: 0.5rem 1rem;
+	border-radius: 10px;
+	transition: all 0.1s linear;
+}
+#features .button:hover, #features .button:focus
+{
+	outline: none;
+	background-color: #015193;
+	color: #FFFFFF;
+	border-color: transparent;
+	box-shadow: 2px 2px 5px 0.1rem #555555 ;
+}
+@media screen and (max-width: 991px)
+{
+    .plan
+    {
+        width: calc(100%/2.5);
+    }
+    .plan:not(#premium, #enterprise)
+    {
+        margin-bottom: 3%;
+    }
+    .plan h3
+    {
+        margin-top: 3%;
+    }
+}
+@media screen and (max-width: 767px)
+{
+    .plan
+    {
+        width: calc(100%/2.2);
+    }
+    .plan:not(#premium, #enterprise)
+    {
+        margin-bottom: 5%;
+    }
+    .plan h3
+    {
+        margin-top: 5%;
+    }
+}
+@media screen and (max-width: 550px)
+{
+    h2
+    {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .plan, .plan:not(#premium, #enterprise)
+    {
+        width: calc(100%/1.2);
+        margin-bottom: 8%;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    .plan, .plan:not(#premium, #enterprise)
+    {
+        width: 100%;
+        margin-bottom: 8%;
+    }
+} */
