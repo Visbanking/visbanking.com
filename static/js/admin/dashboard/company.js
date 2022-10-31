@@ -3,6 +3,7 @@ const app = Vue.createApp({
 		return {
 			members: true,
 			services: false,
+			pressReleases: false,
 			create: false,
 			edit: false,
 			remove: false,
@@ -13,12 +14,16 @@ const app = Vue.createApp({
 		showSection(sectionId) {
 			this.hideForms();
 			this.showLoader();
+			this.cleanDataSection();
 			switch (sectionId) {
 				case "members":
 					this.showMembers();
 					break;
 				case "services":
 					this.showServices();
+					break;
+				case "pressReleases":
+					this.showPressReleases();
 					break;
 			}
 			this.getSectionData(sectionId)
@@ -32,6 +37,10 @@ const app = Vue.createApp({
 						document.querySelector("aside.data").className = "data services";
 						this.renderServicesSection(sectionData);
 						break;
+					case "pressReleases":
+						document.querySelector("aside.data").className = "data press";
+						this.renderPressReleasesSection(sectionData);
+						break;
 				}
 			})
 			.catch(err => {
@@ -42,12 +51,16 @@ const app = Vue.createApp({
 			});
 		},
 		showMembers() {
-			this.services = false;
+			this.services = this.pressReleases = false;
 			this.members = true;
 		},
 		showServices() {
-			this.members = false;
+			this.members = this.pressReleases = false;
 			this.services = true;
+		},
+		showPressReleases() {
+			this.members = this.services = false;
+			this.pressReleases = true;
 		},
 		showForm(formId) {
 			this.hideForms();
@@ -72,6 +85,9 @@ const app = Vue.createApp({
 					break;
 				case "services":
 					sectionData = await fetch("/admin/dashboard/company/services");
+					break;
+				case "pressReleases":
+					sectionData = await fetch("/admin/dashboard/company/pressReleases");
 					break;
 			}
 			const data = await sectionData.json();
@@ -100,11 +116,22 @@ const app = Vue.createApp({
 			});
 			document.querySelector("#panel aside.data").innerHTML = servicesSectionHTMLContentArray.join("");
 		},
+		renderPressReleasesSection(sectionData) {
+			const { data } = sectionData;
+			const pressReleasesSectionHTMLContentArray = [];
+			data.forEach(dataElement => {
+				pressReleasesSectionHTMLContentArray.push(this.renderTemplate(pressReleasesSectionTemplate, dataElement));
+			});
+			document.querySelector("#panel aside.data").innerHTML = pressReleasesSectionHTMLContentArray.join("");
+		},
 		previewImage(event) {
 			const image = event.target.files[0];
 			const imageElement = document.querySelector("img#preview");
 			if (image) imageElement.src = URL.createObjectURL(image);
 			else imageElement.src = "";
+		},
+		cleanDataSection() {
+			document.querySelector("#panel aside.data").innerHTML = "";
 		}
 	}
 }).mount("body > main");
@@ -144,6 +171,28 @@ const servicesSectionTemplate = `
 		</span>
 		<span>{{Name}}</span>
 		<span>{{Description}}</span>
+	</p>
+`;
+
+const pressReleasesSectionTemplate = `
+	<p>
+		<span>
+			{{Title}}
+			<a href="/press/{{ID}}" target="_blank" title="Read Press Release">
+				<sup class="bi-box-arrow-up-right"></sup>
+			</a>
+		</span>
+		<span>
+			Header Image
+			<a href="https://visbanking.com{{Image}}" alt={{Title}} target="_blank" title="View Header Image">
+				<sup class="bi-box-arrow-up-right"></sup>
+			</a>
+		</span>
+		<span>{{Description}}</span>
+		<span>{{Date}}</span>
+		<span>{{Tags}}</span>
+		<span>{{Keywords}}</span>
+		<span>{{Author}}</span>
 	</p>
 `;
 
