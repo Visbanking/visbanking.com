@@ -18,7 +18,7 @@ Insight.init({
 		}
 	},
 	Title: {
-		type: DataTypes.TEXT,
+		type: DataTypes.STRING(150),
 		allowNull: false,
 		unique: true,
 		validate: {
@@ -134,7 +134,7 @@ Insight.init({
 			len: [10, 50]
 		},
 		get() {
-			return this.getDataValue("Tags").length ? this.getDataValue("Tags") : "N/A";
+			return this.getDataValue("Keywords").length ? this.getDataValue("Keywords") : "N/A";
 		},
 		set(value) {
 			this.setDataValue("Keywords", value);
