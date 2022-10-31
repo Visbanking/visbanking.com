@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		meta(name="author" content="Visbanking.com")
+		meta(name="title" content="Edit Press Release")
+		title Edit Press Release
+		link(rel="preconnect" href="https://fonts.googleapis.com")
+		link(rel="preconnect" href="https://fonts.gstatic.com", crossorigin)
+		link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap" rel="stylesheet")
+		link(rel="stylesheet" href="/css/admin/dashboard/content/insights/create.css")
+	body 
+		h1 Edit insight
+		form.active(method="POST" enctype="multipart/form-data")
+			label(for="title") Press Release to edit *
+			select#title(name="title", required) 
+				each pressReleasesTitle in pressReleasesTitles 
+					option(value=pressReleasesTitle) #{pressReleasesTitle} 
+			label(for="headerImage") New Header Image *
+			img(src="")
+			input#headerImage(type="file" name="headerImage" accept="image/jpeg, image/png", required)
+			input(type="submit" name="action" value="Edit Press Release")
+		script(src="/js/admin/dashboard/content/insights/edit.js") 

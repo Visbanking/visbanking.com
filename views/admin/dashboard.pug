@@ -43,6 +43,7 @@ html(lang="en")
 						div 
 							i.bi-person-circle(title="Members", :class="{ active:members }", @click="showSection('members')")
 							i.bi-list-stars(title="Services", :class="{ active:services }", @click="showSection('services')")
+							i.bi-journal-richtext(title="Press Releases", :class="{ active: pressReleases }", @click="showSection('pressReleases')")
 					else if adminDashboardSection === "system"
 						div 
 							i.bi-person-bounding-box(title="Admin Profile", :class="{ active:profile }", @click="showSection('profile')")
@@ -133,6 +134,13 @@ html(lang="en")
 						i.bi-pencil-fill(@click="showForm('edit')")
 						i.bi-plus-circle-fill(@click="showForm('create')")
 						i.bi-dash-circle-fill(@click="showForm('remove')")
+					h2(v-if="pressReleases") 
+						| Press Releases
+						a(href="/admin/dashboard/company/pressReleases/edit") 
+							i.bi-pencil-fill
+						a(href="/admin/dashboard/company/pressReleases/create")
+							i.bi-plus-circle-fill
+						i.bi-dash-circle-fill(@click="showForm('remove')")
 					p.title.members(v-if="members")
 						span Name
 						span Email
@@ -143,6 +151,15 @@ html(lang="en")
 						span ID
 						span Name
 						span Description
+					p.title.press(v-if="pressReleases")
+						span Title
+						span Header Image
+						//- span Category
+						span Description
+						span Date
+						span Tags
+						span Keywords
+						span Author
 					aside.data
 					aside.forms(v-if="create || edit || remove")
 						form.create(action="/admin/dashboard/company/members/create" method="POST" v-if="members && create" enctype="multipart/form-data")
@@ -187,6 +204,11 @@ html(lang="en")
 							h4 Remove Service
 							input#name(type="text", name="name", placeholder="Service Name *", maxlength="150", required)
 							input(type="submit", name="action", value="Remove Service")
+							i.bi-x-square-fill.reset(@click="hideForms")
+						form.remove(action="/admin/dashboard/company/pressReleases/remove" method="POST" v-if="pressReleases && remove")
+							h4 Remove Press Release
+							input#title(type="text" name="title" placeholder="Press Release Title *", required)
+							input(type="submit" name="action" value="Remove Press Release")
 							i.bi-x-square-fill.reset(@click="hideForms")
 				else if adminDashboardSection === "system"
 					h2(v-if="profile") 
@@ -253,161 +275,6 @@ html(lang="en")
 						span Email
 						span Company
 					aside.data
-		//- section
-		//- 	h1 Visbanking Admin Dashboard
-		//- 	h2 Admin Username: #{admin.Username}
-		//- 	p.message(class=`${message.includes("successfully") ? "success" : "error"}`, data-content-exist=`${message.trim()!==''}`) #{message}
-		//- 	#dashboard
-		//- 		.controls 
-		//- 			i.bi-gear-fill#profile(:class="{'active': profile}", @click="showSection('profile')" title="Admin Profile")
-		//- 			i.bi-person-badge-fill#admins(:class="{'active': admins}", @click="showSection('admins')" title="System Admins")
-		//- 			i.bi-file-earmark-text-fill#insights(:class="{'active': insights}", @click="showSection('insights')" title="Insights")
-		//- 			i.bi-person-circle#members(:class="{'active': members}", @click="showSection('members')" title="Members")
-		//- 			i.bi-patch-question-fill#questions(:class="{'active': questions}", @click="showSection('questions')" title="FAQs")
-		//- 			i.bi-person-workspace#academics(:class="{ active:academics }", @click="showSection('academics')" title="Academics")
-		//- 		aside#panel
-		//- 			h3(v-if="profile") Admin Profile
-		//- 			h3(v-if="admins") System Admins
-		//- 			h3(v-if="insights") Insights
-		//- 			h3(v-if="members") Members
-		//- 			h3(v-if="questions") FAQs
-		//- 			h3(v-if="academics") Academics
-		//- 			p.loader(v-if="loading") LOADING...
-		//- 			.profile(v-if="profile")
-		//- 				p.title
-		//- 					span ID 
-		//- 					span Username
-		//- 				div
-		//- 				.editor
-		//- 					h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit Profile
-		//- 					form(class="edit" action="/admin/dashboard/profile/edit" method="POST" v-if="edit")
-		//- 						input#newUsername(type="text" name="newUsername" placeholder="New Username")
-		//- 						input#newPassword(type="password" name="newPassword" placeholder="New Password")
-		//- 						input(type="submit" name="action" value="Update Profile")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 			.admins(v-if="admins")
-		//- 				p.title
-		//- 					span Admin ID 
-		//- 					span Admin Username
-		//- 				div
-		//- 				.editor 
-		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Admin
-		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Admin
-		//- 					form(class="create" action="/admin/dashboard/admins/create" method="POST" v-if="create")
-		//- 						input#username(type="text" name="username" placeholder="New Admin Username", required)
-		//- 						input(type="submit" name="action" value="Create Admin")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 					form(class="remove" action="/admin/dashboard/admins/delete" method="POST" v-if="remove")
-		//- 						input#username(type="text" name="username" placeholder="Admin Username")
-		//- 						input(type="submit" name="action" value="Remove Admin")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 			.insights(v-if="insights")
-		//- 				p.title
-		//- 					span Title
-		//- 					span Header Image
-		//- 					span Category
-		//- 					span Description
-		//- 					span Date
-		//- 					span Tags 
-		//- 					span Keywords 
-		//- 					span Author
-		//- 				div 
-		//- 				.editor 
-		//- 					h4(role="button", @click="redirectToInsightCreation") Create Insight
-		//- 					h4(role="button", @click="redirectToInsightEditing") Edit Insight
-		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Insight
-		//- 					form(class="remove" action="/admin/dashboard/insights/delete" method="POST" v-if="remove")
-		//- 						input#title(type="text" name="title" placeholder="Insight Title")
-		//- 						input(type="submit" name="action" value="Remove Insight")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 			.members(v-if="members")
-		//- 				p.title
-		//- 					span Name
-		//- 					span Email
-		//- 					span Title
-		//- 					span LinkedIn
-		//- 					span Picture
-		//- 				div 
-		//- 				.editor 
-		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Member
-		//- 					h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit Member
-		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Member
-		//- 					form(class="create" action="/admin/dashboard/members/create" method="POST" v-if="create" enctype="multipart/form-data")
-		//- 						input#name(type="text" name="name" placeholder="New Member Name", required)
-		//- 						input#email(type="text" name="email" placeholder="New Member Email", required)
-		//- 						input#title(type="text" name="title" placeholder="New Member Title", required)
-		//- 						input#linkedin(type="url" name="linkedin" placeholder="New Member LinkedIn URL", required)
-		//- 						img#preview(src="")
-		//- 						input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage", required)
-		//- 						input(type="submit" name="action" value="Create Member")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 					form(class="edit" action="/admin/dashboard/members/edit" method="POST" v-if="edit" enctype="multipart/form-data")
-		//- 						input#name(type="text" name="name" placeholder="Member Name *", required)
-		//- 						input#newName(type="text" name="newName" placeholder="New Member Name")
-		//- 						input#newEmail(type="email" name="newEmail" placeholder="New Member Email")
-		//- 						input#newTitle(type="text" name="newTitle" placeholder="New Member Title")
-		//- 						input#newLinkedIn(type="url" name="newLinkedIn" placeholder="New Member LinkedIn URL")
-		//- 						img#preview(src="")
-		//- 						input#image(type="file" name="photo" accept="image/jpeg, image/png", @change="previewImage")
-		//- 						input(type="submit" name="action" value="Update Member")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 					form(class="remove" action="/admin/dashboard/members/delete" method="POST" v-if="remove")
-		//- 						input#name(type="text" name="name" placeholder="Member Name *", required)
-		//- 						input(type="submit" name="action" value="Remove Member")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 			.questions(v-if="questions")
-		//- 				p.title
-		//- 					span Question
-		//- 					span Answer
-		//- 					span Category
-		//- 				div
-		//- 				.editor 
-		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create FAQ
-		//- 					h4(role="button" class="edit", :class="{ active:edit }", @click="showForm('edit')") Edit FAQ
-		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove FAQ
-		//- 					form(class="create" action="/admin/dashboard/questions/create" method="POST" v-if="create")
-		//- 						input#question(type="text" name="question" placeholder="New FAQ Question *", required)
-		//- 						textarea#answer(rows="4" name="answer" placeholder="New FAQ Answer *", required)
-		//- 						select#category(type="text" name="category" placeholder="New FAQ Category *", required)
-		//- 							option(value="Product") Product
-		//- 							option(value="Payment") Payment
-		//- 							option(value="Account") Account
-		//- 							option(value="Support") Support 
-		//- 							option(value="Services") Services
-		//- 						input(type="submit" name="action" value="Create FAQ")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 					form(class="edit" action="/admin/dashboard/questions/edit" method="POST" v-if="edit")
-		//- 						input#question(type="text" name="question" placeholder="FAQ Question *", required)
-		//- 						textarea#newAnswer(rows="4" name="newAnswer" placeholder="New FAQ Answer")
-		//- 						input(type="submit" name="action" value="Update FAQ")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 					form(class="remove" action="/admin/dashboard/questions/delete" method="POST" v-if="remove")
-		//- 						input#question(type="text" name="question" placeholder="FAQ Question *", required)
-		//- 						input(type="submit" name="action" value="Remove FAQ")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 			.academics(v-if="academics")
-		//- 				p.title 
-		//- 					span First Name 
-		//- 					span Last Name 
-		//- 					span Email
-		//- 				div 
-		//- 				.editor 
-		//- 					h4(role="button" class="create", :class="{ active:create }", @click="showForm('create')") Create Academics Account
-		//- 					h4(role="button" class="remove", :class="{ active:remove }", @click="showForm('remove')") Remove Academics Account
-		//- 					form(class="create" action="/admin/dashboard/academics/create" method="POST" v-if="create")
-		//- 						input#fName(type="text" name="fName", placeholder="First Name *", required)
-		//- 						input#lName(type="text" name="lName", placeholder="Last Name *", required)
-		//- 						input#email(type="email" name="email", placeholder="Email *", required)
-		//- 						input(type="submit" name="action" value="Create Academics Account")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- 					form(class="remove" action="/admin/dashboard/academics/remove" method="POST" v-if="remove")
-		//- 						input#email(type="email" name="email", placeholder="Email *", required)
-		//- 						input(type="submit" name="action" value="Remove Academics Account")
-		//- 						i.bi-x-square-fill.reset(@click="hideForms")
-		//- a#logout(href="/admin/logout") LOGOUT
-		//- aside.error#requestError
-		//- 	h4 
-		//- 	p 
 		script(src="/js/admin/dashboard.js")
 		if adminDashboardSection === "content"
 			script(src="/js/admin/dashboard/content.js") 
