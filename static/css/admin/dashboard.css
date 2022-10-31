@@ -195,6 +195,10 @@ h2, .title
 {
 	width: calc(25vw * 6);
 }
+.title.press, .data.press
+{
+	width: calc(25vw * 8);
+}
 .title, .data p
 {
 	display: flex;
@@ -235,7 +239,7 @@ h2, .title
 	border-radius: 5px;
 	background-color: #005487;
 }
-.data.services span, .data.insights span, .data.faqs span
+.data.services span, .data.pressReleases span, .data.insights span, .data.faqs span
 {
 	height: 15vh;
 }
