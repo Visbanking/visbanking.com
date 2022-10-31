@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const members = require("./company/members");
 const services = require("./company/services");
+const pressReleases = require("./company/pressReleases");
 require("dotenv").config();
 const router = Router();
 
@@ -18,5 +19,7 @@ router.get("/", (req, res) => {
 router.use("/members", members);
 
 router.use("/services", services);
+
+router.use("/pressReleases", pressReleases);
 
 module.exports = router;
