@@ -11,7 +11,7 @@ const errorLogger = createLogger({
 					label: "visbanking.com"
 				}),
 				format.printf(({ message, label, timestamp }) => {
-					return `[${timestamp} - ${message} - ${label}]`;
+					return `[Error: ${message} - ${timestamp} - ${label}]`;
 				})
 			),
 			filename: path.join(__dirname, "..", "..", "logs", "error.log"),
@@ -28,7 +28,7 @@ if (process.env.NODE_ENV !== "production") errorLogger.add(new transports.Consol
 			label: "visbanking.com"
 		}),
 		format.printf(({ message, label, timestamp }) => {
-			return `[${timestamp} - ${message} - ${label}]`;
+			return `[Error: ${message} - ${timestamp} - ${label}]`;
 		})
 	),
 	level: "error"
