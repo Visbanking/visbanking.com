@@ -1,10 +1,13 @@
 const redis = require("redis");
+const errorLogger = require("./log/error.log");
+const infoLogger = require("./log/info.log");
 require("dotenv").config();
 
 const client = redis.createClient(process.env.REDIS_PORT);
 
 client.connect()
-	.catch(console.error);
+.then(infoLogger.info("Redis connection successful"))
+.catch(err => errorLogger.error(`${err.message}`));
 
 // Middleware implementation
 const checkCache = async (req, res, next) => {
