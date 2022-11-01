@@ -5,9 +5,14 @@ require("dotenv").config();
 
 const client = redis.createClient(process.env.REDIS_PORT);
 
-client.connect()
-.then(infoLogger.info("Redis connection successful"))
-.catch(err => errorLogger.error(`${err.message}`));
+(async () => {
+	try {
+		await client.connect();
+		infoLogger.info("Redis connection successful");
+	} catch (err) {
+		errorLogger.error(err.message);
+	}
+})();
 
 // Middleware implementation
 const checkCache = async (req, res, next) => {
