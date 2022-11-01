@@ -71,6 +71,7 @@ form input, form textarea, select, #article
     border: 1px solid transparent;
     border-bottom: 1px solid;
     font-size: 1rem;
+	font-family: inherit;
 }
 option
 {
@@ -111,7 +112,7 @@ form input:focus, form textarea:focus, select:focus, #article:focus
     box-shadow: 0 5px 0.5rem #333333;
     outline: none;
 }
-form input[type="submit"]
+form input[type="submit"], form input[type="reset"]
 {
     margin-bottom: 0;
     width: auto;
@@ -121,10 +122,17 @@ form input[type="submit"]
     text-transform: uppercase;
     font-weight: 600;
     cursor: pointer;
+	display: inline-block;
+	margin: 0 1rem;
 }
 form input[type="submit"]:hover, form input[type="submit"]:focus
 {
     background-color: #00AA00;
+    color: #FFFFFF;
+}
+form input[type="reset"]:hover, form input[type="reset"]:focus
+{
+    background-color: #AA0000;
     color: #FFFFFF;
 }
 #text

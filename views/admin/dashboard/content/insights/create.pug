@@ -53,6 +53,7 @@ html(lang="en")
 			textarea#description(name="description" minlength="20" maxlength="300" rows="10", required)
 			label(for="keywords") Keywords *
 			input#keywords(type="text" name="keywords" minlength="10" maxlength="50", required) 
+			input(type="reset", value="Cancel")
 			input(type="submit" name="action" value="Add insight")
 		section#text
 			form.active(method="POST" enctype="multipart/form-data")
@@ -82,6 +83,7 @@ html(lang="en")
 				textarea#description(name="description" minlength="20" maxlength="300" rows="10", required)
 				label(for="keywords") Keywords *
 				input#keywords(type="text" name="keywords" minlength="10" maxlength="50", required) 
+				input(type="reset", value="Cancel")
 				input(type="submit" name="action" value="Add insight")
 			p#error
 		script(src="/js/admin/dashboard/content/insights/editor.js") 

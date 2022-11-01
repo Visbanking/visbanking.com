@@ -43,3 +43,7 @@ document.querySelector("input#bodyFile").addEventListener("change", async (event
 });
 
 document.querySelector(".codex-editor__redactor").style.paddingBottom = "0";
+
+document.querySelector("input[type='reset']").addEventListener("click", () => {
+	window.location.pathname = window.location.pathname.split("/").slice(0, 4).join("/");
+});

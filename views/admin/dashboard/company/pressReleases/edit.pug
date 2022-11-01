@@ -12,7 +12,7 @@ html(lang="en")
 		link(href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap" rel="stylesheet")
 		link(rel="stylesheet" href="/css/admin/dashboard/content/insights/create.css")
 	body 
-		h1 Edit insight
+		h1 Edit Press Release
 		form.active(method="POST" enctype="multipart/form-data")
 			label(for="title") Press Release to edit *
 			select#title(name="title", required) 
@@ -21,5 +21,6 @@ html(lang="en")
 			label(for="headerImage") New Header Image *
 			img(src="")
 			input#headerImage(type="file" name="headerImage" accept="image/jpeg, image/png", required)
+			input(type="reset", value="Cancel")
 			input(type="submit" name="action" value="Edit Press Release")
 		script(src="/js/admin/dashboard/content/insights/edit.js") 
