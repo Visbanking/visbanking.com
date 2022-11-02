@@ -5,6 +5,7 @@ const path = require("path");
 const { checkCache, setCache } = require("../data/caching");
 const { renderFile } = require("pug");
 const { get } = require("./../data/api/APIClient");
+const InsightController = require("../controllers/insight.controller");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -12,8 +13,8 @@ router.get("/", (req, res) => {
 		res.cookie("popUpSubmitted", req.query.formSubmitted);
 		return res.redirect("/");
 	}
-	get("/api/insights")
-	.then(({ result:insights }) => {
+	InsightController.getAllInsights()
+	.then(insights => {
 		res.render("index", {
 			title: "US Banking Data Visualization | Bank Industry Analysis | Visbanking",
 			path: "/",
@@ -26,6 +27,20 @@ router.get("/", (req, res) => {
 		console.error(err);
 		res.redirect("/error");
 	});
+	// get("/api/insights")
+	// .then(({ result:insights }) => {
+	// 	res.render("index", {
+	// 		title: "US Banking Data Visualization | Bank Industry Analysis | Visbanking",
+	// 		path: "/",
+	// 		insights: insights.sort((a, b) => new Date(b.Date) - new Date(a.Date)).slice(0, 4),
+	// 		loggedIn: new Boolean(req.cookies.user && req.cookies.tier && req.cookies.session_id).valueOf(),
+	// 		loadPopUp: false
+	// 	});
+	// })
+	// .catch(err => {
+	// 	console.error(err);
+	// 	res.redirect("/error");
+	// });
 });
 
 router.get("/pricing", checkCache, (req, res) => {
