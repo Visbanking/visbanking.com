@@ -94,7 +94,7 @@ router.get("/:article_id", (req, res) => {
 			}
 		});
 		const { ID: insightId, Topic: insightTopic } = insight;
-		const { result:insights } = await InsightController.getAllInsights();
+		const insights = await InsightController.getAllInsights();
 		const newestInsights = insights.sort((a, b) => new Date(b.Date) - new Date(a.Date)).filter(insight => insight.ID!==insightId).slice(0, 3);
 		const relatedInsights = insights.sort((a, b) => a.Views - b.Views).filter(insight => (insight.ID!==req.params.article_id && insight.Topic===insightTopic)).slice(0, 3);
 		const body = [];
