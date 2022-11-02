@@ -7,8 +7,9 @@ const Insight = require("../models/insight.model");
 router.get("/", async (req, res) => {
 	if (req.query.page) {
 		if (req.query.topic) {
-			InsightController.getInsightsByTopicAndPage(req.query.topic, req.query.page)
+			InsightController.getInsightsByTopicAndPage(req.query.topic, req.query.page-1)
 			.then(insights => {
+				console.log(insights);
 				res.json({
 					message: `Insights were retrieved successfully`,
 					insights
@@ -34,7 +35,7 @@ router.get("/", async (req, res) => {
 			// 	});
 			// });
 		} else if (!req.query.topic) {
-			InsightController.getInsightsByPage(req.query.page)
+			InsightController.getInsightsByPage(req.query.page-1)
 			.then(insights => {
 				res.json({
 					message: `Insights were retrieved successfully`,
