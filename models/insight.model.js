@@ -1,3 +1,4 @@
+const { marked } = require("marked");
 const { DataTypes, Model } = require("sequelize");
 const connection = require("../data/database/usersDatabase");
 
@@ -34,6 +35,9 @@ Insight.init({
 		allowNull: false,
 		validate: {
 			notEmpty: true
+		},
+		get() {
+			return marked(this.getDataValue("Body"));
 		},
 		set(value) {
 			if (this.getDataValue("Body") && this.getDataValue("Body") !== null) throw new Error("Cannot set Insight Body after initialization");
