@@ -101,7 +101,7 @@ router.get("/:article_id", (req, res) => {
 		insight.Body.split("  ").forEach((par) => {
 			body.push(par);
 		});
-		const post = { ...insight, Body: body };
+		const post = { ...insight.dataValues, Body: body };
 		res.render("insight", {
 			title: `${post.Title} | Insights | Visbanking`,
 			path: req.originalUrl,
