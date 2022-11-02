@@ -116,7 +116,7 @@ router.post("/create", insight.fields([{ name: "headerImage" }, { name: "bodyIma
 });
 
 router.get("/edit", (req, res) => {
-	InsightController.getAllInsights("title")
+	InsightController.getAllInsights("Title")
 	.then(insights => {
 		if (!insights[0]) throw new Error();
 		const insightsTitles = insights.map((insightTitle) => insightTitle.Title);
