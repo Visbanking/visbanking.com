@@ -8,6 +8,7 @@ const { get, del, post } = require("../../../../data/api/APIClient");
 const fs = require("fs");
 const { URLSearchParams } = require("url");
 const { capitalize, kebabCase } = require("lodash");
+const InsightController = require("../../../../controllers/insight.controller");
 require("dotenv").config();
 const router = Router();
 
@@ -34,8 +35,8 @@ const insightStorage = multer.diskStorage({
 const insight = multer({ storage: insightStorage });
 
 router.get("/", (req, res) => {
-	get("/api/insights")
-	.then(({ result:insights }) => {
+	InsightController.getAllInsights()
+	.then(insights => {
 		const newestInsights = insights.sort((a, b) => new Date(b.Date) - new Date(a.Date));
 		return res.json({
 			success: true,
@@ -50,6 +51,22 @@ router.get("/", (req, res) => {
 			}
 		});
 	});
+	// get("/api/insights")
+	// .then(({ result:insights }) => {
+	// 	const newestInsights = insights.sort((a, b) => new Date(b.Date) - new Date(a.Date));
+	// 	return res.json({
+	// 		success: true,
+	// 		data: newestInsights
+	// 	});
+	// })
+	// .catch(err => {
+	// 	return res.json({
+	// 		error: {
+	// 			summary: "An error ocurred while retrieving insights",
+	// 			detail: err
+	// 		}
+	// 	});
+	// });
 });
 
 router.get("/create", (req, res) => {
@@ -75,8 +92,7 @@ router.post("/create", insight.fields([{ name: "headerImage" }, { name: "bodyIma
 			Image: `/images/insights/${lodash.kebabCase(req.body.title)}/headerImage.jpg`
 		};
 		for (const key in req.body) postData[capitalize(key)] = req.body[key];
-		postData.Body = marked(postData.Body);
-		post("/api/insights/insight", new URLSearchParams(postData).toString())
+		InsightController.createNewInsight(postData)
 		.then(() => {
 			res.cookie("adminActionResponse", "Insight created successfully.");
 		})
@@ -86,12 +102,22 @@ router.post("/create", insight.fields([{ name: "headerImage" }, { name: "bodyIma
 		.finally(() => {
 			res.redirect("/admin/dashboard/content");
 		});
+		// post("/api/insights/insight", new URLSearchParams(postData).toString())
+		// .then(() => {
+		// 	res.cookie("adminActionResponse", "Insight created successfully.");
+		// })
+		// .catch(() => {
+		// 	res.cookie("adminActionResponse", "Insight couldn't be created. Please try again.");
+		// })
+		// .finally(() => {
+		// 	res.redirect("/admin/dashboard/content");
+		// });
 	}
 });
 
 router.get("/edit", (req, res) => {
-	get("/api/insights?fields=Title")
-	.then(({ result:insights }) => {
+	InsightController.getAllInsights("title")
+	.then(insights => {
 		if (!insights[0]) throw new Error();
 		const insightsTitles = insights.map((insightTitle) => insightTitle.Title);
 		res.render("admin/dashboard/content/insights/edit", {
@@ -103,6 +129,19 @@ router.get("/edit", (req, res) => {
 		// error = "There was a problem accessing the database";
 		res.redirect("/admin/dashboard");
 	});
+	// get("/api/insights?fields=Title")
+	// .then(({ result:insights }) => {
+	// 	if (!insights[0]) throw new Error();
+	// 	const insightsTitles = insights.map((insightTitle) => insightTitle.Title);
+	// 	res.render("admin/dashboard/content/insights/edit", {
+	// 		insightsTitles,
+	// 	});
+	// })
+	// .catch(err => {
+	// 	console.log(err)
+	// 	// error = "There was a problem accessing the database";
+	// 	res.redirect("/admin/dashboard");
+	// });
 });
 
 router.post("/edit", insight.fields([{ name: "headerImage" }, { name: "bodyImages" }]), (req, res) => {
@@ -117,7 +156,7 @@ router.post("/edit", insight.fields([{ name: "headerImage" }, { name: "bodyImage
 router.post("/remove", (req, res) => {
 	const action = req.body.action;
 	if (action === "Remove Insight") {
-		del(`/api/insights/insight/${lodash.kebabCase(req.body.title)}`)
+		InsightController.deleteInsightById(lodash.kebabCase(req.body.title))
 		.then(() => {
 			res.cookie("adminActionResponse", "Insight deleted successfully");
 		})
@@ -127,6 +166,16 @@ router.post("/remove", (req, res) => {
 		.finally(() => {
 			res.redirect("/admin/dashboard/content");
 		});
+		// del(`/api/insights/insight/${lodash.kebabCase(req.body.title)}`)
+		// .then(() => {
+		// 	res.cookie("adminActionResponse", "Insight deleted successfully");
+		// })
+		// .catch(() => {
+		// 	res.cookie("adminActionResponse", "Insight couldn't be deleted. Please try again");
+		// })
+		// .finally(() => {
+		// 	res.redirect("/admin/dashboard/content");
+		// });
 	}
 });
 

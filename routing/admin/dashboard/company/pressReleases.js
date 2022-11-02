@@ -8,6 +8,7 @@ const { get, del, post } = require("../../../../data/api/APIClient");
 const fs = require("fs");
 const { URLSearchParams } = require("url");
 const { capitalize, kebabCase } = require("lodash");
+const PressReleaseController = require("../../../../controllers/pressRelease.controller");
 require("dotenv").config();
 const router = Router();
 
@@ -34,8 +35,8 @@ const pressReleaseStorage = multer.diskStorage({
 const pressRelease = multer({ storage: pressReleaseStorage });
 
 router.get("/", (req, res) => {
-	get("/api/pressReleases")
-	.then(({ result:pressReleases }) => {
+	PressReleaseController.getAllPressReleases()
+	.then(pressReleases => {
 		return res.json({
 			success: true,
 			data: pressReleases.sort((a, b) => new Date(b.Date) - new Date(a.Date))
@@ -49,6 +50,21 @@ router.get("/", (req, res) => {
 			}
 		});
 	});
+	// get("/api/pressReleases")
+	// .then(({ result:pressReleases }) => {
+	// 	return res.json({
+	// 		success: true,
+	// 		data: pressReleases.sort((a, b) => new Date(b.Date) - new Date(a.Date))
+	// 	});
+	// })
+	// .catch(err => {
+	// 	return res.json({
+	// 		error: {
+	// 			summary: "An error ocurred while retrieving Press Releases",
+	// 			detail: err
+	// 		}
+	// 	});
+	// });
 });
 
 router.get("/create", (req, res) => {
@@ -75,7 +91,7 @@ router.post("/create", pressRelease.fields([{ name: "headerImage" }, { name: "bo
 		};
 		for (const key in req.body) postData[capitalize(key)] = req.body[key];
 		postData.Body = marked(postData.Body);
-		post("/api/pressReleases/pressRelease", new URLSearchParams(postData).toString())
+		PressReleaseController.createNewPressRelease(postData)
 		.then(() => {
 			res.cookie("adminActionResponse", "Press Release created successfully.");
 		})
@@ -86,14 +102,25 @@ router.post("/create", pressRelease.fields([{ name: "headerImage" }, { name: "bo
 		.finally(() => {
 			res.redirect("/admin/dashboard/company");
 		});
+		// post("/api/pressReleases/pressRelease", new URLSearchParams(postData).toString())
+		// .then(() => {
+		// 	res.cookie("adminActionResponse", "Press Release created successfully.");
+		// })
+		// .catch(err => {
+		// 	res.cookie("adminActionResponse", "Press Release couldn't be created. Please try again.");
+		// 	console.log(err.toJSON());
+		// })
+		// .finally(() => {
+		// 	res.redirect("/admin/dashboard/company");
+		// });
 	}
 });
 
 router.get("/edit", (req, res) => {
-	get("/api/pressReleases?fields=Title")
-	.then(({ result:pressReleases }) => {
+	PressReleaseController.getAllPressReleases()
+	.then(pressReleases => {
 		if (!pressReleases[0]) throw new Error();
-		const pressReleasesTitles = pressReleases.map((pressReleaseTitle) => pressReleaseTitle.Title);
+		const pressReleasesTitles = pressReleases.map(pressRelease => pressRelease.Title);
 		res.render("admin/dashboard/company/pressReleases/edit", {
 			pressReleasesTitles,
 		});
@@ -103,6 +130,19 @@ router.get("/edit", (req, res) => {
 		// error = "There was a problem accessing the database";
 		res.redirect("/admin/dashboard");
 	});
+	// get("/api/pressReleases?fields=Title")
+	// .then(({ result:pressReleases }) => {
+	// 	if (!pressReleases[0]) throw new Error();
+	// 	const pressReleasesTitles = pressReleases.map((pressReleaseTitle) => pressReleaseTitle.Title);
+	// 	res.render("admin/dashboard/company/pressReleases/edit", {
+	// 		pressReleasesTitles,
+	// 	});
+	// })
+	// .catch(err => {
+	// 	console.log(err)
+	// 	// error = "There was a problem accessing the database";
+	// 	res.redirect("/admin/dashboard");
+	// });
 });
 
 router.post("/edit", pressRelease.fields([{ name: "headerImage" }, { name: "bodyImages" }]), (req, res) => {
@@ -120,7 +160,7 @@ router.post("/edit", pressRelease.fields([{ name: "headerImage" }, { name: "body
 router.post("/remove", (req, res) => {
 	const action = req.body.action;
 	if (action === "Remove Press Release") {
-		del(`/api/pressReleases/pressRelease/${lodash.kebabCase(req.body.title)}`)
+		PressReleaseController.deletePressReleaseById(lodash.kebabCase(req.body.title))
 		.then(() => {
 			res.cookie("adminActionResponse", "Press Release deleted successfully");
 		})
@@ -130,6 +170,16 @@ router.post("/remove", (req, res) => {
 		.finally(() => {
 			res.redirect("/admin/dashboard/company");
 		});
+		// del(`/api/pressReleases/pressRelease/${lodash.kebabCase(req.body.title)}`)
+		// .then(() => {
+		// 	res.cookie("adminActionResponse", "Press Release deleted successfully");
+		// })
+		// .catch(() => {
+		// 	res.cookie("adminActionResponse", "Press Release couldn't be deleted. Please try again");
+		// })
+		// .finally(() => {
+		// 	res.redirect("/admin/dashboard/company");
+		// });
 	}
 });
 
