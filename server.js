@@ -24,6 +24,7 @@ const api = require("./routing/api");
 const files = require("./routing/files");
 const error = require("./routing/error");
 const appStatusMonitor = require("./data/expressStatusMonitor");
+require("./cron/clearLogs.job");
 const app = express();
 const port = 8080;
 
